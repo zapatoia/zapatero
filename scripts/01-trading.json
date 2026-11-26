@@ -1,0 +1,217 @@
+{
+ "slug": "01-trading",
+ "title": "El 82 % pierde con CFDs",
+ "catchphrase": "Pisa con cabeza",
+ "seed": 11,
+ "beats": [
+  {
+   "text": "Antes de meter un euro en trading, mira esto:",
+   "scene": {
+    "type": "shoe",
+    "emotion": "serious",
+    "arms": "raise",
+    "accent": "orange",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "icon",
+     "name": "phone",
+     "badge": "excl",
+     "at": "trading"
+    }
+   }
+  },
+  {
+   "text": "el *{82 %|ochenta y dos por ciento}* pierde.",
+   "scene": {
+    "type": "big_number",
+    "value": 82,
+    "suffix": " %",
+    "label": "PIERDE DINERO",
+    "at": "82",
+    "label_at": "pierde",
+    "count_dur": 0.8,
+    "source": "CNMV · CLIENTES DE CFDs · 2015-2016",
+    "accent": "orange",
+    "accent2": "yellow",
+    "emotion": "worried"
+   }
+  },
+  {
+   "text": "Lo midió la {CNMV|ce ene eme uve} con clientes de {CFDs|ce efe des}.",
+   "scene": {
+    "type": "people",
+    "percent": 82,
+    "title": "DE CADA 50 CLIENTES…",
+    "fill_at": "clientes",
+    "fill_dur": 1.1,
+    "accent": "red",
+    "accent2": "yellow"
+   }
+  },
+  {
+   "text": "Y ojo: el propio broker lo *confiesa.*",
+   "scene": {
+    "type": "shoe",
+    "emotion": "smug",
+    "arms": "point",
+    "point_angle": -70,
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "icon",
+     "name": "megaphone",
+     "badge": "excl",
+     "at": "broker"
+    }
+   }
+  },
+  {
+   "text": "¿Por qué tan rápido? *Apalancamiento.* Pones {100 €|cien euros} y te dejan mover {1.000 €|mil}.",
+   "scene": {
+    "type": "lever",
+    "title": "APALANCAMIENTO",
+    "at_coin": "100",
+    "at_mult": "mover",
+    "left": "100 €",
+    "right": "1.000 €",
+    "mult": "×10",
+    "accent": "orange",
+    "accent2": "yellow",
+    "emotion": "serious"
+   }
+  },
+  {
+   "text": "Sube un {5 %|cinco por ciento}: ganas {50 €|cincuenta}. Baja un {5 %|cinco}: palmas *la mitad.*",
+   "scene": {
+    "type": "updown",
+    "title": "CON 100 € Y ×10",
+    "accent": "yellow",
+    "accent2": "orange",
+    "emotion": "worried",
+    "rows": [
+     {
+      "dir": "up",
+      "pct": "+5 %",
+      "money": "+50 €",
+      "at": "sube"
+     },
+     {
+      "dir": "down",
+      "pct": "−5 %",
+      "money": "−50 €",
+      "at": "baja",
+      "note": "LA MITAD"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Como calzar tres tallas más: vas sobrado hasta el primer paso.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "smug",
+    "arms": "open",
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "sign",
+     "lines": [
+      "+3 TALLAS"
+     ],
+     "at": "tallas"
+    }
+   }
+  },
+  {
+   "text": "Por ley, el broker tiene que avisarte de qué porcentaje de cuentas pierde dinero con él.",
+   "scene": {
+    "type": "warning",
+    "title": "AVISO OBLIGATORIO",
+    "big": "74-89 %",
+    "big_at": "porcentaje",
+    "body": [
+     "DE LAS CUENTAS DE MINORISTAS",
+     "PIERDEN DINERO CON CFDs"
+    ],
+    "body_at": "pierde",
+    "accent": "orange",
+    "accent2": "yellow",
+    "emotion": "serious"
+   }
+  },
+  {
+   "text": "El aviso estándar habla de entre el {74|setenta y cuatro} y el {89 %|ochenta y nueve por ciento}.",
+   "scene": {
+    "type": "bars",
+    "title": "QUIÉN PIERDE DINERO",
+    "accent": "orange",
+    "accent2": "yellow",
+    "bars": [
+     {
+      "label": "AVISO\nESTÁNDAR",
+      "value": [
+       74,
+       89
+      ],
+      "at": "74"
+     },
+     {
+      "label": "CNMV\n2015-2016",
+      "value": 82,
+      "at": "89",
+      "color": "yellow"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Lo normal es *perder.* No es una máquina de dinero.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "serious",
+    "arms": "open",
+    "accent": "red",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "stamp",
+     "lines": [
+      "LO NORMAL",
+      "ES PERDER"
+     ],
+     "at": "normal",
+     "y": 560
+    }
+   }
+  },
+  {
+   "text": "Nunca operes con dinero que no puedas perder.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "worried",
+    "arms": "raise",
+    "accent": "orange",
+    "accent2": "red",
+    "prop": {
+     "kind": "icon",
+     "name": "wallet",
+     "badge": "excl",
+     "at": "dinero"
+    }
+   }
+  },
+  {
+   "text": "Pisa con cabeza.",
+   "scene": {
+    "type": "outro",
+    "lines": [
+     "PISA CON",
+     "CABEZA."
+    ],
+    "emotion": "happy",
+    "arms": "raise",
+    "accent": "orange",
+    "accent2": "yellow"
+   }
+  }
+ ]
+}

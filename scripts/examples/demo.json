@@ -1,0 +1,8 @@
+{
+  "slug": "demo",
+  "beats": [
+    {"text": "Oye, tú.", "scene": {"type": "shoe", "emotion": "skeptic", "arms": "raise"}},
+    {"text": "Sí, tú.", "scene": {"type": "shoe", "emotion": "happy", "arms": "point", "prop": {"kind": "icon", "name": "phone", "badge": "excl"}}},
+    {"text": "El *{82 %|ochenta y dos por ciento}* pierde.", "scene": {"type": "big_number", "value": 82, "suffix": " %", "label": "PIERDE DINERO", "source": "CNMV · CFDs 2015-2016", "at": "82"}}
+  ]
+}
