@@ -1,7 +1,7 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
-> Última actualización: 2026-11-26 (sesión `docs/sessions/2026-11-26-01.md`).
-> Rama de trabajo anterior: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 fusionada en `main`** (commit de fusión `df76761`, https://github.com/zapatoia/zapatero/pull/2). **`main` es ya la rama por defecto en GitHub** (antes lo era `claude/shoe-history-vertical-video-qw2b0t`). Las sesiones nuevas parten de `main`.
+> Última actualización: 2026-11-26 (sesión `docs/sessions/2026-11-26-02.md`).
+> Rama de trabajo de la sesión 02: `claude/hopeful-einstein-ix8p37` (sin fusionar en `main`; pedir PR al usuario si la quiere). Rama de la sesión 01: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 fusionada en `main`** (commit de fusión `df76761`, https://github.com/zapatoia/zapatero/pull/2). **`main` es ya la rama por defecto en GitHub** (antes lo era `claude/shoe-history-vertical-video-qw2b0t`). Las sesiones nuevas parten de `main`.
 
 ## 1. Cómo usar este documento
 - **Al empezar cualquier sesión**: leer `CLAUDE.md`, este documento y la última sesión de `docs/sessions/` (o usar `/resume-session`). No cambiar nada hasta que el usuario lo pida.
@@ -17,7 +17,7 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
-Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **aprobado**. La v2 tenía audio saturado y símbolos planos (opinión del usuario) → v3 (máster limpio, iconos con brillo, cámara sin tirones). El usuario mantuvo la v3 pero pidió iconos integrados en la escena (con sombras) y un guion nuevo más gamberro → v4. El usuario oyó ruido de fondo en la voz y pidió música de fondo baja y sin copyright → **`videos/01-perro-lame-v5.mp4` (mismas imágenes que la v4, audio nuevo) entregado y pendiente de valoración**, con una decisión abierta: sonoridad −16 LUFS (recomendada, limpia) frente a la regla de −14 LUFS. **Siguiente paso exacto:** respuesta del usuario sobre la v5 y sobre −16/−14 LUFS → si aprueba −16, actualizar la regla en CLAUDE.md y STYLE.md; tag de la versión aprobada.
+Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 aprobado en su v5** (`videos/01-perro-lame-v5.mp4`, tag `v5`, −16 LUFS, música original) — el usuario lo va a subir a TikTok. Avisó de que en los próximos vídeos querrá cambiar **muchas cosas de la animación**. **Siguiente paso exacto:** esperar el tema del vídeo 02 o la lista de cambios de animación; no tocar nada hasta entonces.
 
 ## 4. Estilo visual actual (resumen de `STYLE.md`; fuente de verdad en código: `retro3d/style.py`)
 - Low-poly con **sombreado plano** (normales por cara) y **color por vértice uniforme** (`jitter=0`).
@@ -27,7 +27,8 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 - **Post**: brillo suave, +6 % saturación, +4 % contraste, viñeta ligera.
 - **Paleta mundo**: hierba `#467027/#5f8c2e/#7aa23a`, tierra `#7f5530/#a7743f/#c39257`, piedra `#686357/#8c8577/#aaa291`, madera `#7a4f2b/#9a6a3c/#b98451`, tejas `#a44c33`.
 - **Subtítulos**: Montserrat Black (OFL, en `assets/fonts/`), MAYÚSCULAS, blanco con contorno marrón-negro de 10 px, palabra actual amarilla `#FFD23F`, bloques de ≤3 palabras centrados al 66,5 % de la altura; **zonas seguras**: nada en el 20 % inferior ni el 12 % derecho.
-- Decisiones clave: moderngl en vez de Blender (velocidad y control del look); minimalismo; medallones para números; textos letra a letra; contraluz; dos escenarios.
+- **Iconos (desde la v4, preferido por el usuario)**: `"icon_style": "world"` → objetos de la escena: los ilumina la luz del plano, proyectan sombra real y una sombra de contacto suave en el suelo, los tapan los personajes, brillo propio que late y anillo de destello al aparecer; anclados al mundo (`anchor`+`off`/`node`), no a la pantalla. El estilo `glow` (pegatina encima de todo, v3) quedó descartado por «pegote». Iconos: heart, drop, salt, question, exclaim, warn, fries, lollipop (chupachups sin marca), tongue, num:N, text:….
+- Decisiones clave: moderngl en vez de Blender (velocidad y control del look); minimalismo; medallones para números; textos letra a letra; contraluz; dos escenarios; iconos integrados en la escena.
 
 ## 5. Narrador fijo (aprobado por el usuario el 2026-11-26: «Perfecto, OK»)
 - **Definido una sola vez** en `config/narrator.json` (medidas, paleta, ropa, rig, caras, poses) + `retro3d/characters/narrator.py` (construcción y animación). Huella SHA-256 en `config/narrator.lock` (actual: `6ec52617807948fe…`); si no coincide, el pipeline **se niega a renderizar**. Solo se modifica con permiso explícito del usuario y luego `python tools/lock_narrator.py`.
@@ -52,10 +53,11 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 - **Escenario «casa»** (`retro3d/interior.py`, en `ORIGIN=(0,-400,0)`): interior de la cabaña con frente abierto a cámara; suelo de tablas, zócalo de piedra, ventana con luz de día, chimenea con fuego que parpadea, alfombra, **cojín del perro (superficie pisable a 0,14 m)**, mesa, taburete, estante. Luz propia (`LIGHT_INTERIOR`), sin niebla. La luz cambia sola según la zona del sujeto del plano.
 
 ## 7. Arquitectura del pipeline
-- **Comando único**: `python make_video.py scripts/NN-tema.json [--dry|--cost|--tts|--storyboard|--preview|--contact|--from|--to|--out]`.
+- **Comando único**: `python make_video.py scripts/NN-tema.json [--dry|--cost|--tts|--storyboard|--preview|--contact|--from|--to|--out|--reuse-video]`. `--reuse-video build/<id>/video.mp4` rehace solo el audio sobre imágenes ya renderizadas (~30 s).
+- **Opciones globales del guion** (usar en vídeos nuevos): `"master": "clean2", "lufs": -16`, `"music": {"style": "aldea", "db": -19, "duck_db": -5}`, `"icon_style": "world"`, `"cam_smooth": 0.18`. Sin ellas, los guiones antiguos renderizan como antes.
   - `--dry` storyboard con tiempos estimados (sin voz) · `--cost` caracteres/créditos · `--tts` genera la voz (una toma, caché) · `--storyboard` con tiempos reales · `--preview` 540×960 · `--contact` hoja por plano · `--out` ruta del MP4.
-- **Flujo interno**: guion JSON → voz con timestamps (caché) → verificación/corrección del desfase de timestamps → recorte de pausas largas → director (`production.py`: anclas a palabras → planos, acciones, recursos, efectos) → render fotograma a fotograma con físicas y comprobaciones → subtítulos → mezcla de efectos → máster −14 LUFS → MP4 → `qa.md`.
-- **Archivos**: `retro3d/` → `style.py` (identidad), `render.py` (moderngl), `mesh.py`, `textures.py`, `font.py` (fuente pixel 5×7 propia), `world.py`, `interior.py`, `characters/{base,narrator,dog}.py`, `props.py` (carteles, bocadillos, iconos, medallones, chispas), `camera.py`, `physics.py`, `production.py`, `voice.py`, `audio.py`, `lipsync.py`, `subtitles.py`, `anim.py`, `rig.py`, `mathutil.py`. `tools/`: `narrator_sheet.py`, `lock_narrator.py`, `preview_characters.py`, `check_physics.py`. `config/`: `voice.json`, `narrator.json`, `narrator.lock`. `scripts/01-perro-lame.json`. Salidas temporales en `build/` (ignorado por git).
+- **Flujo interno**: guion JSON → voz con timestamps (caché) → verificación/corrección del desfase de timestamps → recorte de pausas largas → director (`production.py`: anclas a palabras → planos, acciones, recursos, efectos) → render fotograma a fotograma con físicas y comprobaciones → subtítulos → voz procesada sola (`voice_chain`) → mezcla de efectos y música → bus final (limitador suave) a −16 LUFS → MP4 → `qa.md`.
+- **Archivos**: `retro3d/` → `style.py` (identidad), `render.py` (moderngl), `mesh.py`, `textures.py`, `font.py` (fuente pixel 5×7 propia), `world.py`, `interior.py`, `characters/{base,narrator,dog}.py`, `props.py` (carteles, bocadillos, iconos, medallones, chispas), `camera.py`, `physics.py`, `production.py`, `voice.py`, `audio.py` (másteres `classic`, `clean`, `clean2`), `music.py` (música original por código), `lipsync.py`, `subtitles.py`, `anim.py`, `rig.py`, `mathutil.py`. `tools/`: `narrator_sheet.py`, `lock_narrator.py`, `preview_characters.py`, `check_physics.py`, `shot_frames.py` (inicio/mitad/final de cada plano + avisos de encuadre; `--dry` sin voz). `config/`: `voice.json`, `narrator.json`, `narrator.lock`. `scripts/01-perro-lame*.json` (v1–v2 en el original; `-v3`, `-v4`, `-v5`). Salidas temporales en `build/` (ignorado por git).
 - **Motor de render: moderngl + EGL + Mesa llvmpipe** (CPU, sin GPU). Medido a 1080×1920 en la fase 1: Blender Workbench ~1,1 s/fot., EEVEE por software ~60 s/fot., Cycles 16 spp ~21 s/fot., **moderngl ~0,1–0,2 s/fot.** Elegido por velocidad y porque da control total del look (niebla, cielo, *nearest*, sombreado plano). Rasterizador numpy descartado (más lento y sin ventaja). Requiere `apt-get install -y libegl1 libegl-mesa0`.
 - **Dependencias**: `pip install moderngl numpy pillow scipy soundfile pyloudnorm` (+ `bpy` se instaló solo para la prueba de motores; no se usa). ffmpeg preinstalado. Fuente Montserrat copiada en `assets/fonts/`.
 - **Entorno**: sin internet general (solo gestores de paquetes y `api.elevenlabs.io`).
@@ -63,21 +65,22 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 ## 8. Voz (ElevenLabs) — `config/voice.json`
 - `voice_id` **`851ejYcv2BoNPjrkw93G`** (siempre; si falla o suena mal, avisar y **no** cambiarla), modelo **`eleven_v3`**, `language_code` **`"es"`**, `stability` **0.5**, endpoint `/v1/text-to-speech/{voice_id}/with-timestamps`, `output_format` `mp3_44100_128`.
 - Clave **solo** de `ELEVENLABS_API_KEY` (nunca guardarla ni imprimirla).
-- **Coste**: ≈ 1 crédito por carácter del texto completo (`python make_video.py <guion> --cost`). Vídeo 01: 557 caracteres ≈ 557 créditos (una sola toma, ya en caché). Prueba de voz inicial: 55 caracteres (`samples/prueba_voz.mp3`).
+- **Coste**: ≈ 1 crédito por carácter del texto completo (`python make_video.py <guion> --cost`). Vídeo 01: 557 caracteres (guion original, v1–v3) + 588 caracteres (guion del usuario, v4–v5), una toma cada uno, ya en caché. Prueba de voz inicial: 55 caracteres (`samples/prueba_voz.mp3`).
 - **Caché**: `cache/voice/<hash>.mp3/.json` (hash de configuración + texto), versionada en git. **Cambiar el texto del guion obliga a regenerar la voz (cuesta créditos)**; cambiar planos/acciones/recursos no.
 - **Una toma por vídeo**; antes, decir caracteres y créditos y esperar el OK.
 - Timestamps: se verifican contra la envolvente real (correlación) y se corrigen si se desvían ≥30 ms (vídeo 01: +0,12 s, coincidencia 0,65 → 0,77); pausas > 0,42 s se acortan a 0,30 s sin regenerar (vídeo 01: 6 cortes, −1,6 s).
 
 ## 9. Reglas
 - **Guion**: español de España, tono de colega, humor seco, frases cortas, **80–105 palabras**; gancho ≤3 s, bucle abierto a mitad, 3–4 razones fáciles, cierre útil; prohibido estilo ChatGPT («en el mundo actual», «descubre cómo», «sin más dilación», «es importante destacar», «te voy a contar», «en este vídeo», relleno, emojis); lo dudoso con «se cree que» y cada afirmación con confianza en `facts_to_verify.md`; cifras y siglas escritas como se pronuncian; **enseñar guion + storyboard + coste y esperar OK antes de generar la voz**.
-- **Sonido**: cada efecto es un **evento puntual** (inicio, duración, motivo) ligado al guion o la animación; **nada en bucle** salvo petición explícita (ambiente solo con `"ambience_db"`); efectos suaves; **18–24 dB bajo la voz**, fundidos, atenuación extra de 6 dB al hablar; lametón máx. 2 sonidos por acción; verificación obligatoria con `sfx_report.md` y **0 sonidos sostenidos > 1 s**; máster −14 LUFS, pico ≤ −1,5 dBTP (máster propio: compresión + ganancia + limitador de pico verdadero ×4, techo −2,3 dBTP; `loudnorm` lineal de ffmpeg no llega). Sin música de terceros.
+- **Sonido**: cada efecto es un **evento puntual** (inicio, duración, motivo) ligado al guion o la animación; **nada en bucle** salvo petición explícita (ambiente solo con `"ambience_db"`); efectos suaves; **18–24 dB bajo la voz**, fundidos, atenuación extra de 6 dB al hablar; lametón máx. 2 sonidos por acción; verificación obligatoria con `sfx_report.md` y **0 sonidos sostenidos > 1 s**; **−16 LUFS, pico ≤ −1,5 dBTP** (aprobado por el usuario en la v5; con esta voz, PLR 18,6 dB, −14 LUFS exige ~9 dB de limitador y suena saturado) con `master: clean2`. Música de fondo: solo la original de `retro3d/music.py`, −19 dB bajo la voz y −5 dB extra al hablar. Sin música de terceros.
+- **Encuadres**: `python tools/shot_frames.py <guion>` → **0 avisos** (cabezas cortadas, recursos fuera de cuadro, en el 6 % superior o tapando caras) antes de renderizar.
 - **Cámara**: un plano por beat en el JSON con `type` (establish, orbit, crane, truck, low, push, pull), `size` (wide/medium/close), curva; barridos `whip` con desenfoque entre escenas; golpes de zoom en palabras clave; no repetir tipo seguido ni tres tamaños iguales seguidos; cambio cada 2–3 s; holgura ≥0,3 m a modelos y suelo en cada fotograma.
 - **Textos**: letra a letra (~30 letras/s; subtítulos dentro del tiempo de cada palabra), subida + fundido de 0,1 s por letra, salida con fundido rápido; palabra actual resaltada.
 - **Físicas/contactos**: nada atraviesa nada ni el suelo; volúmenes OBB por pieza comprobados en cada fotograma (tolerancia 2 cm); restricciones automáticas (codo hacia fuera si el antebrazo invade el cuerpo, cuello arriba si la cabeza invade las patas); pies apoyados (también sobre el cojín); contacto de lengua con objetivo real (se detiene en la superficie, 5 rayos, margen 1,2 cm, aplastamiento; la mano cede); `approach` coloca al perro frente al objetivo; anticipación y amortiguación en saltos. `python tools/check_physics.py <guion>` debe dar **0** antes de renderizar.
 - **Revisión antes de entregar**: hoja con 1 fotograma por plano (`contact.jpg`), primeros planos de contactos (`contactos.jpg`), `qa.md` en verde (montaje, holgura de cámara, interpenetraciones, pies, contactos, zonas seguras, textos 3D cortados, boca, LUFS, efectos), revisión manual de fotogramas; corregir y repetir si algo falla.
 - **Protección**: no modificar narrador, estilo ni pipeline base sin permiso explícito; las novedades se añaden sin romper lo existente; cada versión aprobada → tag `vK` y anotarla aquí.
 
-## 10. Historial de cambios pedidos por el usuario (orden cronológico, sesión 2026-11-26-01)
+## 10. Historial de cambios pedidos por el usuario (orden cronológico; sesiones 2026-11-26-01 y -02)
 1. **Encargo inicial**: pipeline desde cero, estilo MMO retro low-poly, narrador aventurero + perro creados por código, voz ElevenLabs, subtítulos, 1080×1920 −14 LUFS; vídeo de prueba «¿Por qué tu perro te lame?». → Fases 1–4 hechas; motor moderngl elegido tras medir.
 2. **«OK A TODO»** (guion, voz y gasto de ~557 créditos) → voz generada; vídeo v1 (aventurero de túnica, estilo detallado). Correcciones propias: números de vóxeles finos → medallones; desfase de timestamps +0,12 s; `loudnorm` no llegaba a −14 LUFS → máster propio; MP4 de 80 MB → crf 19.
 3. **«Más minimalista aún» + todas las mejoras propuestas** → caras de un tono, menos piezas, texturas de 2 tonos, escenario despejado; gestos de énfasis; interior de la cabaña; contraluz; zoom de golpe en el gancho; peso 59 → 25 MB.
@@ -96,7 +99,8 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
    - **Encuadres**: nueva `tools/shot_frames.py` (inicio/mitad/final de cada plano + avisos de cabezas cortadas, recursos fuera de cuadro o tapando caras): 20 avisos → 0. Corregidos gancho, lametones (planos 4 y 13), patatas sobre la cabeza, medallones cortados por el golpe de zoom, generales del interior y final, cartel del veterinario.
 8. **v4 (misma sesión)**: mantener la v3 salvo los iconos → integrados en la escena: `"icon_style": "world"` (iluminados por la luz del plano, proyectan sombra, sombra de contacto en el suelo, los tapan los personajes, brillo propio que late y anillo al aparecer; anclados al mundo, no a la pantalla). Guion nuevo del usuario (112 palabras, por encima de la regla de 80–105, aceptado por el usuario): voz regenerada (588 créditos). Icono nuevo `lollipop` (chupachups sin marca). Corregido un fallo antiguo: los corazones de «te ríes» terminaban antes de empezar (el ancla «ha» coincidía con «te ha»). `tools/shot_frames.py --dry` y aviso de recursos en el 6 % superior (interfaz de TikTok).
 9. **v5 (misma sesión)**: «se escucha un ruido de fondo en la voz» + «música de fondo bastante baja, sin copyright, te doy libertad». Causa del ruido: el máster `clean` de la v3/v4 tenía un compresor de picos de umbral fijo que el bucle de ganancia perseguía (+38 dB de ganancia, 25 dB de compresión): silencios de −68 a −40 dBFS. Solución `"master": "clean2"`: la voz se procesa sola (expansor que baja los silencios, nivelador, compresor de picos limitado a 6 dB, limitador), luego efectos y música, y un limitador final suave (≤0,5 dB). Ruido en silencios −71 dBFS. Medido: con esta voz (PLR 18,6 dB), −14 LUFS a ≤−2 dBTP exige ~9 dB de limitador o un recortador (armónicos −13 dB) → se propone −16 LUFS (limitador 2,1 dB); a −14 el pico tras AAC fue −1,4 dBTP (fuera de regla). Música: `retro3d/music.py` (100 BPM, Fa mayor, bajo, colchón, arpegio de pulso, campanita, batería ligera con swing; sin melodía en la banda de la voz), −19 dB bajo la voz y −5 dB extra al hablar (opción `"music"`). Nueva opción `--reuse-video` para rehacer solo el audio.
-10. **Sistema de sesiones** (`/save-session`, `/resume-session`, este documento, regla de protección y tags). → Esta entrada.
+10. **Aprobación**: «Me quedo con la primera [−16 LUFS], ya está, este TikTok lo subiré» → tag `v5` en `978dfcd`; regla de −16 LUFS y música anotadas en `CLAUDE.md`. Aviso: en los próximos vídeos querrá cambiar muchas cosas de la animación.
+11. **Sistema de sesiones** (`/save-session`, `/resume-session`, este documento, regla de protección y tags). → Esta entrada.
 
 ## 11. Vídeos producidos
 | Vídeo | Ruta / commit | Contenido | Duración | Render (solo imagen) | Estado |
@@ -106,42 +110,45 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 | v2 | `videos/01-perro-lame-v2.mp4` (commit `face026`) | narrador del pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido | 38,65 s, 28,8 MB | 385 s (0,33 s/fot.) | usuario: audio «saturado», símbolos «aparecen y ya está» → v3 |
 | v3 | `videos/01-perro-lame-v3.mp4` (guion `scripts/01-perro-lame-v3.json`) | máster limpio, iconos con halo/contorno/destello, cámara amortiguada, encuadres corregidos | 38,65 s, 30,4 MB | 375 s (0,32 s/fot.) | base de la v4 |
 | v4 | `videos/01-perro-lame-v4.mp4` (guion `scripts/01-perro-lame-v4.json`, voz nueva 588 caracteres) | guion nuevo del usuario, iconos integrados en la escena (`icon_style: world`), chupachups, bocadillos «¡DAME LA PUTA COMIDA!» y «¡ESTO MOLA!» | 37,75 s, 29,2 MB | 274 s (0,24 s/fot.) | usuario: ruido de fondo en la voz → v5 |
-| **v5** | `videos/01-perro-lame-v5.mp4` (guion `scripts/01-perro-lame-v5.json`; imágenes de la v4 con `--reuse-video`) | máster `clean2` sin ruido de fondo, −16 LUFS; música original «aldea» generada por código | 37,75 s | solo audio (~30 s) | **entregada, pendiente de valoración** (y decisión −16/−14 LUFS) |
+| **v5** | `videos/01-perro-lame-v5.mp4` (commit `978dfcd`, guion `scripts/01-perro-lame-v5.json`; imágenes de la v4 con `--reuse-video`) | máster `clean2` sin ruido de fondo, −16 LUFS / −1,7 dBTP; música original «aldea» generada por código | 37,75 s | solo audio (~30 s) | **APROBADA (tag `v5`)**, el usuario la sube a TikTok |
+- Informes: `docs/01-perro-lame-v3/`, `-v4/` (qa, contact, contactos, sfx, framing) y `-v5/` (qa de audio, sfx).
 - Informes de la v2 en `docs/01-perro-lame-v2/` (`qa.md`, `contact.jpg`, `contactos.jpg`, `sfx_report.md/.json`). Resultado: 24 planos, montaje OK, holgura cámara 0,30 m, 0 interpenetraciones, 0 pies flotando, 24 contactos, 0 subtítulos fuera de zona, 0 textos cortados, boca coherente 94,2 %, −14,0 LUFS / −2,1 dBTP, 36 efectos, 0 sostenidos.
 
 ## 12. Versiones aprobadas (tags de git)
-- **Ninguna versión de vídeo aprobada explícitamente todavía; no hay tags.**
-- Aprobaciones explícitas hasta ahora: guion + voz del vídeo 01 («OK A TODO»); diseño del narrador v3 («Perfecto, OK», commit `b649c5c`; después solo se retocaron tres poses por colisiones en `face026`).
-- Cuando el usuario apruebe una versión: `git tag -a vK -m "<qué contiene>" <commit>` + `git push origin vK`, y añadirla a esta tabla.
+- Aprobaciones explícitas: guion + voz del vídeo 01 original («OK A TODO»); diseño del narrador v3 («Perfecto, OK», `b649c5c`); **vídeo 01 v5** («Me quedo con la primera, ya está»).
+- Al aprobar una versión: `git tag -a vK -m "<qué contiene>" <commit>` + `git push origin vK`, y anotarla aquí.
 
 | Tag | Commit | Contenido |
 |---|---|---|
-| — | — | — |
+| `v5` | `978dfcd` | Vídeo 01 «¿Por qué tu perro te lame?» v5: guion del usuario (v4), iconos integrados en la escena con sombras, chupachups, bocadillos nuevos, cámara amortiguada, voz sin ruido (máster `clean2`, −16 LUFS) y música original «aldea». |
 
 ## 13. Problemas conocidos
+- **El usuario quiere cambiar muchas cosas de la animación** en los próximos vídeos (aún no ha dicho cuáles).
 - **Perro lamiéndose la pata**: la lengua toca pecho/pierna; la pata apenas se levanta → se lee peor que el lametón a la mano.
-- **Plano 1 (gancho)**: el narrador queda en el borde izquierdo del encuadre.
-- **Planos sin efectos** (8, 9, 17, 21, 23, 24 de la v2): podrían llevar algún paso o *whoosh* leve.
-- **Render más lento** con las comprobaciones (0,33 s/fot.): la búsqueda de colisiones y el desenfoque de los barridos.
-- **Sincronía labial** coherente en el 94 %: los timestamps son por letra; mejorarla requiere detectar sílabas con más precisión.
-- `tools/preview_characters.py` sigue mostrando acciones antiguas (útil, pero la hoja oficial del narrador es `tools/narrator_sheet.py`).
-- El cachorro conserva su acción de lamer el resto del vídeo (fuera de cuadro); el solucionador la mantiene sin coste visible.
-- `CLAUDE.md` contiene algunas notas antiguas de distancias de cámara y del aventurero en secciones de formato; las reglas vigentes son las de este documento y las secciones nuevas de `CLAUDE.md`.
+- **Sincronía labial** coherente en el 92 % (v4/v5; 94 % con la voz anterior): timestamps por letra; mejorarla requiere detectar sílabas.
+- **Planos sin efectos** (varios planos): podrían llevar un paso o *whoosh* leve.
+- **Plano 9**: asoma un trozo del perro en la esquina inferior derecha.
+- El comprobador de textos 3D (`qa.md`) mide la caja del bocadillo; los iconos se comprueban con `tools/shot_frames.py` (3 fotogramas por plano, no todos).
+- El máster `clean` (v3/v4) tiene el fallo del bucle de ganancia (voz aplastada, ruido +30 dB): no usarlo; usar `clean2`.
+- `tools/preview_characters.py` muestra acciones antiguas (la hoja oficial del narrador es `tools/narrator_sheet.py`).
+- `CLAUDE.md` conserva notas antiguas de distancias de cámara y del aventurero en secciones de formato; las reglas vigentes son las de este documento.
 
 ## 14. Pendiente y siguiente paso exacto
-1. **Esperar la valoración del usuario de la v5** (`videos/01-perro-lame-v5.mp4`) y su decisión sobre −16 LUFS (recomendado) o −14 LUFS.
-2. Si la aprueba: `git tag -a v2 -m "Vídeo 01 v2: narrador pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido" face026` (o el commit que indique) + push del tag; anotarlo en §12. (La rama ya está fusionada en `main`: el commit `face026` forma parte de `main`.)
-3. Si pide cambios: aplicarlos sin romper lo existente, `python tools/check_physics.py scripts/01-perro-lame.json` (0), y `python make_video.py scripts/01-perro-lame.json --contact --out videos/01-perro-lame-v3.mp4`.
-4. Mejoras propuestas (no hacer sin permiso): las de §13.
-5. Siguiente vídeo cuando el usuario dé el tema: guion `scripts/02-…json` → `--dry` → enseñar guion + storyboard + coste → esperar OK → `--tts` → revisar → render → QA.
+1. **Esperar al usuario**: tema del vídeo 02 y/o lista de cambios de animación. No tocar nada antes.
+2. Vídeo nuevo: copiar `scripts/01-perro-lame-v5.json` (trae `master: clean2`, `lufs: -16`, `music`, `icon_style: world`, `cam_smooth`) → guion `scripts/02-…json` → `--dry` + `tools/shot_frames.py --dry` → enseñar guion + storyboard + coste → esperar OK → `--tts` → `tools/shot_frames.py` (0 avisos) + `tools/check_physics.py` (0) → `--contact` → QA.
+3. Cambios de animación que toquen el narrador, el estilo o el pipeline base: solo con permiso explícito y sin romper lo anterior (opciones nuevas en el guion).
+4. Unir la rama `claude/hopeful-einstein-ix8p37` a `main` cuando el usuario lo pida (PR).
+5. Mejoras opcionales: las de §13.
 
 ## 15. Decisiones que debe tomar el usuario
-- ¿Aprueba la **v2**? (→ tag `v2`). ¿Quiere también un tag para la v1 minimalista (commit `6e4e9aa`)?
-- ¿Aplicar las mejoras de §13 (pata del perro, encuadre del gancho, efectos en planos silenciosos, velocidad)?
-- Narrador: ¿número del jersey («00» u otro / ninguno)?, ¿ropa alternativa (`outfit`) para algún vídeo?
-- ¿Ambiente sonoro (viento/pájaros) en algún vídeo? (ahora desactivado por regla).
-- Si los vídeos crecen: ¿Git LFS o guardarlos fuera del repo?
+- Qué cambios de animación quiere para los próximos vídeos.
 - Tema del **vídeo 02**.
+- ¿Abrir PR de `claude/hopeful-einstein-ix8p37` a `main`?
+- ¿Aplicar las mejoras de §13 (pata del perro, efectos en planos silenciosos, sincronía labial)?
+- ¿Estilo de música distinto para otros vídeos (ahora solo «aldea»)?
+- Narrador: ¿número del jersey («00»)?, ¿ropa alternativa (`outfit`)?
+- Si los vídeos crecen: ¿Git LFS o guardarlos fuera del repo? (5 MP4 de ~25–30 MB en `videos/`).
 
 ## 16. Índice de sesiones
 - [2026-11-26-01](sessions/2026-11-26-01.md) — creación del pipeline, vídeo 01 (v1 detallada, v1 minimalista, v2), narrador fijo, sistema de sesiones.
+- [2026-11-26-02](sessions/2026-11-26-02.md) — vídeo 01 v3 (audio, iconos con brillo, cámara, encuadres), v4 (guion del usuario, iconos integrados), v5 (voz sin ruido, −16 LUFS, música original); **v5 aprobada (tag `v5`)**.
