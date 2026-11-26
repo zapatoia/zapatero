@@ -1,0 +1,974 @@
+{
+ "id": "01-perro-lame",
+ "title": "¿Por qué tu perro te lame?",
+ "cast": {
+  "narr": {
+   "type": "narrator",
+   "pos": [
+    0.0,
+    0.8
+   ],
+   "yaw": 0.15
+  },
+  "dog": {
+   "type": "dog",
+   "pos": [
+    1.04,
+    0.78
+   ],
+   "yaw": -1.15
+  },
+  "mom": {
+   "type": "dog",
+   "variant": "mom",
+   "pos": [
+    -2.85,
+    2.65
+   ],
+   "yaw": 1.0,
+   "size": 1.1
+  },
+  "pup": {
+   "type": "dog",
+   "variant": "pup",
+   "pos": [
+    -1.84,
+    2.06
+   ],
+   "yaw": -2.14,
+   "size": 0.55,
+   "head_scale": 1.25
+  }
+ },
+ "segments": [
+  {
+   "id": "hook",
+   "text": "Tu perro no te lame solo porque te quiera.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "establish",
+     "sub": "two",
+     "size": "medium",
+     "az": 26,
+     "el": 12,
+     "from": 3.0,
+     "el_from": 40
+    },
+    {
+     "at": "solo",
+     "type": "push",
+     "sub": "narr",
+     "size": "close",
+     "az": -8,
+     "el": 8
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "offer_hand",
+     "side": "L"
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "lick",
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
+    },
+    {
+     "at": "solo",
+     "who": "narr",
+     "act": "talk"
+    },
+    {
+     "at": "solo",
+     "who": "dog",
+     "act": "wag"
+    },
+    {
+     "at": "start",
+     "who": "mom",
+     "act": "sit",
+     "wag": false
+    },
+    {
+     "at": "start",
+     "who": "pup",
+     "act": "idle"
+    }
+   ],
+   "props": [
+    {
+     "at": "lame",
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "narr",
+     "off": [
+      0.5,
+      -0.4,
+      1.35
+     ],
+     "until": "solo",
+     "size": 0.6
+    },
+    {
+     "at": "solo",
+     "type": "icon",
+     "kind": "question",
+     "until": "next",
+     "size": 0.3,
+     "screen": [
+      0.42,
+      0.45,
+      1.15
+     ]
+    }
+   ],
+   "zooms": [
+    "quiera"
+   ]
+  },
+  {
+   "id": "razon1",
+   "text": "Primero: sabes a sal. Sudas, y para él eres una patata frita con patas.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "orbit",
+     "sub": "narr",
+     "size": "medium",
+     "az": 25,
+     "deg": -55,
+     "el": 10
+    },
+    {
+     "at": "sudas",
+     "type": "truck",
+     "sub": "narr.hand_L",
+     "size": "close",
+     "az": 22,
+     "el": 14,
+     "move": 0.5,
+     "dist": 2.25,
+     "deg": 0
+    },
+    {
+     "at": "eres",
+     "type": "low",
+     "sub": "narr",
+     "size": "medium",
+     "az": -12,
+     "el": -5
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "explain"
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "sit"
+    },
+    {
+     "at": "sudas",
+     "who": "narr",
+     "act": "offer_hand",
+     "side": "L"
+    },
+    {
+     "at": "sudas",
+     "who": "dog",
+     "act": "lick",
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
+    },
+    {
+     "at": "eres",
+     "who": "narr",
+     "act": "shrug"
+    },
+    {
+     "at": "eres",
+     "who": "dog",
+     "act": "wag"
+    }
+   ],
+   "props": [
+    {
+     "at": "start",
+     "type": "icon",
+     "kind": "num:1",
+     "until": "sudas",
+     "size": 0.5,
+     "screen": [
+      0.0,
+      0.62,
+      1.6
+     ],
+     "wobble": 0.18
+    },
+    {
+     "at": "sal",
+     "type": "icon",
+     "kind": "drop",
+     "anchor": "narr",
+     "off": [
+      0.36,
+      -0.35,
+      1.72
+     ],
+     "until": "eres",
+     "size": 0.45
+    },
+    {
+     "at": [
+      "sal",
+      0.12
+     ],
+     "type": "icon",
+     "kind": "salt",
+     "anchor": "narr",
+     "off": [
+      0.45,
+      -0.4,
+      1.05
+     ],
+     "until": "sudas",
+     "size": 0.5,
+     "spin": 0.8
+    },
+    {
+     "at": "patata",
+     "type": "icon",
+     "kind": "fries",
+     "until": "next",
+     "size": 0.4,
+     "screen": [
+      0.0,
+      0.4,
+      1.6
+     ]
+    }
+   ],
+   "zooms": [
+    "sal",
+    "patata"
+   ]
+  },
+  {
+   "id": "razon2",
+   "text": "Segundo: de cachorros, lamen la boca de su madre para pedir comida. Se cree que de ahí viene el saludo: «hola, jefe».",
+   "shots": [
+    {
+     "at": "start",
+     "type": "crane",
+     "sub": "narr",
+     "size": "close",
+     "az": -10,
+     "el": 2,
+     "rise": 22
+    },
+    {
+     "at": "de",
+     "type": "orbit",
+     "sub": "mom+pup",
+     "size": "medium",
+     "az": -20,
+     "deg": 50,
+     "el": 12
+    },
+    {
+     "at": "madre",
+     "type": "push",
+     "sub": "mom+pup",
+     "size": "close",
+     "az": 10,
+     "el": 10,
+     "h": 0.6
+    },
+    {
+     "at": "se",
+     "type": "truck",
+     "sub": "narr",
+     "size": "medium",
+     "az": 12,
+     "el": 9,
+     "move": 1.0
+    },
+    {
+     "at": "el",
+     "type": "low",
+     "sub": "dog",
+     "size": "medium",
+     "az": -28,
+     "el": -3,
+     "h": 0.75
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "talk"
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "idle"
+    },
+    {
+     "at": "de",
+     "who": "pup",
+     "act": "lick",
+     "up": 0.4,
+     "reach": 0.03,
+     "rate": 3.4,
+     "target": {
+      "who": "mom",
+      "node": "head"
+     },
+     "approach": true,
+     "yaw": -2.14
+    },
+    {
+     "at": "de",
+     "who": "mom",
+     "act": "nuzzle"
+    },
+    {
+     "at": "se",
+     "who": "narr",
+     "act": "explain"
+    },
+    {
+     "at": "el",
+     "who": "dog",
+     "act": "sit",
+     "place": [
+      1.04,
+      0.78,
+      -0.55
+     ]
+    },
+    {
+     "at": "hola",
+     "who": "dog",
+     "act": "wag",
+     "pant": true
+    }
+   ],
+   "props": [
+    {
+     "at": "start",
+     "type": "icon",
+     "kind": "num:2",
+     "until": "de",
+     "size": 0.5,
+     "screen": [
+      0.0,
+      0.62,
+      1.6
+     ],
+     "wobble": 0.18
+    },
+    {
+     "at": "boca",
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "pup",
+     "off": [
+      0.0,
+      -0.1,
+      0.85
+     ],
+     "until": "se",
+     "size": 0.4
+    },
+    {
+     "at": "hola",
+     "type": "bubble",
+     "text": "¡HOLA, JEFE!",
+     "anchor": "dog",
+     "off": [
+      0.0,
+      0.0,
+      0.8
+     ],
+     "until": "next",
+     "w": 0.72
+    }
+   ],
+   "zooms": [
+    "madre"
+   ]
+  },
+  {
+   "id": "bucle",
+   "text": "Pero la tercera es la que casi nadie pilla.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "push",
+     "sub": "narr",
+     "size": "close",
+     "az": 0,
+     "el": 6,
+     "dist": 1.5
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "lean_in"
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "idle",
+     "place": [
+      1.04,
+      0.78,
+      -1.15
+     ]
+    }
+   ],
+   "props": [
+    {
+     "at": "casi",
+     "type": "icon",
+     "kind": "question",
+     "until": "next",
+     "size": 0.16,
+     "screen": [
+      0.5,
+      0.55,
+      0.9
+     ]
+    }
+   ],
+   "zooms": [
+    "pilla"
+   ]
+  },
+  {
+   "id": "razon3",
+   "text": "Tercero: te ha entrenado. Te lame, le miras, le hablas, te ríes. Ha aprendido que lamer le da tu atención.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "establish",
+     "sub": "two",
+     "size": "medium",
+     "az": -6,
+     "el": 12,
+     "transition": "whip",
+     "from": 2.6,
+     "el_from": 32
+    },
+    {
+     "at": 4,
+     "type": "orbit",
+     "sub": "narr.hand_L",
+     "size": "close",
+     "az": 16,
+     "deg": 25,
+     "el": 14,
+     "dist": 2.25
+    },
+    {
+     "at": 8,
+     "type": "crane",
+     "sub": "two",
+     "size": "medium",
+     "az": 24,
+     "el": 10,
+     "rise": -16
+    },
+    {
+     "at": 12,
+     "type": "truck",
+     "sub": "dog",
+     "size": "medium",
+     "az": -24,
+     "el": 24,
+     "move": 0.8,
+     "h": 0.72
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "explain",
+     "place": [
+      -0.4,
+      0.6,
+      0.15,
+      "casa"
+     ]
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "wag",
+     "place": [
+      1.0,
+      0.25,
+      -1.15,
+      "casa"
+     ]
+    },
+    {
+     "at": "te",
+     "who": "narr",
+     "act": "point",
+     "side": "L",
+     "up": 0.45
+    },
+    {
+     "at": 4,
+     "who": "narr",
+     "act": "offer_hand",
+     "side": "L"
+    },
+    {
+     "at": 4,
+     "who": "dog",
+     "act": "lick",
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
+    },
+    {
+     "at": "le",
+     "who": "narr",
+     "act": "look_down",
+     "turn": 0.35
+    },
+    {
+     "at": "ries",
+     "who": "narr",
+     "act": "laugh"
+    },
+    {
+     "at": "le",
+     "who": "dog",
+     "act": "jump",
+     "height": 0.35
+    },
+    {
+     "at": 12,
+     "who": "dog",
+     "act": "sit",
+     "place": [
+      0.64,
+      0.58,
+      -0.55,
+      "casa"
+     ]
+    },
+    {
+     "at": "lamer",
+     "who": "dog",
+     "act": "wag"
+    }
+   ],
+   "props": [
+    {
+     "at": "start",
+     "type": "icon",
+     "kind": "num:3",
+     "until": 4,
+     "size": 0.5,
+     "screen": [
+      0.0,
+      0.62,
+      1.6
+     ],
+     "wobble": 0.18
+    },
+    {
+     "at": "ries",
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "narr",
+     "off": [
+      -0.35,
+      -0.3,
+      1.95
+     ],
+     "until": "ha",
+     "size": 0.55
+    },
+    {
+     "at": [
+      "ries",
+      0.15
+     ],
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "dog",
+     "off": [
+      0.0,
+      -0.2,
+      0.95
+     ],
+     "until": "ha",
+     "size": 0.45
+    },
+    {
+     "at": "lamer",
+     "type": "bubble",
+     "text": "LAMER = MIMOS",
+     "anchor": "dog",
+     "off": [
+      0.0,
+      0.0,
+      0.8
+     ],
+     "until": "next",
+     "w": 0.72
+    }
+   ],
+   "zooms": [
+    "entrenado",
+    "atencion"
+   ]
+  },
+  {
+   "id": "razon4",
+   "text": "Y cuarto: lamer le relaja. Se cree que libera endorfinas.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "push",
+     "sub": "narr",
+     "size": "close",
+     "az": 10,
+     "el": 8
+    },
+    {
+     "at": "lamer",
+     "type": "orbit",
+     "sub": [
+      0.2,
+      0.95,
+      0.75,
+      "casa"
+     ],
+     "size": "wide",
+     "az": -40,
+     "deg": 70,
+     "el": 14,
+     "dist": 4.2
+    },
+    {
+     "at": "libera",
+     "type": "crane",
+     "sub": "dog",
+     "size": "close",
+     "az": -20,
+     "el": 6,
+     "rise": 18,
+     "h": 0.6
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "talk"
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "calm",
+     "place": [
+      0.95,
+      1.45,
+      -0.45,
+      "casa"
+     ]
+    },
+    {
+     "at": "se",
+     "who": "narr",
+     "act": "shrug"
+    },
+    {
+     "at": "libera",
+     "who": "dog",
+     "act": "lick_paw",
+     "rate": 1.6,
+     "side": "L"
+    }
+   ],
+   "props": [
+    {
+     "at": "start",
+     "type": "icon",
+     "kind": "num:4",
+     "until": "lamer",
+     "size": 0.5,
+     "screen": [
+      0.0,
+      0.62,
+      1.6
+     ],
+     "wobble": 0.18
+    },
+    {
+     "at": "libera",
+     "type": "sparkles",
+     "anchor": "dog",
+     "off": [
+      0,
+      -0.1,
+      0.9
+     ],
+     "n": 14
+    },
+    {
+     "at": [
+      "libera",
+      0.2
+     ],
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "dog",
+     "off": [
+      -0.3,
+      -0.1,
+      0.95
+     ],
+     "until": "next",
+     "size": 0.4
+    },
+    {
+     "at": [
+      "libera",
+      0.4
+     ],
+     "type": "icon",
+     "kind": "heart",
+     "anchor": "dog",
+     "off": [
+      0.3,
+      -0.1,
+      0.95
+     ],
+     "until": "next",
+     "size": 0.32
+    }
+   ],
+   "zooms": [
+    "endorfinas"
+   ]
+  },
+  {
+   "id": "cierre",
+   "text": "Ojo: si se lame sin parar, se hace heridas o empieza de golpe, al veterinario. Puede ser alergia, dolor o ansiedad.",
+   "shots": [
+    {
+     "at": "start",
+     "type": "establish",
+     "sub": "narr",
+     "size": "medium",
+     "az": 0,
+     "el": 9,
+     "transition": "whip",
+     "from": 2.4,
+     "el_from": 30
+    },
+    {
+     "at": "lame",
+     "type": "orbit",
+     "sub": "dog",
+     "size": "close",
+     "az": -35,
+     "deg": 45,
+     "el": 16,
+     "h": 0.5
+    },
+    {
+     "at": 8,
+     "type": "crane",
+     "sub": "dog",
+     "size": "close",
+     "az": 30,
+     "el": 8,
+     "rise": 22,
+     "h": 0.45
+    },
+    {
+     "at": "al",
+     "type": "truck",
+     "sub": [
+      -0.75,
+      1.3,
+      1.05
+     ],
+     "size": "medium",
+     "az": -4,
+     "el": 11,
+     "move": 0.5,
+     "dist": 4.4
+    },
+    {
+     "at": "puede",
+     "type": "push",
+     "sub": "narr",
+     "size": "close",
+     "az": 8,
+     "el": 8
+    },
+    {
+     "at": "dolor",
+     "type": "pull",
+     "sub": "two",
+     "size": "wide",
+     "az": 6,
+     "el": 12,
+     "dist": 4.0
+    }
+   ],
+   "acts": [
+    {
+     "at": "start",
+     "who": "narr",
+     "act": "talk",
+     "energy": 1.4,
+     "place": [
+      0.0,
+      0.8,
+      0.15
+     ]
+    },
+    {
+     "at": "start",
+     "who": "dog",
+     "act": "sit",
+     "wag": false,
+     "place": [
+      1.04,
+      0.78,
+      -0.55
+     ]
+    },
+    {
+     "at": "lame",
+     "who": "dog",
+     "act": "lick_paw",
+     "rate": 3.0,
+     "side": "L"
+    },
+    {
+     "at": "empieza",
+     "who": "narr",
+     "act": "shrug"
+    },
+    {
+     "at": "al",
+     "who": "narr",
+     "act": "point",
+     "side": "R",
+     "up": 0.15
+    },
+    {
+     "at": "al",
+     "who": "dog",
+     "act": "head_tilt"
+    },
+    {
+     "at": "puede",
+     "who": "narr",
+     "act": "explain"
+    },
+    {
+     "at": "dolor",
+     "who": "dog",
+     "act": "sit",
+     "wag": true
+    },
+    {
+     "at": "ansiedad",
+     "who": "narr",
+     "act": "wave",
+     "side": "R"
+    }
+   ],
+   "props": [
+    {
+     "at": "start",
+     "type": "icon",
+     "kind": "warn",
+     "until": "lame",
+     "size": 0.38,
+     "screen": [
+      0.0,
+      0.62,
+      1.6
+     ]
+    },
+    {
+     "at": "al",
+     "type": "sign",
+     "text": "VETERINARIO",
+     "pos": [
+      -0.8,
+      1.55
+     ],
+     "yaw": 0.2,
+     "w": 1.2,
+     "h": 0.55,
+     "post": 1.0,
+     "until": "puede"
+    },
+    {
+     "at": [
+      "al",
+      0.25
+     ],
+     "type": "icon",
+     "kind": "warn",
+     "pos": [
+      -0.8,
+      1.55,
+      2.05
+     ],
+     "size": 0.45,
+     "until": "puede"
+    }
+   ],
+   "zooms": [
+    "veterinario",
+    "ansiedad"
+   ]
+  }
+ ],
+ "scenes": [
+  "claro",
+  "casa"
+ ]
+}
