@@ -73,6 +73,8 @@ def check_frame(prod, cam, t, sh, W, H):
             continue
         if bx[0] < 0 or bx[1] < 0 or bx[2] > W or bx[3] > H:
             out.append(f"recurso cortado por el borde {[round(v) for v in bx]}")
+        elif bx[1] < H * 0.06:
+            out.append(f"recurso pegado al borde superior (zona de la interfaz) {[round(v) for v in bx]}")
         for name, fb in faces.items():
             ix = max(0, min(bx[2], fb[2]) - max(bx[0], fb[0]))
             iy = max(0, min(bx[3], fb[3]) - max(bx[1], fb[1]))
@@ -88,10 +90,15 @@ def main():
     ap.add_argument("--shots", default=None)
     ap.add_argument("--scale", type=float, default=0.5)
     ap.add_argument("--W", type=int, default=540)
+    ap.add_argument("--dry", action="store_true", help="tiempos estimados (sin voz en caché)")
     a = ap.parse_args()
     script = json.load(open(a.script))
     bdir = MV.build_dir(script)
-    voice, words, dur, env = MV.prepare_voice(script, bdir, {})
+    if a.dry:
+        words, dur = MV.A.estimate_words(MV.tts_text(script))
+        env = None
+    else:
+        voice, words, dur, env = MV.prepare_voice(script, bdir, {})
     W, H = a.W, a.W * 16 // 9
     prod = MV.Production(script, words, dur, W, H, env=env)
     subs = MV.Subtitles(words, W, H)

@@ -371,6 +371,8 @@ class Production:
             pr = P.make_icon(self.r, p["kind"], t0, t1, pos=pos if pos is not None else (0, 0, 0), follow=follow,
                              size=p.get("size", 1.0), spin=p.get("spin", 0.0), wobble=p.get("wobble", 0.25),
                              style=p.get("style", self.script.get("icon_style")))
+            if pr.world_style:
+                pr.ground_fn = self.world.height
             if p["kind"].startswith("num:"):
                 self.sfx.append({"t": t0 + 0.03, "type": "ding", "why": f"número {p['kind'][4:]}"})
             else:

@@ -134,6 +134,26 @@ def fries_mesh_v2(size=0.5):
     return m.transformed(scale(size * 1.4))
 
 
+def lollipop_mesh(size=0.5):
+    """Piruleta de bola (sin logotipos): bola facetada con gajos rojo/blanco en espiral y palo blanco."""
+    m = Mesh()
+    red, white = C("warn_red"), C("warn_white")
+    pts = M.ellipsoid_points(0.22, 0.22, 0.22, n=40, noise=0.0, seed=3)
+
+    def col(n, c):
+        a = math.atan2(c[1], c[0]) + c[2] * 7.0          # gajos en espiral
+        return red if math.cos(a * 3) > 0 else white
+    m.extend(M.hull(pts, red, color_fn=col).transformed(translate(0, 0, 0.34)))
+    m.extend(M.box(0.045, 0.045, 0.40, white, center=(0, 0, -0.02), jitter=0))
+    return m.transformed(scale(size * 1.5))
+
+
+def blob_shadow_mesh(n=20):
+    """Disco plano (sombra de contacto bajo un icono flotante)."""
+    pts = [(math.cos(2 * math.pi * i / n) * 0.5, math.sin(2 * math.pi * i / n) * 0.5) for i in range(n)]
+    return M.extrude(pts, 0.004, (0.10, 0.07, 0.12, 1.0), jitter=0).transformed(euler(math.pi / 2, 0, 0))
+
+
 def ring_mesh(r0=0.42, r1=0.5, n=32):
     """Anillo plano (destello de aparición), en el plano XZ mirando a -Y."""
     m = Mesh()
@@ -151,7 +171,7 @@ def ring_mesh(r0=0.42, r1=0.5, n=32):
 # halo/contorno por tipo de icono (estilo «glow»)
 GLOW = {"heart": (1.0, 0.30, 0.42), "drop": (0.45, 0.75, 1.0), "salt": (0.75, 0.9, 1.0),
         "question": (1.0, 0.85, 0.25), "exclaim": (1.0, 0.35, 0.25), "warn": (1.0, 0.32, 0.28),
-        "fries": (1.0, 0.72, 0.2), "tongue": (1.0, 0.45, 0.6), "num": (1.0, 0.78, 0.25), "text": (1.0, 0.95, 0.8)}
+        "fries": (1.0, 0.72, 0.2), "lollipop": (1.0, 0.45, 0.45), "tongue": (1.0, 0.45, 0.6), "num": (1.0, 0.78, 0.25), "text": (1.0, 0.95, 0.8)}
 
 
 def tongue_icon(size=0.5):
@@ -207,6 +227,9 @@ class Prop:
         self.aspect = 9 / 16
         self.glow_col = None   # estilo «glow»: halo + contorno + destello (ver make_icon)
         self._ring = None
+        self.world_style = False   # estilo «world»: integrado en la escena con sombras
+        self.ground_fn = None
+        self._blob = None
 
     def alive(self, t):
         return t >= self.t_in and (self.t_out is None or t <= self.t_out + self.pop_out)
@@ -278,8 +301,43 @@ class Prop:
                     shadow=o.get("shadow", self.shadow), alpha_test=0.5, flip=o.get("flip", True),
                     rim=0.0 if o.get("unlit", self.unlit) else 0.35, alpha=alpha)
                for gm, tex, o in self.parts]
-        if self.glow_col is not None:
+        if self.glow_col is not None and self.world_style:
+            out = self._world_items(out, t, lt, p, cam)
+        elif self.glow_col is not None:
             out = self._glow_items(out, t, lt, p, cam)
+        return out
+
+    def _world_items(self, out, t, lt, p, cam):
+        """Estilo «world»: el icono es un objeto más de la escena. Se ilumina con la luz del
+        plano, proyecta sombra real (sol) y una sombra de contacto suave en el suelo justo
+        debajo, lo tapan los personajes si pasan por delante y brilla un poco por sí mismo
+        (latido suave). Al aparecer, un anillo de destello dentro de la escena."""
+        pulse = 0.5 + 0.5 * math.sin(lt * 5.0)
+        flash = max(0.0, 1.0 - lt / 0.3)
+        for it in out:
+            it.shadow = True
+            it.emissive = 0.16 + 0.10 * pulse + 0.6 * flash
+            it.rim = 0.5
+        s_ = self.scale_at(t) * self.scale_
+        if self.ground_fn is not None and s_ > 0.02:
+            gz = self.ground_fn(p[0], p[1])
+            hgt = max(0.0, p[2] - gz)
+            if self._blob is None:
+                self._blob = self._r.upload(blob_shadow_mesh())
+            k = 1.0 / (1.0 + hgt * 0.9)                       # cuanto más alto, más difusa
+            r_ = self.scale_ * 0.75 * (1.0 + hgt * 0.35) * min(1.0, s_ / max(self.scale_, 1e-6))
+            bl = Item(self._blob, translate(p[0], p[1], gz + 0.012) @ scale(r_), unlit=True, shadow=False,
+                      alpha=0.32 * k, alpha_test=0.0, fog_k=1.0)
+            out.append(bl)
+        u = (t - self.t_in - 0.05) / 0.4
+        if 0.0 <= u <= 1.0:
+            if self._ring is None:
+                self._ring = self._r.upload(ring_mesh())
+            d = cam.eye - p
+            Rb = rot_z(math.atan2(d[0], -d[1])) @ euler(-math.atan2(d[2], math.hypot(d[0], d[1])), 0, 0)
+            sc = self.scale_ * 0.9 * (0.45 + 0.85 * EASE["out"](u))
+            out.append(Item(self._ring, translate(*p) @ Rb @ scale(sc), unlit=True, shadow=False,
+                            tint=tuple(min(1.0, c * 1.15) for c in self.glow_col) + (1.0,), alpha=(1 - u) ** 1.5 * 0.8))
         return out
 
     def _glow_items(self, out, t, lt, p, cam):
@@ -383,9 +441,11 @@ def make_icon(r, kind, t_in, t_out=None, pos=(0, 0, 0), follow=None, size=1.0, s
     elif kind == "warn":
         m, tex = warn_cross_mesh(0.6), "white"
     elif kind == "fries":
-        m, tex = (fries_mesh_v2(0.45) if style == "glow" else fries_mesh(0.45)), "white"
+        m, tex = (fries_mesh_v2(0.45) if style in ("glow", "world") else fries_mesh(0.45)), "white"
     elif kind == "tongue":
         m, tex = tongue_icon(0.45), "white"
+    elif kind == "lollipop":
+        m, tex = lollipop_mesh(0.45), "white"
     elif kind.startswith("num:"):
         m, tex = medal_mesh(kind[4:], 0.5), "white"
     elif kind.startswith("text:"):
@@ -394,7 +454,9 @@ def make_icon(r, kind, t_in, t_out=None, pos=(0, 0, 0), follow=None, size=1.0, s
         raise ValueError(kind)
     pr = Prop(r, [(m, tex, {"emissive": 0.18 if style != "glow" else 0.28})], t_in, t_out, pos=pos, follow=follow,
               scale_=size, spin=spin, face_cam=True, wobble=wobble, **kw)
-    if style == "glow":
+    if style in ("glow", "world"):
         pr.glow_col = GLOW.get(kind.split(":")[0], (1.0, 0.9, 0.6))
         pr.pop_in = 0.4
+        pr.world_style = style == "world"
+        pr.ground_fn = kw.get("ground_fn") if False else None
     return pr
