@@ -572,3 +572,99 @@ def master_clean(x, target_lufs=-14.0, ceiling_db=-2.0, sr=SR, report=None):
             "limiter_gr_db_max": round(float(gl.max()), 2),
         })
     return y, L, true_peak(y, sr)
+
+
+# ------------------------------------------------------------------ máster «clean2» (desde la v5 del vídeo 01)
+# Problema del máster «clean»: el compresor de picos tenía umbral fijo y el bucle de ganancia
+# lo perseguía (+38 dB de ganancia, 25 dB de compresión) → voz aplastada y ruido de fondo
+# de los silencios subido ~30 dB. «clean2» procesa SOLO la voz (expansor que baja los
+# silencios, nivelador, compresor de picos con trabajo limitado), después se suman efectos y
+# música, y al final un limitador suave sobre la mezcla. Sin recortador (añade armónicos).
+
+def expander(x, sr=SR, range_db=12.0):
+    """Expansor hacia abajo: baja hasta `range_db` lo que queda por debajo de la voz más suave
+    (silencios entre frases); ganancia con retención de 80 ms para no cerrar dentro de palabras."""
+    from scipy.ndimage import maximum_filter1d, uniform_filter1d
+    lvl = _env_db(x, sr, 0.003, 0.12, rms_win=0.01)
+    act = lvl > lvl.max() - 30
+    thr = np.percentile(lvl[act], 8) - 4
+    g = -np.minimum(range_db, np.clip(thr - lvl, 0, None) * 1.5)
+    g = -maximum_filter1d(-g, int(0.08 * sr))
+    g = uniform_filter1d(g, int(0.03 * sr))
+    return x * 10 ** (g / 20)
+
+
+def _peak_comp_capped(x, thr_db, ratio, sr=SR, look=0.002, rel=0.1, knee=6.0, max_gr=6.0):
+    from scipy.signal import resample_poly, lfilter
+    from scipy.ndimage import maximum_filter1d
+    pk = np.abs(resample_poly(x, 4, 1))[:len(x) * 4].reshape(-1, 4).max(1)
+    need = np.minimum(max_gr, -_gain_computer(20 * np.log10(pk + 1e-12), thr_db, ratio, knee))
+    L = max(1, int(look * sr))
+    need = maximum_filter1d(need, 2 * L + 1)
+    w = 0.5 - 0.5 * np.cos(np.linspace(0, 2 * np.pi, 2 * L + 1))
+    need = np.convolve(need, w / w.sum(), "same")
+    a = math.exp(-1 / (rel * sr))
+    need = np.maximum(need, lfilter([1 - a], [1, -a], need))
+    return x * 10 ** (-need / 20), need
+
+
+def voice_chain(x, target_lufs=-16.0, ceiling_db=-2.0, sr=SR, report=None):
+    """Voz sola → `target_lufs` con procesado moderado. Devuelve la voz procesada."""
+    import pyloudnorm as pyln
+    meter = pyln.Meter(sr)
+    y0 = expander(deess(_highpass(x, 70.0, sr), sr), sr)
+    lvl = _env_db(y0, sr, 0.015, 0.18, rms_win=0.02)
+    act = lvl > lvl.max() - 30
+    thr = float(np.percentile(lvl[act], 50))
+    gl1 = np.maximum(_gain_computer(lvl, thr, 2.5, 8.0), -8.0)
+    y1 = y0 * 10 ** (gl1 / 20)
+    G = target_lufs - meter.integrated_loudness(y1)
+    for _ in range(14):
+        z, gp = _peak_comp_capped(y1 * 10 ** (G / 20), -14.0, 4.0, sr)
+        y, gl = lookahead_limiter(z, ceiling_db, sr, look=0.003, release=0.04)
+        L = meter.integrated_loudness(y)
+        if abs(L - target_lufs) < 0.04:
+            break
+        G += (target_lufs - L)
+    if report is not None:
+        report.update({"input_lufs": round(float(meter.integrated_loudness(x)), 2), "voice_gain_db": round(float(G), 1),
+                       "leveler_gr_db_p50": round(float(np.percentile(-gl1[act], 50)), 1),
+                       "peakcomp_gr_db_p50": round(float(np.percentile(gp[act], 50)), 1),
+                       "limiter_gr_db_p95": round(float(np.percentile(gl[act], 95)), 1)})
+    return y
+
+
+def talking_curve(voice, n, sr=SR):
+    """0-1: cuánto se está hablando (para atenuar efectos y música bajo la voz)."""
+    from scipy.ndimage import maximum_filter1d
+    from scipy.signal import lfilter
+    env = envelope(voice) if len(voice) else np.zeros(1)
+    thr = env.max() * 10 ** (-32 / 20)
+    talking = np.repeat((env > thr).astype(float), int(0.01 * sr))
+    talking = np.pad(talking, (0, max(0, n - len(talking))))[:n]
+    talking = maximum_filter1d(talking, int(0.25 * sr))
+    a = math.exp(-1 / (0.08 * sr))
+    return np.clip(lfilter([1 - a], [1, -a], talking), 0, 1)
+
+
+def music_bed(voice, music, db=-19.0, duck_db=-5.0):
+    """Música a `db` (RMS) respecto a la voz hablada, con atenuación suave al hablar."""
+    n = len(music)
+    vr = voice_rms(voice)
+    mr = float(np.sqrt(np.mean(music[np.abs(music) > 1e-4] ** 2))) if np.any(np.abs(music) > 1e-4) else 1.0
+    m = music * vr * 10 ** (db / 20) / mr
+    return m * 10 ** (duck_db * talking_curve(voice, n) / 20)
+
+
+def final_bus(x, target_lufs=-16.0, ceiling_db=-2.0, sr=SR):
+    """Ajuste final de la mezcla: ganancia fina + limitador suave (normalmente ~0-1 dB)."""
+    import pyloudnorm as pyln
+    meter = pyln.Meter(sr)
+    G = target_lufs - meter.integrated_loudness(x)
+    for _ in range(8):
+        y, gl = lookahead_limiter(x * 10 ** (G / 20), ceiling_db, sr, look=0.003, release=0.04)
+        L = meter.integrated_loudness(y)
+        if abs(L - target_lufs) < 0.04:
+            break
+        G += target_lufs - L
+    return y, L, true_peak(y, sr), float(gl.max())

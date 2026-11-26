@@ -1,0 +1,441 @@
+{
+ "voice_rms_dbfs": -14.8,
+ "events": [
+  {
+   "t": 0.1,
+   "type": "whoosh",
+   "gain": -2.0,
+   "why": "empuje de situación",
+   "rel_db": -24.0,
+   "dur": 0.28
+  },
+  {
+   "t": 0.4666666666666667,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "dog: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 0.8,
+   "type": "lick",
+   "gain": -2.0,
+   "why": "dog: lametón 2",
+   "rel_db": -22.0,
+   "dur": 0.14
+  },
+  {
+   "t": 1.3679999999999999,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 1.6059999999999999,
+   "type": "pop",
+   "why": "icono question",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 2.4899999999999998,
+   "type": "ding",
+   "why": "número 1",
+   "rel_db": -22.0,
+   "dur": 0.35
+  },
+  {
+   "t": 4.008,
+   "type": "pop",
+   "why": "icono salt",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 4.308,
+   "type": "pop",
+   "why": "icono drop",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 4.574666666666666,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "dog: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 4.9079999999999995,
+   "type": "lick",
+   "gain": -2.0,
+   "why": "dog: lametón 2",
+   "rel_db": -22.0,
+   "dur": 0.14
+  },
+  {
+   "t": 6.335,
+   "type": "pop",
+   "why": "icono lollipop",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 7.126,
+   "type": "ding",
+   "why": "número 2",
+   "rel_db": -22.0,
+   "dur": 0.35
+  },
+  {
+   "t": 8.695058823529413,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "pup: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 8.989176470588237,
+   "type": "lick",
+   "gain": -2.0,
+   "why": "pup: lametón 2",
+   "rel_db": -22.0,
+   "dur": 0.14
+  },
+  {
+   "t": 9.483,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 13.755,
+   "type": "blip",
+   "why": "bocadillo",
+   "rel_db": -22.0,
+   "dur": 0.06
+  },
+  {
+   "t": 16.523000000000003,
+   "type": "pop",
+   "why": "icono question",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 17.485000000000003,
+   "type": "whoosh",
+   "why": "barrido de transición",
+   "rel_db": -22.0,
+   "dur": 0.28
+  },
+  {
+   "t": 17.565000000000005,
+   "type": "ding",
+   "why": "número 3",
+   "rel_db": -22.0,
+   "dur": 0.35
+  },
+  {
+   "t": 19.861666666666668,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "dog: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 20.195,
+   "type": "lick",
+   "gain": -2.0,
+   "why": "dog: lametón 2",
+   "rel_db": -22.0,
+   "dur": 0.14
+  },
+  {
+   "t": 21.089,
+   "type": "boing",
+   "why": "dog: despegue",
+   "rel_db": -22.0,
+   "dur": 0.22
+  },
+  {
+   "t": 22.342,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 22.491999999999997,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 23.901999999999997,
+   "type": "blip",
+   "why": "bocadillo",
+   "rel_db": -22.0,
+   "dur": 0.06
+  },
+  {
+   "t": 25.432,
+   "type": "ding",
+   "why": "número 4",
+   "rel_db": -22.0,
+   "dur": 0.35
+  },
+  {
+   "t": 28.681999999999995,
+   "type": "pop",
+   "gain": -2.0,
+   "why": "chispas",
+   "rel_db": -22.0,
+   "dur": 0.07
+  },
+  {
+   "t": 28.881999999999994,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 29.081999999999994,
+   "type": "pop",
+   "why": "icono heart",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 29.094499999999996,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "dog: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 29.651999999999994,
+   "type": "whoosh",
+   "why": "barrido de transición",
+   "rel_db": -22.0,
+   "dur": 0.28
+  },
+  {
+   "t": 29.701999999999995,
+   "type": "pop",
+   "why": "icono warn",
+   "rel_db": -20.0,
+   "dur": 0.07
+  },
+  {
+   "t": 30.96066666666666,
+   "type": "lick",
+   "gain": -0.0,
+   "why": "dog: lametón 1",
+   "rel_db": -20.0,
+   "dur": 0.14
+  },
+  {
+   "t": 31.293999999999993,
+   "type": "lick",
+   "gain": -2.0,
+   "why": "dog: lametón 2",
+   "rel_db": -22.0,
+   "dur": 0.14
+  },
+  {
+   "t": 33.934999999999995,
+   "type": "thud",
+   "why": "cartel",
+   "rel_db": -22.0,
+   "dur": 0.12
+  },
+  {
+   "t": 34.084999999999994,
+   "type": "pop",
+   "why": "icono warn",
+   "rel_db": -20.0,
+   "dur": 0.07
+  }
+ ],
+ "scenes": [
+  {
+   "scene": "plano 1",
+   "start": 0.0,
+   "end": 1.54,
+   "sfx_rms_db_rel_voice": -31.7,
+   "events": 4
+  },
+  {
+   "scene": "plano 2",
+   "start": 1.54,
+   "end": 2.46,
+   "sfx_rms_db_rel_voice": -37.2,
+   "events": 1
+  },
+  {
+   "scene": "plano 3",
+   "start": 2.46,
+   "end": 4.24,
+   "sfx_rms_db_rel_voice": -33.7,
+   "events": 2
+  },
+  {
+   "scene": "plano 4",
+   "start": 4.24,
+   "end": 5.54,
+   "sfx_rms_db_rel_voice": -30.1,
+   "events": 3
+  },
+  {
+   "scene": "plano 5",
+   "start": 5.54,
+   "end": 7.1,
+   "sfx_rms_db_rel_voice": -39.5,
+   "events": 1
+  },
+  {
+   "scene": "plano 6",
+   "start": 7.1,
+   "end": 8.38,
+   "sfx_rms_db_rel_voice": -27.6,
+   "events": 1
+  },
+  {
+   "scene": "plano 7",
+   "start": 8.38,
+   "end": 10.12,
+   "sfx_rms_db_rel_voice": -33.7,
+   "events": 3
+  },
+  {
+   "scene": "plano 8",
+   "start": 10.12,
+   "end": 11.56,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  },
+  {
+   "scene": "plano 9",
+   "start": 11.56,
+   "end": 13.42,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  },
+  {
+   "scene": "plano 10",
+   "start": 13.42,
+   "end": 14.98,
+   "sfx_rms_db_rel_voice": -42.1,
+   "events": 1
+  },
+  {
+   "scene": "plano 11",
+   "start": 14.98,
+   "end": 17.54,
+   "sfx_rms_db_rel_voice": -41.4,
+   "events": 2
+  },
+  {
+   "scene": "plano 12",
+   "start": 17.54,
+   "end": 19.52,
+   "sfx_rms_db_rel_voice": -27.1,
+   "events": 1
+  },
+  {
+   "scene": "plano 13",
+   "start": 19.52,
+   "end": 21.6,
+   "sfx_rms_db_rel_voice": -33.5,
+   "events": 3
+  },
+  {
+   "scene": "plano 14",
+   "start": 21.6,
+   "end": 22.88,
+   "sfx_rms_db_rel_voice": -35.6,
+   "events": 2
+  },
+  {
+   "scene": "plano 15",
+   "start": 22.88,
+   "end": 25.4,
+   "sfx_rms_db_rel_voice": -44.2,
+   "events": 1
+  },
+  {
+   "scene": "plano 16",
+   "start": 25.4,
+   "end": 26.37,
+   "sfx_rms_db_rel_voice": -26.7,
+   "events": 1
+  },
+  {
+   "scene": "plano 17",
+   "start": 26.37,
+   "end": 28.61,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  },
+  {
+   "scene": "plano 18",
+   "start": 28.61,
+   "end": 29.7,
+   "sfx_rms_db_rel_voice": -31.2,
+   "events": 5
+  },
+  {
+   "scene": "plano 19",
+   "start": 29.7,
+   "end": 30.62,
+   "sfx_rms_db_rel_voice": -26.0,
+   "events": 1
+  },
+  {
+   "scene": "plano 20",
+   "start": 30.62,
+   "end": 32.31,
+   "sfx_rms_db_rel_voice": -34.5,
+   "events": 2
+  },
+  {
+   "scene": "plano 21",
+   "start": 32.31,
+   "end": 33.76,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  },
+  {
+   "scene": "plano 22",
+   "start": 33.76,
+   "end": 35.19,
+   "sfx_rms_db_rel_voice": -35.9,
+   "events": 2
+  },
+  {
+   "scene": "plano 23",
+   "start": 35.19,
+   "end": 36.32,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  },
+  {
+   "scene": "plano 24",
+   "start": 36.32,
+   "end": 37.75,
+   "sfx_rms_db_rel_voice": -185.1,
+   "events": 0
+  }
+ ],
+ "sustained_over_1s": []
+}
