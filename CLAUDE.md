@@ -1,5 +1,13 @@
 # CLAUDE.md — Pipeline de vídeos 3D «MMO retro low-poly» para TikTok/Reels
 
+> **AL EMPEZAR CUALQUIER SESIÓN:** lee `docs/PIPELINE_STATE.md` (estado, historial y siguiente paso) y la última sesión de `docs/sessions/`, o usa `/resume-session`. No cambies nada hasta que el usuario lo pida. Al terminar o si se acaba el contexto: `/save-session`.
+
+## REGLAS DE PROTECCIÓN (permanentes)
+- **No modificar el narrador, el estilo ni el pipeline base sin permiso explícito del usuario.** El narrador (`config/narrator.json` + `retro3d/characters/narrator.py` + `config/narrator.lock`), el estilo (`STYLE.md`, `retro3d/style.py`) y el pipeline base (`make_video.py`, `retro3d/`) solo cambian si el usuario lo pide.
+- **Las novedades se añaden sin romper lo existente**: nuevas acciones, escenarios, recursos o tipos de plano como opciones adicionales; los guiones y vídeos anteriores deben seguir renderizando igual.
+- **Versiones**: cada vez que el usuario apruebe una versión, crear un tag de git anotado (`v1`, `v2`, …) en el commit correspondiente, hacer push del tag y apuntarlo en `docs/PIPELINE_STATE.md` (§12). Las versiones nuevas de un vídeo se guardan como `videos/NN-tema-vK.mp4` sin borrar las anteriores.
+- Skills del proyecto: `.claude/skills/save-session/SKILL.md` y `.claude/skills/resume-session/SKILL.md`.
+
 Este repositorio produce vídeos verticales explicativos (30–40 s) con estética de MMO
 low-poly de principios de los 2000, **100 % originales** y generados por código.
 El usuario pide vídeos nuevos en el chat; sigue este documento al pie de la letra.
