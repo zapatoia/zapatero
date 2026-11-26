@@ -150,6 +150,7 @@ class Prop:
                  bob=0.05, billboard=False, face_cam=False, yaw=0.0, unlit=False, pop_in=0.35, pop_out=0.25,
                  rise=0.0, emissive=0.0, shadow=True, wobble=0.0, tilt=0.0):
         self.parts = [(r.upload(m), tex, o) for (m, tex, o) in meshes]
+        self._bounds = [m.bounds() for (m, tex, o) in meshes if m.tris and tex != "planks"]
         self.t_in, self.t_out = t_in, t_out
         self.pos = np.asarray(pos, "f8")
         self.follow = follow          # función t -> posición base
@@ -158,15 +159,39 @@ class Prop:
         self.yaw, self.unlit, self.pop_in, self.pop_out = yaw, unlit, pop_in, pop_out
         self.rise, self.emissive, self.shadow, self.wobble, self.tilt = rise, emissive, shadow, wobble, tilt
         self.screen = None   # (nx, ny, profundidad): anclado al encuadre de cámara
+        self.text_spec = None  # (renderer, nombre_textura, función(reveal) -> imagen, nº letras)
+        self._reveal = None
         self.aspect = 9 / 16
 
     def alive(self, t):
         return t >= self.t_in and (self.t_out is None or t <= self.t_out + self.pop_out)
 
+    TEXT_RATE = 30.0       # letras por segundo
+    TEXT_FADE_OUT = 0.15   # los textos salen con un fundido rápido
+
+    def alpha_at(self, t):
+        if self.text_spec is None or self.t_out is None or t <= self.t_out:
+            return 1.0
+        return max(0.0, 1.0 - seg(t, self.t_out, self.t_out + self.TEXT_FADE_OUT))
+
+    def update_text(self, t):
+        if self.text_spec is None:
+            return
+        r, name, fn, n = self.text_spec
+        rv = max(0.0, min(float(n), (t - self.t_in - 0.12) * self.TEXT_RATE))
+        rv = round(rv * 3) / 3          # 3 pasos de fundido por letra (~0,1 s)
+        if rv != self._reveal:
+            img = fn(rv if rv < n else None)
+            from .textures import to_rgba_bytes
+            r.textures[name].write(to_rgba_bytes(img))
+            self._reveal = rv
+
     def scale_at(self, t):
         if t < self.t_in:
             return 0.0
         s = ease_out_back(seg(t, self.t_in, self.t_in + self.pop_in), 2.2)
+        if self.text_spec is not None:
+            return s
         if self.t_out is not None and t > self.t_out:
             s *= max(0.0, 1 - EASE["inback"](seg(t, self.t_out, self.t_out + self.pop_out)))
         return s
@@ -185,6 +210,10 @@ class Prop:
         s = self.scale_at(t) * self.scale_
         if s <= 1e-3:
             return []
+        self.update_text(t)
+        alpha = self.alpha_at(t)
+        if alpha <= 0.0:
+            return []
         lt = t - self.t_in
         p = self.base(t, cam) + np.array([0, 0, self.bob * math.sin(lt * 2.4) + self.rise * (1 - EASE["out"](seg(lt, 0, 0.5)))])
         if self.billboard or self.face_cam:
@@ -199,9 +228,10 @@ class Prop:
             R = rot_z(self.yaw)
         R = R @ rot_z(self.spin * lt + self.wobble * math.sin(lt * 3.0)) @ euler(self.tilt, 0, 0)
         Mx = translate(*p) @ R @ scale(s)
+        self._last_M = Mx
         return [Item(gm, Mx, tex=tex, unlit=o.get("unlit", self.unlit), emissive=o.get("emissive", self.emissive),
                      shadow=o.get("shadow", self.shadow), alpha_test=0.5, flip=o.get("flip", True),
-                     rim=0.0 if o.get("unlit", self.unlit) else 0.35)
+                     rim=0.0 if o.get("unlit", self.unlit) else 0.35, alpha=alpha)
                 for gm, tex, o in self.parts]
 
 
@@ -239,20 +269,31 @@ class Sparkles:
 
 # ------------------------------------------------------------------ fábricas
 
+def _letters(text):
+    return sum(1 for ch in text if not ch.isspace())
+
+
 def make_sign(r, name, text, t_in, pos, yaw=0.0, t_out=None, w=1.3, h=0.65, post=1.0):
-    r.add_texture(name, T.sign_texture(text, 128, int(round(128 * h / w / 8)) * 8 or 64), repeat=False)
+    th = int(round(128 * h / w / 8)) * 8 or 64
+    fn = lambda rv: T.sign_texture(text, 128, th, reveal=rv)
+    r.add_texture(name, fn(0.0), repeat=False)
     wood, face = sign_mesh(w, h, post)
-    return Prop(r, [(wood, "planks", {}), (face, name, {"shadow": False})], t_in, t_out, pos=pos, yaw=yaw,
-                bob=0.0, rise=-0.0, pop_in=0.45)
+    pr = Prop(r, [(wood, "planks", {}), (face, name, {"shadow": False})], t_in, t_out, pos=pos, yaw=yaw,
+              bob=0.0, rise=-0.0, pop_in=0.45, pop_out=0.15)
+    pr.text_spec = (r, name, fn, _letters(text))
+    return pr
 
 
 def make_bubble(r, name, text, t_in, t_out, follow, w=1.0):
-    img = T.bubble_texture(text)
+    fn = lambda rv: T.bubble_texture(text, reveal=rv)
+    img = fn(0.0)
     r.add_texture(name, img, repeat=False)
     h = w * img.height / img.width
     m = M.decal(w, h, center=(w * 0.12, 0, h / 2))
-    return Prop(r, [(m, name, {"unlit": True, "shadow": False, "flip": True})], t_in, t_out, follow=follow,
-                billboard=True, bob=0.03, pop_in=0.3)
+    pr = Prop(r, [(m, name, {"unlit": True, "shadow": False, "flip": True})], t_in, t_out, follow=follow,
+              billboard=True, bob=0.03, pop_in=0.3, pop_out=0.15)
+    pr.text_spec = (r, name, fn, _letters(text))
+    return pr
 
 
 def make_icon(r, kind, t_in, t_out=None, pos=(0, 0, 0), follow=None, size=1.0, spin=0.0, wobble=0.25, **kw):

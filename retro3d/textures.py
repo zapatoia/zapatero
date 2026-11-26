@@ -262,8 +262,51 @@ def fit_text(text, w, h, max_scale=4):
             sc = min(max_scale, w // tw, h // th)
             score = sc * 10 + sp - len(lines) * 0.1
             if sc >= 1 and (best is None or score > best[0]):
-                best = (score, bm, sc)
+                best = (score, bm, sc, lines, sp)
     return best[1], best[2]
+
+
+def fit_layout(text, w, h, max_scale=4):
+    """Como fit_text, pero devuelve también las líneas y el espaciado (para escribir letra a letra)."""
+    words = text.split()
+    layouts = [[text]]
+    for n in range(2, min(4, len(words)) + 1):
+        per = math.ceil(len(words) / n)
+        layouts.append([" ".join(words[i:i + per]) for i in range(0, len(words), per)])
+    best = None
+    for lines in layouts:
+        for sp in (1, 0):
+            bm = font.bitmap_array(font.trim_rows(font.text_bitmap("\n".join(lines), spacing=sp)))
+            th, tw = bm.shape
+            sc = min(max_scale, w // tw, h // th)
+            score = sc * 10 + sp - len(lines) * 0.1
+            if sc >= 1 and (best is None or score > best[0]):
+                best = (score, lines, sp, sc)
+    return best[1], best[2], best[3]
+
+
+def progressive_bitmaps(lines, sp, reveal):
+    """Bitmaps con las letras reveladas (enteras) y la siguiente (parcial), misma maquetación
+    que el texto completo. Devuelve (bm_lleno, bm_parcial, alfa_parcial)."""
+    full_rows = font.text_bitmap("\n".join(lines), spacing=sp)
+    nz = [i for i, r in enumerate(full_rows) if "#" in r]
+    r0, r1 = nz[0], nz[-1]
+    flat = "\n".join(lines)
+    k = int(math.floor(reveal))
+    frac = reveal - k
+
+    def masked(n):
+        out, cnt = [], 0
+        for ch in flat:
+            if ch == "\n":
+                out.append(ch)
+                continue
+            out.append(ch if cnt < n or ch == " " else " ")
+            cnt += 1
+        return "".join(out)
+    a = font.bitmap_array(font.text_bitmap(masked(k), spacing=sp)[r0:r1 + 1])
+    b = font.bitmap_array(font.text_bitmap(masked(k + 1), spacing=sp)[r0:r1 + 1])
+    return a, b & ~a, frac
 
 
 def _blit_text(img, bm, sc, ox, oy, col):
@@ -275,19 +318,33 @@ def _blit_text(img, bm, sc, ox, oy, col):
                 d.rectangle([ox + x * sc, oy + y * sc, ox + x * sc + sc - 1, oy + y * sc + sc - 1], fill=col)
 
 
-def sign_texture(text, w=128, h=64, seed=20):
-    """Tablón liso con marco y texto oscuro."""
-    img = Image.new("RGBA", (w, h), tuple(int(c * 255) for c in _c("wood_c")) + (255,))
+def _blit_progressive(img, text, w, h, ox_pad, oy_pad, ink, bg, reveal):
+    lines, sp, sc = fit_layout(text, w, h)
+    full = font.bitmap_array(font.trim_rows(font.text_bitmap("\n".join(lines), spacing=sp)))
+    th, tw = full.shape
+    ox, oy = ox_pad + (w - tw * sc) // 2, oy_pad + (h - th * sc) // 2
+    if reveal is None:
+        _blit_text(img, full, sc, ox, oy, ink)
+        return
+    a, b, frac = progressive_bitmaps(lines, sp, reveal)
+    _blit_text(img, a, sc, ox, oy, ink)
+    if frac > 0:   # letra en curso: se funde y sube 1 píxel
+        mix = tuple(int(bg[i] + (ink[i] - bg[i]) * frac) for i in range(3)) + (255,)
+        _blit_text(img, b, sc, ox, oy + (sc if frac < 0.5 else 0), mix)
+
+
+def sign_texture(text, w=128, h=64, seed=20, reveal=None):
+    """Tablón liso con marco y texto oscuro (reveal = nº de letras visibles, con decimales)."""
+    bg = tuple(int(c * 255) for c in _c("wood_c")) + (255,)
+    img = Image.new("RGBA", (w, h), bg)
     d = ImageDraw.Draw(img)
     fr = tuple(int(c * 255) for c in _c("wood_b") * 0.8) + (255,)
     d.rectangle([0, 0, w - 1, h - 1], outline=fr, width=3)
-    bm, sc = fit_text(text, w - 12, h - 10)
-    th, tw = bm.shape
-    _blit_text(img, bm, sc, (w - tw * sc) // 2, (h - th * sc) // 2, (52, 30, 16, 255))
+    _blit_progressive(img, text, w - 12, h - 10, 6, 5, (52, 30, 16, 255), bg, reveal)
     return img
 
 
-def bubble_texture(text=None, icon=None, w=128, h=80):
+def bubble_texture(text=None, icon=None, w=128, h=80, reveal=None):
     """Bocadillo: papel claro con borde oscuro de 2 px y cola."""
     img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
@@ -299,9 +356,7 @@ def bubble_texture(text=None, icon=None, w=128, h=80):
     d.polygon([(22, bh - 2), (44, bh - 2), (18, h - 2)], fill=ink)
     d.polygon([(25, bh - 3), (40, bh - 3), (21, h - 6)], fill=paper)
     if text:
-        bm, sc = fit_text(text, w - 16, bh - 14)
-        th, tw = bm.shape
-        _blit_text(img, bm, sc, (w - tw * sc) // 2, (bh - th * sc) // 2 + 1, ink)
+        _blit_progressive(img, text, w - 16, bh - 14, 8, 8, ink, paper, reveal)
     return img
 
 

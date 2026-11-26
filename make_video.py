@@ -117,6 +117,25 @@ def storyboard(script, words, dur, bdir, W, H, env=None, name="storyboard"):
     return p, prod, bad
 
 
+def _project_box(prod, cam, pr):
+    """Caja en pantalla (px) de un bocadillo/cartel visible, para detectar texto cortado."""
+    M = getattr(pr, "_last_M", None)
+    if M is None or not pr.parts:
+        return None
+    pts = []
+    for (mn, mx) in getattr(pr, "_bounds", []):
+        for x in (mn[0], mx[0]):
+            for y in (mn[1], mx[1]):
+                for z in (mn[2], mx[2]):
+                    pts.append((M @ np.array([x, y, z, 1.0]))[:3])
+    if not pts:
+        return None
+    P = prod.r.project(cam, np.array(pts))
+    if (P[:, 2] <= 0).any():
+        return None
+    return P[:, 0].min(), P[:, 1].min(), P[:, 0].max(), P[:, 1].max()
+
+
 def render_video(script, words, dur, env, bdir, W, H, t_from=0.0, t_to=None, contact=False, fps=30):
     prod = Production(script, words, dur, W, H, env=env, fps=fps)
     subs = Subtitles(words, W, H)
@@ -126,32 +145,132 @@ def render_video(script, words, dur, env, bdir, W, H, t_from=0.0, t_to=None, con
     ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
                            "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
                            "-pix_fmt", "yuv420p", "-movflags", "+faststart", vid], stdin=subprocess.PIPE)
-    contact_imgs = []
-    safe_viol = []
+    shots = prod.shot_report()
+    mids = {int(round((t0 + (t1 - t0) * 0.6) * fps)): i for i, t0, t1, _ in shots}
+    qa = {"penetrations": [], "safe_zone": [], "text_cut": [], "contacts": [], "shot_frames": {},
+          "mouth_agree": [], "floating": []}
+    first_contact = {}
     t_start = time.time()
     for k in range(n0, n1):
         t = k / fps
         img, cam = prod.frame(t)
+        # 1) interpenetraciones (volúmenes de colisión por pieza)
+        for a_, b_, dep in prod.check_penetrations():
+            qa["penetrations"].append((round(t, 2), f"{a_.owner}.{a_.node}", f"{b_.owner}.{b_.node}", round(dep, 3)))
+        # 2) pies: ninguno por debajo del suelo ni flotando fuera de un salto
+        for name, ch in prod.cast.items():
+            from retro3d import physics as PH
+            gz = prod.world.height(ch.transform[0, 3], ch.transform[1, 3])
+            dz = PH.lowest(ch, ch.FEET) - gz
+            air = ch.kind == "dog" and np.asarray(ch.cur_pose.get("root.p", np.zeros(3)))[2] > 0.005
+            if dz < -0.015 or (dz > 0.02 and not air):
+                qa["floating"].append((round(t, 2), name, round(float(dz), 3)))
+        # 3) contactos lengua→superficie
+        for name, info in getattr(prod, "contacts", {}).items():
+            if info.get("contact"):
+                acts = [e for e in prod.cast[name].timeline if e[0] <= t and e[1] in ("lick", "lick_paw")]
+                key = (name, acts[-1][0] if acts else 0)
+                if key not in first_contact:
+                    first_contact[key] = t
+                    qa["contacts"].append((round(t, 2), name, info.get("gap")))
+        # 4) textos 3D cortados (bocadillos / carteles visibles)
+        for pr in prod.props:
+            if getattr(pr, "text_spec", None) is not None and pr.alive(t) and pr.alpha_at(t) > 0.5 and pr.scale_at(t) > 0.95:
+                bx = _project_box(prod, cam, pr)
+                if bx and (bx[0] < 0 or bx[1] < 0 or bx[2] > W or bx[3] > H):
+                    qa["text_cut"].append((round(t, 2), [round(v) for v in bx]))
+        # 5) subtítulos en zona segura
         bb = subs.bbox(t)
-        if bb and (bb[3] > H * 0.8 or bb[2] > W * 0.88):
-            safe_viol.append((round(t, 2), bb))
+        if bb and (bb[3] > H * 0.8 or bb[2] > W * 0.88 or bb[0] < 0 or bb[1] < 0):
+            qa["safe_zone"].append((round(t, 2), bb))
         img = subs.composite(img, t)
         ff.stdin.write(img.tobytes())
-        if contact and k % int(fps * 1.0) == 0:
-            contact_imgs.append(label(Image.fromarray(img).resize((W // 3, H // 3)), f"{t:.1f}s"))
+        if k in mids:
+            i = mids[k]
+            t0_, t1_ = shots[i][1], shots[i][2]
+            sh = shots[i][3]
+            qa["shot_frames"][i] = label(Image.fromarray(img).resize((W // 2, H // 2)),
+                                         f"{i + 1} {sh.get('type')}/{sh.get('size', 'medium')} {t1_ - t0_:.1f}s",
+                                         words_text(words, t0_, t1_)[:44])
+        # 6) boca: abierta cuando hay voz, cerrada en silencio
+        if env is not None:
+            lv = prod.lips.level(t)
+            m = prod.mouth[min(k, len(prod.mouth) - 1)]
+            qa["mouth_agree"].append((lv > 0.12) == (m != "X") or 0.08 < lv < 0.16)
         if (k - n0) % 90 == 0:
             el = time.time() - t_start
             print(f"  fotograma {k - n0}/{n1 - n0}  ({el:.0f} s, {el / max(1, k - n0 + 1):.2f} s/fot)", flush=True)
     ff.stdin.close()
     ff.wait()
     secs = time.time() - t_start
-    cpath = sheet(contact_imgs, 6, os.path.join(bdir, "contact.jpg")) if contact_imgs else None
-    return vid, prod, secs, n1 - n0, cpath, safe_viol
+    # hoja de contacto: 1 fotograma por plano
+    ims = [qa["shot_frames"][i] for i in sorted(qa["shot_frames"])]
+    cpath = sheet(ims, 6, os.path.join(bdir, "contact.jpg")) if ims else None
+    ctpath = contact_closeups(prod, qa["contacts"], bdir, W, H)
+    qa["render_s"] = secs
+    return vid, prod, secs, n1 - n0, cpath, qa, ctpath
+
+
+def contact_closeups(prod, contacts, bdir, W, H):
+    """Primer plano de cada momento de contacto (lado y 3/4 elevado) para revisión."""
+    from retro3d.render import Camera
+    closes = []
+    for (t, name, gap) in contacts:
+        prod.frame(t)
+        dog = prod.cast[name]
+        tip = (dog.world_matrices()["tongue"] @ np.array([0, -0.15, 0, 1.0]))[:3]   # punta = punto de contacto
+        yaw = math.atan2(-dog.transform[0, 1], dog.transform[1, 1])
+        for az, el, lab_ in ((90, 0.15, "lado"), (50, 0.5, "3/4 alto")):
+            a_ = yaw + math.radians(az)
+            eye = tip + np.array([math.sin(a_), -math.cos(a_), el]) * 1.7
+            img, _ = prod.frame(t, cam=Camera(eye, tip, 32))
+            closes.append(label(Image.fromarray(img).crop((0, H // 2 - W // 2, W, H // 2 + W // 2)).resize((400, 400)),
+                                f"{name} {t:.2f}s {lab_}"))
+    return sheet(closes, 4, os.path.join(bdir, "contactos.jpg")) if closes else None
+
+
+def write_qa(prod, qa, bdir, lufs=None, tp=None, sfx_rep=None):
+    from retro3d import camera as CAM
+    issues = CAM.validate(prod.shots, prod.duration)
+    L = ["# Revisión automática antes de entregar", ""]
+    L.append(f"- Planos: {len(prod.shots)}; reglas de montaje: " + ("OK" if not issues else f"{len(issues)} avisos"))
+    L += [f"  - {x}" for x in issues]
+    clr = min(prod.clearance.values()) if prod.clearance else None
+    L.append(f"- Cámara dentro de modelos/suelo: holgura mínima {clr:.2f} m (mín. exigido {prod.MIN_CLEAR} m)" if clr is not None else "- Cámara: sin datos")
+    L.append(f"- Interpenetraciones (>{2} cm) en fotogramas: {len(qa['penetrations'])}")
+    for x in qa["penetrations"][:15]:
+        L.append(f"  - {x}")
+    L.append(f"- Pies hundidos/flotando: {len(qa['floating'])}")
+    for x in qa["floating"][:10]:
+        L.append(f"  - {x}")
+    L.append(f"- Contactos lengua→superficie detectados: {len(qa['contacts'])} (ver contactos.jpg)")
+    L.append(f"- Subtítulos fuera de zona segura: {len(qa['safe_zone'])}")
+    L.append(f"- Textos 3D cortados por el borde: {len(qa['text_cut'])}")
+    for x in qa["text_cut"][:10]:
+        L.append(f"  - {x}")
+    if qa["mouth_agree"]:
+        L.append(f"- Boca abierta/cerrada coherente con la voz: {100 * np.mean(qa['mouth_agree']):.1f} % de fotogramas")
+    if lufs is not None:
+        L.append(f"- Sonoridad MP4: {lufs:.1f} LUFS, pico verdadero {tp:.1f} dBTP")
+    if sfx_rep is not None:
+        L.append(f"- Efectos: {len(sfx_rep['events'])} eventos; sostenidos >1 s: {len(sfx_rep['sustained_over_1s'])}")
+    with open(os.path.join(bdir, "qa.md"), "w") as f:
+        f.write("\n".join(L) + "\n")
+    return issues
 
 
 def make_audio(prod, voice, dur, bdir, t_from=0.0):
-    events = sorted(prod.sfx)
-    mix = A.mix(voice, events, dur)
+    events = sorted(prod.sfx, key=lambda e: e["t"])
+    mix, bus, detail = A.mix(voice, events, dur, ambience_db=prod.script.get("ambience_db"))
+    scenes = []
+    for i, t0, t1, sh in prod.shot_report():
+        scenes.append((f"plano {i + 1}", t0, t1))
+    rep = A.sfx_report(bus, detail, voice, scenes)
+    prod.sfx_rep = rep
+    with open(os.path.join(bdir, "sfx_report.json"), "w") as f:
+        json.dump(rep, f, ensure_ascii=False, indent=1)
+    write_sfx_md(rep, os.path.join(bdir, "sfx_report.md"))
+    print(f"  efectos: {len(detail)} eventos, sostenidos >1 s: {len(rep['sustained_over_1s'])}")
     if t_from:
         mix = mix[int(t_from * A.SR):]
     raw = os.path.join(bdir, "mix_raw.wav")
@@ -161,6 +280,23 @@ def make_audio(prod, voice, dur, bdir, t_from=0.0):
     print(f"  máster: {L:.2f} LUFS, pico verdadero {tp:.2f} dBTP (antes de AAC)")
     A.write_wav(norm, y)
     return norm, events
+
+
+def write_sfx_md(rep, path):
+    L = ["# Efectos de sonido", "", f"RMS de la voz hablada: {rep['voice_rms_dbfs']} dBFS. "
+         "Niveles relativos a la voz (regla: entre -18 y -24 dB), con atenuación extra de 6 dB mientras se habla.", "",
+         "| # | tiempo (s) | tipo | dur (s) | nivel vs voz | motivo |", "|---|---|---|---|---|---|"]
+    for i, e in enumerate(rep["events"], 1):
+        L.append(f"| {i} | {e['t']:.2f} | {e['type']} | {e['dur']} | {e['rel_db']} dB | {e.get('why', '')} |")
+    L += ["", "## Energía del bus de efectos por plano", "", "| plano | inicio | fin | eventos | RMS efectos vs voz |",
+          "|---|---|---|---|---|"]
+    for sc in rep["scenes"]:
+        lv = "silencio" if sc["events"] == 0 else f"{sc['sfx_rms_db_rel_voice']} dB"
+        L.append(f"| {sc['scene']} | {sc['start']} | {sc['end']} | {sc['events']} | {lv} |")
+    L += ["", "## Sonidos sostenidos > 1 s", ""]
+    L += [f"- {x['start']}-{x['end']} s" for x in rep["sustained_over_1s"]] or ["Ninguno."]
+    with open(path, "w") as f:
+        f.write("\n".join(L) + "\n")
 
 
 def mux(vid, aud, out):
@@ -221,7 +357,8 @@ def main():
         for i, d in bad:
             print(f"  ⚠ plano {i + 1} dura {d:.1f} s")
         return
-    vid, prod, secs, nf, cpath, viol = render_video(script, words, dur, env, bdir, W, H, a.t_from, a.t_to, a.contact)
+    vid, prod, secs, nf, cpath, qa, ctpath = render_video(script, words, dur, env, bdir, W, H, a.t_from, a.t_to, a.contact)
+    viol = qa["safe_zone"]
     print(f"  render: {nf} fotogramas en {secs:.0f} s ({secs / nf:.2f} s/fotograma)")
     aud, events = make_audio(prod, voice, dur if a.t_to is None else a.t_to, bdir, a.t_from)
     out = a.out or os.path.join(ROOT, "videos", script["id"] + ("-preview" if a.preview else "") + ".mp4")
@@ -233,8 +370,10 @@ def main():
                 "duration": dur, "sfx": len(events)})
     with open(os.path.join(bdir, "report.json"), "w") as f:
         json.dump(log, f, indent=1, default=float)
-    if viol:
-        print(f"  ⚠ subtítulos fuera de zona segura en {len(viol)} fotogramas")
+    issues = write_qa(prod, qa, bdir, I, tp, getattr(prod, "sfx_rep", None))
+    print(open(os.path.join(bdir, "qa.md")).read())
+    if ctpath:
+        print(f"  primeros planos de contactos: {ctpath}")
     if cpath:
         print(f"  hoja de contacto: {cpath}")
     print(f"  → {out}")

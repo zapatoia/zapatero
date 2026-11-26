@@ -317,7 +317,7 @@ class World:
         if getattr(self, "has_interior", False):
             from . import interior
             if interior.contains(x, y):
-                return 0.0
+                return interior.surface_height(x, y)
         return float(ground_h(x, y))
 
     def zone(self, x, y):

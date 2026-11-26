@@ -186,16 +186,6 @@ def _t(d, sr=SR):
     return np.arange(int(d * sr)) / sr
 
 
-def _adsr(n, a=0.005, r=0.1, sr=SR):
-    env = np.ones(n)
-    na, nr = int(a * sr), int(r * sr)
-    if na:
-        env[:na] = np.linspace(0, 1, na)
-    if nr and nr < n:
-        env[-nr:] *= np.linspace(1, 0, nr) ** 2
-    return env
-
-
 def _noise(n, seed):
     return np.random.default_rng(seed).uniform(-1, 1, n)
 
@@ -205,122 +195,155 @@ def _lp(x, a):
     return lfilter([a], [1, -(1 - a)], x)
 
 
+def _fade(x, fin=0.005, fout=0.03, sr=SR):
+    """Fundido de entrada y salida (coseno) en cada efecto."""
+    x = x.copy()
+    ni, no = max(1, int(fin * sr)), max(1, int(fout * sr))
+    ni, no = min(ni, len(x) // 2), min(no, len(x) // 2)
+    x[:ni] *= 0.5 - 0.5 * np.cos(np.linspace(0, np.pi, ni))
+    x[-no:] *= 0.5 + 0.5 * np.cos(np.linspace(0, np.pi, no))
+    return x
+
+
+# Efectos SUAVES (nada estridente). Cada uno es un evento puntual y corto.
 def sfx_pop(seed=0):
-    t = _t(0.12)
-    f = 300 + 900 * np.exp(-t * 40)
-    ph = 2 * np.pi * np.cumsum(f) / SR
-    return np.sin(ph) * np.exp(-t * 30) * 0.8
-
-
-def sfx_ding(seed=0, base=1320.0):
-    t = _t(0.9)
-    y = sum(a * np.sin(2 * np.pi * base * k * t) * np.exp(-t * d) for a, k, d in
-            ((1.0, 1, 5), (0.5, 2.01, 8), (0.25, 3.02, 12), (0.15, 4.2, 16)))
-    return y * _adsr(len(t), 0.002, 0.3) * 0.45
-
-
-def sfx_blip(seed=0):
-    t = _t(0.09)
-    return np.sign(np.sin(2 * np.pi * (880 + 400 * (t > 0.045)) * t)) * np.exp(-t * 25) * 0.25
-
-
-def sfx_step(seed=0):
-    n = _noise(int(0.09 * SR), seed)
-    n = _lp(n, 0.08)
-    t = _t(0.09)
-    thump = np.sin(2 * np.pi * 90 * t) * np.exp(-t * 45)
-    return (n * 2.5 + thump) * np.exp(-t * 35) * 0.5
-
-
-def sfx_lick(seed=0):
-    """Lametón húmedo: ruido filtrado con barrido + chasquido final."""
-    d = 0.22
-    t = _t(d)
-    n = _noise(len(t), seed + 3)
-    a = 0.05 + 0.25 * (t / d)
-    y = np.empty_like(n)
-    acc = 0.0
-    for i, v in enumerate(n):
-        acc += a[i] * (v - acc)
-        y[i] = acc
-    env = np.sin(np.pi * t / d) ** 1.5
-    click = np.zeros_like(t)
-    k = int(0.17 * SR)
-    click[k:k + 300] = np.sin(2 * np.pi * 1800 * _t(300 / SR)) * np.exp(-np.arange(300) / 60)
-    wob = 1 + 0.4 * np.sin(2 * np.pi * 38 * t)
-    return (y * env * wob * 2.2 + click * 0.4) * 0.6
-
-
-def sfx_boing(seed=0):
-    t = _t(0.45)
-    f = 180 + 220 * np.exp(-t * 6) * (1 + 0.15 * np.sin(2 * np.pi * 14 * t))
-    ph = 2 * np.pi * np.cumsum(f) / SR
-    return np.sin(ph) * np.exp(-t * 6) * 0.5
+    t = _t(0.07)
+    f = 420 + 380 * np.exp(-t * 60)
+    return _fade(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 45), 0.002, 0.03)
 
 
 def sfx_whoosh(seed=0):
-    d = 0.35
+    d = 0.28
     t = _t(d)
-    n = _noise(len(t), seed + 7)
-    a = 0.02 + 0.2 * np.sin(np.pi * t / d)
-    y = np.empty_like(n)
-    acc = 0.0
-    for i, v in enumerate(n):
-        acc += a[i] * (v - acc)
-        y[i] = acc
-    return y * np.sin(np.pi * t / d) ** 2 * 1.6
+    y = _lp(_lp(_noise(len(t), seed + 7), 0.05), 0.08)
+    return _fade(y / (np.abs(y).max() + 1e-9) * np.sin(np.pi * t / d) ** 2, 0.03, 0.08)
+
+
+def sfx_step(seed=0):
+    t = _t(0.06)
+    y = _lp(_noise(len(t), seed), 0.06) * 3 + np.sin(2 * np.pi * 110 * t) * 0.6
+    return _fade(y * np.exp(-t * 55), 0.002, 0.025)
+
+
+def sfx_lick(seed=0):
+    """Lametón corto y blando (0,14 s): ruido muy filtrado con un leve barrido."""
+    d = 0.14
+    t = _t(d)
+    n = _noise(len(t), seed + 3)
+    y = _lp(_lp(n, 0.12), 0.18)
+    y = y / (np.abs(y).max() + 1e-9) * np.sin(np.pi * t / d) ** 1.5
+    return _fade(y, 0.01, 0.04)
+
+
+def sfx_ding(seed=0, base=880.0):
+    t = _t(0.35)
+    y = np.sin(2 * np.pi * base * t) + 0.3 * np.sin(2 * np.pi * base * 2.0 * t) * np.exp(-t * 12)
+    return _fade(y * np.exp(-t * 9), 0.003, 0.1)
+
+
+def sfx_blip(seed=0):
+    t = _t(0.06)
+    return _fade(np.sin(2 * np.pi * (660 + 220 * (t > 0.03)) * t) * np.exp(-t * 30), 0.003, 0.02)
 
 
 def sfx_thud(seed=0):
-    t = _t(0.25)
-    return (np.sin(2 * np.pi * 70 * t) * np.exp(-t * 18) + _lp(_noise(len(t), seed), 0.1) * np.exp(-t * 30)) * 0.6
+    t = _t(0.12)
+    return _fade(np.sin(2 * np.pi * 75 * t) * np.exp(-t * 30), 0.003, 0.04)
+
+
+def sfx_boing(seed=0):
+    t = _t(0.22)
+    f = 220 + 160 * np.exp(-t * 10)
+    return _fade(np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 12), 0.005, 0.06)
 
 
 SFX = {"pop": sfx_pop, "ding": sfx_ding, "blip": sfx_blip, "step": sfx_step, "lick": sfx_lick,
        "boing": sfx_boing, "whoosh": sfx_whoosh, "thud": sfx_thud}
 
-SFX_GAIN_DB = {"pop": -21, "ding": -24, "blip": -24, "step": -27, "lick": -19, "boing": -23, "whoosh": -30, "thud": -24}
+# dB por debajo de la voz (RMS de los tramos hablados). Regla: 18-24 dB.
+SFX_REL_DB = {"pop": -20, "ding": -22, "blip": -22, "step": -24, "lick": -20, "boing": -22, "whoosh": -22, "thud": -22}
 
 
-def ambience(dur, seed=1):
-    """Viento suave + pájaros sintéticos ocasionales (sin música)."""
+def _rms(x):
+    return float(np.sqrt(np.mean(x ** 2) + 1e-20))
+
+
+def voice_rms(voice, sr=SR):
+    env = envelope(voice, sr)
+    thr = env.max() * 10 ** (-30 / 20)
+    act = env[env > thr]
+    return float(np.sqrt(np.mean(act ** 2))) if len(act) else _rms(voice)
+
+
+def mix(voice, events, dur, duck_db=-6.0, ambience_db=None):
+    """Mezcla voz + efectos puntuales.
+
+    events: lista de dicts {t, type, gain (dB extra, opcional), why}
+    - cada efecto se normaliza a SFX_REL_DB respecto al RMS de la voz hablada
+    - fundidos en cada evento; atenuación extra (duck_db) mientras se habla
+    Devuelve (mezcla, bus_efectos, lista_eventos_detallada)."""
     n = int(dur * SR)
-    rng = np.random.default_rng(seed)
-    w = _noise(n, seed)
-    w = _lp(w, 0.01)
-    w = _lp(w, 0.02)
-    mod = 0.6 + 0.4 * np.sin(2 * np.pi * 0.11 * np.arange(n) / SR + 1)
-    y = w / (np.abs(w).max() + 1e-9) * mod * 0.5
-    t = 0.7
-    while t < dur - 1:
-        k = int(t * SR)
-        for c in range(rng.integers(2, 4)):
-            tt = _t(0.07)
-            f0 = rng.uniform(2800, 4200)
-            f = f0 + 900 * np.sin(np.pi * tt / 0.07)
-            ph = 2 * np.pi * np.cumsum(f) / SR
-            s = np.sin(ph) * np.sin(np.pi * tt / 0.07) * 0.18
-            kk = k + int(c * 0.11 * SR)
-            if kk + len(s) < n:
-                y[kk:kk + len(s)] += s
-        t += rng.uniform(2.5, 5.5)
-    return y
-
-
-def mix(voice, events, dur, amb_db=-36.0):
-    n = int(dur * SR) + SR
     out = np.zeros(n)
-    out[:len(voice)] += voice
-    for (t, name, gain_db) in events:
-        s = SFX[name](seed=int(t * 100))
-        g = 10 ** ((SFX_GAIN_DB.get(name, -24) + gain_db) / 20)
-        k = int(t * SR)
+    out[:min(n, len(voice))] += voice[:n]
+    bus = np.zeros(n)
+    vr = voice_rms(voice)
+    detail = []
+    for ev in sorted(events, key=lambda e: e["t"]):
+        s = SFX[ev["type"]](seed=int(ev["t"] * 100))
+        rel = SFX_REL_DB[ev["type"]] + ev.get("gain", 0.0)
+        rel = max(-24.0, min(-18.0, rel))          # siempre dentro de 18-24 dB bajo la voz
+        g = vr * 10 ** (rel / 20) / _rms(s)
+        k = int(ev["t"] * SR)
         if 0 <= k < n:
             m = min(len(s), n - k)
-            out[k:k + m] += s[:m] * g
-    amb = ambience(dur)
-    out[:len(amb)] += amb * 10 ** (amb_db / 20)
-    return out[:int(dur * SR)]
+            bus[k:k + m] += s[:m] * g
+        detail.append({**ev, "rel_db": round(rel, 1), "dur": round(len(s) / SR, 3)})
+    # atenuación mientras se habla (ataque 20 ms, liberación 150 ms)
+    env = envelope(voice) if len(voice) else np.zeros(1)
+    thr = env.max() * 10 ** (-32 / 20)
+    talking = np.repeat((env > thr).astype(float), int(0.01 * SR))
+    talking = np.pad(talking, (0, max(0, n - len(talking))))[:n]
+    from scipy.ndimage import maximum_filter1d
+    from scipy.signal import lfilter
+    talking = maximum_filter1d(talking, int(0.15 * SR))
+    a = math.exp(-1 / (0.02 * SR))
+    talking = lfilter([1 - a], [1, -a], talking)
+    duck = 10 ** (duck_db * np.clip(talking, 0, 1) / 20)
+    bus *= duck
+    out += bus
+    if ambience_db is not None:   # solo si el guion lo pide explícitamente
+        amb = _lp(_lp(_noise(n, 1), 0.01), 0.02)
+        out += amb / (np.abs(amb).max() + 1e-9) * vr * 10 ** (ambience_db / 20)
+    return out, bus, detail
+
+
+def sfx_report(bus, detail, voice, segments, sr=SR, sustain_s=1.0):
+    """Verificación: energía del bus de efectos por escena y sonidos sostenidos > sustain_s."""
+    vr = voice_rms(voice)
+    env = envelope(bus, sr, 0.05)
+    thr = vr * 10 ** (-40 / 20)          # «suena» = por encima de -40 dB respecto a la voz
+    on = env > thr
+    sustained = []
+    run = 0
+    for i, v in enumerate(on):
+        run = run + 1 if v else 0
+        if run * 0.05 > sustain_s and (not sustained or sustained[-1][1] < i - run):
+            sustained.append((round((i - run + 1) * 0.05, 2), i))
+    sust = []
+    for st, end in sustained:
+        j = end
+        while j < len(on) and on[j]:
+            j += 1
+        sust.append({"start": st, "end": round(j * 0.05, 2)})
+    scenes = []
+    for name, a, b in segments:
+        seg = bus[int(a * sr):int(b * sr)]
+        e = _rms(seg) if len(seg) else 0.0
+        scenes.append({"scene": name, "start": round(a, 2), "end": round(b, 2),
+                       "sfx_rms_db_rel_voice": round(20 * math.log10(e / vr + 1e-12), 1),
+                       "events": sum(1 for d in detail if a <= d["t"] < b)})
+    return {"voice_rms_dbfs": round(20 * math.log10(vr + 1e-12), 1), "events": detail, "scenes": scenes,
+            "sustained_over_1s": sust}
 
 
 # ------------------------------------------------------------------ sonoridad

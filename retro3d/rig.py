@@ -19,6 +19,7 @@ class Node:
         self.meshes = {}       # tex -> Mesh (CPU, antes de subir)
         self.gpu = []          # (GPUMesh, tex, opts)
         self.decals = []       # (GPUMesh, tex, key) uvrect dinámico
+        self.parts = []        # cajas locales (min, max) de cada pieza → volúmenes de colisión
         self.reset()
 
     def reset(self):
@@ -30,8 +31,11 @@ class Node:
         self.children.append(child)
         return child
 
-    def attach(self, mesh, tex="white"):
+    def attach(self, mesh, tex="white", collide=True):
         self.meshes.setdefault(tex, Mesh()).extend(mesh)
+        if collide and mesh.tris:
+            P = np.asarray(mesh.p)
+            self.parts.append((P.min(0), P.max(0)))
         return self
 
     def local(self):

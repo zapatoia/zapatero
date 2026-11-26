@@ -47,53 +47,21 @@
    "shots": [
     {
      "at": "start",
-     "sub": [
-      0.45,
-      0.72,
-      0.9
-     ],
-     "lift": 0.0,
-     "dist": [
-      3.9,
-      3.4
-     ],
-     "az": [
-      26,
-      16
-     ],
-     "el": [
-      14,
-      11
-     ],
-     "fov": 40,
-     "punch": [
-      7.5,
-      0.38
-     ],
-     "shake": 0.04
+     "type": "establish",
+     "sub": "two",
+     "size": "medium",
+     "az": 26,
+     "el": 12,
+     "from": 3.0,
+     "el_from": 40
     },
     {
      "at": "solo",
+     "type": "push",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      2.4,
-      2.05
-     ],
-     "az": [
-      -10,
-      -4
-     ],
-     "el": [
-      10,
-      9
-     ],
-     "punch": [
-      3.6,
-      0.22
-     ],
-     "shake": 0.025
+     "size": "close",
+     "az": -8,
+     "el": 8
     }
    ],
    "acts": [
@@ -107,8 +75,13 @@
      "at": "start",
      "who": "dog",
      "act": "lick",
-     "up": 0.55,
-     "reach": 0.02
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
     },
     {
      "at": "solo",
@@ -158,6 +131,9 @@
       1.15
      ]
     }
+   ],
+   "zooms": [
+    "quiera"
    ]
   },
   {
@@ -166,61 +142,31 @@
    "shots": [
     {
      "at": "start",
+     "type": "orbit",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      3.2,
-      2.7
-     ],
-     "az": [
-      14,
-      6
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "medium",
+     "az": 25,
+     "deg": -55,
+     "el": 10
     },
     {
      "at": "sudas",
-     "sub": [
-      0.74,
-      0.63,
-      0.66
-     ],
-     "lift": 0.0,
-     "dist": [
-      2.1,
-      1.85
-     ],
-     "az": [
-      -62,
-      -48
-     ],
-     "el": [
-      14,
-      12
-     ],
-     "fov": 40
+     "type": "truck",
+     "sub": "narr.hand_L",
+     "size": "close",
+     "az": 22,
+     "el": 14,
+     "move": 0.5,
+     "dist": 2.25,
+     "deg": 0
     },
     {
      "at": "eres",
+     "type": "low",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      2.6,
-      2.25
-     ],
-     "az": [
-      -12,
-      -5
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "medium",
+     "az": -12,
+     "el": -5
     }
    ],
    "acts": [
@@ -244,8 +190,13 @@
      "at": "sudas",
      "who": "dog",
      "act": "lick",
-     "up": 0.55,
-     "reach": 0.02
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
     },
     {
      "at": "eres",
@@ -310,10 +261,14 @@
      "size": 0.4,
      "screen": [
       0.0,
-      0.5,
+      0.4,
       1.6
      ]
     }
+   ],
+   "zooms": [
+    "sal",
+    "patata"
    ]
   },
   {
@@ -322,96 +277,48 @@
    "shots": [
     {
      "at": "start",
+     "type": "crane",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      3.2,
-      2.7
-     ],
-     "az": [
-      -14,
-      -6
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "close",
+     "az": -10,
+     "el": 2,
+     "rise": 22
     },
     {
      "at": "de",
+     "type": "orbit",
      "sub": "mom+pup",
-     "h": 0.55,
-     "lift": 0.0,
-     "dist": [
-      3.4,
-      3.0
-     ],
-     "az": [
-      -8,
-      4
-     ],
-     "el": [
-      13,
-      11
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": -20,
+     "deg": 50,
+     "el": 12
     },
     {
      "at": "madre",
+     "type": "push",
      "sub": "mom+pup",
-     "h": 0.6,
-     "lift": 0.0,
-     "dist": [
-      2.2,
-      1.9
-     ],
-     "az": [
-      -4,
-      6
-     ],
-     "el": [
-      11,
-      10
-     ],
-     "fov": 40
+     "size": "close",
+     "az": 10,
+     "el": 10,
+     "h": 0.6
     },
     {
      "at": "se",
+     "type": "truck",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      2.4,
-      2.1
-     ],
-     "az": [
-      10,
-      4
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "medium",
+     "az": 12,
+     "el": 9,
+     "move": 1.0
     },
     {
      "at": "el",
+     "type": "low",
      "sub": "dog",
-     "h": 0.8,
-     "lift": 0.0,
-     "dist": [
-      2.4,
-      2.1
-     ],
-     "az": [
-      -30,
-      -20
-     ],
-     "el": [
-      15,
-      13
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": -28,
+     "el": -3,
+     "h": 0.75
     }
    ],
    "acts": [
@@ -431,7 +338,13 @@
      "act": "lick",
      "up": 0.4,
      "reach": 0.03,
-     "rate": 3.4
+     "rate": 3.4,
+     "target": {
+      "who": "mom",
+      "node": "head"
+     },
+     "approach": true,
+     "yaw": -2.14
     },
     {
      "at": "de",
@@ -500,6 +413,9 @@
      "until": "next",
      "w": 0.72
     }
+   ],
+   "zooms": [
+    "madre"
    ]
   },
   {
@@ -508,23 +424,12 @@
    "shots": [
     {
      "at": "start",
+     "type": "push",
      "sub": "narr",
-     "h": 1.4,
-     "lift": 0.0,
-     "dist": [
-      3.0,
-      1.6
-     ],
-     "az": [
-      0,
-      0
-     ],
-     "el": [
-      8,
-      6
-     ],
-     "fov": 38,
-     "ease": "inout3"
+     "size": "close",
+     "az": 0,
+     "el": 6,
+     "dist": 1.5
     }
    ],
    "acts": [
@@ -557,6 +462,9 @@
       0.9
      ]
     }
+   ],
+   "zooms": [
+    "pilla"
    ]
   },
   {
@@ -565,83 +473,43 @@
    "shots": [
     {
      "at": "start",
+     "type": "establish",
      "sub": "two",
-     "h": 0.95,
-     "lift": 0.0,
-     "dist": [
-      4.0,
-      3.6
-     ],
-     "az": [
-      -8,
-      2
-     ],
-     "el": [
-      13,
-      12
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": -6,
+     "el": 12,
+     "transition": "whip",
+     "from": 2.6,
+     "el_from": 32
     },
     {
      "at": 4,
-     "sub": [
-      0.34,
-      0.42999999999999994,
-      0.66,
-      "casa"
-     ],
-     "lift": 0.0,
-     "dist": [
-      2.1,
-      1.85
-     ],
-     "az": [
-      -62,
-      -48
-     ],
-     "el": [
-      14,
-      12
-     ],
-     "fov": 40
+     "type": "orbit",
+     "sub": "narr.hand_L",
+     "size": "close",
+     "az": 16,
+     "deg": 25,
+     "el": 14,
+     "dist": 2.25
     },
     {
      "at": 8,
+     "type": "crane",
      "sub": "two",
-     "h": 0.95,
-     "lift": 0.0,
-     "dist": [
-      3.6,
-      3.2
-     ],
-     "az": [
-      22,
-      30
-     ],
-     "el": [
-      14,
-      13
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": 24,
+     "el": 10,
+     "rise": -16
     },
     {
      "at": 12,
+     "type": "truck",
      "sub": "dog",
-     "h": 0.7,
-     "lift": 0.0,
-     "dist": [
-      2.5,
-      2.2
-     ],
-     "az": [
-      -30,
-      -20
-     ],
-     "el": [
-      30,
-      26
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": -24,
+     "el": 24,
+     "move": 0.8,
+     "h": 0.72
     }
    ],
    "acts": [
@@ -661,8 +529,8 @@
      "who": "dog",
      "act": "wag",
      "place": [
-      0.64,
-      0.58,
+      1.0,
+      0.25,
       -1.15,
       "casa"
      ]
@@ -672,7 +540,7 @@
      "who": "narr",
      "act": "point",
      "side": "L",
-     "up": 0.0
+     "up": 0.45
     },
     {
      "at": 4,
@@ -684,8 +552,13 @@
      "at": 4,
      "who": "dog",
      "act": "lick",
-     "up": 0.55,
-     "reach": 0.02
+     "target": {
+      "who": "narr",
+      "node": "hand_L"
+     },
+     "approach": true,
+     "yaw": -1.15,
+     "up": 0.45
     },
     {
      "at": "le",
@@ -777,6 +650,10 @@
      "until": "next",
      "w": 0.72
     }
+   ],
+   "zooms": [
+    "entrenado",
+    "atencion"
    ]
   },
   {
@@ -785,63 +662,36 @@
    "shots": [
     {
      "at": "start",
+     "type": "push",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      3.2,
-      2.7
-     ],
-     "az": [
-      12,
-      5
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "close",
+     "az": 10,
+     "el": 8
     },
     {
      "at": "lamer",
+     "type": "orbit",
      "sub": [
-      0.4,
-      1.05,
-      0.85,
+      0.2,
+      0.95,
+      0.75,
       "casa"
      ],
-     "lift": 0.0,
-     "dist": [
-      4.5,
-      4.1
-     ],
-     "az": [
-      -38,
-      -28
-     ],
-     "el": [
-      13,
-      12
-     ],
-     "fov": 40
+     "size": "wide",
+     "az": -40,
+     "deg": 70,
+     "el": 14,
+     "dist": 4.2
     },
     {
      "at": "libera",
+     "type": "crane",
      "sub": "dog",
-     "h": 0.55,
-     "lift": 0.0,
-     "dist": [
-      2.4,
-      2.0
-     ],
-     "az": [
-      22,
-      34
-     ],
-     "el": [
-      15,
-      13
-     ],
-     "fov": 40
+     "size": "close",
+     "az": -20,
+     "el": 6,
+     "rise": 18,
+     "h": 0.6
     }
    ],
    "acts": [
@@ -931,6 +781,9 @@
      "until": "next",
      "size": 0.32
     }
+   ],
+   "zooms": [
+    "endorfinas"
    ]
   },
   {
@@ -939,118 +792,65 @@
    "shots": [
     {
      "at": "start",
+     "type": "establish",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      2.6,
-      2.3
-     ],
-     "az": [
-      0,
-      6
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "medium",
+     "az": 0,
+     "el": 9,
+     "transition": "whip",
+     "from": 2.4,
+     "el_from": 30
     },
     {
      "at": "lame",
+     "type": "orbit",
      "sub": "dog",
-     "h": 0.5,
-     "lift": 0.0,
-     "dist": [
-      2.5,
-      2.2
-     ],
-     "az": [
-      10,
-      22
-     ],
-     "el": [
-      16,
-      15
-     ],
-     "fov": 40
+     "size": "close",
+     "az": -35,
+     "deg": 45,
+     "el": 16,
+     "h": 0.5
     },
     {
      "at": 8,
+     "type": "crane",
      "sub": "dog",
-     "h": 0.45,
-     "lift": 0.0,
-     "dist": [
-      2.4,
-      2.1
-     ],
-     "az": [
-      40,
-      30
-     ],
-     "el": [
-      26,
-      22
-     ],
-     "fov": 40
+     "size": "close",
+     "az": 30,
+     "el": 8,
+     "rise": 22,
+     "h": 0.45
     },
     {
      "at": "al",
+     "type": "truck",
      "sub": [
-      -0.6,
-      1.1,
+      -0.75,
+      1.3,
       1.05
      ],
-     "lift": 0.0,
-     "dist": [
-      4.6,
-      4.2
-     ],
-     "az": [
-      -6,
-      2
-     ],
-     "el": [
-      12,
-      11
-     ],
-     "fov": 40
+     "size": "medium",
+     "az": -4,
+     "el": 11,
+     "move": 0.5,
+     "dist": 4.4
     },
     {
      "at": "puede",
+     "type": "push",
      "sub": "narr",
-     "h": 1.32,
-     "lift": 0.0,
-     "dist": [
-      2.5,
-      2.2
-     ],
-     "az": [
-      8,
-      3
-     ],
-     "el": [
-      10,
-      9
-     ]
+     "size": "close",
+     "az": 8,
+     "el": 8
     },
     {
      "at": "dolor",
+     "type": "pull",
      "sub": "two",
-     "h": 1.0,
-     "lift": 0.0,
-     "dist": [
-      3.4,
-      4.8
-     ],
-     "az": [
-      10,
-      -6
-     ],
-     "el": [
-      12,
-      17
-     ],
-     "fov": 42
+     "size": "wide",
+     "az": 6,
+     "el": 12,
+     "dist": 4.0
     }
    ],
    "acts": [
@@ -1142,7 +942,8 @@
      "yaw": 0.2,
      "w": 1.2,
      "h": 0.55,
-     "post": 1.0
+     "post": 1.0,
+     "until": "puede"
     },
     {
      "at": [
@@ -1156,8 +957,13 @@
       1.55,
       2.05
      ],
-     "size": 0.45
+     "size": 0.45,
+     "until": "puede"
     }
+   ],
+   "zooms": [
+    "veterinario",
+    "ansiedad"
    ]
   }
  ],

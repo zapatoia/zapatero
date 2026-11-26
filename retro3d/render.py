@@ -37,7 +37,7 @@ FS = """
 in vec3 v_wpos; in vec3 v_nrm; in vec2 v_uv; in vec4 v_col; in vec4 v_lpos;
 uniform sampler2D u_tex; uniform sampler2D u_tex2; uniform sampler2D u_shadow;
 uniform int u_blend; uniform int u_flip; uniform float u_rim; uniform vec3 u_rim_col; uniform float u_alpha_test; uniform float u_emissive; uniform int u_unlit;
-uniform vec4 u_tint; uniform vec3 u_eye; uniform vec3 u_sun; uniform vec3 u_sun_col;
+uniform vec4 u_tint; uniform float u_alpha; uniform vec3 u_eye; uniform vec3 u_sun; uniform vec3 u_sun_col;
 uniform vec3 u_sky_amb; uniform vec3 u_gnd_amb; uniform vec3 u_fog_col; uniform vec3 u_glow_col;
 uniform vec3 u_fog; uniform float u_shadow_k; uniform vec2 u_shadow_texel; uniform float u_fog_k;
 out vec4 f_col;
@@ -92,7 +92,7 @@ void main(){
   float sg = pow(max(dot(normalize(vd), u_sun), 0.0), 6.0);
   vec3 fc = mix(u_fog_col, u_glow_col, sg * 0.55);
   col = mix(col, fc, f);
-  f_col = vec4(col, 1.0);
+  f_col = vec4(col, u_alpha);
 }
 """
 
@@ -190,16 +190,17 @@ class GPUMesh:
 class Item:
     """Algo que dibujar este fotograma."""
     __slots__ = ("gm", "model", "tex", "tex2", "uvrect", "alpha_test", "emissive", "unlit",
-                 "shadow", "tint", "blend", "fog_k", "flip", "rim")
+                 "shadow", "tint", "blend", "fog_k", "flip", "rim", "alpha")
 
     def __init__(self, gm, model, tex="white", tex2=None, uvrect=(0, 0, 1, 1), alpha_test=0.5,
-                 emissive=0.0, unlit=False, shadow=True, tint=(1, 1, 1, 1), fog_k=1.0, flip=True, rim=0.0):
+                 emissive=0.0, unlit=False, shadow=True, tint=(1, 1, 1, 1), fog_k=1.0, flip=True, rim=0.0, alpha=1.0):
         self.gm, self.model, self.tex, self.tex2 = gm, model, tex, tex2
         self.uvrect, self.alpha_test, self.emissive = uvrect, alpha_test, emissive
         self.unlit, self.shadow, self.tint, self.fog_k = unlit, shadow, tint, fog_k
         self.blend = tex2 is not None
         self.flip = flip
         self.rim = rim
+        self.alpha = alpha
 
 
 class Renderer:
@@ -278,7 +279,7 @@ class Renderer:
         self.fbo_shadow.clear(depth=1.0)
         self._set(self.sprog, "u_lvp", LVP)
         for it in items:
-            if not it.shadow or it.gm.svao is None:
+            if not it.shadow or it.gm.svao is None or it.alpha < 0.999:
                 continue
             self._set(self.sprog, "u_model", it.model)
             self._set(self.sprog, "u_uvrect", it.uvrect)
@@ -318,9 +319,16 @@ class Renderer:
         p["u_tex2"].value = 1
         p["u_shadow"].value = 2
         self.shadow_tex.use(2)
-        for it in items:
-            if it.gm.vao is None:
+        opaque = [it for it in items if it.alpha >= 0.999]
+        trans = [it for it in items if it.alpha < 0.999]
+        trans.sort(key=lambda it: -np.linalg.norm(it.model[:3, 3] - cam.eye))
+        for it in opaque + trans:
+            if it.gm.vao is None or it.alpha <= 0.001:
                 continue
+            if it.alpha < 0.999:
+                c.enable(moderngl.BLEND)
+                c.blend_func = moderngl.SRC_ALPHA, moderngl.ONE_MINUS_SRC_ALPHA
+            p["u_alpha"].value = it.alpha
             self._set(p, "u_model", it.model)
             nm = np.linalg.inv(it.model[:3, :3]).T
             self._set(p, "u_nmat", nm)
@@ -337,6 +345,7 @@ class Renderer:
             if it.blend:
                 self.textures[it.tex2].use(1)
             it.gm.vao.render()
+        c.disable(moderngl.BLEND)
         # --- resolver MSAA + post
         c.copy_framebuffer(self.fbo_res, self.fbo_ms)
         self.resolved_tex.build_mipmaps()

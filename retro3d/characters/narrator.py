@@ -54,6 +54,8 @@ def _mir(v, side):
 
 
 class Narrator(Character):
+    FEET = ("shin_R", "shin_L")
+    COLLISION_GROUPS = [{"hips", "thigh_R", "thigh_L"}, {"torso", "thigh_R", "thigh_L"}]   # el jersey cubre la cadera
     def __init__(self, outfit="default"):
         self.cfg = cfg = load_config()
         if outfit not in cfg["outfits"]:
@@ -149,7 +151,7 @@ class Narrator(Character):
             # mangas cortas anchas con franja, antebrazo y mano de piel
             ux, uy, uz = d["upper_arm"]
             ar = n[f"arm_{side}"]
-            ar.attach(M.box(ux, uy, uz, top, center=(0, 0, -uz / 2 + 0.04), bevel=0.03), "white")
+            ar.attach(M.box(ux, uy, uz, top, center=(0, 0, -uz / 2 + 0.015), bevel=0.03), "white")
             ar.attach(M.box(ux + 0.008, uy + 0.008, 0.03, trim, center=(0, 0, -uz + 0.08)), "white")
             fx, fy, fz = d["forearm"]
             n[f"fore_{side}"].attach(M.box(fx, fy, fz, C("skin"), center=(0, 0, -fz / 2 + 0.03)), "white")

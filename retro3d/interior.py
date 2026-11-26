@@ -14,6 +14,7 @@ from .style import PAL
 
 ORIGIN = np.array([0.0, -400.0, 0.0])
 HALF_W, BACK, FRONT, HEIGHT = 4.0, 3.2, -4.0, 3.0
+CUSHION = (0.95, 1.45, 0.52, 0.14)   # x, y, radio, altura de la superficie
 
 
 def C(n, k=1.0):
@@ -68,7 +69,7 @@ def build(r):
     parts["white"].extend(M.box(2.8, 1.9, 0.02, C("roof_a"), center=(0.2, 0.3, 0.01)))
     parts["white"].extend(M.box(2.5, 1.6, 0.025, C("roof_b"), center=(0.2, 0.3, 0.012)))
     # cojín del perro junto al fuego
-    parts["white"].extend(M.cylinder(0.55, 0.5, 0.14, 8, C("tunic_dark"), center=(0.95, 1.45, 0.07)))
+    parts["white"].extend(M.cylinder(0.55, 0.52, 0.14, 8, C("tunic_dark"), center=(CUSHION[0], CUSHION[1], 0.07)))
     # mesa, taburete, taza
     tx, ty = -2.4, 1.7
     parts["planks"].extend(M.box(1.3, 0.8, 0.08, C("wood_c"), center=(tx, ty, 0.78)))
@@ -93,3 +94,12 @@ def build(r):
     o = ORIGIN
     obstacles = [(o[0] + fx, o[1] + B - 0.3, 0.9), (o[0] + tx, o[1] + ty, 0.8)]
     return items, obstacles, fire_items
+
+
+def surface_height(x, y):
+    """Altura de la superficie pisable dentro de la casa (suelo o cojín)."""
+    lx, ly = x - ORIGIN[0], y - ORIGIN[1]
+    cx, cy, r, h = CUSHION
+    if (lx - cx) ** 2 + (ly - cy) ** 2 < r * r:
+        return h
+    return 0.0

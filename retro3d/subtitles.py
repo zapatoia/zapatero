@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 from .style import SUBS, SAFE, RENDER
-from .anim import ease_out_back, seg
+from .anim import ease_out_back, seg, EASE
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -58,6 +58,7 @@ class Subtitles:
         self.cx = (x0 + x1) / 2
         self.max_w = (x1 - x0) * SUBS["max_width"]
         self._cache = {}
+        self._glyphs = {}
 
     @staticmethod
     def display(text):
@@ -87,8 +88,34 @@ class Subtitles:
                 return j
         return None
 
-    def render(self, t):
-        """Devuelve (RGBA, x, y) o None."""
+    LETTER_FADE = 0.1      # cada letra sube y se funde en 0,1 s
+    MAX_RATE = 30.0        # letras por segundo como máximo
+    EXIT_FADE = 0.12       # salida: fundido rápido
+
+    def letter_times(self, i):
+        """Instantes de aparición de cada letra de la palabra i (dentro de su pronunciación)."""
+        w = self.words[i]
+        tok = self.display(w["text"])
+        n = max(1, len(tok))
+        dur = max(0.05, w["end"] - w["start"])
+        step = min(1.0 / self.MAX_RATE, 0.85 * dur / n)
+        t0 = w["start"] - 0.03
+        return [t0 + k * step for k in range(len(tok))]
+
+    def _letter_img(self, ch, fill):
+        key = (ch, fill)
+        if key not in self._glyphs:
+            m = self.stroke + 4
+            w = int(self.font.getlength(ch)) + 2 * m
+            asc, desc = self.font.getmetrics()
+            im = Image.new("RGBA", (w, asc + desc + 2 * m), (0, 0, 0, 0))
+            ImageDraw.Draw(im).text((m, m), ch, font=self.font, fill=fill, stroke_width=self.stroke,
+                                    stroke_fill=SUBS["stroke"])
+            self._glyphs[key] = (np.asarray(im, np.float32), m)
+        return self._glyphs[key]
+
+    def render(self, t, full=False):
+        """Devuelve (RGBA, x, y) o None. Letra a letra; palabra actual resaltada; salida en fundido."""
         j = self.active(t)
         if j is None:
             return None
@@ -97,53 +124,52 @@ class Subtitles:
         for k, i in enumerate(c):
             if self.words[i]["start"] - 0.04 <= t:
                 cur = k
-        pop = 1.0
-        if cur is not None:
-            pop = ease_out_back(seg(t, self.words[c[cur]]["start"] - 0.04, self.words[c[cur]]["start"] + 0.12), 2.5)
-        # aparición del bloque: pequeño salto vertical
-        a = self.spans[j][0]
-        appear = ease_out_back(seg(t, a, a + 0.14), 1.8)
-        key = (j, cur, round(pop, 2), round(appear, 2))
-        if key in self._cache:
-            return self._cache[key]
+        a_, b_ = self.spans[j]
+        fade = 1.0 if full else 1.0 - seg(t, b_ - self.EXIT_FADE, b_)
         toks, widths, sp, lines, lh = self._layout(j)
         pad = self.stroke * 2 + 30
         bw = int(max(sum(widths[i] for i in L) + sp * (len(L) - 1) for L in lines) + pad * 2)
         bh = int(lh * len(lines) + pad * 2)
-        img = Image.new("RGBA", (bw, bh), (0, 0, 0, 0))
-        d = ImageDraw.Draw(img)
-        shadow = Image.new("RGBA", (bw, bh), (0, 0, 0, 0))
-        ds = ImageDraw.Draw(shadow)
+        canvas = np.zeros((bh, bw, 4), np.float32)
+        k_rise = 8 * self.W / 1080
         for li, L in enumerate(lines):
             lw = sum(widths[i] for i in L) + sp * (len(L) - 1)
             x = (bw - lw) / 2
             y = pad + li * lh
             for i in L:
-                is_cur = (i == cur)
-                fill = SUBS["highlight"] if is_cur else SUBS["fill"]
-                if is_cur and pop != 1.0:
-                    # palabra actual algo más grande con rebote
-                    s = 1 + 0.07 * min(pop, 1.3)
-                    f2 = self.font.font_variant(size=int(self.font.size * s))
-                    w2 = f2.getlength(toks[i])
-                    dx = (w2 - widths[i]) / 2
-                    dy = (f2.size - self.font.size) * 0.6
-                    d.text((x - dx, y - dy), toks[i], font=f2, fill=fill, stroke_width=self.stroke,
-                           stroke_fill=SUBS["stroke"])
-                else:
-                    d.text((x, y), toks[i], font=self.font, fill=fill, stroke_width=self.stroke,
-                           stroke_fill=SUBS["stroke"])
+                wi = c[i]
+                fill = SUBS["highlight"] if i == cur else SUBS["fill"]
+                times = self.letter_times(wi)
+                for q, ch in enumerate(toks[i]):
+                    al = 1.0 if full else seg(t, times[q], times[q] + self.LETTER_FADE)
+                    if al <= 0:
+                        continue
+                    g, m = self._letter_img(ch, fill)
+                    off = self.font.getlength(toks[i][:q])
+                    rise = 0 if full else (1 - EASE["out"](al)) * k_rise
+                    X0 = int(round(x + off - m))
+                    Y0 = int(round(y - m + rise))
+                    h, w = g.shape[:2]
+                    xs0, ys0 = max(0, X0), max(0, Y0)
+                    xs1, ys1 = min(bw, X0 + w), min(bh, Y0 + h)
+                    if xs1 <= xs0 or ys1 <= ys0:
+                        continue
+                    src = g[ys0 - Y0:ys1 - Y0, xs0 - X0:xs1 - X0]
+                    sa = src[..., 3:4] / 255 * al
+                    dst = canvas[ys0:ys1, xs0:xs1]
+                    out_a = sa + dst[..., 3:4] * (1 - sa)
+                    rgb = (src[..., :3] * sa + dst[..., :3] * dst[..., 3:4] * (1 - sa)) / np.maximum(out_a, 1e-6)
+                    canvas[ys0:ys1, xs0:xs1, :3] = rgb
+                    canvas[ys0:ys1, xs0:xs1, 3:4] = out_a * 255 if False else out_a
                 x += widths[i] + sp
-        out = Image.alpha_composite(shadow, img)
-        cy = SUBS["center_y"] * self.H + (1 - appear) * 24
+        canvas[..., 3] *= fade
+        out = Image.fromarray(np.dstack([canvas[..., :3], canvas[..., 3:4] * 255]).clip(0, 255).astype(np.uint8), "RGBA")
+        cy = SUBS["center_y"] * self.H
         X = int(self.cx - bw / 2)
         Y = int(cy - bh / 2)
-        # forzar zona segura
         X = max(int(self.safe[0]) - pad, min(X, int(self.safe[2]) - bw + pad))
         Y = min(Y, int(self.safe[3]) - bh + pad)
-        res = (out, X, Y)
-        self._cache[key] = res
-        return res
+        return (out, X, Y)
 
     def composite(self, frame, t):
         r = self.render(t)
@@ -162,8 +188,8 @@ class Subtitles:
         return out
 
     def bbox(self, t):
-        """Caja ocupada por el texto (para verificar zonas seguras)."""
-        r = self.render(t)
+        """Caja ocupada por el bloque completo (para verificar zonas seguras)."""
+        r = self.render(t, full=True)
         if r is None:
             return None
         img, X, Y = r

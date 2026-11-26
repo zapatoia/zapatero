@@ -29,6 +29,9 @@ def C(n, k=1.0):
 
 class Dog(Character):
     FADE = 0.22
+    FEET = ("paw_FR", "paw_FL", "paw_BR", "paw_BL")
+    COLLISION_GROUPS = [{"head", "jaw", "tongue", "neck", "ear_R", "ear_L"}, {"body", "tail1", "tail2", "tail3"},
+                        {"body", "head", "neck"}]   # la cabeza apoya en el pecho por diseño
 
     def __init__(self, variant="default", size=1.0, head_scale=1.0):
         self.v = VARIANTS[variant]
@@ -198,7 +201,9 @@ class Dog(Character):
 
     def act_jump(self, lt, t=0, height=0.5, **kw):
         """Anticipación → salto en arco → aterrizaje con aplastamiento. Dura ~1 s y repite."""
-        T_ = lt % 1.1
+        if lt > 1.1:   # un solo salto; después, contento en el sitio
+            return self.act_wag(lt - 1.1, t=t, pant=True)
+        T_ = lt
         p = self._tail(t, 15, 0.6, up=-0.9)
         if T_ < 0.2:
             u = EASE["inout"](T_ / 0.2)
@@ -240,6 +245,7 @@ class Dog(Character):
         """Lamer algo por delante/arriba (una mano, una cara)."""
         u = EASE["back"](seg(lt, 0, 0.3))
         ph, out = self._lick_cycle(lt, rate)
+        self.lick_out = out * u
         p = self._tail(t, 13, 0.55, up=-0.9)
         p["body"] = (0.05 * u, 0, 0)
         p["neck"] = (-up * 0.6 * u, 0, 0)
@@ -258,6 +264,7 @@ class Dog(Character):
         sg = 1 if side == "R" else -1
         p = self._sit(1.0)
         ph, out = self._lick_cycle(lt, rate)
+        self.lick_out = out * u
         p[f"leg_F{side}"] = (0.55 - 0.95 * u, sg * 0.2 * u, 0)
         p[f"paw_F{side}"] = (0.8 * u, 0, 0)
         p["neck"] = (0.32 + 0.4 * u, 0, -sg * 0.4 * u)
