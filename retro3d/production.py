@@ -369,7 +369,8 @@ class Production:
         idx = len(self.props)
         if typ == "icon":
             pr = P.make_icon(self.r, p["kind"], t0, t1, pos=pos if pos is not None else (0, 0, 0), follow=follow,
-                             size=p.get("size", 1.0), spin=p.get("spin", 0.0), wobble=p.get("wobble", 0.25))
+                             size=p.get("size", 1.0), spin=p.get("spin", 0.0), wobble=p.get("wobble", 0.25),
+                             style=p.get("style", self.script.get("icon_style")))
             if p["kind"].startswith("num:"):
                 self.sfx.append({"t": t0 + 0.03, "type": "ding", "why": f"número {p['kind'][4:]}"})
             else:
@@ -463,6 +464,7 @@ class Production:
         size = sh.get("size", "medium")
         h = sh.get("h", CAM.HEIGHTS[kind][size] if not isinstance(sh.get("sub"), list) else None)
         P_ = self.subject_point(sh.get("sub", "narr"), h)
+        P_ = self._smooth("sub", P_, t, cur, self.script.get("cam_smooth"))
         az, el, dist, lat, fov = CAM.shot_params(sh, u, lt)
         fov *= CAM.zoom_factor(t, self.zoom_times)
         az = math.radians(az + 0.5 * noise1(t * 0.3, cur))
@@ -474,6 +476,9 @@ class Production:
         eye = eye + right * lat
         target = P_ + right * lat * 0.4 + np.array([0, 0, sh.get("lift", 0.0)])
         eye, clear = self._avoid(eye, P_)
+        if self.script.get("cam_smooth"):
+            # los empujones de colisión (paredes, personajes) no deben dar saltos
+            eye = self._smooth("eye", eye, t, cur, 0.07)
         if sh.get("transition") == "whip" and lt < CAM.WHIP_DUR:
             # barrido: la cámara llega girando rápido desde un lado
             th = math.radians(sh.get("whip_deg", 75.0)) * (1 - EASE["out"](lt / CAM.WHIP_DUR))
@@ -494,6 +499,30 @@ class Production:
         return Camera(eye, target, fov), cur
 
     MIN_CLEAR = 0.3
+
+    def _smooth(self, key, x, t, shot, tau):
+        """Seguimiento amortiguado (muelle crítico) para que la cámara no copie cada sacudida
+        del sujeto (mano que gesticula, perro que salta) ni los empujones anti-colisión.
+        Se reinicia en cada corte y si los fotogramas no llegan en orden (storyboards)."""
+        if not tau:
+            return x
+        st = getattr(self, "_springs", {}).get(key)
+        if not hasattr(self, "_springs"):
+            self._springs = {}
+        dt = None if st is None else t - st[0]
+        if st is None or st[1] != shot or dt <= 0 or dt > 0.1:
+            self._springs[key] = (t, shot, np.array(x, "f8"), np.zeros(3))
+            return np.array(x, "f8")
+        _, _, pos, vel = st
+        w = 2.0 / tau
+        # integración exacta del muelle críticamente amortiguado
+        e = math.exp(-w * dt)
+        d = pos - x
+        tmp = (vel + w * d) * dt
+        vel = (vel - w * tmp) * e
+        pos = x + (d + tmp) * e
+        self._springs[key] = (t, shot, pos, vel)
+        return pos.copy()
 
     def _avoid(self, eye, focus):
         """La cámara nunca entra en modelos ni bajo el suelo: empuja fuera de obstáculos,

@@ -436,3 +436,139 @@ def master(x, target_lufs=-14.0, ceiling_db=-2.3, sr=SR):
         if abs(L2 - target_lufs) < 0.05:
             break
     return y, meter.integrated_loudness(y), true_peak(y, sr)
+
+
+# ------------------------------------------------------------------ máster limpio (v3)
+# El máster original (compress + limit_true_peak iterativo) aplastaba los picos de la
+# voz con un limitador de 2 ms que trabajaba ~3-6 dB en casi un 20 % del tiempo: eso se
+# oye como saturación. Este máster reparte el trabajo en etapas suaves:
+#   paso alto 70 Hz → de-esser suave → compresor RMS en dB (rodilla blanda, 2:1,
+#   ataque 15 ms / liberación 180 ms) → ganancia → limitador con anticipación de 5 ms
+#   y curva coseno (sin recortes ni cambios de ganancia bruscos) → techo -2 dBTP.
+
+def _highpass(x, fc, sr=SR, order=2):
+    from scipy.signal import butter, sosfiltfilt
+    return sosfiltfilt(butter(order, fc, "highpass", fs=sr, output="sos"), x)
+
+
+def _env_db(x, sr, attack, release, rms_win=0.01):
+    """Envolvente RMS en dB con ataque/liberación separados (seguidor de nivel)."""
+    from scipy.ndimage import uniform_filter1d
+    p = uniform_filter1d(x ** 2, max(1, int(rms_win * sr)))
+    lvl = 10 * np.log10(p + 1e-12)
+    # seguidor ataque/liberación por bloques de 1 ms (rápido en numpy)
+    blk = max(1, int(sr * 0.001))
+    m = len(lvl) // blk + 1
+    lv = np.pad(lvl, (0, m * blk - len(lvl)), constant_values=-120).reshape(m, blk).max(1)
+    aa = math.exp(-0.001 / attack)
+    ar = math.exp(-0.001 / release)
+    out = np.empty(m)
+    s = lv[0]
+    for i in range(m):
+        v = lv[i]
+        c = aa if v > s else ar
+        s = c * s + (1 - c) * v
+        out[i] = s
+    t_blk = (np.arange(m) + 0.5) * blk
+    return np.interp(np.arange(len(x)), t_blk, out)
+
+
+def _gain_computer(lvl_db, thr, ratio, knee):
+    over = lvl_db - thr
+    g = np.zeros_like(lvl_db)
+    hi = over > knee / 2
+    mid = np.abs(over) <= knee / 2
+    g[hi] = -over[hi] * (1 - 1 / ratio)
+    g[mid] = -(1 - 1 / ratio) * (over[mid] + knee / 2) ** 2 / (2 * knee)
+    return g
+
+
+def deess(x, sr=SR, f0=5500.0, max_cut_db=4.0):
+    """De-esser suave: reduce la banda alta solo cuando las eses sobresalen."""
+    from scipy.signal import butter, sosfiltfilt
+    hi = sosfiltfilt(butter(2, f0, "highpass", fs=sr, output="sos"), x)
+    lo = x - hi
+    eh = _env_db(hi, sr, 0.002, 0.06)
+    ef = _env_db(x, sr, 0.002, 0.06)
+    excess = np.clip((eh - ef) + 6.0, 0, None)       # eses más fuertes que el resto − 6 dB
+    cut = -np.minimum(max_cut_db, excess * 0.8)
+    return lo + hi * 10 ** (cut / 20)
+
+
+def lookahead_limiter(x, ceiling_db=-2.0, sr=SR, look=0.005, release=0.12):
+    """Limitador de pico verdadero (sobremuestreo ×4) con anticipación y curva suave.
+    La ganancia baja en `look` segundos ANTES del pico (rampa coseno) y se recupera
+    exponencialmente: no hay recortes, solo cambios lentos de volumen."""
+    from scipy.signal import resample_poly
+    from scipy.ndimage import maximum_filter1d
+    from scipy.signal import lfilter
+    c = 10 ** (ceiling_db / 20)
+    up = np.abs(resample_poly(x, 4, 1))[:len(x) * 4]
+    pk = up.reshape(-1, 4).max(1)
+    need = np.maximum(0.0, 20 * np.log10(pk + 1e-12) - ceiling_db)      # dB a reducir
+    L = max(1, int(look * sr))
+    need = maximum_filter1d(need, 2 * L + 1)                             # mantener durante la ventana
+    w = 0.5 - 0.5 * np.cos(np.linspace(0, np.pi, 2 * L + 1))
+    w /= w.sum()
+    need = np.convolve(need, w, mode="same") * 1.0
+    need = np.maximum(need, maximum_filter1d(need, 3))
+    a = math.exp(-1 / (release * sr))
+    rel = lfilter([1 - a], [1, -a], need)
+    need = np.maximum(need, rel)
+    y = x * 10 ** (-need / 20)
+    # red de seguridad: recorte suave por si queda algún pico (no debería actuar)
+    tp = np.abs(resample_poly(y, 4, 1)).max()
+    if tp > c:
+        y *= c / tp
+    return y, need
+
+
+def peak_compressor(x, thr_db, ratio, sr=SR, look=0.01, release=0.15, knee=6.0):
+    """Compresor de picos (detección de pico verdadero) con anticipación y ventana Hann:
+    la ganancia nunca cambia a saltos."""
+    from scipy.signal import resample_poly, lfilter
+    from scipy.ndimage import maximum_filter1d
+    pk = np.abs(resample_poly(x, 4, 1))[:len(x) * 4].reshape(-1, 4).max(1)
+    need = -_gain_computer(20 * np.log10(pk + 1e-12), thr_db, ratio, knee)
+    L = max(1, int(look * sr))
+    need = maximum_filter1d(need, 2 * L + 1)
+    w = 0.5 - 0.5 * np.cos(np.linspace(0, 2 * np.pi, 2 * L + 1))
+    need = np.convolve(need, w / w.sum(), "same")
+    a = math.exp(-1 / (release * sr))
+    need = np.maximum(need, lfilter([1 - a], [1, -a], need))
+    return x * 10 ** (-need / 20), need
+
+
+def master_clean(x, target_lufs=-14.0, ceiling_db=-2.0, sr=SR, report=None):
+    """Máster limpio (desde v3 del vídeo 01). Toda la reducción con curvas suaves:
+    paso alto 70 Hz → de-esser → nivelador RMS lento (2,5:1, rodilla 8 dB, 15/180 ms)
+    → compresor de picos (4:1 desde -9 dBFS, anticipación 10 ms, liberación 150 ms)
+    → limitador de pico verdadero (anticipación 5 ms, liberación 50 ms, techo -2 dBTP).
+    La ganancia se busca aplicando las etapas UNA vez (sin pasadas acumuladas).
+    Frente a `master()`: ~13 dB menos modulación de ganancia audible (>40 Hz)."""
+    import pyloudnorm as pyln
+    meter = pyln.Meter(sr)
+    y0 = deess(_highpass(x, 70.0, sr), sr)
+    L0 = meter.integrated_loudness(y0)
+    lvl = _env_db(y0, sr, 0.015, 0.18, rms_win=0.02)
+    act = lvl > lvl.max() - 30
+    thr = float(np.percentile(lvl[act], 50))
+    gdb = np.maximum(_gain_computer(lvl, thr, 2.5, 8.0), -8.0)
+    yc = y0 * 10 ** (gdb / 20)
+    G = target_lufs - meter.integrated_loudness(yc)
+    y, gl, L = yc, np.zeros(len(yc)), -99.0
+    for _ in range(16):
+        z, gp = peak_compressor(yc * 10 ** (G / 20), ceiling_db - 7.0, 4.0, sr)
+        y, gl = lookahead_limiter(z, ceiling_db, sr, look=0.005, release=0.05)
+        L = meter.integrated_loudness(y)
+        if abs(L - target_lufs) < 0.04:
+            break
+        G += (target_lufs - L) * 1.6
+    if report is not None:
+        report.update({
+            "input_lufs": round(float(L0), 2),
+            "leveler_gr_db_p50": round(float(np.percentile(-gdb[act], 50)), 2),
+            "limiter_gr_db_p95": round(float(np.percentile(gl[act], 95)), 2),
+            "limiter_gr_db_max": round(float(gl.max()), 2),
+        })
+    return y, L, true_peak(y, sr)

@@ -276,7 +276,13 @@ def make_audio(prod, voice, dur, bdir, t_from=0.0):
     raw = os.path.join(bdir, "mix_raw.wav")
     A.write_wav(raw, mix)
     norm = os.path.join(bdir, "mix_norm.wav")
-    y, L, tp = A.master(mix)
+    if prod.script.get("master", "classic") == "clean":
+        mrep = {}
+        y, L, tp = A.master_clean(mix, report=mrep)
+        prod.master_rep = mrep
+        print(f"  máster limpio: {mrep}")
+    else:
+        y, L, tp = A.master(mix)
     print(f"  máster: {L:.2f} LUFS, pico verdadero {tp:.2f} dBTP (antes de AAC)")
     A.write_wav(norm, y)
     return norm, events
