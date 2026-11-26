@@ -1,7 +1,7 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
 > Última actualización: 2026-11-26 (sesión `docs/sessions/2026-11-26-01.md`).
-> Rama de trabajo: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 abierta hacia `main`**: https://github.com/zapatoia/zapatero/pull/2 (sin fusionar). `main` se creó el 2026-11-26 a partir de `b1e3359` (rama por defecto anterior, intento del zapato); en GitHub la rama por defecto sigue siendo `claude/shoe-history-vertical-video-qw2b0t` hasta que el usuario la cambie.
+> Rama de trabajo anterior: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 fusionada en `main`** (commit de fusión `df76761`, https://github.com/zapatoia/zapatero/pull/2). **`main` es ya la rama por defecto en GitHub** (antes lo era `claude/shoe-history-vertical-video-qw2b0t`). Las sesiones nuevas parten de `main`.
 
 ## 1. Cómo usar este documento
 - **Al empezar cualquier sesión**: leer `CLAUDE.md`, este documento y la última sesión de `docs/sessions/` (o usar `/resume-session`). No cambiar nada hasta que el usuario lo pida.
@@ -17,7 +17,7 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
-Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **aprobado**; vídeo **`videos/01-perro-lame-v2.mp4` entregado y pendiente de valoración**. **Siguiente paso exacto:** esperar la opinión del usuario sobre la v2 → si la aprueba, crear el tag `v2` y proponer unir la rama a `main`; si pide cambios, aplicarlos y re-renderizar como `-v3`.
+Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **aprobado**; vídeo **`videos/01-perro-lame-v2.mp4` entregado y pendiente de valoración**. **Siguiente paso exacto:** esperar la opinión del usuario sobre la v2 → si la aprueba, crear el tag `v2`; si pide cambios, aplicarlos y re-renderizar como `-v3`.
 
 ## 4. Estilo visual actual (resumen de `STYLE.md`; fuente de verdad en código: `retro3d/style.py`)
 - Low-poly con **sombreado plano** (normales por cara) y **color por vértice uniforme** (`jitter=0`).
@@ -120,14 +120,13 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 
 ## 14. Pendiente y siguiente paso exacto
 1. **Esperar la valoración del usuario de la v2.**
-2. Si la aprueba: `git tag -a v2 -m "Vídeo 01 v2: narrador pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido" face026` (o el commit que indique) + push del tag; anotarlo en §12; recordar unir la rama a `main`.
+2. Si la aprueba: `git tag -a v2 -m "Vídeo 01 v2: narrador pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido" face026` (o el commit que indique) + push del tag; anotarlo en §12. (La rama ya está fusionada en `main`: el commit `face026` forma parte de `main`.)
 3. Si pide cambios: aplicarlos sin romper lo existente, `python tools/check_physics.py scripts/01-perro-lame.json` (0), y `python make_video.py scripts/01-perro-lame.json --contact --out videos/01-perro-lame-v3.mp4`.
 4. Mejoras propuestas (no hacer sin permiso): las de §13.
 5. Siguiente vídeo cuando el usuario dé el tema: guion `scripts/02-…json` → `--dry` → enseñar guion + storyboard + coste → esperar OK → `--tts` → revisar → render → QA.
 
 ## 15. Decisiones que debe tomar el usuario
 - ¿Aprueba la **v2**? (→ tag `v2`). ¿Quiere también un tag para la v1 minimalista (commit `6e4e9aa`)?
-- Fusionar la **PR #2** (https://github.com/zapatoia/zapatero/pull/2) en `main` y poner `main` como rama por defecto en GitHub (Settings → Branches).
 - ¿Aplicar las mejoras de §13 (pata del perro, encuadre del gancho, efectos en planos silenciosos, velocidad)?
 - Narrador: ¿número del jersey («00» u otro / ninguno)?, ¿ropa alternativa (`outfit`) para algún vídeo?
 - ¿Ambiente sonoro (viento/pájaros) en algún vídeo? (ahora desactivado por regla).
