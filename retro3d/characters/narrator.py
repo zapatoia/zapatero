@@ -1,5 +1,6 @@
-"""NARRADOR FIJO: persona con pasamontañas magenta, sudadera oversize con la
-capucha bajada, pantalón cargo ancho y zapatillas gruesas.
+"""NARRADOR FIJO: persona con pasamontañas magenta (cruz pequeña en la frente),
+jersey streetwear oversize, pantalón militar ancho de camuflaje con cinturón
+(plata y oro), cadena fina de plata y zapatillas blancas de suela gruesa.
 
 Se define UNA vez en config/narrator.json (medidas, colores, rig, caras, poses)
 y se construye aquí. Ningún vídeo puede modificarlo: los guiones solo eligen
@@ -18,6 +19,7 @@ from .. import mesh as M
 from .. import textures as T
 from ..mesh import hexcol
 from ..rig import Node
+from ..mathutil import translate, euler, rot_z
 from ..anim import Spring, EASE, seg, noise1, blink_times, blink_state
 from .base import Character, add
 
@@ -68,13 +70,12 @@ class Narrator(Character):
             f.add(Node(f"hand_{side}", (0, 0, -rg["forearm"])))
             th = hips.add(Node(f"thigh_{side}", (sx * rg["hip_x"], 0, -0.04)))
             th.add(Node(f"shin_{side}", (0, 0, -rg["thigh"])))
-        torso.add(Node("strings", (0, -0.185, 0.44)))
         super().__init__(root)
         self._build()
         self.env_fn = lambda t: 0.0
         lo, hi = cfg["face"]["blink_interval_s"]
         self.blinks = blink_times(240, seed=5, lo=lo, hi=hi)
-        self.springs = {"strings": Spring(45, 5, np.zeros(3))}
+        self.springs = {}
         self.beats = []
 
     # ------------------------------------------------------------ modelo
@@ -86,52 +87,90 @@ class Narrator(Character):
 
     def _build(self):
         n, d, C = self.nodes, self.cfg["dims"], self.C
+        o = self.outfit
+        # --- cabeza: pasamontañas magenta con cruz pequeña en la frente
         hd = n["head"]
         hx, hy, hz = d["head"]
         mask = C("balaclava")
         hd.attach(M.box(hx, hy, hz, mask, center=(0, 0, hz / 2 + 0.02), bevel=d["head_bevel"], taper=(0.9, 0.92)), "white")
         hd.attach(M.cylinder(0.12, 0.13, 0.12, 6, mask, center=(0, 0, -0.01), rot=0.26), "white")
         fc = self.cfg["face"]
-        front = -hy / 2 - 0.0015
-        hd.decals.append((M.decal(fc["eyes"]["w"], fc["eyes"]["h"], center=(0, front, fc["eyes"]["z"])), "face_narr", "eyes"))
-        hd.decals.append((M.decal(fc["mouth"]["w"], fc["mouth"]["h"], center=(0, front, fc["mouth"]["z"])), "face_narr", "mouth"))
-        # sudadera oversize con la capucha bajada
+        front = -hy / 2
+        cr = fc["cross"]
+        cw, ch, cb, cz = cr["w"], cr["h"], cr["bar"], cr["z"]
+        hd.attach(M.box(cb, 0.008, ch, C("cross"), center=(0, front - 0.002, cz)), "white")
+        hd.attach(M.box(cw, 0.008, cb, C("cross"), center=(0, front - 0.002, cz + ch * 0.18)), "white")
+        hd.decals.append((M.decal(fc["eyes"]["w"], fc["eyes"]["h"], center=(0, front - 0.0015, fc["eyes"]["z"])), "face_narr", "eyes"))
+        hd.decals.append((M.decal(fc["mouth"]["w"], fc["mouth"]["h"], center=(0, front - 0.0015, fc["mouth"]["z"])), "face_narr", "mouth"))
+        # --- jersey streetwear oversize: cuello en V, franjas en mangas y bajo, número
         to = n["torso"]
         tx, ty, tz = d["torso"]
-        hood = C("hoodie")
-        to.attach(M.box(tx, ty, tz, hood, center=(0, 0, tz / 2), bevel=0.06, taper=(0.94, 0.96)), "white")
-        to.attach(M.cylinder(0.22, 0.19, 0.08, 6, C("hoodie_dark"), center=(0, 0.01, tz + 0.01), rot=0.26), "white")
-        hx2, hy2, hz2 = d["hood"]
-        to.attach(M.box(hx2, hy2, hz2, hood, center=(0, ty / 2 + hy2 / 2 - 0.06, tz - 0.02), bevel=0.05), "white")
-        n["strings"].attach(M.box(0.022, 0.02, 0.15, C("string"), center=(-0.055, 0, -0.075)), "white")
-        n["strings"].attach(M.box(0.022, 0.02, 0.13, C("string"), center=(0.055, 0, -0.065)), "white")
+        top, trim = C(o["top"]), C(o["top_trim"])
+        to.attach(M.box(tx, ty, tz, top, center=(0, 0, tz / 2 - 0.03), bevel=0.05, taper=(0.95, 0.97)), "white")
+        for sx in (-1, 1):   # cuello en V
+            to.attach(M.box(0.02, 0.012, 0.1, trim, center=(0, 0, 0)).transformed(
+                translate(sx * 0.03, -ty / 2 - 0.004, tz - 0.08) @ euler(0, sx * 0.5, 0)), "white")
+        to.attach(M.box(tx + 0.008, ty + 0.008, 0.035, trim, center=(0, 0, 0.03)), "white")      # franja del bajo
+        to.attach(M.box(tx + 0.008, ty + 0.008, 0.018, trim, center=(0, 0, 0.075)), "white")
+        to.decals.append((M.decal(0.17, 0.17, center=(0, -ty / 2 - 0.003, tz * 0.45)), "jersey_num", "num"))
+        back = M.decal(0.32, 0.32, center=(0, -ty / 2 - 0.003, tz * 0.5)).transformed(rot_z(np.pi))
+        to.decals.append((back, "jersey_num", "num"))
+        # --- cadena fina de plata al cuello (eslabones)
+        top_z = tz - 0.03
+        for k in range(16):      # por detrás y por los hombros, apoyada arriba
+            a0 = np.pi * k / 15
+            x, y = np.cos(a0) * 0.16, np.sin(a0) * 0.12 - 0.04
+            to.attach(M.box(0.034, 0.008, 0.008, C("silver"), center=(0, 0, 0)).transformed(
+                translate(x, y, top_z + 0.004) @ rot_z(a0 + np.pi / 2)), "white")
+        prev = None
+        for k in range(13):      # por delante: U sobre el pecho
+            u = k / 12
+            x = 0.16 * np.cos(np.pi * u)
+            z = top_z - 0.01 - 0.1 * np.sin(np.pi * u)
+            p0 = np.array([x, -ty / 2 - 0.006, z])
+            if prev is not None:
+                mid, dv = (p0 + prev) / 2, p0 - prev
+                L = np.linalg.norm(dv)
+                to.attach(M.box(L + 0.006, 0.008, 0.008, C("silver"), center=(0, 0, 0)).transformed(
+                    translate(*mid) @ euler(0, -np.arctan2(dv[2], dv[0]), 0)), "white")
+            prev = p0
+        # --- cadera: cinturón negro con hebilla de plata y toques de oro
         hp = n["hips"]
-        ex, ey, ez = d["hem"]
-        hp.attach(M.box(ex, ey, ez, hood, center=(0, 0, 0.02), bevel=0.03), "white")
-        hp.attach(M.box(ex + 0.01, ey + 0.01, 0.04, C("hoodie_dark"), center=(0, 0, -0.055)), "white")
         px, py, pz = d["pelvis"]
-        hp.attach(M.box(px, py, pz, C("pants"), center=(0, 0, -0.04)), "white")
+        hp.attach(M.box(px, py, pz, C("camo_a"), center=(0, 0, -0.04)), "camo")
+        bx, by, bz = d["belt"]
+        hp.attach(M.box(bx, by, bz, C("belt"), center=(0, 0, 0.02)), "white")
+        hp.attach(M.box(0.075, 0.02, 0.055, C("silver"), center=(0, -by / 2 - 0.006, 0.02)), "white")
+        hp.attach(M.box(0.035, 0.024, 0.025, C("belt"), center=(0, -by / 2 - 0.012, 0.02)), "white")
+        for x in (-0.15, 0.15):
+            hp.attach(M.box(0.022, 0.014, 0.022, C("gold"), center=(x, -by / 2 - 0.004, 0.02)), "white")
+        hp.attach(M.box(0.06, 0.014, 0.03, C("gold"), center=(0.08, -by / 2 - 0.006, 0.02)), "white")   # puntera
         for side, sx in (("R", -1), ("L", 1)):
+            # mangas cortas anchas con franja, antebrazo y mano de piel
             ux, uy, uz = d["upper_arm"]
-            n[f"arm_{side}"].attach(M.box(ux, uy, uz, hood, center=(0, 0, -uz / 2 + 0.03), bevel=0.03), "white")
+            ar = n[f"arm_{side}"]
+            ar.attach(M.box(ux, uy, uz, top, center=(0, 0, -uz / 2 + 0.04), bevel=0.03), "white")
+            ar.attach(M.box(ux + 0.008, uy + 0.008, 0.03, trim, center=(0, 0, -uz + 0.08)), "white")
             fx, fy, fz = d["forearm"]
-            n[f"fore_{side}"].attach(M.box(fx, fy, fz, hood, center=(0, 0, -fz / 2)), "white")
-            cx, cy, cz = d["cuff"]
-            n[f"fore_{side}"].attach(M.box(cx, cy, cz, C("hoodie_dark"), center=(0, 0, -fz + cz / 2)), "white")
+            n[f"fore_{side}"].attach(M.box(fx, fy, fz, C("skin"), center=(0, 0, -fz / 2 + 0.03)), "white")
             hx3, hy3, hz3 = d["hand"]
             n[f"hand_{side}"].attach(M.box(hx3, hy3, hz3, C("skin"), center=(0, 0, -hz3 / 2 + 0.01), bevel=0.02), "white")
             n[f"hand_{side}"].attach(M.box(0.05, 0.05, 0.07, C("skin"), center=(-sx * 0.035, -0.07, -0.03)), "white")
+            # pantalón militar ancho de camuflaje con bolsillo cargo con solapa
             thx, thy, thz = d["thigh"]
             th = n[f"thigh_{side}"]
-            th.attach(M.box(thx, thy, thz, C("pants"), center=(0, 0, -thz / 2 + 0.02), bottom_taper=(0.96, 0.96)), "white")
-            th.attach(M.box(0.035, 0.13, 0.11, C("pants_dark"), center=(sx * (thx / 2 + 0.012), 0, -0.13)), "white")
+            th.attach(M.box(thx, thy, thz, (1, 1, 1, 1), center=(0, 0, -thz / 2 + 0.02), uv_scale=3.0), "camo")
+            th.attach(M.box(0.04, 0.15, 0.13, C("pocket"), center=(sx * (thx / 2 + 0.015), 0, -0.14)), "white")
+            th.attach(M.box(0.046, 0.16, 0.035, C("camo_b"), center=(sx * (thx / 2 + 0.017), 0, -0.07)), "white")
             sh = n[f"shin_{side}"]
             shx, shy, shz = d["shin"]
-            sh.attach(M.box(shx, shy, shz, C("pants"), center=(0, 0, -shz / 2 + 0.03)), "white")
+            sh.attach(M.box(shx, shy, shz, (1, 1, 1, 1), center=(0, 0, -shz / 2 + 0.04), uv_scale=3.0), "camo")
+            # zapatillas tipo «air force» (sin logotipos): blancas, suela crema gruesa, talonera
             sox, soy, soz = d["shoe"]
-            sh.attach(M.box(sox, soy, soz, C("shoe"), center=(0, -0.05, -0.17), bevel=0.035), "white")
+            sh.attach(M.box(sox, soy, soz, C(o["shoe"]), center=(0, -0.05, -0.175), bevel=0.04, taper=(0.92, 0.9)), "white")
             slx, sly, slz = d["sole"]
-            sh.attach(M.box(slx, sly, slz, C("sole"), center=(0, -0.05, -0.25)), "white")
+            sh.attach(M.box(slx, sly, slz, C(o["sole"]), center=(0, -0.05, -0.2475), bevel=0.012), "white")
+            sh.attach(M.box(0.12, 0.03, 0.06, C(o["heel"]), center=(0, -0.05 + sly / 2 - 0.01, -0.175)), "white")
 
     def upload(self, r):
         pal = self.cfg["palette"]
@@ -139,6 +178,10 @@ class Narrator(Character):
         r.add_texture("face_narr", img, repeat=False)
         for k, v in uv.items():
             self.decal_uv[k.replace("eye_", "eyes_")] = v
+        r.add_texture("camo", T.camo(cols=(pal["camo_a"], pal["camo_b"], pal["camo_c"])))
+        r.add_texture("jersey_num", T.jersey_number(self.outfit["number"], pal[self.outfit["top_trim"]]), repeat=False)
+        self.decal_state["num"] = "all"
+        self.decal_uv["num_all"] = (0, 0, 1, 1)
         super().upload(r)
 
     # ------------------------------------------------------------ poses de config
@@ -171,11 +214,6 @@ class Narrator(Character):
 
     # ------------------------------------------------------------ capas
     def secondary(self, t, dt, pose):
-        tr = np.asarray(pose.get("torso", np.zeros(3)), "f8")
-        hp = np.asarray(pose.get("hips.p", np.zeros(3)), "f8")
-        target = np.array([-tr[0] * 0.9 - hp[2] * 3.0, -tr[1] * 0.6, -tr[2] * 0.3])
-        pose = dict(pose)
-        pose["strings"] = self.springs["strings"].step(target, dt)
         return pose
 
     def base_layer(self, t):

@@ -64,7 +64,7 @@ def row(ims, path=None):
 
 # 1) vistas
 pose("idle", t=0.0)
-views = [lab(Image.fromarray(shot(az)).crop((0, 80, 540, 880)), name) for az, name in
+views = [lab(Image.fromarray(shot(az)).crop((0, 70, 540, 930)), name) for az, name in
          ((0, "FRENTE"), (38, "3/4"), (90, "PERFIL"), (180, "ESPALDA"))]
 # 2) bocas
 mouths = []
@@ -83,7 +83,7 @@ poses = []
 for act, kw, az in (("explain", {}, 15), ("point", {"side": "L"}, 20), ("shrug", {}, 10),
                     ("cross_arms", {}, 20), ("wave", {"side": "R"}, 10)):
     pose(act, t=1.0, **kw)
-    poses.append(lab(Image.fromarray(shot(az)).crop((0, 80, 540, 880)), act.upper()))
+    poses.append(lab(Image.fromarray(shot(az)).crop((0, 70, 540, 930)), act.upper()))
 
 sheet_v = row(views)
 sheet_m = row(mouths)

@@ -395,3 +395,27 @@ def balaclava_atlas(skin="#C98B62", ink="#2B1420", rim="#B0166F"):
                 px[x, y] = K
     uv = {k: (x / 128, 1 - (y + h) / 128, (x + w) / 128, 1 - y / 128) for k, (x, y, w, h) in rects.items()}
     return img, uv
+
+
+def camo(n=32, seed=21, cols=("#6B7350", "#474E33", "#9C8D62")):
+    """Camuflaje militar de 3 tonos en manchas grandes (32 px)."""
+    a, b, c = (np.array(hexcol(h)[:3]) for h in cols)
+    v1 = _value_noise(n, 3, seed)
+    v2 = _value_noise(n, 3, seed + 7)
+    arr = np.zeros((n, n, 3))
+    arr[:] = a
+    arr[v1 > 0.58] = b
+    arr[(v2 > 0.62) & (v1 <= 0.58)] = c
+    return _img(arr)
+
+
+def jersey_number(text="00", col="#F4F2EC", w=32, h=32):
+    """Número de jersey en píxeles gruesos sobre transparente."""
+    img = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    rows = font.trim_rows(font.text_bitmap(text, spacing=1))
+    bm = font.bitmap_array(rows)
+    th, tw = bm.shape
+    sc = max(1, min((w - 2) // tw, (h - 2) // th))
+    r, g, b, _ = hexcol(col)
+    _blit_text(img, bm, sc, (w - tw * sc) // 2, (h - th * sc) // 2, (int(r * 255), int(g * 255), int(b * 255), 255))
+    return img
