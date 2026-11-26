@@ -123,18 +123,14 @@ class Subtitles:
                 fill = SUBS["highlight"] if is_cur else SUBS["fill"]
                 if is_cur and pop != 1.0:
                     # palabra actual algo más grande con rebote
-                    s = 1 + 0.12 * min(pop, 1.3)
+                    s = 1 + 0.07 * min(pop, 1.3)
                     f2 = self.font.font_variant(size=int(self.font.size * s))
                     w2 = f2.getlength(toks[i])
                     dx = (w2 - widths[i]) / 2
                     dy = (f2.size - self.font.size) * 0.6
-                    ds.text((x - dx + 6, y - dy + 9), toks[i], font=f2, fill=(0, 0, 0, 150),
-                            stroke_width=self.stroke, stroke_fill=(0, 0, 0, 150))
                     d.text((x - dx, y - dy), toks[i], font=f2, fill=fill, stroke_width=self.stroke,
                            stroke_fill=SUBS["stroke"])
                 else:
-                    ds.text((x + 6, y + 9), toks[i], font=self.font, fill=(0, 0, 0, 150),
-                            stroke_width=self.stroke, stroke_fill=(0, 0, 0, 150))
                     d.text((x, y), toks[i], font=self.font, fill=fill, stroke_width=self.stroke,
                            stroke_fill=SUBS["stroke"])
                 x += widths[i] + sp

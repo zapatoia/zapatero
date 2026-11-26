@@ -122,7 +122,7 @@ def box_uv(v, n, s):
 
 # ---------------------------------------------------------------- primitivas
 
-def hull(points, col, uv_scale=1.0, jitter=0.03, color_fn=None):
+def hull(points, col, uv_scale=1.0, jitter=0.0, color_fn=None):
     """Envolvente convexa facetada de una nube de puntos."""
     pts = np.asarray(points, "f8")
     h = ConvexHull(pts)
@@ -140,7 +140,7 @@ def hull(points, col, uv_scale=1.0, jitter=0.03, color_fn=None):
 
 
 def box(sx, sy, sz, col, center=(0, 0, 0), bevel=0.0, taper=(1.0, 1.0), shift_top=(0, 0),
-        uv_scale=1.0, jitter=0.03, color_fn=None, bottom_taper=(1.0, 1.0)):
+        uv_scale=1.0, jitter=0.0, color_fn=None, bottom_taper=(1.0, 1.0)):
     """Caja (opcionalmente biselada y con la tapa superior estrechada)."""
     hx, hy, hz = sx / 2, sy / 2, sz / 2
     pts = []
@@ -162,7 +162,7 @@ def box(sx, sy, sz, col, center=(0, 0, 0), bevel=0.0, taper=(1.0, 1.0), shift_to
     return hull(pts, col, uv_scale, jitter, color_fn)
 
 
-def cylinder(r0, r1, h, segs, col, center=(0, 0, 0), caps=True, uv_scale=1.0, jitter=0.03,
+def cylinder(r0, r1, h, segs, col, center=(0, 0, 0), caps=True, uv_scale=1.0, jitter=0.0,
              rot=0.0, cap_col=None, sx=1.0, sy=1.0):
     m = Mesh()
     cx, cy, cz = center

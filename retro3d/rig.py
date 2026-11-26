@@ -49,6 +49,7 @@ class Rig:
         self.decal_uv = {}
         self.transform = np.eye(4)   # colocación en el mundo
         self.tint = (1, 1, 1, 1)
+        self.rim = 0.45   # contraluz cálido
 
     def _index(self, n):
         self.nodes[n.name] = n
@@ -96,11 +97,11 @@ class Rig:
         for name, n in self.nodes.items():
             M = mats[name]
             for gm, tex, o in n.gpu:
-                res.append(Item(gm, M, tex=tex, tint=self.tint, **o))
+                res.append(Item(gm, M, tex=tex, tint=self.tint, rim=self.rim, **o))
             for gm, tex, key in n.decals:
                 st = self.decal_state.get(key)
                 uv = self.decal_uv.get(f"{key}_{st}", (0, 0, 1, 1))
-                res.append(Item(gm, M, tex=tex, uvrect=uv, alpha_test=0.5, shadow=False, tint=self.tint))
+                res.append(Item(gm, M, tex=tex, uvrect=uv, alpha_test=0.5, shadow=False, tint=self.tint, rim=self.rim))
         return res
 
     def point(self, node, local=(0, 0, 0)):

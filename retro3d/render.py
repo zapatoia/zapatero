@@ -36,7 +36,7 @@ FS = """
 #version 330
 in vec3 v_wpos; in vec3 v_nrm; in vec2 v_uv; in vec4 v_col; in vec4 v_lpos;
 uniform sampler2D u_tex; uniform sampler2D u_tex2; uniform sampler2D u_shadow;
-uniform int u_blend; uniform int u_flip; uniform float u_alpha_test; uniform float u_emissive; uniform int u_unlit;
+uniform int u_blend; uniform int u_flip; uniform float u_rim; uniform vec3 u_rim_col; uniform float u_alpha_test; uniform float u_emissive; uniform int u_unlit;
 uniform vec4 u_tint; uniform vec3 u_eye; uniform vec3 u_sun; uniform vec3 u_sun_col;
 uniform vec3 u_sky_amb; uniform vec3 u_gnd_amb; uniform vec3 u_fog_col; uniform vec3 u_glow_col;
 uniform vec3 u_fog; uniform float u_shadow_k; uniform vec2 u_shadow_texel; uniform float u_fog_k;
@@ -79,6 +79,10 @@ void main(){
     sh = mix(1.0, sh, u_shadow_k);
     vec3 hemi = mix(u_gnd_amb, u_sky_amb, n.z * 0.5 + 0.5);
     col = alb.rgb * (hemi + u_sun_col * ndl * sh);
+    // contraluz cálido en los bordes de la silueta (personajes e iconos)
+    vec3 V = normalize(u_eye - v_wpos);
+    float rim = pow(1.0 - clamp(dot(n, V), 0.0, 1.0), 2.6);
+    col += u_rim_col * rim * u_rim;
   }
   col += alb.rgb * u_emissive;
   // niebla lineal, más cálida en la dirección del sol
@@ -124,9 +128,8 @@ void main(){
   else if (h < 0.18) c = mix(u_hor, u_mid, smoothstep(0.0, 0.18, h));
   else c = mix(u_mid, u_zen, smoothstep(0.18, 0.75, h));
   float s = max(dot(d, u_sun), 0.0);
-  c += u_glow * (pow(s, 10.0) * 0.45 + pow(s, 120.0) * 0.8);
+  c += u_glow * pow(s, 10.0) * 0.3;
   // bandas suaves (degradado «de 16 bits») para un cielo menos digital
-  c = floor(c * 64.0 + 0.5) / 64.0;
   f_col = vec4(c, 1.0);
 }
 """
@@ -144,7 +147,7 @@ void main(){
   c = mix(vec3(l), c, 1.06);                       // +saturación
   c = (c - 0.5) * 1.04 + 0.5;                       // +contraste
   vec2 q = uv - 0.5;
-  c *= 1.0 - dot(q * vec2(0.9, 0.7), q * vec2(0.9, 0.7)) * 0.75;  // viñeta
+  c *= 1.0 - dot(q * vec2(0.9, 0.7), q * vec2(0.9, 0.7)) * 0.4;  // viñeta
   f_col = vec4(clamp(c, 0.0, 1.0), 1.0);
 }
 """
@@ -187,15 +190,16 @@ class GPUMesh:
 class Item:
     """Algo que dibujar este fotograma."""
     __slots__ = ("gm", "model", "tex", "tex2", "uvrect", "alpha_test", "emissive", "unlit",
-                 "shadow", "tint", "blend", "fog_k", "flip")
+                 "shadow", "tint", "blend", "fog_k", "flip", "rim")
 
     def __init__(self, gm, model, tex="white", tex2=None, uvrect=(0, 0, 1, 1), alpha_test=0.5,
-                 emissive=0.0, unlit=False, shadow=True, tint=(1, 1, 1, 1), fog_k=1.0, flip=True):
+                 emissive=0.0, unlit=False, shadow=True, tint=(1, 1, 1, 1), fog_k=1.0, flip=True, rim=0.0):
         self.gm, self.model, self.tex, self.tex2 = gm, model, tex, tex2
         self.uvrect, self.alpha_test, self.emissive = uvrect, alpha_test, emissive
         self.unlit, self.shadow, self.tint, self.fog_k = unlit, shadow, tint, fog_k
         self.blend = tex2 is not None
         self.flip = flip
+        self.rim = rim
 
 
 class Renderer:
@@ -229,7 +233,9 @@ class Renderer:
         self.add_texture("white", T.white())
         self.shadow_center = np.array([0, 0, 0.0])
         self.shadow_radius = 14.0
-        self.sun = normalize(LIGHT["sun_dir"])
+        self.light = dict(LIGHT)
+        self.fog = dict(FOG)
+        self.sky = dict(SKY)
 
     # ------------------------------------------------------------ recursos
     def add_texture(self, name, img, repeat=True):
@@ -254,6 +260,8 @@ class Renderer:
 
     def render(self, cam, items, extra_post=None):
         c = self.ctx
+        LIGHT, FOG, SKY = self.light, self.fog, self.sky
+        self.sun = normalize(LIGHT["sun_dir"])
         aspect = self.W / self.H
         V = cam.view()
         P = cam.proj(aspect)
@@ -303,6 +311,7 @@ class Renderer:
         self._set(p, "u_glow_col", SKY["sun_glow"])
         self._set(p, "u_fog", (FOG["start"], FOG["end"], FOG["max"]))
         p["u_shadow_k"].value = LIGHT["shadow_strength"]
+        self._set(p, "u_rim_col", LIGHT.get("rim_col", (1.0, 0.72, 0.42)))
         S = RENDER["shadow_size"]
         self._set(p, "u_shadow_texel", (1 / S, 1 / S))
         p["u_tex"].value = 0
@@ -323,6 +332,7 @@ class Renderer:
             p["u_blend"].value = 1 if it.blend else 0
             p["u_fog_k"].value = it.fog_k
             p["u_flip"].value = 1 if it.flip else 0
+            p["u_rim"].value = it.rim
             self.textures[it.tex].use(0)
             if it.blend:
                 self.textures[it.tex2].use(1)

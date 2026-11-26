@@ -3,13 +3,14 @@
 Fuente de verdad en código: `retro3d/style.py` (paleta, luz, cielo, niebla, render, subtítulos).
 Todo es **original**: ningún nombre, logo, modelo, personaje, música ni UI de juegos existentes.
 
-## Principios
-1. **Polígonos visibles, no realismo.** Sombreado plano por cara (normales planas), color por vértice con ligera variación por cara (`jitter`) que da aspecto «pintado a mano».
-2. **Texturas pequeñas y pixeladas** (32–128 px, filtro *nearest*, sin mipmaps): hierba, tierra, piedra, tablones, corteza, tejas, tela, cuero, metal, pelo. Las de detalle son grises y se multiplican por el color del vértice. Nunca normal maps ni PBR. `Renderer.add_texture` rechaza texturas > 128 px.
-3. **Formas facetadas por envolvente convexa** (`mesh.hull`, `mesh.box(bevel=…)`, `mesh.blob`): cabezas biseladas, rocas, copas de árbol, montañas.
-4. **Luz cálida de tarde:** sol bajo en 3/4 delantero-izquierdo (`LIGHT.sun_dir`), color ámbar; relleno hemisférico (cielo azul arriba, rebote terroso abajo); sombras duras del sol con PCF mínimo, que tiran a violeta (nunca negras).
-5. **Cielo y niebla:** degradado cenit→horizonte con halo del sol y bandas de 64 niveles; niebla lineal 18–70 m del color del horizonte (más cálida hacia el sol). Montañas lejanas facetadas que la niebla vuelve azuladas, nubes planas.
-6. **Post:** brillo suave de zonas claras, +6 % saturación, +4 % contraste y viñeta. Sin desenfoques ni profundidad de campo.
+## Principios (versión MINIMALISTA, v2)
+0. **Menos es más.** Cada elemento debe ganarse su sitio: silueta clara, pocas piezas, superficies limpias, un acento de color por personaje. Si algo no se lee en un móvil a 1 m, sobra.
+1. **Polígonos visibles, no realismo.** Sombreado plano por cara (normales planas) y **color por vértice uniforme** (sin variación por cara: `jitter=0` por defecto).
+2. **Texturas mínimas y pixeladas** (16–32 px, *nearest*): dos tonos en manchas grandes y poco contraste (hierba, tierra), o solo líneas de junta (piedra, tablas, tejas). Personajes sin textura: solo color por vértice. Nunca normal maps ni PBR. `Renderer.add_texture` rechaza > 128 px.
+3. **Formas simples**: cajas con poco bisel, copas de árbol de 10–14 puntos, rocas de 10, montañas de 10. Sin piezas decorativas pequeñas.
+4. **Luz cálida de tarde:** sol bajo en 3/4 delantero-izquierdo, relleno hemisférico generoso (caras siempre legibles), sombras duras que tiran a violeta. **Contraluz cálido** (`rim_col`) en el borde de personajes e iconos.
+5. **Cielo y niebla:** degradado suave cenit→horizonte con un halo discreto; niebla lineal 18–70 m del color del horizonte. Montañas azuladas y 5 nubes planas.
+6. **Post:** brillo suave, +6 % saturación, +4 % contraste y viñeta ligera.
 
 ## Paleta (terrosa saturada)
 | Uso | Colores |
@@ -26,21 +27,22 @@ Todo es **original**: ningún nombre, logo, modelo, personaje, música ni UI de 
 ## Personajes
 - **Proporciones achaparradas:** cabeza ≈ 30 % de la altura, manos en bloque (manopla + pulgar), piernas cortas, botas grandes.
 - **Rig rígido por segmentos** (cadera, torso, cabeza, brazo, antebrazo, mano, muslo, espinilla) — como los modelos de la época.
-- **Caras pintadas en textura** (atlas 128 px): 5 estados de ojos (abierto, medio, cerrado, feliz ^^, sorpresa) y 5 bocas (X cerrada, M entreabierta, E ancha, A abierta, O redonda). Ojos «chibi» sin esclerótica: óvalo oscuro con brillo.
-- **Presupuesto:** 300–1.500 triángulos por personaje (narrador 1.416, perro 1.342).
+- **Caras mínimas pintadas en textura** (atlas 128 px, un solo tono oscuro, sin brillos, cejas, nariz ni rubor): 5 ojos (óvalo, medio, cerrado, feliz ^, sorpresa) y 5 bocas (X media sonrisa, M, E, A, O).
+- **Presupuesto:** 300–1.500 triángulos por personaje (narrador 576, perro 554).
 - **Movimiento secundario** con muelles amortiguados (`anim.Spring`): orejas y cola del perro, cola de la bufanda.
 
-## Escenario base (`retro3d/world.py`)
-Claro de bosque: terreno con hierba en mosaico y camino de tierra mezclado por vértice (splatting clásico), cabaña de piedra y madera con ventana iluminada, muro de piedra con musgo, vallas, farol, barril y cajas, árboles redondos y pinos de pocos polígonos, rocas facetadas, matojos y flores con recorte alfa, montañas y nubes lejanas. Zona de actuación despejada alrededor del origen.
+## Escenarios
+- **Claro** (`retro3d/world.py`): hierba en mosaico y camino de tierra mezclado por vértice, cabaña de piedra y madera, muro de piedra, vallas, farol, árboles y pinos simples, pocas rocas y matojos, montañas y nubes.
+- **Casa** (`retro3d/interior.py`, en `ORIGIN`): interior de la cabaña con frente abierto a cámara: suelo de tablas, zócalo de piedra, ventana con luz de día, chimenea con fuego que parpadea, alfombra, cojín del perro, mesa, taburete, estante. Luz propia (`LIGHT_INTERIOR`): ventana cálida, sin niebla.
 
 ## Cámara
-Tercera persona tipo MMO, **ligeramente picada** (elevación 8–32°), siempre en movimiento suave (órbita, empuje o alejamiento con `easeInOut` + deriva mínima). **Cambio de plano cada 2–3 s.** Formato vertical: a 2,5 m solo caben ±0,5 m en horizontal; los planos se diseñan para ello. La cámara nunca entra en un modelo (`Production._avoid`).
+Tercera persona tipo MMO, **ligeramente picada** (elevación 8–32°), siempre en movimiento suave (órbita, empuje o alejamiento con `easeInOut` + deriva mínima). **Cambio de plano cada 2–3 s.** En el gancho, **zoom de golpe** (`punch`: entra desde lejos en ~0,3 s, temblor que se apaga y «whoosh» + golpe sonoro). Formato vertical: a 2,5 m solo caben ±0,5 m en horizontal; los planos se diseñan para ello. La cámara nunca entra en un modelo (`Production._avoid`).
 
 ## Recursos explicativos 3D (`retro3d/props.py`)
-Carteles de madera con texto pixel tallado, bocadillos pixel (papel crema, borde oscuro), iconos low-poly (corazón, gota de sal, cristales de sal, «?» en vóxeles, cruz de aviso, patatas fritas, lengua), números en vóxeles dorados, chispas. Entran con **easeOutBack** (rebote) y salen con easeInBack; flotan y oscilan. Los números/iconos clave pueden anclarse al encuadre (`"screen": [x, y, profundidad]`) para garantizar que se ven en vertical.
+Siluetas limpias de uno o dos tonos: carteles lisos con texto pixel, bocadillos (papel claro, borde oscuro), corazón y gota extruidos sin bisel, «?» en vóxeles, aviso (disco rojo con cruz blanca), patatas fritas, **números en medallón** (disco oscuro con cifra dorada gruesa), chispas. Entran con **easeOutBack** (rebote) y salen con easeInBack; flotan y oscilan. Los números/iconos clave pueden anclarse al encuadre (`"screen": [x, y, profundidad]`) para garantizar que se ven en vertical.
 
 ## Animación
-easeOutBack, easeInOut, anticipación (recoger antes de lanzar), rebote/aplastamiento al aterrizar. Nada quieto más de 1,5 s: respiración, microbalanceo, parpadeo cada 2–4 s, deriva de cámara.
+easeOutBack, easeInOut, anticipación (recoger antes de lanzar), rebote/aplastamiento al aterrizar. Nada quieto más de 1,5 s: respiración, microbalanceo, parpadeo (al final de cada frase + aleatorio cada 2–4 s), deriva de cámara. **Gestos de énfasis**: en las palabras acentuadas (picos de energía de la voz) el narrador asiente, golpea con las manos, levanta una mano o ladea la cabeza con ojos abiertos (variado, con anticipación). Las acciones arrancan 0,2 s antes de su palabra.
 
 ## Subtítulos
-Montserrat Black (OFL, incluida en `assets/fonts/`), MAYÚSCULAS, bloques de ≤3 palabras, palabra actual en amarillo `#FFD23F` con rebote, texto blanco con contorno marrón-negro de 11 px y sombra. Centro vertical al 66,5 % de la altura. **Zonas seguras:** nada en el 20 % inferior ni en el 12 % derecho (se verifica en cada fotograma).
+Montserrat Black (OFL, incluida en `assets/fonts/`), MAYÚSCULAS, bloques de ≤3 palabras, palabra actual en amarillo `#FFD23F` con rebote sutil, texto blanco con contorno marrón-negro de 10 px, sin sombra. Centro vertical al 66,5 % de la altura. **Zonas seguras:** nada en el 20 % inferior ni en el 12 % derecho (se verifica en cada fotograma).

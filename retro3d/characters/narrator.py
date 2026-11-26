@@ -58,87 +58,58 @@ class Narrator(Character):
 
     # ------------------------------------------------------------ modelo
     def _build(self):
+        """Versión minimalista: bloques limpios, pocas piezas, color por vértice."""
         n = self.nodes
-        sk, sks = C("skin"), C("skin_shade")
+        sk = C("skin")
+        J = 0.0  # sin variación de color por cara: superficies limpias
         # cabeza
         hd = n["head"]
-        hd.attach(M.box(0.56, 0.5, 0.5, sk, center=(0, 0, 0.27), bevel=0.085, jitter=0.0), "white")
-        hd.attach(M.box(0.075, 0.07, 0.08, sks, center=(0, -0.275, 0.2), bevel=0.02, taper=(0.8, 0.6), jitter=0), "white")
+        hd.attach(M.box(0.56, 0.5, 0.5, sk, center=(0, 0, 0.27), bevel=0.07, jitter=J), "white")
         for sx in (-1, 1):
-            hd.attach(M.box(0.07, 0.11, 0.14, sks, center=(sx * 0.29, 0.02, 0.24), bevel=0.02, jitter=0), "white")
-            # rubor
-            hd.attach(M.box(0.06, 0.01, 0.028, (0.96, 0.62, 0.55, 1), center=(sx * 0.185, -0.251, 0.165), jitter=0), "white")
+            hd.attach(M.box(0.06, 0.1, 0.12, C("skin_shade"), center=(sx * 0.285, 0.02, 0.24), jitter=J), "white")
         hair = Mesh()
-        hc, hl = C("hair"), C("hair_light")
-        hf = lambda nn, rel: hl if nn[2] > 0.6 else hc
-        hair.extend(M.box(0.62, 0.56, 0.17, hc, center=(0, 0.02, 0.5), bevel=0.06, taper=(0.86, 0.86), color_fn=hf))
-        hair.extend(M.box(0.6, 0.2, 0.42, hc, center=(0, 0.2, 0.33), bevel=0.05, color_fn=hf))
+        hc = C("hair")
+        hair.extend(M.box(0.62, 0.56, 0.16, hc, center=(0, 0.02, 0.5), bevel=0.05, taper=(0.88, 0.88), jitter=J))
+        hair.extend(M.box(0.6, 0.18, 0.4, hc, center=(0, 0.2, 0.33), jitter=J))
         for sx in (-1, 1):
-            hair.extend(M.box(0.09, 0.34, 0.2, hc, center=(sx * 0.29, 0.06, 0.41), bevel=0.03, bottom_taper=(1, 0.7), color_fn=hf))
-        # flequillo en mechones (cuñas) — por encima de las cejas
-        for i, x in enumerate((-0.2, -0.07, 0.07, 0.2)):
-            ln = (0.17, 0.13, 0.15, 0.11)[i]
-            w = M.box(0.15, 0.08, ln, hc, center=(0, 0, -ln / 2), bottom_taper=(0.25, 0.6), jitter=0.04, color_fn=hf)
-            hair.extend(w.transformed(translate(x, -0.25, 0.56) @ euler(0.2, 0, (0.18 if x < 0 else -0.18) * (1 if i in (0, 3) else 0.5))))
-        # remolino
-        hair.extend(M.box(0.1, 0.07, 0.16, hc, center=(0, 0, 0.08), taper=(0.2, 0.4), color_fn=hf).transformed(
-            translate(0.08, 0.05, 0.56) @ euler(-0.5, 0.35, 0)))
-        hd.attach(hair, "hair")
-        # cara: decals intercambiables (ojos y boca)
-        hd.decals.append((M.decal(0.42, 0.21, center=(0, -0.2515, 0.3)), "face_narr", "eyes"))
-        hd.decals.append((M.decal(0.27, 0.18, center=(0, -0.2515, 0.1)), "face_narr", "mouth"))
+            hair.extend(M.box(0.08, 0.32, 0.18, hc, center=(sx * 0.29, 0.07, 0.42), jitter=J))
+        # flequillo: tres mechones grandes
+        for i, x in enumerate((-0.17, 0.0, 0.17)):
+            ln = (0.15, 0.12, 0.15)[i]
+            w = M.box(0.2, 0.07, ln, hc, center=(0, 0, -ln / 2), bottom_taper=(0.2, 0.6), jitter=J)
+            hair.extend(w.transformed(translate(x, -0.25, 0.56) @ euler(0.18, 0, -x * 0.9)))
+        hd.attach(hair, "white")
+        # cara: decals intercambiables (ojos y boca), sin nariz ni rubor
+        hd.decals.append((M.decal(0.42, 0.21, center=(0, -0.2515, 0.29)), "face_narr", "eyes"))
+        hd.decals.append((M.decal(0.27, 0.18, center=(0, -0.2515, 0.11)), "face_narr", "mouth"))
 
         # torso
         to = n["torso"]
-        tun, tund, trim = C("tunic"), C("tunic_dark"), C("tunic_trim")
-        to.attach(M.box(0.46, 0.3, 0.46, tun, center=(0, 0, 0.25), bevel=0.05, taper=(1.1, 1.04), jitter=0.02), "cloth")
-        # cuello en V ribeteado
-        for sx in (-1, 1):
-            to.attach(M.box(0.04, 0.02, 0.16, trim, center=(0, 0, 0)).transformed(
-                translate(sx * 0.045, -0.155, 0.4) @ euler(0, sx * 0.45, 0)), "white")
-        to.attach(M.box(0.09, 0.02, 0.1, sks, center=(0, -0.152, 0.43)), "white")
-        to.attach(M.box(0.47, 0.32, 0.09, C("leather"), center=(0, 0, 0.035), jitter=0.02), "leather")
-        to.attach(M.box(0.1, 0.04, 0.08, C("buckle"), center=(0, -0.17, 0.035), bevel=0.012, jitter=0), "white")
-        # bandolera y zurrón
-        strap = M.box(0.06, 0.33, 0.66, C("leather_dark"), center=(0, 0, 0))
-        to.attach(strap.transformed(translate(0.02, 0, 0.27) @ euler(0, 0.72, 0)), "leather")
-        to.attach(M.box(0.12, 0.2, 0.16, C("leather"), center=(0.26, 0.02, 0.02), bevel=0.025), "leather")
-        to.attach(M.box(0.13, 0.21, 0.06, C("leather_dark"), center=(0.262, 0.02, 0.09), bevel=0.01), "leather")
-        # bufanda
-        to.attach(M.cylinder(0.205, 0.17, 0.11, 8, C("scarf"), center=(0, 0.0, 0.5), rot=0.2), "cloth")
-        to.attach(M.cylinder(0.08, 0.08, 0.06, 6, sk, center=(0, 0, 0.54)), "white")
-        # hombrera de metal (solo izquierda)
-        pad = M.box(0.25, 0.3, 0.13, C("metal"), center=(0, 0, 0), bevel=0.04, taper=(0.7, 0.75))
-        pad.extend(M.box(0.27, 0.32, 0.03, C("leather"), center=(0, 0, -0.05)))
-        to.attach(pad.transformed(translate(0.29, 0, 0.47) @ euler(0, -0.35, 0)), "metal")
-        # cola de la bufanda (con muelle)
+        tun = C("tunic")
+        to.attach(M.box(0.46, 0.3, 0.46, tun, center=(0, 0, 0.25), bevel=0.04, taper=(1.1, 1.04), jitter=J), "white")
+        to.attach(M.box(0.47, 0.32, 0.08, C("leather"), center=(0, 0, 0.035), jitter=J), "white")
+        # bufanda (acento de color) con cola que se mueve
+        to.attach(M.cylinder(0.2, 0.17, 0.11, 6, C("scarf"), center=(0, 0.0, 0.5), rot=0.2, jitter=J), "white")
         tail = Node("scarf_tail", (-0.15, -0.13, 0.49))
         to.add(tail)
         self.nodes["scarf_tail"] = tail
-        tail.attach(M.box(0.1, 0.04, 0.17, C("scarf"), center=(0, 0, -0.075), bottom_taper=(0.85, 1)), "cloth")
-        tail.attach(M.box(0.11, 0.045, 0.035, C("scarf_dark"), center=(0, 0, -0.155)), "cloth")
+        tail.attach(M.box(0.1, 0.04, 0.17, C("scarf"), center=(0, 0, -0.075), jitter=J), "white")
 
         # brazos
         for side, sx in (("R", -1), ("L", 1)):
-            n[f"arm_{side}"].attach(M.box(0.135, 0.135, 0.25, tun, center=(0, 0, -0.1), bottom_taper=(0.92, 0.92)), "cloth")
-            fo = n[f"fore_{side}"]
-            fo.attach(M.box(0.11, 0.11, 0.18, sk, center=(0, 0, -0.07), jitter=0), "white")
-            fo.attach(M.box(0.135, 0.135, 0.12, C("leather"), center=(0, 0, -0.13), bevel=0.02), "leather")
+            n[f"arm_{side}"].attach(M.box(0.135, 0.135, 0.25, tun, center=(0, 0, -0.1), jitter=J), "white")
+            n[f"fore_{side}"].attach(M.box(0.115, 0.115, 0.2, sk, center=(0, 0, -0.09), jitter=J), "white")
             hn = n[f"hand_{side}"]
-            hn.attach(M.box(0.09, 0.13, 0.13, sk, center=(0, 0, -0.06), bevel=0.025, jitter=0), "white")
-            hn.attach(M.box(0.055, 0.05, 0.075, sk, center=(-sx * 0.035, -0.07, -0.035), bevel=0.012, jitter=0), "white")
-            # piernas
-            n[f"thigh_{side}"].attach(M.box(0.16, 0.17, 0.24, C("pants"), center=(0, 0, -0.11), bottom_taper=(0.92, 0.92)), "cloth")
+            hn.attach(M.box(0.095, 0.13, 0.13, sk, center=(0, 0, -0.06), bevel=0.02, jitter=J), "white")
+            # piernas y botas
+            n[f"thigh_{side}"].attach(M.box(0.16, 0.17, 0.24, C("pants"), center=(0, 0, -0.11), jitter=J), "white")
             sh = n[f"shin_{side}"]
-            sh.attach(M.box(0.145, 0.155, 0.16, C("pants"), center=(0, 0, -0.06)), "cloth")
-            sh.attach(M.box(0.18, 0.27, 0.15, C("boot"), center=(0, -0.04, -0.235), bevel=0.04, taper=(0.95, 0.85)), "leather")
-            sh.attach(M.box(0.2, 0.2, 0.07, C("leather"), center=(0, 0, -0.135), bevel=0.02), "leather")
-            sh.attach(M.box(0.185, 0.28, 0.03, C("leather_dark", 0.8), center=(0, -0.04, -0.305)), "white")
-        # cadera y faldón de la túnica
+            sh.attach(M.box(0.145, 0.155, 0.16, C("pants"), center=(0, 0, -0.06), jitter=J), "white")
+            sh.attach(M.box(0.18, 0.27, 0.16, C("boot"), center=(0, -0.04, -0.23), bevel=0.03, jitter=J), "white")
+        # cadera y faldón
         hp = n["hips"]
-        hp.attach(M.box(0.4, 0.28, 0.14, C("pants"), center=(0, 0, 0.0), bevel=0.03), "cloth")
-        hp.attach(M.box(0.45, 0.31, 0.2, tun, center=(0, 0, -0.02), bottom_taper=(1.1, 1.14), jitter=0.02), "cloth")
-        hp.attach(M.box(0.5, 0.36, 0.04, trim, center=(0, 0, -0.115)), "cloth")
+        hp.attach(M.box(0.4, 0.28, 0.14, C("pants"), center=(0, 0, 0.0), jitter=J), "white")
+        hp.attach(M.box(0.45, 0.31, 0.2, tun, center=(0, 0, -0.02), bottom_taper=(1.1, 1.14), jitter=J), "white")
 
     def setup_textures(self, r):
         img, uv = T.face_atlas()
@@ -178,8 +149,50 @@ class Narrator(Character):
             d["eyes"] = bs
         return d
 
+    # ------------------------------------------------------------ énfasis
+    BEAT_KINDS = ("nod", "chop", "lift_L", "tilt", "chop", "lift_R", "nod", "tilt")
+
+    def set_beats(self, times, seed=7):
+        """Gestos de énfasis en instantes dados (palabras acentuadas)."""
+        rng = np.random.default_rng(seed)
+        self.beats = [(t, self.BEAT_KINDS[i % len(self.BEAT_KINDS)], rng.uniform(0.8, 1.15))
+                      for i, t in enumerate(sorted(times))]
+
+    def beat_layer(self, t):
+        d = {}
+        for (tb, kind, amp) in getattr(self, "beats", []):
+            lt = t - tb + 0.12           # el gesto empieza 0,12 s antes de la sílaba
+            if lt < 0 or lt > 0.75:
+                continue
+            # anticipación breve → golpe rápido (easeOutBack) → caída suave
+            if lt < 0.08:
+                w = -0.25 * math.sin(lt / 0.08 * math.pi)
+            elif lt < 0.24:
+                w = EASE["back"]((lt - 0.08) / 0.16, 2.0)
+            else:
+                w = 1 - EASE["inout"]((lt - 0.24) / 0.51)
+            w *= amp
+            def acc(k, v):
+                d[k] = np.asarray(d.get(k, np.zeros(3))) + np.asarray(v) * w
+            if kind == "nod":
+                acc("head", (0.16, 0, 0)); acc("torso", (0.05, 0, 0))
+            elif kind == "chop":
+                acc("fore_R", (-0.4, 0, 0)); acc("fore_L", (-0.4, 0, 0)); acc("torso", (0.06, 0, 0))
+                acc("head", (0.06, 0, 0))
+            elif kind in ("lift_L", "lift_R"):
+                side = kind[-1]
+                acc(f"arm_{side}", (-0.45, 0, 0)); acc(f"fore_{side}", (-0.5, 0, 0))
+                acc("head", (-0.05, (0.08 if side == "L" else -0.08), 0))
+            elif kind == "tilt":
+                acc("head", (-0.06, 0.16, 0.06)); acc("torso", (-0.03, 0, 0))
+                if 0.05 < lt < 0.5:
+                    d["eyes"] = "wide"
+            acc("hips.p", (0, 0, -0.012))
+        return d
+
     def pose_at(self, t):
         p = super().pose_at(t)
+        p = add(p, self.beat_layer(t))
         base = self.base_layer(t)
         if p.get("eyes") in ("happy", "closed") and "eyes" in base:
             base.pop("eyes")

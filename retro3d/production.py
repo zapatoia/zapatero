@@ -36,6 +36,11 @@ class Production:
         self.W, self.H = W, H
         clear = [(c["pos"][0], c["pos"][1], 1.6) for c in script["cast"].values()]
         self.world = World(self.r, extra_clear=clear)
+        self.zones = {"claro": np.zeros(3)}
+        if "casa" in script.get("scenes", []):
+            from . import interior
+            self.world.add_interior()
+            self.zones["casa"] = interior.ORIGIN
         self.cast = {}
         for name, c in script["cast"].items():
             if c["type"] == "narrator":
@@ -44,7 +49,7 @@ class Production:
                 ch = Dog(c.get("variant", "default"), c.get("size", 1.0), c.get("head_scale", 1.0))
             ch.upload(self.r)
             x, y = c["pos"]
-            ch.place = (x, y, float(ground_h(x, y)), c.get("yaw", 0.0))
+            ch.place = (x, y, self.world.height(x, y), c.get("yaw", 0.0))
             ch.radius = 0.45 if c["type"] == "narrator" else 0.55 * c.get("size", 1.0)
             ch.kind = c["type"]
             self.cast[name] = ch
@@ -69,6 +74,50 @@ class Production:
         for c in narr:
             c.env_fn = self._env_at
             c.face_override = self._narr_face
+            c.set_beats(self.emphasis_times())
+            # parpadeo natural al final de cada frase + los aleatorios que no choquen
+            ends = [w["end"] + 0.1 for w in self.words if re.search(r"[.:!?»]$", w["text"])]
+            c.blinks = sorted(ends + [b for b in c.blinks if all(abs(b - e) > 0.8 for e in ends)])
+
+    # ------------------------------------------------------------ zonas
+    def _z(self, v):
+        """[x, y, (z), …, "zona"] → coordenadas absolutas."""
+        v = list(v)
+        zone = "claro"
+        if v and isinstance(v[-1], str):
+            zone = v.pop()
+        o = self.zones[zone]
+        v[0] += o[0]
+        v[1] += o[1]
+        return v
+
+    # ------------------------------------------------------------ énfasis
+    def emphasis_times(self, frac=0.38, min_gap=0.6):
+        """Palabras acentuadas: picos de energía de la voz en palabras de ≥4 letras
+        (más las marcadas en "emph" de cada segmento)."""
+        cand = []
+        for i, w in enumerate(self.words):
+            core = _norm(w["text"])
+            if len(core) < 4:
+                continue
+            if self.env is not None:
+                a, b = int(w["start"] / 0.01), max(int(w["end"] / 0.01), int(w["start"] / 0.01) + 1)
+                pk = float(np.max(self.env[a:b])) if b <= len(self.env) and a < b else 0.0
+            else:
+                pk = len(core)
+            cand.append((pk, w["start"]))
+        if not cand:
+            return []
+        thr = np.quantile([c[0] for c in cand], 1 - frac)
+        times = sorted(t for pk, t in cand if pk >= thr)
+        for si, s in enumerate(self.script["segments"]):
+            for e in s.get("emph", []):
+                times.append(self.t_of(si, e))
+        out = []
+        for t in sorted(times):
+            if not out or t - out[-1] >= min_gap:
+                out.append(t)
+        return out
 
     # ------------------------------------------------------------ tiempos
     def t_of(self, si, a):
@@ -131,12 +180,18 @@ class Production:
                 params = {k: v for k, v in a.items() if k not in ("at", "who", "act", "delay", "place")}
                 ch.play(t0, a["act"], **params)
                 if "place" in a:
-                    self.places[a["who"]].append((t0, a["place"]))
+                    # el cambio de sitio ocurre exactamente en el corte, no antes
+                    tp = self.seg_start(si) if a.get("at", "start") == "start" else self.t_of(si, a["at"]) - 0.07
+                    self.places[a["who"]].append((max(0.0, tp), self._z(a["place"])))
             for p in s.get("props", []):
                 self._add_prop(si, p)
             for fx in s.get("sfx", []):
                 self.sfx.append((self.t_of(si, fx["at"]), fx["name"], fx.get("gain", 0.0)))
         self.shots.sort(key=lambda x: x[0])
+        for t0, sh in self.shots:
+            if "punch" in sh:
+                self.sfx.append((max(0.0, t0 - 0.04), "whoosh", 9.0))
+                self.sfx.append((t0 + sh["punch"][1], "thud", -2.0))
         # colocaciones (cambios de sitio instantáneos, normalmente en un corte)
         for name, keys in self.places.items():
             if keys:
@@ -149,16 +204,16 @@ class Production:
                     for (t0, pl) in keys:
                         if t >= t0:
                             x, y, yaw = pl
-                            cur = (x, y, float(ground_h(x, y)), yaw)
+                            cur = (x, y, self.world.height(x, y), yaw)
                     return cur
                 ch.place_fn = fn
         self._auto_sfx()
 
     def _anchor_fn(self, p):
         if "anchor" not in p:
-            pos = np.asarray(p["pos"], "f8")
+            pos = np.asarray(self._z(p["pos"]), "f8")
             if len(pos) == 2:
-                pos = np.array([pos[0], pos[1], ground_h(*pos)])
+                pos = np.array([pos[0], pos[1], self.world.height(*pos)])
             return None, pos
         ch = self.cast[p["anchor"]]
         off = np.asarray(p.get("off", (0, 0, 0)), "f8")
@@ -242,7 +297,7 @@ class Production:
     # ------------------------------------------------------------ cámara
     def subject_point(self, sub, h=None):
         if isinstance(sub, list):
-            return np.asarray(sub, "f8")
+            return np.asarray(self._z(sub), "f8")
         if sub == "two":
             pts = [self.subject_point("narr", 0.95), self.subject_point("dog", 0.95)]
             return (pts[0] + pts[1]) / 2 if h is None else (pts[0] + pts[1]) / 2 + np.array([0, 0, h - 0.95])
@@ -272,6 +327,16 @@ class Production:
         a0, a1 = rng("az", 0.0)
         e0, e1 = rng("el", 12.0)
         dist = d0 + (d1 - d0) * u
+        lt = t - t0
+        shake = np.zeros(3)
+        if "punch" in sh:
+            # zoom de golpe: entra desde lejos en pocos fotogramas y tiembla al «impactar»
+            p0, pd = sh["punch"]
+            if lt < pd:
+                dist = p0 + (dist - p0) * EASE["out"](lt / pd)
+            else:
+                amp = sh.get("shake", 0.035) * math.exp(-(lt - pd) * 9.0)
+                shake = amp * np.array([noise1(t * 31, 1), noise1(t * 29, 2), noise1(t * 37, 3)])
         az = math.radians(a0 + (a1 - a0) * u + 0.6 * noise1(t * 0.3, cur))
         el = math.radians(e0 + (e1 - e0) * u)
         fov = sh.get("fov", 38.0)
@@ -287,7 +352,15 @@ class Production:
         half_h = dist * math.tan(math.radians(fov) / 2)
         target = P_ - upv * lift * half_h + right * sh.get("side", 0.0) * half_h * self.W / self.H
         eye = eye - upv * lift * half_h + right * sh.get("side", 0.0) * half_h * self.W / self.H
-        eye = self._avoid(eye, P_)
+        eye = self._avoid(eye, P_) + shake
+        target = target + shake * 0.5
+        zone = self.world.zone(P_[0], P_[1])
+        if zone == "casa":
+            from .style import LIGHT_INTERIOR, FOG_INTERIOR
+            self.r.light, self.r.fog = LIGHT_INTERIOR, FOG_INTERIOR
+        else:
+            from .style import LIGHT, FOG
+            self.r.light, self.r.fog = LIGHT, FOG
         self.r.shadow_center = P_.copy()
         self.r.shadow_center[2] = 0
         self.r.shadow_radius = max(6.0, dist * 1.6)
@@ -306,7 +379,7 @@ class Production:
                 if n < r + 0.25:
                     d = d / (n + 1e-9) if n > 1e-6 else np.array([0, -1.0])
                     eye[0], eye[1] = x + d[0] * (r + 0.25), y + d[1] * (r + 0.25)
-        gz = float(ground_h(eye[0], eye[1])) + 0.3
+        gz = self.world.height(eye[0], eye[1]) + 0.3
         if eye[2] < gz:
             eye[2] = gz
         return eye
@@ -317,6 +390,12 @@ class Production:
             ch.update(t, 1 / self.fps)
         if cam is None:
             cam, _ = self.camera(t)
+        for k, it in enumerate(getattr(self.world, "fire_items", [])):
+            f = 0.5 + 0.5 * noise1(t * 7.0, k)
+            it.emissive = 1.0 + 0.35 * f
+            it.model = np.diag([1.0, 1.0, 0.9 + 0.2 * f, 1.0])
+            o = self.zones.get("casa", np.zeros(3))
+            it.model[:3, 3] = (np.eye(3) - np.diag([1.0, 1.0, 0.9 + 0.2 * f])) @ (o + np.array([1.7, 2.4, 0.2]))
         items = list(self.world.items)
         for ch in self.cast.values():
             items += ch.items()

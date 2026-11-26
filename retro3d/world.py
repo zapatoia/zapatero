@@ -55,7 +55,7 @@ def _terrain_grid(x0, x1, y0, y1, step, drop=0.0, path=True, seed=0):
         Z = Z - Bw * 0.04
     else:
         Bw = np.zeros_like(X)
-    tone = 0.92 + rng.uniform(0, 0.16, X.shape)
+    tone = 0.97 + rng.uniform(0, 0.06, X.shape)
     m = Mesh()
     s = 0.33  # repetición de textura cada 3 m
     for j in range(len(ys) - 1):
@@ -86,12 +86,11 @@ def tree_round(seed, h=1.0):
             rot_z(a) @ translate(0, 0.22 * h, 0) @ euler(0.35, 0, 0)))
     leaves = Mesh()
     lf = lambda n, rel: C("leaf_b") if n[2] > 0.55 else (C("leaf_a") if n[2] > -0.2 else C("leaf_c"))
-    blobs = [((0, 0, 2.6), (1.35, 1.25, 1.05)), ((0.55, 0.3, 3.35), (0.95, 0.9, 0.8)),
-             ((-0.5, -0.2, 3.1), (0.85, 0.85, 0.75))]
+    blobs = [((0, 0, 2.75), (1.4, 1.3, 1.15)), ((0.45, 0.25, 3.45), (0.85, 0.8, 0.7))]
     for k, (c, r) in enumerate(blobs):
         c = np.array(c) * h + rng.uniform(-0.15, 0.15, 3)
-        leaves.extend(M.blob(r[0] * h, r[1] * h, r[2] * h, C("leaf_a"), n=20, noise=0.18, seed=seed * 7 + k,
-                             center=c, jitter=0.06, color_fn=lf, uv_scale=0.8))
+        leaves.extend(M.blob(r[0] * h, r[1] * h, r[2] * h, C("leaf_a"), n=14, noise=0.08, seed=seed * 7 + k,
+                             center=c, jitter=0.0, color_fn=lf, uv_scale=0.8))
     return trunk, leaves
 
 
@@ -99,17 +98,17 @@ def tree_pine(seed, h=1.0):
     rng = np.random.default_rng(seed)
     trunk = M.cylinder(0.2 * h, 0.12 * h, 1.4 * h, 5, C("bark_dark"), center=(0, 0, 0.7 * h))
     lv = Mesh()
-    for k, (z, r, hh) in enumerate([(1.0, 1.35, 1.7), (2.0, 1.05, 1.5), (2.9, 0.72, 1.3)]):
+    for k, (z, r, hh) in enumerate([(1.0, 1.3, 1.9), (2.2, 0.9, 1.7)]):
         cone = M.cylinder(r * h, 0.0, hh * h, 7, C("pine_a"), center=(0, 0, (z + hh / 2) * h),
-                          rot=rng.uniform(0, 1), jitter=0.08, cap_col=C("pine_a", 0.7))
+                          rot=rng.uniform(0, 1), jitter=0.0, cap_col=C("pine_a", 0.7))
         cone.recolor(lambda c, n, p: C("pine_b") if n[2] > 0.45 else C("pine_a", 0.95))
         lv.extend(cone)
     return trunk, lv
 
 
 def rock(seed, s=1.0):
-    return M.blob(0.7 * s, 0.55 * s, 0.42 * s, C("stone_a"), n=14, noise=0.3, seed=seed,
-                  center=(0, 0, 0.12 * s), jitter=0.07, flat_bottom=-0.1 * s,
+    return M.blob(0.7 * s, 0.55 * s, 0.42 * s, C("stone_a"), n=10, noise=0.2, seed=seed,
+                  center=(0, 0, 0.12 * s), jitter=0.0, flat_bottom=-0.1 * s,
                   color_fn=lambda n, rel: C("moss") if n[2] > 0.72 else (C("stone_c") if n[2] > 0.2 else C("stone_b")))
 
 
@@ -200,10 +199,9 @@ def stone_wall(length, seed=0):
             if x + ox + w / 2 > length / 2 + 0.2:
                 continue
             m.extend(M.box(w * rng.uniform(0.85, 1.05), 0.55 * rng.uniform(0.9, 1.05), hh, C("stone_a"),
-                           center=(x + w / 2 + ox, rng.uniform(-0.04, 0.04), z), bevel=0.06, jitter=0.1,
+                           center=(x + w / 2 + ox, rng.uniform(-0.04, 0.04), z), bevel=0.04, jitter=0.0,
                            taper=(0.9, 0.9),
-                           color_fn=lambda n, rel: C("moss") if n[2] > 0.8 and rng.random() < 0.6 else
-                           (C("stone_c") if n[2] > 0.3 else C("stone_b"))).transformed(rot_z(rng.uniform(-0.06, 0.06))))
+                           color_fn=lambda n, rel: C("stone_c") if n[2] > 0.3 else C("stone_a")).transformed(rot_z(rng.uniform(-0.06, 0.06))))
         x += w
     return m
 
@@ -217,7 +215,7 @@ def fence(length, seed=0):
         m.extend(M.box(0.16, 0.16, 1.05, C("wood_b"), center=(x, 0, 0.5), bevel=0.03, taper=(0.75, 0.75)).transformed(
             euler(rng.uniform(-0.05, 0.05), rng.uniform(-0.05, 0.05), 0)))
     for z in (0.42, 0.78):
-        m.extend(M.box(length + 0.2, 0.08, 0.12, C("wood_a"), center=(0, -0.08, z), jitter=0.05).transformed(
+        m.extend(M.box(length + 0.2, 0.08, 0.12, C("wood_a"), center=(0, -0.08, z), jitter=0.0).transformed(
             euler(0, rng.uniform(-0.03, 0.03), 0)))
     return m
 
@@ -264,8 +262,8 @@ def mountains(seed=4):
         cx, cy = math.cos(a) * R, math.sin(a) * R + 10
         h = rng.uniform(12, 26)
         w = rng.uniform(22, 34)
-        pk = M.blob(w, w * 0.7, h, C("mountain"), n=16, noise=0.25, seed=i + 40, center=(cx, cy, -2),
-                    flat_bottom=0, jitter=0.05)
+        pk = M.blob(w, w * 0.7, h, C("mountain"), n=10, noise=0.2, seed=i + 40, center=(cx, cy, -2),
+                    flat_bottom=0, jitter=0.0)
         pk.recolor(lambda c, n, p: C("mountain", 1.15) if n[0] * -0.62 + n[1] * -0.42 + n[2] * 0.5 > 0.25
                    else C("mountain", 0.88))
         m.extend(pk.transformed(translate(cx, cy, 0) @ rot_z(a) @ translate(-cx, -cy, 0)))
@@ -298,7 +296,7 @@ class World:
         add(mountains(), "white", shadow=False, fog_k=0.62)
         # nubes: planos altos que miran a la cámara (eje -Y)
         cl = Mesh()
-        for k in range(9):
+        for k in range(5):
             x = rng.uniform(-110, 110)
             y = rng.uniform(90, 140)
             z = rng.uniform(30, 55)
@@ -306,6 +304,28 @@ class World:
             h = w * 0.42
             cl.extend(M.decal(w, h, center=(x, y, z)))
         add(cl, "cloud", unlit=True, shadow=False, fog_k=0.35, tint=(1.02, 0.94, 0.88, 1))
+
+    def add_interior(self):
+        from . import interior
+        items, obs, fire = interior.build(self.r)
+        self.items += items
+        self.obstacles += obs
+        self.fire_items = fire
+        self.has_interior = True
+
+    def height(self, x, y):
+        if getattr(self, "has_interior", False):
+            from . import interior
+            if interior.contains(x, y):
+                return 0.0
+        return float(ground_h(x, y))
+
+    def zone(self, x, y):
+        if getattr(self, "has_interior", False):
+            from . import interior
+            if interior.contains(x, y, margin=8.0):
+                return "casa"
+        return "claro"
 
     def free(self, x, y, clear):
         for (cx, cy, rr) in clear:
@@ -326,10 +346,6 @@ class World:
             add(m.transformed(Mh), tex)
         add(win.transformed(Mh), "white", emissive=0.9)
         self.obstacles.append((hx, hy, 3.4))
-        bx, by = -3.6, 4.4
-        add(barrel().transformed(translate(bx, by, H(bx, by))), "planks_v")
-        add(crate().transformed(translate(-3.0, 5.5, H(-3.0, 5.5)) @ rot_z(0.3)), "planks")
-        add(crate().transformed(translate(-3.05, 5.48, H(-3.0, 5.5) + 0.7) @ rot_z(0.75) @ scale(0.8)), "planks")
         # farol junto al camino
         lp, glow = lantern_post()
         Ml = translate(2.6, 2.0, H(2.6, 2.0)) @ rot_z(math.pi)
@@ -347,7 +363,7 @@ class World:
         placed = []
         targets = [(-1.5, 12.5), (4.5, 14), (-11, 3), (10, 9), (-10.5, 12), (13, 0), (-13.5, -4), (7, 22),
                    (-4, 20), (16, 12), (-17, 8), (2, 26), (-9, 26), (19, 20), (-20, -2)]
-        for k in range(46):
+        for k in range(30):
             if k < len(targets):
                 x, y = targets[k]
             else:
@@ -371,7 +387,7 @@ class World:
         add(leaves, "leaves")
         add(pine, "pine")
         # rocas
-        for k in range(26):
+        for k in range(10):
             if k < 5:
                 x, y = [(4.2, -2.5), (-4.5, 2.8), (5.6, 1.2), (-2.2, 9.5), (3.0, 8.4)][k]
             else:
@@ -387,7 +403,7 @@ class World:
         add(rocks, "rock")
         # matojos y flores
         tufts = {"tuft": Mesh(), "flower_r": Mesh(), "flower_w": Mesh(), "flower_p": Mesh()}
-        for k in range(520):
+        for k in range(150):
             x = rng.uniform(-20, 20)
             y = rng.uniform(-12, 28)
             d = _dist_to_path(x, y)
@@ -397,11 +413,11 @@ class World:
                 continue
             kind = "tuft"
             rr = rng.random()
-            if rr < 0.08:
+            if rr < 0.05:
                 kind = "flower_r"
-            elif rr < 0.13:
+            elif rr < 0.08:
                 kind = "flower_w"
-            elif rr < 0.16:
+            elif rr < 0.10:
                 kind = "flower_p"
             s = rng.uniform(0.7, 1.3) * (1.15 if d < 2.6 else 1.0)
             tufts[kind].extend(tuft(k, s).transformed(translate(x, y, H(x, y) - 0.02)))

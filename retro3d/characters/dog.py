@@ -57,55 +57,42 @@ class Dog(Character):
         self.tex_name = f"face_dog_{variant}"
 
     def _build(self):
+        """Versión minimalista: cuerpo, cabeza, hocico, orejas, patas y cola; collar como acento."""
         n = self.nodes
-        fur, dark, light, ear = C(self.v["fur"]), C(self.v["dark"]), C(self.v["light"]), C(self.v["ear"])
-        topshade = lambda nn, rel: (C(self.v["fur"], 1.06) if nn[2] > 0.6 else fur)
+        J = 0.0
+        fur, light, ear = C(self.v["fur"]), C(self.v["light"]), C(self.v["ear"])
         b = n["body"]
-        b.attach(M.box(0.3, 0.56, 0.28, fur, center=(0, 0.02, 0.0), bevel=0.07, taper=(0.95, 1.0), color_fn=topshade), "fur")
-        b.attach(M.box(0.31, 0.24, 0.32, fur, center=(0, -0.19, 0.0), bevel=0.07, color_fn=topshade), "fur")
-        b.attach(M.box(0.17, 0.05, 0.17, light, center=(0, -0.3, -0.05), bevel=0.03, taper=(1.2, 1)), "fur")
-        b.attach(M.box(0.18, 0.4, 0.05, light, center=(0, -0.02, -0.13), bevel=0.02), "fur")
-        # mancha del lomo
+        b.attach(M.box(0.3, 0.56, 0.28, fur, center=(0, 0.02, 0.0), bevel=0.06, jitter=J), "white")
+        b.attach(M.box(0.31, 0.24, 0.32, fur, center=(0, -0.19, 0.0), bevel=0.06, jitter=J), "white")
         ne = n["neck"]
-        ne.attach(M.box(0.2, 0.19, 0.2, fur, center=(0, -0.03, 0.06), bevel=0.05), "fur")
+        ne.attach(M.box(0.2, 0.19, 0.2, fur, center=(0, -0.03, 0.06), jitter=J), "white")
         if self.v["collar"]:
-            ne.attach(M.cylinder(0.125, 0.125, 0.055, 8, C(self.v["collar"]), center=(0, -0.02, 0.06), rot=0.2), "white")
-            ne.attach(M.box(0.045, 0.02, 0.05, C("tag"), center=(0, -0.15, 0.02), bevel=0.01), "white")
+            ne.attach(M.cylinder(0.125, 0.125, 0.055, 6, C(self.v["collar"]), center=(0, -0.02, 0.06), rot=0.25, jitter=J), "white")
         hd = n["head"]
-        hs = self.head_scale
-        hd.scl0 = hs
-        hd.attach(M.box(0.34, 0.3, 0.28, fur, center=(0, -0.01, 0.1), bevel=0.075, color_fn=topshade), "fur")
-        # hocico, nariz, mejillas
-        hd.attach(M.box(0.21, 0.25, 0.14, light, center=(0, -0.215, 0.02), bevel=0.035, taper=(0.85, 0.92)), "fur")
-        hd.attach(M.box(0.24, 0.1, 0.17, fur, center=(0, -0.12, 0.04), bevel=0.04), "fur")
-        hd.attach(M.box(0.085, 0.05, 0.06, C("nose"), center=(0, -0.35, 0.06), bevel=0.016, jitter=0), "white")
-        hd.attach(M.box(0.02, 0.01, 0.045, C("nose"), center=(0, -0.348, 0.02), jitter=0), "white")
-        # interior de la boca (visible al abrir)
-        hd.attach(M.box(0.15, 0.17, 0.02, C("tongue_dark", 0.6), center=(0, -0.255, -0.05)), "white")
-        hd.decals.append((M.decal(0.31, 0.155, center=(0, -0.1615, 0.135)), self_tex(self), "eyes"))
+        hd.attach(M.box(0.34, 0.3, 0.28, fur, center=(0, -0.01, 0.1), bevel=0.06, jitter=J), "white")
+        hd.attach(M.box(0.21, 0.25, 0.14, light, center=(0, -0.215, 0.02), bevel=0.03, taper=(0.85, 0.92), jitter=J), "white")
+        hd.attach(M.box(0.24, 0.1, 0.12, fur, center=(0, -0.12, 0.015), jitter=J), "white")
+        hd.attach(M.box(0.085, 0.05, 0.06, C("nose"), center=(0, -0.35, 0.06), jitter=J), "white")
+        hd.attach(M.box(0.15, 0.17, 0.02, C("tongue_dark", 0.6), center=(0, -0.255, -0.05), jitter=J), "white")
+        hd.decals.append((M.decal(0.31, 0.155, center=(0, -0.1615, 0.165)), self_tex(self), "eyes"))
         ja = n["jaw"]
-        ja.attach(M.box(0.16, 0.17, 0.05, light, center=(0, -0.075, -0.012), bevel=0.015), "fur")
-        ja.attach(M.box(0.14, 0.15, 0.012, C("tongue_dark", 0.7), center=(0, -0.075, 0.014)), "white")
-        tg = n["tongue"]
-        tg.attach(M.box(0.095, 0.15, 0.022, C("tongue"), center=(0, -0.075, 0.0), bevel=0.008, jitter=0), "white")
-        tg.attach(M.box(0.012, 0.12, 0.024, C("tongue_dark"), center=(0, -0.08, 0.001), jitter=0), "white")
+        ja.attach(M.box(0.16, 0.17, 0.05, light, center=(0, -0.075, -0.012), jitter=J), "white")
+        ja.attach(M.box(0.14, 0.15, 0.012, C("tongue_dark", 0.7), center=(0, -0.075, 0.014), jitter=J), "white")
+        n["tongue"].attach(M.box(0.095, 0.15, 0.022, C("tongue"), center=(0, -0.075, 0.0), jitter=J), "white")
         for side, sx in (("R", -1), ("L", 1)):
-            e = n[f"ear_{side}"]
-            e.attach(M.box(0.06, 0.14, 0.22, ear, center=(sx * 0.02, 0, -0.1), bevel=0.02, bottom_taper=(1.0, 0.75),
-                           taper=(1, 0.8)), "fur")
-            lf = n[f"leg_F{side}"]
-            lf.attach(M.box(0.1, 0.115, 0.17, fur, center=(0, 0, -0.07), bevel=0.025), "fur")
+            n[f"ear_{side}"].attach(M.box(0.06, 0.14, 0.22, ear, center=(sx * 0.02, 0, -0.1), bottom_taper=(1.0, 0.75),
+                                          jitter=J), "white")
+            n[f"leg_F{side}"].attach(M.box(0.1, 0.115, 0.17, fur, center=(0, 0, -0.07), jitter=J), "white")
             pf = n[f"paw_F{side}"]
-            pf.attach(M.box(0.085, 0.09, 0.11, fur, center=(0, 0, -0.05), bevel=0.02), "fur")
-            pf.attach(M.box(0.11, 0.15, 0.06, light, center=(0, -0.025, -0.12), bevel=0.02), "fur")
-            lb = n[f"leg_B{side}"]
-            lb.attach(M.box(0.12, 0.19, 0.2, fur, center=(0, 0.0, -0.05), bevel=0.04), "fur")
+            pf.attach(M.box(0.09, 0.095, 0.11, fur, center=(0, 0, -0.05), jitter=J), "white")
+            pf.attach(M.box(0.11, 0.15, 0.06, fur, center=(0, -0.025, -0.12), jitter=J), "white")
+            n[f"leg_B{side}"].attach(M.box(0.12, 0.19, 0.2, fur, center=(0, 0.0, -0.05), bevel=0.03, jitter=J), "white")
             pb = n[f"paw_B{side}"]
-            pb.attach(M.box(0.08, 0.09, 0.12, fur, center=(0, 0, -0.05), bevel=0.02), "fur")
-            pb.attach(M.box(0.11, 0.15, 0.06, light, center=(0, -0.025, -0.12), bevel=0.02), "fur")
-        n["tail1"].attach(M.box(0.075, 0.075, 0.15, fur, center=(0, 0, 0.065), bevel=0.015), "fur")
-        n["tail2"].attach(M.box(0.065, 0.065, 0.14, fur, center=(0, 0, 0.06), bevel=0.015), "fur")
-        n["tail3"].attach(M.box(0.055, 0.055, 0.11, light, center=(0, 0, 0.04), bevel=0.012, taper=(0.5, 0.5)), "fur")
+            pb.attach(M.box(0.085, 0.095, 0.12, fur, center=(0, 0, -0.05), jitter=J), "white")
+            pb.attach(M.box(0.11, 0.15, 0.06, fur, center=(0, -0.025, -0.12), jitter=J), "white")
+        n["tail1"].attach(M.box(0.075, 0.075, 0.15, fur, center=(0, 0, 0.065), jitter=J), "white")
+        n["tail2"].attach(M.box(0.065, 0.065, 0.14, fur, center=(0, 0, 0.06), jitter=J), "white")
+        n["tail3"].attach(M.box(0.055, 0.055, 0.11, fur, center=(0, 0, 0.04), taper=(0.5, 0.5), jitter=J), "white")
 
     def upload(self, r):
         img, uv = T.face_atlas(dog=True)

@@ -48,11 +48,23 @@ PAL = {
 LIGHT = {
     "sun_dir": (-0.62, -0.42, 0.62),  # hacia la luz: sol bajo de tarde, 3/4 delantero izquierdo
     "sun_col": (1.08, 0.86, 0.62),    # cálido
-    "sky_ambient": (0.50, 0.58, 0.78),  # relleno frío desde arriba
-    "ground_ambient": (0.46, 0.36, 0.22),  # rebote terroso
+    "sky_ambient": (0.60, 0.65, 0.80),  # relleno frío desde arriba
+    "ground_ambient": (0.52, 0.42, 0.28),  # rebote terroso
     "shadow_tint": (0.62, 0.55, 0.78),  # las sombras tiran a violeta, nunca a negro
     "shadow_strength": 0.62,
+    "rim_col": (1.0, 0.72, 0.42),   # contraluz cálido de borde
 }
+
+# Interior de la cabaña: luz de ventana cálida, relleno cálido, sin niebla
+LIGHT_INTERIOR = {
+    "sun_dir": (-0.78, -0.25, 0.58),
+    "sun_col": (0.95, 0.78, 0.55),
+    "sky_ambient": (0.58, 0.5, 0.44),
+    "ground_ambient": (0.44, 0.32, 0.22),
+    "shadow_strength": 0.5,
+    "rim_col": (1.0, 0.62, 0.3),
+}
+FOG_INTERIOR = {"start": 40.0, "end": 120.0, "color": (0.5, 0.36, 0.24), "max": 0.0}
 
 SKY = {
     "zenith": (0.30, 0.47, 0.78),
@@ -90,7 +102,7 @@ SUBS = {
     "fill": (255, 255, 255),
     "highlight": (255, 210, 63),
     "stroke": (24, 14, 8),
-    "stroke_w": 11,
+    "stroke_w": 10,
     "center_y": 0.665,   # centro vertical del bloque (por encima del 20 % inferior)
     "max_words": 3,
     "max_width": 0.78,   # fracción de la zona segura

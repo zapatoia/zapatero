@@ -15,7 +15,8 @@ retro3d/                 motor y librería de estilo
   render.py              renderizador moderngl (EGL, llvmpipe), sombras, cielo, niebla, post
   mesh.py textures.py    geometría low-poly y texturas pixel procedurales (≤128 px)
   font.py                fuente pixel 5x7 propia (carteles, bocadillos, vóxeles)
-  world.py               escenario reutilizable (claro, camino, cabaña, muro, árboles…)
+  world.py               escenario «claro» (camino, cabaña, muro, árboles…) + altura/zona
+  interior.py            escenario «casa» (interior de la cabaña) con su propia luz
   characters/            narrator.py, dog.py (+ base.py: acciones, capas, muelles, caras)
   props.py               carteles, bocadillos, iconos, números en vóxeles, chispas
   production.py          director: anclas a palabras → planos, acciones, recursos, sfx
@@ -33,7 +34,7 @@ STYLE.md facts_to_verify.md
 - Sin internet general: solo gestores de paquetes y `api.elevenlabs.io`. Todo se modela y renderiza por código; nada de assets descargados.
 - Dependencias: `pip install moderngl numpy pillow scipy soundfile pyloudnorm`, `apt-get install -y libegl1 libegl-mesa0 fonts-montserrat` (la fuente ya está copiada en `assets/fonts/`). ffmpeg viene instalado.
 - **Motor elegido: moderngl + EGL/Mesa llvmpipe** (medido a 1080x1920): ~0,1–0,2 s/fotograma frente a ~1,1 s Blender Workbench, ~60 s EEVEE por software y ~21 s Cycles 16 spp. Además da control total del look (niebla, cielo, *nearest*, sombreado plano).
-- Salida: 1080x1920, 30 fps, H.264 (crf 19) + AAC 192k, audio a **-14 LUFS, pico ≤ -1,5 dBTP** (loudnorm en dos pasadas) verificado con `ebur128` sobre el MP4 final.
+- Salida: 1080x1920, 30 fps, H.264 (crf 19) + AAC 192k, audio a **-14 LUFS, pico ≤ -1,5 dBTP** (máster propio: compresión suave + ganancia + limitador de pico verdadero x4 con techo -2,3 dBTP; `loudnorm` lineal NO llega con voz de picos altos) verificado con `ebur128` sobre el MP4 final.
 
 ## Flujo de trabajo para un vídeo nuevo
 1. **Guion** en `scripts/NN-tema.json` (copiar la estructura de `01-perro-lame.json`).
@@ -46,20 +47,24 @@ STYLE.md facts_to_verify.md
 8. Revisar fotogramas clave del MP4 final, subirlo al repo (`git add -f` no hace falta: `videos/` está versionado) y contar tiempo de render y mejoras.
 
 ## Formato del guion JSON
+- `scenes`: `["claro", "casa"]` (añadir `"casa"` para construir el interior).
 - `cast`: personajes con `type` (`narrator`/`dog`), `pos` [x,y], `yaw`, y para perros `variant` (`default`, `pup`, `mom`), `size`, `head_scale`.
+- Coordenadas en otra zona: añade el nombre al final de la lista: `"place": [x, y, yaw, "casa"]`, `"sub": [x, y, z, "casa"]`, `"pos": [x, y, "casa"]`. La luz cambia sola según la zona del sujeto del plano. Narrador en casa (-0,4, 0,6), perro (0,64, 0,58); cojín del perro (0,95, 1,45).
 - `segments[]`: `text` (lo que se dice y se subtitula, **cifras y siglas escritas como se pronuncian**), `shots`, `acts`, `props`, `sfx`.
 - Anclas `at`/`until`: índice de palabra del segmento, palabra («sal»), `"start"`, `"end"`, `"next"`, o `[ancla, segundos]`.
-- Plano: `sub` (`narr`, `dog`, `two`, `mom+pup`, o punto [x,y,z]), `h`, `dist`/`az`/`el` como [inicio, fin], `fov`, `lift`, `ease`. Plano medio narrador ≈ dist 2,7–3,2; primer plano ≈ 2,0–2,4 (h 1,32). Perro: dist 2,1–2,6.
+- Plano: `sub` (`narr`, `dog`, `two`, `mom+pup`, o punto [x,y,z]), `h`, `dist`/`az`/`el` como [inicio, fin], `fov`, `lift`, `ease`, `punch: [dist_inicial, segundos]` + `shake` (zoom de golpe con temblor y whoosh; úsalo en el gancho).
+- `emph`: lista opcional de palabras del segmento que deben llevar gesto de énfasis (además de las detectadas en la voz).
+- Las acciones empiezan 0,2 s antes de su palabra (`delay` para cambiarlo); los `place` ocurren exactamente en el corte. Plano medio narrador ≈ dist 2,7–3,2; primer plano ≈ 2,0–2,4 (h 1,32). Perro: dist 2,1–2,6.
 - Acciones narrador: `idle talk explain point(side) shrug lean_in laugh offer_hand(side) look_down wave walk`. Perro: `idle wag sit head_tilt jump lick(up,reach,rate) lick_paw calm nuzzle walk`. `place: [x,y,yaw]` recoloca en el corte.
 - Recursos: `icon` (`heart drop salt question exclaim warn fries tongue num:N text:…`), `bubble` (texto pixel), `sign` (cartel; textos cortos ≤11 letras por línea), `sparkles`. `anchor`+`off`/`node`, `pos`, o `screen: [x,y,prof]` (anclado al encuadre, recomendado para números).
 - Para que el perro lama la mano del narrador: narrador en (0, 0,8) yaw 0,15 con `offer_hand side L`, perro en (1,04, 0,78) yaw -1,15 con `lick up 0.55`. Recalcular si cambian.
 
 ## Estilo
-Ver **STYLE.md** (y `retro3d/style.py`). Resumen: low-poly 300–1.500 tris por personaje, sombreado plano / color por vértice, texturas 32–128 px sin filtrar, sin normal maps ni PBR; personajes achaparrados con caras pintadas intercambiables; hierba en mosaico, camino de tierra, árboles low-poly, rocas facetadas, cabaña y muro de piedra, cielo degradado con niebla; luz cálida de tarde y sombras simples; cámara MMO en 3ª persona ligeramente picada con cambios cada 2–3 s; carteles, bocadillos, iconos y números con rebote.
+Ver **STYLE.md** (y `retro3d/style.py`). **Dirección actual: MINIMALISTA** (petición del usuario): caras de un solo tono sin nariz ni rubor, personajes con pocas piezas y color plano, texturas de dos tonos, escenario despejado, iconos de silueta limpia. Resumen: low-poly 300–1.500 tris por personaje, sombreado plano / color por vértice, texturas 32–128 px sin filtrar, sin normal maps ni PBR; personajes achaparrados con caras pintadas intercambiables; hierba en mosaico, camino de tierra, árboles low-poly, rocas facetadas, cabaña y muro de piedra, cielo degradado con niebla; luz cálida de tarde y sombras simples; cámara MMO en 3ª persona ligeramente picada con cambios cada 2–3 s; carteles, bocadillos, iconos y números con rebote.
 
 ## Personajes
-1. **Narrador** (sin nombre): aventurero achaparrado de túnica verde azulada con ribete ocre, bufanda teja con cola que se mueve, bandolera y zurrón, hombrera metálica solo en el hombro izquierdo, brazaletes y botas con vuelta, pelo castaño rojizo en mechones. 5 bocas para labios, parpadeo cada 2–4 s, respiración.
-2. **Perro**: canela con pecho, hocico y patas crema, orejas caídas tostadas con muelle, cola de 3 segmentos con muelle, collar rojo con chapa, mandíbula y lengua articuladas. Variantes `pup` y `mom`.
+1. **Narrador** (sin nombre, 576 tris): aventurero achaparrado de túnica verde azulada, cinturón, bufanda teja con cola que se mueve (único acento), botas, pelo castaño rojizo en tres mechones. Cara mínima: 5 ojos, 5 bocas. Respiración, parpadeo al final de frase y gestos de énfasis.
+2. **Perro** (554 tris): canela con hocico crema, orejas caídas tostadas con muelle, cola de 3 segmentos con muelle, collar rojo, mandíbula y lengua articuladas. Variantes `pup` y `mom`.
 Revisar con `python tools/preview_characters.py` → `build/characters/*.jpg`.
 
 ## Voz (ElevenLabs) — reglas fijas
@@ -87,3 +92,4 @@ No avanzar si una fase falla; explicar qué falla y proponer alternativa. Revisa
 
 ## Git
 Trabajar en la rama indicada por la sesión. `build/` está ignorado; `cache/voice/` y `videos/` sí se versionan.
+Peso: con el estilo minimalista un vídeo de ~40 s ocupa ~25 MB (crf 19). Si algún MP4 supera 50 MB, considerar Git LFS (`git lfs` está instalado) o subir los vídeos fuera del repo.

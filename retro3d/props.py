@@ -28,7 +28,7 @@ def heart_mesh(size=0.5):
         x = 16 * math.sin(a) ** 3
         y = 13 * math.cos(a) - 5 * math.cos(2 * a) - 2 * math.cos(3 * a) - math.cos(4 * a)
         pts.append((x / 34 * size, y / 34 * size))
-    return M.extrude(pts, size * 0.36, C("heart"), side_col=C("heart_dark"), bevel=0.14)
+    return M.extrude(pts, size * 0.3, C("heart"), side_col=C("heart_dark"))
 
 
 def drop_mesh(size=0.5):
@@ -41,16 +41,13 @@ def drop_mesh(size=0.5):
         a = th + (2 * math.pi - 2 * th) * i / N   # recorre el arco inferior
         pts.append((math.sin(a) * r, cy + math.cos(a) * r))
     pts = [(x * size * 1.5, z * size * 1.5) for x, z in pts[:-1]]
-    m = M.extrude(pts, size * 0.42, C("salt"), side_col=C("salt_dark"), bevel=0.15)
-    m.extend(M.box(0.07, size * 0.5, 0.16, (1, 1, 1, 1), center=(0, 0, 0), jitter=0).transformed(
-        translate(-0.13 * size * 1.5 * 1.3, 0, -0.12 * size * 1.5) @ euler(0, 0.5, 0)))
-    return m
+    return M.extrude(pts, size * 0.32, C("salt"), side_col=C("salt_dark"))
 
 
 def salt_crystals(size=0.5, seed=1):
     rng = np.random.default_rng(seed)
     m = Mesh()
-    for k in range(7):
+    for k in range(4):
         c = rng.uniform(-0.5, 0.5, 3) * size
         s = rng.uniform(0.08, 0.14) * size * 2
         m.extend(M.box(s, s, s, C("salt"), center=(0, 0, 0), jitter=0.05).transformed(
@@ -77,9 +74,7 @@ def medal_mesh(text, d=0.5):
     """Medallón: disco oscuro con aro dorado y cifra gruesa dorada en relieve."""
     m = Mesh()
     rx = euler(math.pi / 2, 0, 0)
-    m.extend(M.cylinder(d / 2, d / 2, d * 0.12, 14, C("gold_dark"), rot=0.11).transformed(rx))
-    m.extend(M.cylinder(d * 0.44, d * 0.44, d * 0.15, 14, C("ui_ink"), rot=0.11, jitter=0).transformed(rx))
-    m.extend(M.cylinder(d * 0.47, d * 0.47, d * 0.13, 14, C("gold"), rot=0.11, caps=False).transformed(rx))
+    m.extend(M.cylinder(d / 2, d / 2, d * 0.12, 16, C("ui_ink"), rot=0.1, cap_col=C("ui_ink")).transformed(rx))
     rows = bold_rows(font.trim_rows(font.text_bitmap(text)))
     cell = d * 0.62 / len(rows)
     num = M.voxels(rows, cell, d * 0.12, C("gold"), C("gold_dark"))
@@ -99,22 +94,20 @@ def exclaim_mesh(cell=0.1):
 def warn_cross_mesh(size=0.6):
     """Cruz de aviso: placa circular blanca con borde rojo y cruz roja en relieve."""
     m = Mesh()
-    m.extend(M.cylinder(0.5, 0.5, 0.1, 12, C("warn_red"), center=(0, 0, 0)).transformed(euler(math.pi / 2, 0, 0)))
-    m.extend(M.cylinder(0.42, 0.42, 0.12, 12, C("warn_white"), center=(0, 0, 0)).transformed(euler(math.pi / 2, 0, 0)))
-    for (w, h) in ((0.5, 0.16), (0.16, 0.5)):
-        m.extend(M.box(w, 0.18, h, C("warn_red"), center=(0, 0, 0), bevel=0.02, jitter=0))
+    m.extend(M.cylinder(0.5, 0.5, 0.1, 16, C("warn_red"), center=(0, 0, 0)).transformed(euler(math.pi / 2, 0, 0)))
+    for (w, h) in ((0.52, 0.16), (0.16, 0.52)):
+        m.extend(M.box(w, 0.14, h, C("warn_white"), center=(0, 0, 0), jitter=0))
     return m.transformed(scale(size))
 
 
 def fries_mesh(size=0.5):
     m = Mesh()
-    m.extend(M.box(0.5, 0.32, 0.45, C("warn_red"), center=(0, 0, 0.0), taper=(1.25, 1.2), bevel=0.02))
-    m.extend(M.box(0.18, 0.02, 0.14, C("gold"), center=(0, -0.18, 0.02), jitter=0))
+    m.extend(M.box(0.5, 0.32, 0.45, C("warn_red"), center=(0, 0, 0.0), taper=(1.25, 1.2)))
     rng = np.random.default_rng(5)
-    for k in range(9):
-        x = -0.22 + k * 0.055
-        h = rng.uniform(0.3, 0.45)
-        m.extend(M.box(0.07, 0.07, h, C("flower_y"), center=(x, rng.uniform(-0.06, 0.06), 0.2 + h / 2 - 0.1)).transformed(
+    for k in range(5):
+        x = -0.2 + k * 0.1
+        h = rng.uniform(0.3, 0.42)
+        m.extend(M.box(0.08, 0.08, h, C("flower_y"), center=(x, rng.uniform(-0.06, 0.06), 0.2 + h / 2 - 0.1)).transformed(
             euler(rng.uniform(-0.15, 0.15), rng.uniform(-0.25, 0.25), 0)))
     return m.transformed(scale(size * 1.4))
 
@@ -207,7 +200,8 @@ class Prop:
         R = R @ rot_z(self.spin * lt + self.wobble * math.sin(lt * 3.0)) @ euler(self.tilt, 0, 0)
         Mx = translate(*p) @ R @ scale(s)
         return [Item(gm, Mx, tex=tex, unlit=o.get("unlit", self.unlit), emissive=o.get("emissive", self.emissive),
-                     shadow=o.get("shadow", self.shadow), alpha_test=0.5, flip=o.get("flip", True))
+                     shadow=o.get("shadow", self.shadow), alpha_test=0.5, flip=o.get("flip", True),
+                     rim=0.0 if o.get("unlit", self.unlit) else 0.35)
                 for gm, tex, o in self.parts]
 
 
