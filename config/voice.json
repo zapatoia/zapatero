@@ -1,0 +1,10 @@
+{
+  "voice_id": "851ejYcv2BoNPjrkw93G",
+  "model_id": "eleven_v3",
+  "language_code": "es",
+  "voice_settings": {"stability": 0.5},
+  "endpoint": "https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps",
+  "output_format": "mp3_44100_128",
+  "api_key_env": "ELEVENLABS_API_KEY",
+  "notes": "No cambiar de voz sin permiso del usuario. Una toma por vídeo; el audio se guarda en cache/voice/."
+}
