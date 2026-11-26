@@ -63,6 +63,30 @@ def voxel_text(text, cell=0.11, depth=0.16, col="gold", side="gold_dark"):
     return M.voxels(rows, cell, depth, C(col), C(side))
 
 
+def bold_rows(rows):
+    """Engrosa un glifo pixel: cada píxel ocupa también el de su derecha."""
+    W = max(len(r) for r in rows) + 1
+    out = []
+    for r in rows:
+        r = r.ljust(W, ".")
+        out.append("".join("#" if (r[i] == "#" or (i > 0 and r[i - 1] == "#")) else "." for i in range(W)))
+    return out
+
+
+def medal_mesh(text, d=0.5):
+    """Medallón: disco oscuro con aro dorado y cifra gruesa dorada en relieve."""
+    m = Mesh()
+    rx = euler(math.pi / 2, 0, 0)
+    m.extend(M.cylinder(d / 2, d / 2, d * 0.12, 14, C("gold_dark"), rot=0.11).transformed(rx))
+    m.extend(M.cylinder(d * 0.44, d * 0.44, d * 0.15, 14, C("ui_ink"), rot=0.11, jitter=0).transformed(rx))
+    m.extend(M.cylinder(d * 0.47, d * 0.47, d * 0.13, 14, C("gold"), rot=0.11, caps=False).transformed(rx))
+    rows = bold_rows(font.trim_rows(font.text_bitmap(text)))
+    cell = d * 0.62 / len(rows)
+    num = M.voxels(rows, cell, d * 0.12, C("gold"), C("gold_dark"))
+    m.extend(num.transformed(translate(0, -d * 0.1, 0)))
+    return m
+
+
 def question_mesh(cell=0.1):
     rows = font.BIG["?"]
     return M.voxels(rows, cell, cell * 1.6, C("question"), C("question_dark"))
@@ -255,7 +279,7 @@ def make_icon(r, kind, t_in, t_out=None, pos=(0, 0, 0), follow=None, size=1.0, s
     elif kind == "tongue":
         m, tex = tongue_icon(0.45), "white"
     elif kind.startswith("num:"):
-        m, tex = voxel_text(kind[4:], cell=0.085, depth=0.14), "white"
+        m, tex = medal_mesh(kind[4:], 0.5), "white"
     elif kind.startswith("text:"):
         m, tex = voxel_text(kind[5:], cell=0.05, depth=0.08, col="ui_paper", side="ui_paper_dark"), "white"
     else:

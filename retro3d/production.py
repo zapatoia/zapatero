@@ -124,7 +124,9 @@ class Production:
                 self.shots.append((max(0.0, t0), sh))
             for a in s.get("acts", []):
                 t0 = self.seg_start(si) if a.get("at", "start") == "start" else self.t_of(si, a["at"])
-                t0 += a.get("delay", 0.0)
+                # por defecto la acción arranca 0,2 s antes de su palabra: pose asentada en el corte
+                t0 += a.get("delay", -0.2 if a.get("at", "start") != "start" else 0.0)
+                t0 = max(0.0, t0)
                 ch = self.cast[a["who"]]
                 params = {k: v for k, v in a.items() if k not in ("at", "who", "act", "delay", "place")}
                 ch.play(t0, a["act"], **params)

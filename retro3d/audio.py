@@ -104,7 +104,8 @@ def check_alignment(x, words, sr=SR, max_lag=0.35):
         if score > best:
             best, best_lag = score, lag
     agree = ((np.roll(pred, best_lag) > 0) == (voiced > 0)).mean()
-    return best_lag * hop, float(agree)
+    agree0 = ((pred > 0) == (voiced > 0)).mean()
+    return best_lag * hop, float(agree), float(agree0)
 
 
 def shift_words(words, dt):
@@ -345,3 +346,70 @@ def loudnorm_two_pass(src, dst, I=-14.0, TP=-1.5, LRA=11.0):
           f"linear=true,aresample={SR}")
     subprocess.run(["ffmpeg", "-y", "-v", "error", "-i", src, "-af", af, "-ar", str(SR), dst], check=True)
     return js
+
+
+# ------------------------------------------------------------------ máster propio
+
+def _smooth_gain(g, sr, attack=0.002, release=0.08):
+    """Envolvente de ganancia: mínimo con anticipación (attack) y recuperación exponencial."""
+    from scipy.ndimage import minimum_filter1d
+    from scipy.signal import lfilter
+    la = max(1, int(attack * sr))
+    g = minimum_filter1d(g, size=2 * la + 1)
+    a = math.exp(-1 / (release * sr))
+    # recuperación: filtro de un polo solo hacia arriba (aprox. con lfilter sobre 1-g)
+    inv = 1 - g
+    out = np.empty_like(inv)
+    acc = 0.0
+    # vectorizado por bloques: picos (inv grande) instantáneos, caída exponencial
+    from scipy.ndimage import maximum_filter1d
+    env = lfilter([1 - a], [1, -a], inv)
+    env = np.maximum(env, inv)
+    env = maximum_filter1d(env, size=la * 2 + 1)
+    return 1 - env
+
+
+def true_peak(x, sr=SR):
+    from scipy.signal import resample_poly
+    return 20 * np.log10(np.abs(resample_poly(x, 4, 1)).max() + 1e-12)
+
+
+def limit_true_peak(x, ceiling_db=-2.0, sr=SR):
+    from scipy.signal import resample_poly
+    c = 10 ** (ceiling_db / 20)
+    y = x.copy()
+    for _ in range(6):
+        up = np.abs(resample_poly(y, 4, 1))
+        pk = up.reshape(-1, 4).max(1) if len(up) >= len(y) * 4 else np.abs(y)
+        pk = pk[:len(y)]
+        g = np.minimum(1.0, c / (pk + 1e-12))
+        if g.min() >= 0.999:
+            break
+        y = y * _smooth_gain(g, sr)
+    return y
+
+
+def compress(x, sr=SR, thr_db=-24.0, ratio=2.5, attack=0.005, release=0.12):
+    from scipy.signal import lfilter
+    env = np.abs(x)
+    a_r = math.exp(-1 / (release * sr))
+    env = lfilter([1 - a_r], [1, -a_r], env)
+    db = 20 * np.log10(env + 1e-9)
+    over = np.maximum(0, db - thr_db)
+    gdb = -over * (1 - 1 / ratio)
+    return x * 10 ** (gdb / 20)
+
+
+def master(x, target_lufs=-14.0, ceiling_db=-2.3, sr=SR):
+    """Compresión suave + ganancia a target LUFS + limitador de pico verdadero (iterativo)."""
+    import pyloudnorm as pyln
+    meter = pyln.Meter(sr)
+    y = compress(x, sr, thr_db=-26.0, ratio=3.0)
+    for _ in range(12):
+        L = meter.integrated_loudness(y)
+        y = y * 10 ** ((target_lufs - L) / 20)
+        y = limit_true_peak(y, ceiling_db, sr)
+        L2 = meter.integrated_loudness(y)
+        if abs(L2 - target_lufs) < 0.05:
+            break
+    return y, meter.integrated_loudness(y), true_peak(y, sr)

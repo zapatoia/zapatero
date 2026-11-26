@@ -33,7 +33,7 @@ STYLE.md facts_to_verify.md
 - Sin internet general: solo gestores de paquetes y `api.elevenlabs.io`. Todo se modela y renderiza por código; nada de assets descargados.
 - Dependencias: `pip install moderngl numpy pillow scipy soundfile pyloudnorm`, `apt-get install -y libegl1 libegl-mesa0 fonts-montserrat` (la fuente ya está copiada en `assets/fonts/`). ffmpeg viene instalado.
 - **Motor elegido: moderngl + EGL/Mesa llvmpipe** (medido a 1080x1920): ~0,1–0,2 s/fotograma frente a ~1,1 s Blender Workbench, ~60 s EEVEE por software y ~21 s Cycles 16 spp. Además da control total del look (niebla, cielo, *nearest*, sombreado plano).
-- Salida: 1080x1920, 30 fps, H.264 (crf 17) + AAC 192k, audio a **-14 LUFS, pico ≤ -1,5 dBTP** (loudnorm en dos pasadas) verificado con `ebur128` sobre el MP4 final.
+- Salida: 1080x1920, 30 fps, H.264 (crf 19) + AAC 192k, audio a **-14 LUFS, pico ≤ -1,5 dBTP** (loudnorm en dos pasadas) verificado con `ebur128` sobre el MP4 final.
 
 ## Flujo de trabajo para un vídeo nuevo
 1. **Guion** en `scripts/NN-tema.json` (copiar la estructura de `01-perro-lame.json`).

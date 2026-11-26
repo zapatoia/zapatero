@@ -265,15 +265,16 @@ class Dog(Character):
         p["eyes"] = "closed" if out > 0.4 else "happy"
         return p
 
-    def act_lick_paw(self, lt, t=0, rate=2.6, **kw):
-        """Sentado lamiéndose la pata delantera (lamido excesivo)."""
+    def act_lick_paw(self, lt, t=0, rate=2.6, side="R", **kw):
+        """Sentado lamiéndose una pata delantera (lamido excesivo)."""
         u = EASE["inout"](seg(lt, 0, 0.4))
+        sg = 1 if side == "R" else -1
         p = self._sit(1.0)
         ph, out = self._lick_cycle(lt, rate)
-        p["leg_FR"] = (0.55 - 0.75 * u, 0.15 * u, 0)
-        p["paw_FR"] = (0.7 * u, 0, 0)
-        p["neck"] = (0.32 + 0.3 * u, 0, -0.35 * u)
-        p["head"] = (0.25 * u + 0.12 * out, 0.15 * u, -0.35 * u)
+        p[f"leg_F{side}"] = (0.55 - 0.95 * u, sg * 0.2 * u, 0)
+        p[f"paw_F{side}"] = (0.8 * u, 0, 0)
+        p["neck"] = (0.32 + 0.4 * u, 0, -sg * 0.4 * u)
+        p["head"] = (0.3 * u + 0.12 * out, sg * 0.2 * u, -sg * 0.35 * u)
         p["jaw"] = ((0.15 + 0.3 * out) * u, 0, 0)
         p["tongue.p"] = (0, -0.09 * out * u, -0.01)
         p["tongue.s"] = (1, 0.6 + 0.8 * out * u, 1)

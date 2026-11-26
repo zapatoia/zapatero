@@ -50,20 +50,19 @@ def prepare_voice(script, bdir, log):
     words = A.words_from_alignment(al)
     n_script = len(text.split())
     assert len(words) == n_script, f"palabras alineadas {len(words)} != guion {n_script}"
-    lag, agree = A.check_alignment(x, words)
-    log["alignment"] = {"lag_s": lag, "agreement_before": agree}
+    lag, agree, agree0 = A.check_alignment(x, words)
+    log["alignment"] = {"lag_s": lag, "agreement_before": agree0, "agreement_after": agree}
     if abs(lag) >= 0.03:
         A.shift_words(words, lag)
-        _, agree2 = A.check_alignment(x, words)
-        log["alignment"]["agreement_after"] = agree2
-        print(f"  timestamps desplazados {lag:+.2f} s (acuerdo {agree:.2f} → {agree2:.2f})")
+        print(f"  timestamps desplazados {lag:+.2f} s (acuerdo con la envolvente {agree0:.2f} → {agree:.2f})")
     else:
-        print(f"  timestamps OK (desfase {lag:+.2f} s, acuerdo {agree:.2f})")
+        print(f"  timestamps OK (desfase {lag:+.2f} s, acuerdo {agree0:.2f})")
     y, words, cuts, removed = A.shorten_pauses(x, words)
     log["pauses"] = {"cuts": cuts, "removed_s": removed}
     print(f"  pausas recortadas: {len(cuts)} cortes, {removed:.2f} s eliminados")
-    lag2, agree3 = A.check_alignment(y, words)
-    log["alignment"]["after_trim"] = {"lag_s": lag2, "agreement": agree3}
+    lag2, _, agree3 = A.check_alignment(y, words)
+    log["alignment"]["after_trim"] = {"residual_lag_s": lag2, "agreement": agree3}
+    print(f"  tras recortar: desfase residual {lag2:+.2f} s, acuerdo {agree3:.2f}")
     wav = os.path.join(bdir, "voice.wav")
     A.write_wav(wav, y)
     with open(os.path.join(bdir, "words.json"), "w") as f:
@@ -125,7 +124,7 @@ def render_video(script, words, dur, env, bdir, W, H, t_from=0.0, t_to=None, con
     n0, n1 = int(t_from * fps), int(math.ceil(t_to * fps))
     vid = os.path.join(bdir, "video.mp4")
     ff = subprocess.Popen(["ffmpeg", "-y", "-v", "error", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
-                           "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "17",
+                           "-r", str(fps), "-i", "-", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
                            "-pix_fmt", "yuv420p", "-movflags", "+faststart", vid], stdin=subprocess.PIPE)
     contact_imgs = []
     safe_viol = []
@@ -158,7 +157,9 @@ def make_audio(prod, voice, dur, bdir, t_from=0.0):
     raw = os.path.join(bdir, "mix_raw.wav")
     A.write_wav(raw, mix)
     norm = os.path.join(bdir, "mix_norm.wav")
-    A.loudnorm_two_pass(raw, norm)
+    y, L, tp = A.master(mix)
+    print(f"  máster: {L:.2f} LUFS, pico verdadero {tp:.2f} dBTP (antes de AAC)")
+    A.write_wav(norm, y)
     return norm, events
 
 
