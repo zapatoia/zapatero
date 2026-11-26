@@ -120,7 +120,7 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 
 | Tag | Commit | Contenido |
 |---|---|---|
-| `v5` | `978dfcd` | Vídeo 01 «¿Por qué tu perro te lame?» v5: guion del usuario (v4), iconos integrados en la escena con sombras, chupachups, bocadillos nuevos, cámara amortiguada, voz sin ruido (máster `clean2`, −16 LUFS) y música original «aldea». |
+| `v5` (**solo local**: el push de tags lo bloquea el proxy de la sesión, 403; crearlo en GitHub sobre `978dfcd` o hacer `git push origin v5` desde fuera) | `978dfcd` | Vídeo 01 «¿Por qué tu perro te lame?» v5: guion del usuario (v4), iconos integrados en la escena con sombras, chupachups, bocadillos nuevos, cámara amortiguada, voz sin ruido (máster `clean2`, −16 LUFS) y música original «aldea». |
 
 ## 13. Problemas conocidos
 - **El usuario quiere cambiar muchas cosas de la animación** en los próximos vídeos (aún no ha dicho cuáles).
