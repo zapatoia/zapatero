@@ -1,7 +1,7 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
 > Última actualización: 2026-11-26 (sesión `docs/sessions/2026-11-26-01.md`).
-> Rama de trabajo: `claude/3d-mmo-retro-video-pipeline-3ify9e` (aún **no** unida a `main`).
+> Rama de trabajo: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 abierta hacia `main`**: https://github.com/zapatoia/zapatero/pull/2 (sin fusionar). `main` se creó el 2026-11-26 a partir de `b1e3359` (rama por defecto anterior, intento del zapato); en GitHub la rama por defecto sigue siendo `claude/shoe-history-vertical-video-qw2b0t` hasta que el usuario la cambie.
 
 ## 1. Cómo usar este documento
 - **Al empezar cualquier sesión**: leer `CLAUDE.md`, este documento y la última sesión de `docs/sessions/` (o usar `/resume-session`). No cambiar nada hasta que el usuario lo pida.
@@ -127,7 +127,7 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 
 ## 15. Decisiones que debe tomar el usuario
 - ¿Aprueba la **v2**? (→ tag `v2`). ¿Quiere también un tag para la v1 minimalista (commit `6e4e9aa`)?
-- ¿Unir la rama `claude/3d-mmo-retro-video-pipeline-3ify9e` a `main` o que Claude abra la **pull request**?
+- Fusionar la **PR #2** (https://github.com/zapatoia/zapatero/pull/2) en `main` y poner `main` como rama por defecto en GitHub (Settings → Branches).
 - ¿Aplicar las mejoras de §13 (pata del perro, encuadre del gancho, efectos en planos silenciosos, velocidad)?
 - Narrador: ¿número del jersey («00» u otro / ninguno)?, ¿ropa alternativa (`outfit`) para algún vídeo?
 - ¿Ambiente sonoro (viento/pájaros) en algún vídeo? (ahora desactivado por regla).
