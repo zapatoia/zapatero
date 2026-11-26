@@ -327,7 +327,7 @@ def _draw_mouth(canvas, st, sw):
     emo = st.emotion
     cx, cy = MOUTH_C
     w = MOUTH_W * m["w"]
-    open_h = 58 * m["h"] * st.talk_open
+    open_h = 66 * m["h"] * st.talk_open
     smile = emo["smile"]
     hw = w / 2
     if open_h < 5:

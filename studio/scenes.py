@@ -174,7 +174,7 @@ def scene_shoe(c, ctx):
 def draw_prop(c, ctx, prop):
     kind = prop.get("kind", "icon")
     t = ctx.t
-    t0 = ctx.at(prop.get("at"), 0.12)
+    t0 = min(ctx.at(prop.get("at"), 0.12), prop.get("max_delay", 0.9))
     p = prog(t, t0, 0.5)
     bob = math.sin((ctx.T0 + t) * 2.2) * 8
     y = prop.get("y", 560) + bob
@@ -665,8 +665,8 @@ def scene_flow(c, ctx):
         (xa, ya), (xb, yb) = pos[0], pos[1]
         tc = times[1] + 0.2
         for k, ch in enumerate(chips):
-            label_pill(c, ch, (xa + xb) / 2, ya - 190 + k * 380 * 0 + (k * 2 - 1) * -0 - (0 if k == 0 else -380),
-                       44, ctx.a1 if k == 0 else ctx.a2, p=prog(t, tc + k * 0.3, 0.4))
+            label_pill(c, ch, (xa + xb) / 2, ya - 300 + k * 85, 44,
+                       ctx.a1 if k == 0 else ctx.a2, p=prog(t, tc + k * 0.3, 0.4))
     for i, nd in enumerate(nodes):
         x, y = pos[i]
         pr = prog(t, times[i], 0.45)
@@ -816,8 +816,8 @@ def scene_search(c, ctx):
         draw_text(c, url, 860, 462, 38, with_alpha(C["cream"], 0.7), "bold", align="right")
     # campo de búsqueda con texto que se escribe
     query = p.get("query", "Nombre de la entidad")
-    tq = t0 + 0.35
-    nchar = int(len(query) * clamp((t - tq) / 0.9))
+    tq = ctx.at(p.get("type_at"), t0 + 0.35)
+    nchar = int(len(query) * clamp((t - tq) / p.get("type_dur", 0.9)))
     c.drawPath(rrect(150, 545, 870, 645, 50), fill(C["navy"]))
     c.drawPath(rrect(150, 545, 870, 645, 50), stroke())
     icon(c, "magnifier", 215, 595, 28, 1, accent_color=ctx.a1)
@@ -826,8 +826,15 @@ def scene_search(c, ctx):
     if (t * 2) % 1 < 0.5 and nchar < len(query):
         x = 265 + text_width(query[:nchar], qs, "bold") + 6
         c.drawLine(x, 570, x, 620, stroke(C["cream"], 5))
+    # línea de escaneo mientras se busca (nada quieto)
+    res = p.get("results", [])
+    t_last = max([ctx.at(r.get("at"), 99) for r in res] or [0])
+    if t < t_last + 0.5:
+        ph = ((ctx.T0 + t) * 0.6) % 1
+        ys = lerp(680, 1030, ease_in_out(ph))
+        c.drawPath(rrect(130, ys - 4, 890, ys + 4, 4), fill(with_alpha(ctx.a1, 0.55)))
     # resultados
-    for i, r in enumerate(p.get("results", [])):
+    for i, r in enumerate(res):
         tr = ctx.at(r.get("at"), tq + 1.0 + i * 0.9)
         pr = prog(t, tr, 0.4)
         if pr <= 0:
@@ -851,7 +858,12 @@ def scene_stamp(c, ctx):
     p, t = ctx.p, ctx.t
     t0 = ctx.at(p.get("at"), 0.15)
     if p.get("icon"):
-        icon(c, p["icon"], CX, 470, 110, prog(t, 0.05, 0.45), accent_color=ctx.a2)
+        k = ease_out_back(prog(t, 0.05, 0.45), 1.8)
+        bob = math.sin((ctx.T0 + t) * 2.2) * 8
+        if k > 0:
+            c.drawCircle(CX, 470 + bob, 170 * k, fill(C["navy_light"]))
+            c.drawCircle(CX, 470 + bob, 170 * k, stroke())
+        icon(c, p["icon"], CX, 470 + bob, 95, prog(t, 0.12, 0.45), accent_color=ctx.a2)
     stamp(c, ctx, p["lines"], CX, p.get("y", 780), t0, p.get("size", 120))
     ctx.mini_shoe(appear=0.2, hide=p.get("hide_mini", False))
 

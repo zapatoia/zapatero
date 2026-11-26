@@ -16,7 +16,7 @@
      "kind": "icon",
      "name": "phone",
      "badge": "excl",
-     "at": "trading"
+     "max_delay": 0.05
     }
    }
   },
@@ -128,12 +128,12 @@
     "type": "warning",
     "title": "AVISO OBLIGATORIO",
     "big": "74-89 %",
-    "big_at": "porcentaje",
+    "big_at": "broker",
     "body": [
      "DE LAS CUENTAS DE MINORISTAS",
      "PIERDEN DINERO CON CFDs"
     ],
-    "body_at": "pierde",
+    "body_at": "porcentaje",
     "accent": "orange",
     "accent2": "yellow",
     "emotion": "serious"
@@ -153,12 +153,12 @@
        74,
        89
       ],
-      "at": "74"
+      "at": null
      },
      {
       "label": "CNMV\n2015-2016",
       "value": 82,
-      "at": "89",
+      "at": "74",
       "color": "yellow"
      }
     ]

@@ -172,7 +172,7 @@ class LipSync:
             arr[k] = np.convolve(np.pad(arr[k], 8, mode="edge"), ker, mode="valid")
         # la apertura sigue el volumen real de la voz
         env = envelope.sample_grid(n, self.RATE, shift=-lead)
-        amp = np.clip(0.45 + env * 0.75, 0.0, 1.15)
+        amp = np.clip(0.55 + env * 0.8, 0.0, 1.25)
         h = arr["h"] * amp
         # si hay sonido pero el texto dice silencio, abrir igualmente un poco
         h = np.maximum(h, np.where(env > 0.2, env * 0.38, 0.0))
@@ -323,3 +323,55 @@ def refine_alignment(alignment: dict, samples: np.ndarray, sr: int, band_s: floa
     out["character_start_times_seconds"] = new_st
     out["character_end_times_seconds"] = new_en
     return out
+
+
+def tighten_pauses(samples: np.ndarray, sr: int, alignment: dict, keep: float = 0.30,
+                   thresh_db: float = 40.0):
+    """Acorta los silencios de la toma a `keep` segundos (ritmo rápido sin regenerar voz).
+
+    Devuelve (audio_recortado, alignment_reajustado)."""
+    hop = sr // 100
+    n = len(samples) // hop
+    db = 20 * np.log10(np.sqrt((samples[: n * hop].reshape(n, hop) ** 2).mean(1)) + 1e-9)
+    sil = db < db.max() - thresh_db
+    cuts = []   # (inicio_s, fin_s) de tramos a eliminar
+    s = None
+    for i, x in enumerate(list(sil) + [False]):
+        if x and s is None:
+            s = i
+        if not x and s is not None:
+            dur = (i - s) / 100
+            if dur > keep + 0.02 and s > 0 and i < n:
+                mid = (s + i) / 200
+                cuts.append((mid - (dur - keep) / 2, mid + (dur - keep) / 2))
+            s = None
+    if not cuts:
+        return samples, alignment
+    fade = int(0.012 * sr)
+    out, last = [], 0
+    for a, b in cuts:
+        ia, ib = int(a * sr), int(b * sr)
+        seg = samples[last:ia].copy()
+        if len(seg) > fade:
+            seg[-fade:] *= np.linspace(1, 0, fade)
+        out.append(seg)
+        last = ib
+    tail = samples[last:].copy()
+    if len(tail) > fade:
+        tail[:fade] *= np.linspace(0, 1, fade)
+    out.append(tail)
+    new = np.concatenate(out).astype(np.float32)
+
+    def remap(t):
+        shift = 0.0
+        for a, b in cuts:
+            if t >= b:
+                shift += b - a
+            elif t > a:
+                return a - shift
+        return t - shift
+
+    al = dict(alignment)
+    al["character_start_times_seconds"] = [remap(t) for t in alignment["character_start_times_seconds"]]
+    al["character_end_times_seconds"] = [remap(t) for t in alignment["character_end_times_seconds"]]
+    return new, al

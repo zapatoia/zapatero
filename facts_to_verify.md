@@ -15,7 +15,7 @@ Afirmaciones **añadidas por mí** (con nivel de confianza):
 | Vídeo | Afirmación | Confianza | Nota |
 |---|---|---|---|
 | 01 | «Pones 100 € y te dejan mover 1.000 €» (apalancamiento ×10) | Alta (es un ejemplo aritmético) | Ejemplo ilustrativo, no el máximo legal. |
-| 01 | «Sube un 5 %: ganas 50 €. Baja un 5 %: palmas la mitad» | Alta | 5 % de 1.000 € = 50 € = la mitad de 100 €. Sin comisiones ni financiación. |
+| 01 | «Sube un 5 %: ganas 50. Baja un 5 %: palmas la mitad» | Alta | 5 % de 1.000 € = 50 € = la mitad de 100 €. Sin comisiones ni financiación. |
 | 01 | «Por ley, el broker tiene que avisarte…» | Alta | Obligación derivada de las medidas de ESMA (2018) y de la CNMV. |
 | 02 | «Es informativa: no pagas por ella» | Alta | Una declaración informativa no liquida impuesto; no presentarla sí puede tener sanción. |
 | 02 | «Criptos guardadas fuera de España» = criptoactivos custodiados por entidades extranjeras | Media-alta | El 721 se refiere a criptoactivos custodiados en el extranjero; en autocustodia no aplicaría. Consultar a un gestor. |

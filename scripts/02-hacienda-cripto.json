@@ -1,45 +1,197 @@
 {
-  "slug": "02-hacienda-cripto",
-  "title": "Hacienda y tus criptos",
-  "catchphrase": "Pisa con cabeza",
-  "seed": 22,
-  "beats": [
-    {"text": "¿Crees que Hacienda no sabe lo que tienes en cripto?",
-     "scene": {"type": "shoe", "emotion": "skeptic", "arms": "point", "point_angle": -75, "accent": "yellow", "accent2": "orange",
-               "prop": {"kind": "icon", "name": "exchange", "badge": "?", "at": "Hacienda"}}},
-    {"text": "Spoiler: lo *sabe.*",
-     "scene": {"type": "stamp", "lines": ["LO SABE."], "icon": "eye", "at": "sabe", "accent": "orange", "accent2": "yellow",
-               "emotion": "smug"}},
-    {"text": "Los exchanges informan a Hacienda de los saldos y operaciones de sus usuarios en España.",
-     "scene": {"type": "flow", "vertical": false, "title": "LO QUE LE LLEGA", "accent": "yellow", "accent2": "orange",
-               "nodes": [{"icon": "exchange", "label": "EXCHANGE", "at": "exchanges"},
-                         {"icon": "bank", "label": "HACIENDA", "at": "Hacienda", "badge": "check"}],
-               "chips": ["SALDOS", "OPERACIONES"], "hide_mini": false}},
-    {"text": "¿Y si usas uno de otro país de la {UE|u e}? Ahí viene lo *gordo.*",
-     "scene": {"type": "shoe", "emotion": "surprised", "arms": "open", "accent": "orange", "accent2": "yellow",
-               "prop": {"kind": "icon", "name": "globe", "badge": "?", "at": "país"}}},
-    {"text": "Desde enero de {2026|dos mil veintiséis}, con la {DAC8|dac ocho}, los países de la {UE|u e} se intercambian esa información de forma *automática.*",
-     "scene": {"type": "network", "n": 10, "title": "DIRECTIVA DAC8", "center": "2026\nENERO", "center_at": "enero",
-               "links_at": "países", "label": "INTERCAMBIO AUTOMÁTICO", "label_at": "automática",
-               "accent": "orange", "accent2": "yellow", "emotion": "serious"}},
-    {"text": "Si tienes criptos guardadas fuera de España por más de {50.000 €|cincuenta mil euros}, existe el modelo {721|setecientos veintiuno}.",
-     "scene": {"type": "threshold", "doc_title": "MODELO 721", "doc_sub": ["CRIPTOS EN EL EXTRANJERO", "DECLARACIÓN INFORMATIVA"],
-               "at": "criptos", "meter_at": "más", "threshold_label": "50.000 €", "over_label": "TOCA DECLARAR",
-               "fill_dur": 1.8, "accent": "orange", "accent2": "yellow"}},
-    {"text": "Es informativa: no pagas por ella, pero tienes que presentarla.",
-     "scene": {"type": "shoe", "emotion": "neutral", "arms": "raise", "accent": "mint", "accent2": "yellow",
-               "prop": {"kind": "icon", "name": "doc", "badge": "check", "at": "presentarla"}}},
-    {"text": "Declarar no es *opcional.*",
-     "scene": {"type": "stamp", "lines": ["NO ES", "OPCIONAL"], "icon": "doc", "at": "no", "accent": "red", "accent2": "yellow",
-               "emotion": "serious"}},
-    {"text": "Esconderte aquí es como ir de puntillas con zapatos que crujen.",
-     "scene": {"type": "shoe", "emotion": "smug", "arms": "open", "accent": "yellow", "accent2": "orange",
-               "prop": {"kind": "sign", "lines": ["CRIC, CRIC"], "at": "crujen", "rot": 4}}},
-    {"text": "Si tienes dudas, consulta a un *gestor.*",
-     "scene": {"type": "shoe", "emotion": "happy", "arms": "point", "point_angle": -70, "accent": "mint", "accent2": "yellow",
-               "prop": {"kind": "icon", "name": "doc", "badge": "check", "at": "consulta"}}},
-    {"text": "Pisa con cabeza.",
-     "scene": {"type": "outro", "lines": ["PISA CON", "CABEZA."], "emotion": "happy", "arms": "raise",
-               "accent": "orange", "accent2": "yellow"}}
-  ]
+ "slug": "02-hacienda-cripto",
+ "title": "Hacienda y tus criptos",
+ "catchphrase": "Pisa con cabeza",
+ "seed": 22,
+ "beats": [
+  {
+   "text": "¿Crees que Hacienda no sabe lo que tienes en cripto?",
+   "scene": {
+    "type": "shoe",
+    "emotion": "skeptic",
+    "arms": "point",
+    "point_angle": -75,
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "icon",
+     "name": "exchange",
+     "badge": "?",
+     "max_delay": 0.05
+    }
+   }
+  },
+  {
+   "text": "Spoiler: lo *sabe.*",
+   "scene": {
+    "type": "stamp",
+    "lines": [
+     "LO SABE."
+    ],
+    "icon": "eye",
+    "at": "sabe",
+    "accent": "orange",
+    "accent2": "yellow",
+    "emotion": "smug"
+   }
+  },
+  {
+   "text": "Los exchanges informan a Hacienda de los saldos y operaciones de sus usuarios en España.",
+   "scene": {
+    "type": "flow",
+    "vertical": false,
+    "title": "LO QUE LE LLEGA",
+    "accent": "yellow",
+    "accent2": "orange",
+    "nodes": [
+     {
+      "icon": "exchange",
+      "label": "EXCHANGE",
+      "at": "exchanges"
+     },
+     {
+      "icon": "bank",
+      "label": "HACIENDA",
+      "at": "Hacienda",
+      "badge": "check"
+     }
+    ],
+    "chips": [
+     "SALDOS",
+     "OPERACIONES"
+    ],
+    "hide_mini": false
+   }
+  },
+  {
+   "text": "¿Y si usas uno de otro país de la {UE|u e}? Ahí viene lo *gordo.*",
+   "scene": {
+    "type": "shoe",
+    "emotion": "surprised",
+    "arms": "open",
+    "accent": "orange",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "icon",
+     "name": "globe",
+     "badge": "?",
+     "at": "país"
+    }
+   }
+  },
+  {
+   "text": "Desde enero de {2026|dos mil veintiséis}, con la {DAC8|dac ocho}, los países de la {UE|u e} se intercambian esa información de forma *automática.*",
+   "scene": {
+    "type": "network",
+    "n": 10,
+    "title": "DIRECTIVA DAC8",
+    "center": "2026\nENERO",
+    "center_at": "enero",
+    "links_at": "países",
+    "label": "INTERCAMBIO AUTOMÁTICO",
+    "label_at": "automática",
+    "accent": "orange",
+    "accent2": "yellow",
+    "emotion": "serious"
+   }
+  },
+  {
+   "text": "Si tienes criptos guardadas fuera de España por más de {50.000 €|cincuenta mil euros}, existe el modelo {721|setecientos veintiuno}.",
+   "scene": {
+    "type": "threshold",
+    "doc_title": "MODELO 721",
+    "doc_sub": [
+     "CRIPTOS EN EL EXTRANJERO",
+     "DECLARACIÓN INFORMATIVA"
+    ],
+    "at": "criptos",
+    "meter_at": "más",
+    "threshold_label": "50.000 €",
+    "over_label": "TOCA DECLARAR",
+    "fill_dur": 1.8,
+    "accent": "orange",
+    "accent2": "yellow"
+   }
+  },
+  {
+   "text": "Es informativa: no pagas por ella, pero tienes que presentarla.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "neutral",
+    "arms": "raise",
+    "accent": "mint",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "icon",
+     "name": "doc",
+     "badge": "check",
+     "at": "presentarla"
+    }
+   }
+  },
+  {
+   "text": "Declarar no es *opcional.*",
+   "scene": {
+    "type": "stamp",
+    "lines": [
+     "NO ES",
+     "OPCIONAL"
+    ],
+    "icon": "doc",
+    "at": "no",
+    "accent": "red",
+    "accent2": "yellow",
+    "emotion": "serious"
+   }
+  },
+  {
+   "text": "Esconderte aquí es como ir de puntillas con zapatos que crujen.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "smug",
+    "arms": "open",
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "sign",
+     "lines": [
+      "CRIC, CRIC"
+     ],
+     "at": "crujen",
+     "rot": 4
+    }
+   }
+  },
+  {
+   "text": "Si tienes dudas, consulta a un *gestor.*",
+   "scene": {
+    "type": "shoe",
+    "emotion": "happy",
+    "arms": "point",
+    "point_angle": -70,
+    "accent": "mint",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "icon",
+     "name": "doc",
+     "badge": "check",
+     "at": "consulta"
+    }
+   }
+  },
+  {
+   "text": "Pisa con cabeza.",
+   "scene": {
+    "type": "outro",
+    "lines": [
+     "PISA CON",
+     "CABEZA."
+    ],
+    "emotion": "happy",
+    "arms": "raise",
+    "accent": "orange",
+    "accent2": "yellow"
+   }
+  }
+ ]
 }

@@ -1,46 +1,202 @@
 {
-  "slug": "03-comprobar-broker",
-  "title": "La comprobación de 30 segundos",
-  "catchphrase": "Pisa con cabeza",
-  "seed": 33,
-  "beats": [
-    {"text": "Esta comprobación de {30|treinta} segundos te puede ahorrar mucha *pasta.*",
-     "scene": {"type": "shoe", "emotion": "happy", "arms": "raise", "accent": "yellow", "accent2": "orange",
-               "prop": {"kind": "icon", "name": "magnifier", "badge": "clock", "at": "comprobación"}}},
-    {"text": "Antes de darle un euro a nadie, entra en la web de la {CNMV|ce ene eme uve}.",
-     "scene": {"type": "search", "title": "WEB DE LA CNMV", "url": "", "query": "Nombre de la entidad",
-               "accent": "orange", "accent2": "yellow",
-               "results": [{"text": "¿AUTORIZADA?\nREGISTROS OFICIALES", "ok": true, "at": "autorizada"},
-                           {"text": "¿EN ADVERTENCIAS?\nNO APARECE", "ok": true, "at": "advertencias"}]}},
-    {"text": "Uno: busca la entidad en sus registros y comprueba que está *autorizada.*",
-     "scene": {"continue": true}},
-    {"text": "Dos: mira que no salga en sus advertencias sobre chiringuitos.",
-     "scene": {"continue": true}},
-    {"text": "Y aunque pase las dos, hay señales que lo *delatan.*",
-     "scene": {"type": "shoe", "emotion": "skeptic", "arms": "point", "point_angle": -65, "accent": "red", "accent2": "yellow",
-               "prop": {"kind": "icon", "name": "eye", "badge": "excl", "at": "señales"}}},
-    {"text": "Te prometen ganancias garantizadas.",
-     "scene": {"type": "checklist", "mode": "flags", "title": "SEÑALES DE ESTAFA", "accent": "red", "accent2": "yellow",
-               "items": [{"text": "GANANCIAS\nGARANTIZADAS", "icon": "chart", "at": "prometen"},
-                         {"text": "PRISA: «ÚLTIMAS\nHORAS»", "icon": "hourglass", "at": "prisa"},
-                         {"text": "BONUS POR\nDEPOSITAR", "icon": "gift", "at": "bonus"},
-                         {"text": "GURÚ SIN\nCUENTAS", "icon": "crown", "at": "gurú"}]}},
-    {"text": "Te meten prisa: «últimas horas».", "scene": {"continue": true}},
-    {"text": "Te regalan un bonus por depositar.", "scene": {"continue": true}},
-    {"text": "Y el gurú que enseña a ganar, pero nunca enseña sus cuentas.", "scene": {"continue": true}},
-    {"text": "Zapato sin suela: mucho brillo, cero camino.",
-     "scene": {"type": "shoe", "emotion": "smug", "arms": "open", "accent": "yellow", "accent2": "orange",
-               "prop": {"kind": "sign", "lines": ["MUCHO BRILLO", "CERO CAMINO"], "at": "brillo"}}},
-    {"text": "Cualquiera de estas: *huye.*",
-     "scene": {"type": "stamp", "lines": ["HUYE."], "icon": "hourglass", "at": "huye", "accent": "red", "accent2": "yellow",
-               "emotion": "serious"}},
-    {"text": "Haz esto ya: guarda la web de la {CNMV|ce ene eme uve} en favoritos y compruébalo antes de cada ingreso.",
-     "scene": {"type": "checklist", "mode": "numbers", "title": "HAZLO HOY", "accent": "orange", "accent2": "yellow",
-               "top": 450, "items": [{"text": "WEB DE LA CNMV\nEN FAVORITOS", "icon": "phone", "at": "guarda"},
-                                     {"text": "COMPRUEBA ANTES\nDE CADA INGRESO", "icon": "shield", "at": "compruébalo"}],
-               "hide_mini": false, "mini": {"x": 200, "y": 1230}}},
-    {"text": "Pisa con cabeza.",
-     "scene": {"type": "outro", "lines": ["PISA CON", "CABEZA."], "emotion": "happy", "arms": "raise",
-               "accent": "orange", "accent2": "yellow"}}
-  ]
+ "slug": "03-comprobar-broker",
+ "title": "La comprobación de 30 segundos",
+ "catchphrase": "Pisa con cabeza",
+ "seed": 33,
+ "beats": [
+  {
+   "text": "Esta comprobación de {30|treinta} segundos te puede ahorrar mucha *pasta.*",
+   "scene": {
+    "type": "shoe",
+    "emotion": "happy",
+    "arms": "raise",
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "icon",
+     "name": "magnifier",
+     "badge": "clock",
+     "max_delay": 0.05
+    }
+   }
+  },
+  {
+   "text": "Antes de darle un euro a nadie, entra en la web de la {CNMV|ce ene eme uve}.",
+   "scene": {
+    "type": "search",
+    "title": "WEB DE LA CNMV",
+    "url": "",
+    "query": "Nombre de la entidad",
+    "accent": "orange",
+    "accent2": "yellow",
+    "results": [
+     {
+      "text": "¿AUTORIZADA?\nREGISTROS OFICIALES",
+      "ok": true,
+      "at": "registros"
+     },
+     {
+      "text": "¿EN ADVERTENCIAS?\nNO APARECE",
+      "ok": true,
+      "at": "advertencias"
+     }
+    ],
+    "type_at": "entra",
+    "type_dur": 1.6
+   }
+  },
+  {
+   "text": "Uno: busca la entidad en sus registros y comprueba que está *autorizada.*",
+   "scene": {
+    "continue": true
+   }
+  },
+  {
+   "text": "Dos: mira que no salga en sus advertencias sobre chiringuitos.",
+   "scene": {
+    "continue": true
+   }
+  },
+  {
+   "text": "Y aunque pase las dos, hay señales que lo *delatan.*",
+   "scene": {
+    "type": "shoe",
+    "emotion": "skeptic",
+    "arms": "point",
+    "point_angle": -65,
+    "accent": "red",
+    "accent2": "yellow",
+    "prop": {
+     "kind": "icon",
+     "name": "eye",
+     "badge": "excl",
+     "at": "señales"
+    }
+   }
+  },
+  {
+   "text": "Te prometen ganancias garantizadas.",
+   "scene": {
+    "type": "checklist",
+    "mode": "flags",
+    "title": "SEÑALES DE ESTAFA",
+    "accent": "red",
+    "accent2": "yellow",
+    "items": [
+     {
+      "text": "GANANCIAS\nGARANTIZADAS",
+      "icon": "chart",
+      "at": "prometen"
+     },
+     {
+      "text": "PRISA: «ÚLTIMAS\nHORAS»",
+      "icon": "hourglass",
+      "at": "prisa"
+     },
+     {
+      "text": "BONUS POR\nDEPOSITAR",
+      "icon": "gift",
+      "at": "bonus"
+     },
+     {
+      "text": "GURÚ SIN\nCUENTAS",
+      "icon": "crown",
+      "at": "gurú"
+     }
+    ]
+   }
+  },
+  {
+   "text": "Te meten prisa: «últimas horas».",
+   "scene": {
+    "continue": true
+   }
+  },
+  {
+   "text": "Te regalan un bonus por depositar.",
+   "scene": {
+    "continue": true
+   }
+  },
+  {
+   "text": "Y el gurú que enseña a ganar, pero nunca enseña sus cuentas.",
+   "scene": {
+    "continue": true
+   }
+  },
+  {
+   "text": "Zapato sin suela: mucho brillo, cero camino.",
+   "scene": {
+    "type": "shoe",
+    "emotion": "smug",
+    "arms": "open",
+    "accent": "yellow",
+    "accent2": "orange",
+    "prop": {
+     "kind": "sign",
+     "lines": [
+      "MUCHO BRILLO",
+      "CERO CAMINO"
+     ],
+     "at": "brillo"
+    }
+   }
+  },
+  {
+   "text": "Cualquiera de estas: *huye.*",
+   "scene": {
+    "type": "stamp",
+    "lines": [
+     "HUYE."
+    ],
+    "icon": "hourglass",
+    "at": "huye",
+    "accent": "red",
+    "accent2": "yellow",
+    "emotion": "serious"
+   }
+  },
+  {
+   "text": "Haz esto ya: guarda la web de la {CNMV|ce ene eme uve} en favoritos y compruébalo antes de cada ingreso.",
+   "scene": {
+    "type": "checklist",
+    "mode": "numbers",
+    "title": "HAZLO HOY",
+    "accent": "orange",
+    "accent2": "yellow",
+    "top": 450,
+    "items": [
+     {
+      "text": "WEB DE LA CNMV\nEN FAVORITOS",
+      "icon": "phone",
+      "at": null
+     },
+     {
+      "text": "COMPRUEBA ANTES\nDE CADA INGRESO",
+      "icon": "shield",
+      "at": "compruébalo"
+     }
+    ],
+    "hide_mini": false,
+    "mini": {
+     "x": 200,
+     "y": 1230
+    }
+   }
+  },
+  {
+   "text": "Pisa con cabeza.",
+   "scene": {
+    "type": "outro",
+    "lines": [
+     "PISA CON",
+     "CABEZA."
+    ],
+    "emotion": "happy",
+    "arms": "raise",
+    "accent": "orange",
+    "accent2": "yellow"
+   }
+  }
+ ]
 }

@@ -132,13 +132,27 @@ def write_wav(path, x):
                     "-i", "-", "-c:a", "pcm_s16le", str(path)], input=x.tobytes(), check=True)
 
 
-def loudnorm_filter(path, I=-14.0, TP=-1.5, LRA=11.0):
-    """Primera pasada de loudnorm; devuelve el filtro para la segunda pasada."""
-    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(path), "-af",
-                        f"loudnorm=I={I}:TP={TP}:LRA={LRA}:print_format=json", "-f", "null", "-"],
+def _measure_i(path):
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(path), "-af", "ebur128", "-f", "null", "-"],
                        capture_output=True, text=True)
-    txt = r.stderr
-    js = json.loads(txt[txt.rindex("{"): txt.rindex("}") + 1])
-    return (f"loudnorm=I={I}:TP={TP}:LRA={LRA}:measured_I={js['input_i']}:"
-            f"measured_TP={js['input_tp']}:measured_LRA={js['input_lra']}:"
-            f"measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
+    line = [l for l in r.stderr.splitlines() if l.strip().startswith("I:")][-1]
+    return float(line.split()[1])
+
+
+def loudnorm_filter(path, I=-14.0, TP=-1.5, LRA=11.0, iters=4):
+    """Ganancia + limitador de pico ajustados iterativamente hasta I LUFS (±0,2)
+    con pico <= TP. Se mide sobre la mezcla estéreo final."""
+    limit = 10 ** ((TP - 0.3) / 20)
+    gain = I - _measure_i(path)
+    tmp = str(path) + ".norm.wav"
+    flt = ""
+    for _ in range(iters):
+        flt = (f"volume={gain:.2f}dB,aresample=192000,"
+               f"alimiter=limit={limit:.3f}:attack=1:release=40:level=false,aresample=48000")
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(path), "-af", flt, "-ac", "2", tmp],
+                       check=True)
+        got = _measure_i(tmp)
+        if abs(got - I) < 0.2:
+            break
+        gain += I - got
+    return flt

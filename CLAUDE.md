@@ -13,7 +13,8 @@ Todos los vídeos tienen exactamente el mismo personaje y estilo. La calidad es 
 5. `python make_video.py scripts/NN-tema.json --yes` → voz (una sola toma, queda en caché) + render.
 6. `python make_video.py scripts/NN-tema.json --contact` → revisa fotogramas clave (texto cortado,
    boca desincronizada, solapamientos, escenas aburridas). Corrige y vuelve a renderizar (la voz no se repite).
-7. Sube el MP4 a `videos/` y haz commit. Informa del tiempo de render.
+7. Comprueba sonoridad (`ffmpeg -i v.mp4 -af ebur128=peak=true -f null -`) y fotogramas del MP4 final.
+8. Sube el MP4 a `videos/` y haz commit. Informa del tiempo de render (~35 s por vídeo de 40 s con 4 núcleos).
 
 Instalación en un entorno nuevo: `bash setup.sh` (instala `libegl1`, skia-python, numpy, pillow, requests).
 
@@ -24,6 +25,10 @@ Instalación en un entorno nuevo: `bash setup.sh` (instala `libegl1`, skia-pytho
 - Modelo `eleven_v3` (el más expresivo, probado con esta voz), `language_code: es`, stability 0.5,
   endpoint `/with-timestamps`. Configuración en `config/voice.json`. Coste ≈ 1 crédito/carácter.
 - Los timestamps de v3 son aproximados: `refine_alignment` los corrige con DTW contra el audio.
+- v3 deja pausas largas (hasta 1,4 s): `tighten_pauses` las recorta a 0,30 s en la misma toma
+  (desactivable con `"tighten_pauses": false` o ajustable con `"max_pause"` en el JSON).
+- Duración real medida: ~650-700 caracteres hablados → 38-43 s tras recortar pausas.
+- Audio final: ganancia + limitador iterativo hasta -14 LUFS (pico ≤ -1,5 dBTP).
 - Una toma por vídeo: el audio queda en `build/voice_cache/` (clave = texto + ajustes).
 - Antes de generar, dile al usuario los caracteres y el coste estimado en créditos.
 - Escribe números, siglas y cifras en forma hablada: `{82 %|ochenta y dos por ciento}`,

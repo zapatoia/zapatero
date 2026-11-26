@@ -21,7 +21,8 @@ from .captions import Captions, draw_disclaimer
 from .scenes import HERO_SCENES, SCENES, Ctx
 from .shoe import ShoeAnimator
 from .style import C, FPS, H, W, clamp, ease_in_out, ease_out, ease_out_back, prog
-from .timeline import Envelope, LipSync, apply_alignment, parse_beats, refine_alignment
+from .timeline import (Envelope, LipSync, apply_alignment, parse_beats, refine_alignment,
+                       tighten_pauses)
 from .voice import decode_audio, estimate, load_config, synthesize
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -68,9 +69,14 @@ class Video:
             self.audio_dur = len(self.pcm) / SFX.SR
         else:
             self.mp3, meta = synthesize(self.voice_text, self.cfg, allow_api=allow_api)
-            self.pcm = decode_audio(self.mp3, SFX.SR)
+            pcm = decode_audio(self.mp3, SFX.SR)
+            align = meta["alignment"]
+            if self.script.get("tighten_pauses", True):
+                pcm, align = tighten_pauses(pcm, SFX.SR, align,
+                                            keep=self.script.get("max_pause", 0.30))
+            self.pcm = pcm
             self.audio_dur = len(self.pcm) / SFX.SR
-            align = refine_alignment(meta["alignment"], self.pcm, SFX.SR)
+            align = refine_alignment(align, self.pcm, SFX.SR)
         apply_alignment(self.words, self.beats, align, self.audio_dur)
         # desplazar todo por LEAD
         for w in self.words:
@@ -293,7 +299,8 @@ class Video:
         if not drawn:
             self.draw_scene(s, t)
         # capa fija: subtítulos y aviso legal
-        self.captions.draw(c, t)
+        if s.type != "outro":   # en el cierre la coletilla ya está en grande
+            self.captions.draw(c, t)
         draw_disclaimer(c, t, self.duration)
         return self.surface.makeImageSnapshot()
 
