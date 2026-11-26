@@ -834,15 +834,15 @@
      "at": "al",
      "type": "truck",
      "sub": [
-      -0.52,
+      -0.6,
       1.2,
       1.05
      ],
      "size": "medium",
      "az": -4,
      "el": 11,
-     "move": 0.5,
-     "dist": 5.0
+     "move": 0.25,
+     "dist": 5.6
     },
     {
      "at": "puede",
