@@ -17,7 +17,7 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
-Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **aprobado**; vídeo **`videos/01-perro-lame-v2.mp4` entregado y pendiente de valoración**. **Siguiente paso exacto:** esperar la opinión del usuario sobre la v2 → si la aprueba, crear el tag `v2`; si pide cambios, aplicarlos y re-renderizar como `-v3`.
+Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **aprobado**. La v2 tenía audio saturado y símbolos planos (opinión del usuario) → **`videos/01-perro-lame-v3.mp4` entregado y pendiente de valoración**. **Siguiente paso exacto:** esperar la opinión del usuario sobre la v3 → si la aprueba, tag `v3`; si pide cambios, aplicarlos como `-v4`.
 
 ## 4. Estilo visual actual (resumen de `STYLE.md`; fuente de verdad en código: `retro3d/style.py`)
 - Low-poly con **sombreado plano** (normales por cara) y **color por vértice uniforme** (`jitter=0`).
@@ -89,14 +89,20 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
    - **Bug: la lengua/hocico atravesaba la mano** → causa: animación «a ojo» y perro mal colocado (la mano quedaba 44 cm detrás del hocico en la v1; luego, la mano «cedía» después de calcular la lengua). Solución: contacto con objetivo (la lengua se detiene en la superficie), aproximación automática del perro, la mano cede antes, 5 rayos por el ancho de la lengua, resolución durante el fundido entre acciones.
    - Otras interpenetraciones encontradas por el verificador (166 fotogramas): antebrazo/mano dentro del torso en la pose de confidencia y al explicar; manga contra el pasamontañas al encogerse; brazo que señalaba dentro de la cabeza del perro; lengua dentro del pecho al lamerse la pata; cabeza del perro apoyada en su pecho (por diseño → par adyacente). Todas corregidas → **0**.
    - Textos letra a letra con fundido; revisión automática; vídeo v2 con todo.
-7. **Sistema de sesiones** (`/save-session`, `/resume-session`, este documento, regla de protección y tags). → Esta entrada.
+7. **Sesión 2026-11-26-02 — feedback de la v2**: audio saturado; símbolos sin brillo ni contorno; revisar físicas/movimientos de cámara; mejorar todo lo posible. → Causas y soluciones:
+   - **Saturación**: el máster antiguo bajaba la ganancia en escalones instantáneos de 2 ms acumulados en 12 pasadas (hasta 12 dB; 10 % de la modulación de ganancia por encima de 40 Hz). Nuevo `audio.master_clean` (paso alto 70 Hz, de-esser, nivelador RMS lento, compresor de picos con anticipación 10 ms, limitador con rampa coseno): limitador ≤2,8 dB, modulación audible −13 dB. Opción `"master": "clean"`.
+   - **Símbolos**: `"icon_style": "glow"` → se dibujan encima de la escena, contorno de pegatina (blanco + tinta) en posproceso, halo de su color que late, anillo de destello al aparecer; patatas fritas rehechas.
+   - **Cámara**: medición por fotograma: el gancho se acercaba a 61 m/s, los planos que siguen a la mano o al perro copiaban cada sacudida (17–19 m/s²) y el empujón anti-pared daba un salto de 190 m/s². Solución: `"cam_smooth": 0.18` (muelle crítico para sujeto y cámara, se reinicia en cada corte) y acercamientos más cortos.
+   - **Encuadres**: nueva `tools/shot_frames.py` (inicio/mitad/final de cada plano + avisos de cabezas cortadas, recursos fuera de cuadro o tapando caras): 20 avisos → 0. Corregidos gancho, lametones (planos 4 y 13), patatas sobre la cabeza, medallones cortados por el golpe de zoom, generales del interior y final, cartel del veterinario.
+8. **Sistema de sesiones** (`/save-session`, `/resume-session`, este documento, regla de protección y tags). → Esta entrada.
 
 ## 11. Vídeos producidos
 | Vídeo | Ruta / commit | Contenido | Duración | Render (solo imagen) | Estado |
 |---|---|---|---|---|---|
 | v1 detallada | `videos/01-perro-lame.mp4` en commit `dfe7a22` (sobrescrita después) | narrador aventurero de túnica, estilo detallado | 38,65 s | 257 s (0,22 s/fot.) | sustituida por la minimalista |
 | v1 minimalista | `videos/01-perro-lame.mp4` (commit `6e4e9aa`, actual en la rama) | aventurero minimalista, interior, gestos, contraluz | 38,65 s | 226 s (0,19 s/fot.) | la que el usuario llamó «primera versión» |
-| **v2** | `videos/01-perro-lame-v2.mp4` (commit `face026`) | narrador del pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido | 38,65 s, 28,8 MB | **385 s** (0,33 s/fot.; ~7 min con mezcla y codificación) | **entregada, pendiente de valoración** |
+| v2 | `videos/01-perro-lame-v2.mp4` (commit `face026`) | narrador del pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido | 38,65 s, 28,8 MB | 385 s (0,33 s/fot.) | usuario: audio «saturado», símbolos «aparecen y ya está» → v3 |
+| **v3** | `videos/01-perro-lame-v3.mp4` (guion `scripts/01-perro-lame-v3.json`) | máster limpio, iconos con halo/contorno/destello, cámara amortiguada, encuadres corregidos | 38,65 s, 30,4 MB | 375 s (0,32 s/fot.) | **entregada, pendiente de valoración** |
 - Informes de la v2 en `docs/01-perro-lame-v2/` (`qa.md`, `contact.jpg`, `contactos.jpg`, `sfx_report.md/.json`). Resultado: 24 planos, montaje OK, holgura cámara 0,30 m, 0 interpenetraciones, 0 pies flotando, 24 contactos, 0 subtítulos fuera de zona, 0 textos cortados, boca coherente 94,2 %, −14,0 LUFS / −2,1 dBTP, 36 efectos, 0 sostenidos.
 
 ## 12. Versiones aprobadas (tags de git)
@@ -119,7 +125,7 @@ Pipeline completo y funcionando; narrador definitivo (pasamontañas magenta) **a
 - `CLAUDE.md` contiene algunas notas antiguas de distancias de cámara y del aventurero en secciones de formato; las reglas vigentes son las de este documento y las secciones nuevas de `CLAUDE.md`.
 
 ## 14. Pendiente y siguiente paso exacto
-1. **Esperar la valoración del usuario de la v2.**
+1. **Esperar la valoración del usuario de la v3** (`videos/01-perro-lame-v3.mp4`, informes en `docs/01-perro-lame-v3/`).
 2. Si la aprueba: `git tag -a v2 -m "Vídeo 01 v2: narrador pasamontañas, cámara dinámica, físicas, textos letra a letra, sonido corregido" face026` (o el commit que indique) + push del tag; anotarlo en §12. (La rama ya está fusionada en `main`: el commit `face026` forma parte de `main`.)
 3. Si pide cambios: aplicarlos sin romper lo existente, `python tools/check_physics.py scripts/01-perro-lame.json` (0), y `python make_video.py scripts/01-perro-lame.json --contact --out videos/01-perro-lame-v3.mp4`.
 4. Mejoras propuestas (no hacer sin permiso): las de §13.
