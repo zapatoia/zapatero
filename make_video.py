@@ -252,6 +252,11 @@ def write_qa(prod, qa, bdir, lufs=None, tp=None, sfx_rep=None):
         L.append(f"- Boca abierta/cerrada coherente con la voz: {100 * np.mean(qa['mouth_agree']):.1f} % de fotogramas")
     if lufs is not None:
         L.append(f"- Sonoridad MP4: {lufs:.1f} LUFS, pico verdadero {tp:.1f} dBTP")
+    if getattr(prod, "music_info", None):
+        mi = prod.music_info
+        L.append(f"- Música: original generada por código («{mi['style']}», {mi['bpm']:.0f} BPM), {mi['db']} dB bajo la voz y {mi['duck_db']} dB extra al hablar")
+    if getattr(prod, "master_rep", None):
+        L.append(f"- Procesado de voz: {prod.master_rep}")
     if sfx_rep is not None:
         L.append(f"- Efectos: {len(sfx_rep['events'])} eventos; sostenidos >1 s: {len(sfx_rep['sustained_over_1s'])}")
     with open(os.path.join(bdir, "qa.md"), "w") as f:
@@ -261,7 +266,24 @@ def write_qa(prod, qa, bdir, lufs=None, tp=None, sfx_rep=None):
 
 def make_audio(prod, voice, dur, bdir, t_from=0.0):
     events = sorted(prod.sfx, key=lambda e: e["t"])
+    mode = prod.script.get("master", "classic")
+    target = prod.script.get("lufs", -14.0)
+    if mode == "clean2":
+        vrep = {}
+        voice = A.voice_chain(voice, target, report=vrep)
+        prod.master_rep = vrep
+        print(f"  voz procesada: {vrep}")
     mix, bus, detail = A.mix(voice, events, dur, ambience_db=prod.script.get("ambience_db"))
+    mus = prod.script.get("music")
+    if mus:
+        from retro3d import music as MU
+        track = MU.compose(dur, mus.get("style", "aldea"), mus.get("seed", 0))
+        bed = A.music_bed(voice, track[:len(mix)], mus.get("db", -19.0), mus.get("duck_db", -5.0))
+        mix[:len(bed)] += bed
+        A.write_wav(os.path.join(bdir, "music.wav"), bed)
+        prod.music_info = {"style": mus.get("style", "aldea"), "db": mus.get("db", -19.0), "duck_db": mus.get("duck_db", -5.0),
+                           "bpm": MU.BPM}
+        print(f"  música original «{prod.music_info['style']}» a {prod.music_info['db']} dB bajo la voz (−{abs(prod.music_info['duck_db'])} dB más al hablar)")
     scenes = []
     for i, t0, t1, sh in prod.shot_report():
         scenes.append((f"plano {i + 1}", t0, t1))
@@ -276,7 +298,16 @@ def make_audio(prod, voice, dur, bdir, t_from=0.0):
     raw = os.path.join(bdir, "mix_raw.wav")
     A.write_wav(raw, mix)
     norm = os.path.join(bdir, "mix_norm.wav")
-    y, L, tp = A.master(mix)
+    if mode == "clean2":
+        y, L, tp, lim = A.final_bus(mix, target)
+        print(f"  bus final: limitador máx. {lim:.1f} dB")
+    elif mode == "clean":
+        mrep = {}
+        y, L, tp = A.master_clean(mix, report=mrep)
+        prod.master_rep = mrep
+        print(f"  máster limpio: {mrep}")
+    else:
+        y, L, tp = A.master(mix)
     print(f"  máster: {L:.2f} LUFS, pico verdadero {tp:.2f} dBTP (antes de AAC)")
     A.write_wav(norm, y)
     return norm, events
@@ -316,6 +347,8 @@ def main():
     ap.add_argument("--from", dest="t_from", type=float, default=0.0)
     ap.add_argument("--to", dest="t_to", type=float, default=None)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--reuse-video", default=None,
+                    help="rehacer solo el audio sobre las imágenes de otro render (build/<id>/video.mp4) con el mismo guion visual")
     a = ap.parse_args()
     with open(a.script) as f:
         script = json.load(f)
@@ -356,6 +389,28 @@ def main():
         print(f"  storyboard: {p}")
         for i, d in bad:
             print(f"  ⚠ plano {i + 1} dura {d:.1f} s")
+        return
+    if a.reuse_video:
+        # solo audio: mismas imágenes (el guion visual no cambia); el director se construye para los efectos
+        prod = Production(script, words, dur, 270, 480, env=env)
+        aud, events = make_audio(prod, voice, dur, bdir)
+        out = a.out or os.path.join(ROOT, "videos", script["id"] + ".mp4")
+        mux(a.reuse_video, aud, out)
+        I, tp = A.ebur128(out)
+        print(f"  sonoridad MP4: {I:.1f} LUFS, pico verdadero {tp:.1f} dBTP")
+        L = ["# Revisión automática (solo audio; imágenes reutilizadas de " + os.path.relpath(a.reuse_video, ROOT) + ")", "",
+             f"- Sonoridad MP4: {I:.1f} LUFS, pico verdadero {tp:.1f} dBTP"]
+        if getattr(prod, "music_info", None):
+            mi = prod.music_info
+            L.append(f"- Música: original generada por código («{mi['style']}», {mi['bpm']:.0f} BPM), {mi['db']} dB bajo la voz y {mi['duck_db']} dB extra al hablar")
+        if getattr(prod, "master_rep", None):
+            L.append(f"- Procesado de voz: {prod.master_rep}")
+        rep = prod.sfx_rep
+        L.append(f"- Efectos: {len(rep['events'])} eventos; sostenidos >1 s: {len(rep['sustained_over_1s'])}")
+        with open(os.path.join(bdir, "qa.md"), "w") as f:
+            f.write("\n".join(L) + "\n")
+        print("\n".join(L))
+        print(f"  → {out}")
         return
     vid, prod, secs, nf, cpath, qa, ctpath = render_video(script, words, dur, env, bdir, W, H, a.t_from, a.t_to, a.contact)
     viol = qa["safe_zone"]

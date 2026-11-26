@@ -40,6 +40,7 @@ uniform int u_blend; uniform int u_flip; uniform float u_rim; uniform vec3 u_rim
 uniform vec4 u_tint; uniform float u_alpha; uniform vec3 u_eye; uniform vec3 u_sun; uniform vec3 u_sun_col;
 uniform vec3 u_sky_amb; uniform vec3 u_gnd_amb; uniform vec3 u_fog_col; uniform vec3 u_glow_col;
 uniform vec3 u_fog; uniform float u_shadow_k; uniform vec2 u_shadow_texel; uniform float u_fog_k;
+uniform vec4 u_solid;
 out vec4 f_col;
 
 float shadow_at(){
@@ -68,6 +69,7 @@ void main(){
   }
   alb *= u_tint;
   if (alb.a < u_alpha_test) discard;
+  if (u_solid.a > 0.0) { f_col = u_solid; return; }   // pasada de máscara (brillo/contorno de iconos)
   vec3 n = normalize(v_nrm);
   if (!gl_FrontFacing && u_flip == 1) n = -n;
   vec3 col;
@@ -137,10 +139,32 @@ void main(){
 POST_VS = SKY_VS
 POST_FS = """
 #version 330
-in vec2 v_ndc; uniform sampler2D u_img; out vec4 f_col;
+in vec2 v_ndc; uniform sampler2D u_img; uniform sampler2D u_mask; uniform int u_has_mask;
+uniform vec2 u_px; uniform float u_out_w; uniform float u_glow_k;
+out vec4 f_col;
+float cov(vec2 uv, float r){
+  float o = 0.0;
+  for (int i = 0; i < 16; i++){
+    float a = 6.2831853 * float(i) / 16.0;
+    o = max(o, texture(u_mask, uv + vec2(cos(a), sin(a)) * u_px * r).a);
+  }
+  return o;
+}
 void main(){
   vec2 uv = v_ndc * 0.5 + 0.5;
   vec3 c = texture(u_img, uv).rgb;
+  if (u_has_mask == 1){
+    // iconos: halo de su color + contorno tipo pegatina (blanco por dentro, tinta por fuera)
+    float m = texture(u_mask, uv).a;
+    vec4 g = textureLod(u_mask, uv, 4.0) * 0.45 + textureLod(u_mask, uv, 5.5) * 0.4 + textureLod(u_mask, uv, 6.5) * 0.35;
+    c += g.rgb * u_glow_k * (1.0 - m);
+    float o1 = max(cov(uv, u_out_w), cov(uv, u_out_w * 0.5));
+    float o2 = cov(uv, u_out_w * 1.55);
+    float ink = clamp(o2 - o1, 0.0, 1.0);
+    float wht = clamp(o1 - m, 0.0, 1.0);
+    c = mix(c, vec3(0.13, 0.08, 0.06), ink * 0.85);
+    c = mix(c, vec3(1.0, 0.98, 0.93), wht);
+  }
   vec3 b = textureLod(u_img, uv, 5.0).rgb + textureLod(u_img, uv, 6.5).rgb;
   c += max(b * 0.5 - 0.72, 0.0) * 0.55;          // brillo suave
   float l = dot(c, vec3(0.299, 0.587, 0.114));
@@ -190,7 +214,7 @@ class GPUMesh:
 class Item:
     """Algo que dibujar este fotograma."""
     __slots__ = ("gm", "model", "tex", "tex2", "uvrect", "alpha_test", "emissive", "unlit",
-                 "shadow", "tint", "blend", "fog_k", "flip", "rim", "alpha")
+                 "shadow", "tint", "blend", "fog_k", "flip", "rim", "alpha", "overlay", "glow")
 
     def __init__(self, gm, model, tex="white", tex2=None, uvrect=(0, 0, 1, 1), alpha_test=0.5,
                  emissive=0.0, unlit=False, shadow=True, tint=(1, 1, 1, 1), fog_k=1.0, flip=True, rim=0.0, alpha=1.0):
@@ -201,6 +225,8 @@ class Item:
         self.flip = flip
         self.rim = rim
         self.alpha = alpha
+        self.overlay = False    # se dibuja encima de la escena (iconos con estilo «glow»)
+        self.glow = None        # color RGBA del halo/contorno en la máscara (None = sin contorno)
 
 
 class Renderer:
@@ -319,13 +345,68 @@ class Renderer:
         p["u_tex2"].value = 1
         p["u_shadow"].value = 2
         self.shadow_tex.use(2)
+        p["u_solid"].value = (0.0, 0.0, 0.0, 0.0)
+        over = [it for it in items if it.overlay]
+        items = [it for it in items if not it.overlay]
         opaque = [it for it in items if it.alpha >= 0.999]
         trans = [it for it in items if it.alpha < 0.999]
         trans.sort(key=lambda it: -np.linalg.norm(it.model[:3, 3] - cam.eye))
-        for it in opaque + trans:
+        self._draw(p, opaque + trans)
+        c.disable(moderngl.BLEND)
+        has_mask = 0
+        if over:
+            # capa de iconos: se borra solo la profundidad y se dibujan encima de todo
+            self.fbo_ms.color_mask = (False, False, False, False)
+            self.fbo_ms.use()
+            self.fbo_ms.clear(depth=1.0)
+            self.fbo_ms.color_mask = (True, True, True, True)
+            self.fbo_ms.use()
+            over.sort(key=lambda it: -np.linalg.norm(it.model[:3, 3] - cam.eye))
+            self._draw(p, over)
+            c.disable(moderngl.BLEND)
+            glow = [it for it in over if it.glow is not None]
+            if glow:
+                if not hasattr(self, "fbo_mask"):
+                    self.mask_tex = c.texture((self.W, self.H), 4)
+                    self.mask_tex.filter = (moderngl.LINEAR_MIPMAP_LINEAR, moderngl.LINEAR)
+                    self.mask_tex.repeat_x = self.mask_tex.repeat_y = False
+                    self.fbo_mask = c.framebuffer(color_attachments=[self.mask_tex],
+                                                  depth_attachment=c.depth_renderbuffer((self.W, self.H)))
+                self.fbo_mask.use()
+                self.fbo_mask.clear(0, 0, 0, 0, depth=1.0)
+                for it in glow:
+                    p["u_solid"].value = tuple(float(v) for v in it.glow)
+                    self._draw(p, [it], blend=False)
+                p["u_solid"].value = (0.0, 0.0, 0.0, 0.0)
+                self.mask_tex.build_mipmaps()
+                has_mask = 1
+        c.disable(moderngl.BLEND)
+        # --- resolver MSAA + post
+        c.copy_framebuffer(self.fbo_res, self.fbo_ms)
+        self.resolved_tex.build_mipmaps()
+        self.fbo_out.use()
+        c.disable(moderngl.DEPTH_TEST)
+        self.resolved_tex.use(0)
+        self.postprog["u_img"].value = 0
+        if "u_has_mask" in self.postprog:
+            self.postprog["u_has_mask"].value = has_mask
+            if has_mask:
+                self.mask_tex.use(3)
+                self.postprog["u_mask"].value = 3
+                self.postprog["u_px"].value = (1.0 / self.W, 1.0 / self.H)
+                self.postprog["u_out_w"].value = self.W * 0.0065
+                self.postprog["u_glow_k"].value = 1.25
+        self.post_vao.render()
+        raw = self.fbo_out.read(components=3)
+        img = np.frombuffer(raw, np.uint8).reshape(self.H, self.W, 3)[::-1]
+        return img
+
+    def _draw(self, p, lst, blend=True):
+        c = self.ctx
+        for it in lst:
             if it.gm.vao is None or it.alpha <= 0.001:
                 continue
-            if it.alpha < 0.999:
+            if it.alpha < 0.999 and blend:
                 c.enable(moderngl.BLEND)
                 c.blend_func = moderngl.SRC_ALPHA, moderngl.ONE_MINUS_SRC_ALPHA
             p["u_alpha"].value = it.alpha
@@ -345,18 +426,6 @@ class Renderer:
             if it.blend:
                 self.textures[it.tex2].use(1)
             it.gm.vao.render()
-        c.disable(moderngl.BLEND)
-        # --- resolver MSAA + post
-        c.copy_framebuffer(self.fbo_res, self.fbo_ms)
-        self.resolved_tex.build_mipmaps()
-        self.fbo_out.use()
-        c.disable(moderngl.DEPTH_TEST)
-        self.resolved_tex.use(0)
-        self.postprog["u_img"].value = 0
-        self.post_vao.render()
-        raw = self.fbo_out.read(components=3)
-        img = np.frombuffer(raw, np.uint8).reshape(self.H, self.W, 3)[::-1]
-        return img
 
     def project(self, cam, pts):
         """Proyecta puntos de mundo a píxeles (x, y, profundidad w)."""
