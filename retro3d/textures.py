@@ -307,3 +307,91 @@ def bubble_texture(text=None, icon=None, w=128, h=80):
 
 def to_rgba_bytes(img):
     return img.convert("RGBA").transpose(Image.FLIP_TOP_BOTTOM).tobytes()
+
+
+# --------------------------------------------------------------- cara del narrador (pasamontañas)
+
+def _hexrgba(h):
+    r, g, b, _ = hexcol(h)
+    return (int(r * 255), int(g * 255), int(b * 255), 255)
+
+
+# cejas por expresión: (y_exterior, y_interior) relativas a la fila base; negativo = más arriba
+_BROWS = {"neutral": (0, 0), "happy": (-1, -1), "surprised": (-2, -2), "angry": (-1, 1),
+          "sad": (1, -1), "skeptical": None}
+
+
+def _brow(d, x_out, x_in, y_out, y_in, col):
+    """Ceja de 5 px y 1-2 px de grosor entre dos alturas."""
+    n = abs(x_in - x_out)
+    step = 1 if x_in > x_out else -1
+    for k in range(n + 1):
+        x = x_out + k * step
+        y = round(y_out + (y_in - y_out) * k / max(1, n))
+        d.point((x, y), fill=col)
+        d.point((x, y + 1), fill=col)
+
+
+def _eye_shape(d, cx, cy, expr, lid, col):
+    if lid == "closed" or (expr == "happy" and lid != "open"):
+        for x in range(cx - 2, cx + 3):
+            d.point((x, cy + 1), fill=col)
+        return
+    if expr == "happy":   # ^ ^
+        for x, y in ((cx - 2, cy + 1), (cx - 1, cy), (cx, cy - 1), (cx + 1, cy), (cx + 2, cy + 1)):
+            d.point((x, y), fill=col)
+            d.point((x, y + 1), fill=col)
+        return
+    h = 5 if expr == "surprised" else 4
+    if lid == "half":
+        d.rectangle([cx - 2, cy - 1, cx + 2, cy - 1], fill=col)    # párpado
+        d.rectangle([cx - 1, cy, cx + 1, cy + 1], fill=col)
+        return
+    d.rectangle([cx - 1, cy - h // 2, cx + 1, cy - h // 2 + h - 1], fill=col)
+
+
+def balaclava_atlas(skin="#C98B62", ink="#2B1420", rim="#B0166F"):
+    """Atlas 128x128 del narrador.
+    Ojos: celdas 32x16 = franja de piel abierta en el pasamontañas con cejas y ojos.
+    Claves: eye_<expr>_<lid>. Bocas (fila y=96): abertura ovalada de piel + forma."""
+    img = Image.new("RGBA", (128, 128), (0, 0, 0, 0))
+    d = ImageDraw.Draw(img)
+    S, K, R = _hexrgba(skin), _hexrgba(ink), _hexrgba(rim)
+    rects = {}
+    exprs = ["neutral", "happy", "surprised", "angry", "sad", "skeptical"]
+    lids = ["open", "half", "closed"]
+    i = 0
+    for e in exprs:
+        for l in lids:
+            cx0, cy0 = (i % 4) * 32, (i // 4) * 16
+            # franja abierta: rectángulo redondeado con borde magenta oscuro
+            d.rounded_rectangle([cx0 + 1, cy0 + 2, cx0 + 30, cy0 + 14], radius=4, fill=R)
+            d.rounded_rectangle([cx0 + 2, cy0 + 3, cx0 + 29, cy0 + 13], radius=3, fill=S)
+            ex = (cx0 + 10, cx0 + 21)
+            base = cy0 + 4
+            if e == "skeptical":
+                _brow(d, ex[0] - 3, ex[0] + 2, base - 1, base - 2, K)   # ceja izq. arriba
+                _brow(d, ex[1] + 3, ex[1] - 2, base + 1, base + 1, K)   # der. baja
+            else:
+                yo, yi = _BROWS[e]
+                _brow(d, ex[0] - 3, ex[0] + 2, base + yo, base + yi, K)
+                _brow(d, ex[1] + 3, ex[1] - 2, base + yo, base + yi, K)
+            for k, cx in enumerate(ex):
+                ll = l if not (e == "skeptical" and k == 1 and l == "open") else "half"
+                _eye_shape(d, cx, cy0 + 11, e, ll, K)
+            rects[f"eye_{e}_{l}"] = (cx0, cy0, 32, 16)
+            i += 1
+    for j, m in enumerate(["X", "M", "E", "A", "O"]):
+        ox, oy = j * 24, 96
+        d.ellipse([ox + 3, oy + 1, ox + 20, oy + 14], fill=R)
+        d.ellipse([ox + 4, oy + 2, ox + 19, oy + 13], fill=S)
+        _draw_mouth(d, ox, oy, m)
+        rects[f"mouth_{m}"] = (ox, oy, 24, 16)
+    # recolorear bocas al tono de tinta del narrador
+    px = img.load()
+    for y in range(96, 112):
+        for x in range(0, 120):
+            if px[x, y] == INK:
+                px[x, y] = K
+    uv = {k: (x / 128, 1 - (y + h) / 128, (x + w) / 128, 1 - y / 128) for k, (x, y, w, h) in rects.items()}
+    return img, uv
