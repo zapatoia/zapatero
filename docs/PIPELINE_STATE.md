@@ -1,7 +1,8 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
-> Última actualización: 2026-11-26 (sesión `docs/sessions/2026-11-26-02.md`).
-> Rama de trabajo de la sesión 02: `claude/hopeful-einstein-ix8p37` (sin fusionar en `main`; pedir PR al usuario si la quiere). Rama de la sesión 01: `claude/3d-mmo-retro-video-pipeline-3ify9e`. **PR #2 fusionada en `main`** (commit de fusión `df76761`, https://github.com/zapatoia/zapatero/pull/2). **`main` es ya la rama por defecto en GitHub** (antes lo era `claude/shoe-history-vertical-video-qw2b0t`). Las sesiones nuevas parten de `main`.
+> Última actualización: 2026-11-27 (sesión `docs/sessions/2026-11-27-01.md`).
+> Rama de trabajo de la sesión 2026-11-27-01: `claude/gallant-curie-6ab9x5` (sin fusionar en `main`; pedir PR al usuario si la quiere). Ramas anteriores: `claude/hopeful-einstein-ix8p37` (sesión 26-02, fusionada en `main` por la PR #3), `claude/3d-mmo-retro-video-pipeline-3ify9e` (26-01, PR #2). `main` es la rama por defecto.
+> **El proyecto tiene ahora DOS formatos**: (A) vídeos 3D «MMO retro low-poly» con narrador (`make_video.py`, `retro3d/`, `videos/`) y (B) **documentales animados verticales 9:16** con mapas, cifras y la voz del usuario (`.claude/skills/documental-animado/`, `documentales/`). Para el formato B lee también `.claude/skills/documental-animado/SKILL.md` (§0 Linux y §7 reglas del usuario).
 
 ## 1. Cómo usar este documento
 - **Al empezar cualquier sesión**: leer `CLAUDE.md`, este documento y la última sesión de `docs/sessions/` (o usar `/resume-session`). No cambiar nada hasta que el usuario lo pida.
@@ -17,7 +18,8 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
-Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 aprobado en su v5** (`videos/01-perro-lame-v5.mp4`, tag `v5`, −16 LUFS, música original) — el usuario lo va a subir a TikTok. Avisó de que en los próximos vídeos querrá cambiar **muchas cosas de la animación**. **Siguiente paso exacto:** esperar el tema del vídeo 02 o la lista de cambios de animación; no tocar nada hasta entonces.
+- **Formato B (documentales 9:16) — lo último que se ha hecho**: 4 documentales entregados (01 bombas en Madrid, 02 Europa sin Francia, 03 ¿el centro del mundo?, 04 mitad de la humanidad, con versión larga 04-v2 de 66 s). Al usuario le gustan; los pide por chat («hazme un documental animado sobre…»). **Siguiente paso exacto:** esperar el tema del siguiente documental (o ideas para alargar el 04-v2 hasta ~90 s, que quedó ofrecido). Antes de nada en un contenedor nuevo: `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min).
+- **Formato A (3D)**: vídeo 01 aprobado en su v5 (`videos/01-perro-lame-v5.mp4`, tag `v5`). El usuario avisó de que querrá cambiar muchas cosas de la animación; no ha dicho cuáles. Sin cambios en esta sesión.
 
 ## 4. Estilo visual actual (resumen de `STYLE.md`; fuente de verdad en código: `retro3d/style.py`)
 - Low-poly con **sombreado plano** (normales por cara) y **color por vértice uniforme** (`jitter=0`).
@@ -62,6 +64,16 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 - **Dependencias**: `pip install moderngl numpy pillow scipy soundfile pyloudnorm` (+ `bpy` se instaló solo para la prueba de motores; no se usa). ffmpeg preinstalado. Fuente Montserrat copiada en `assets/fonts/`.
 - **Entorno**: sin internet general (solo gestores de paquetes y `api.elevenlabs.io`).
 
+### 7b. Formato B: documentales animados verticales (kit «documental-animado»)
+- **Origen**: kit `kit-documental-animado.zip` que dio el usuario (formato horizontal 1920×1080 con motor HTML/JS). Copiado a `.claude/skills/documental-animado/` (se versiona) e instalado en `~/.claude/skills/documental-animado/` + venv `~/.venvs/documental-animado` (Python 3.12, skia, playwright 1.63 con el Chromium de `/opt/pw-browsers`, pyproj, pillow). El contenedor es efímero: **reinstalar con `bash .claude/skills/documental-animado/instalar/instalar_linux.sh`** y luego copiar `motor/variantes/vertical` y `SKILL.md` a `~/.claude/skills/documental-animado/` si cambiaron.
+- **Motor vertical nuevo (creado en esta sesión)**: `.claude/skills/documental-animado/motor/variantes/vertical/motor.py` — 1080×1920, **60 fps**, dibujado con skia sobre el `nucleo/` del kit (que ya es vertical). `PY=~/.venvs/documental-animado/bin/python; M=.claude/skills/documental-animado/motor/variantes/vertical/motor.py`.
+  - Comandos: `$PY $M <proy> escenas | prueba t1 t2 … | secuencia t 12 | eventos | render --procesos 4 | audio | qa`. Render ≈ 13 cuadros/s con 4 procesos (35 s de vídeo ≈ 2,5 min).
+  - Escenas (`guion.json → lineas[].escena.tipo`): `map` (Madrid en metros UTM: anillos de radio, bola de fuego, pines; datos en `<proy>/datos/`), `radio` (suelo 2.5D con personas a escala), `stat` (odómetro + objeto: moab, nuclear, hueco, mapa_x2, regla, euros, avion, humo, ciudad, familias; `desde`, `prefijo`, `miles`, `ver_desde`), `artico`, `geo` (mapa del mundo Lambert azimutal con `proj`, `cam`, `hueco` de Francia, `resaltar` ids ISO numéricos, `pins`, `rotulos`), `mundo` (mapamundi Equal Earth con meridiano central móvil `lam`, giro `rot`, `centro_word`, `meridiano_word`), `globo` (ortográfico con `lon`/`lat` por fotogramas clave), `fecha` (año que rueda sobre regla, `tachar_word`), `lista` (✕ o `marca: "mas"`), `gente` (rejilla 10×10 que desaparece/rellena, o `grupos` con `patron`, `icono` coche/avion, `alerta`), `barras`.
+  - Opciones globales del guion (las antiguas siguen igual sin ellas): `sfx: true` (efectos suaves automáticos), `clave_en_linea: true` (si la clave va en medio de la frase, se resalta en la línea), `stat_alto: true`, `pausa`, `tempo`, `voz_modelo`, `tope_caracteres`, `qa_aceptadas`.
+  - Voz: `.claude/skills/documental-animado/motor/variantes/vertical/voz_eleven.py <proy>` (una toma con `/with-timestamps`, caché en `<proy>/audio/toma.mp3` + `toma.json`; `armar` rehace `voz.wav`/`palabras.json` sin gastar: recorta silencio inicial, deja pausas reales en `pausa` s con fundidos de 6 ms, fundido final si la toma acaba con aire).
+  - Proyectos: `documentales/NN-tema/` con `guion.json` (líneas `texto`/`tts`/`key`/`escena` + `fuentes` con URL), `descripcion.md`, `final/NN-tema.mp4` + `-hoja.jpg`, `qa.json`. `voz.wav`, `.render/` y `revision/` están ignorados.
+- **Sin internet general**: WebFetch y Wikipedia bloqueados; WebSearch sí funciona (verificación de datos). Mapas offline de npm (`es-atlas`, `madrid-atlas`) y `vendor/countries-50m.json` del kit. HuggingFace bloqueado → **sin Whisper**: el QA `literal_final` se acepta siempre con razón escrita y el usuario revisa la voz de oído.
+
 ## 8. Voz (ElevenLabs) — `config/voice.json`
 - `voice_id` **`851ejYcv2BoNPjrkw93G`** (siempre; si falla o suena mal, avisar y **no** cambiarla), modelo **`eleven_v3`**, `language_code` **`"es"`**, `stability` **0.5**, endpoint `/v1/text-to-speech/{voice_id}/with-timestamps`, `output_format` `mp3_44100_128`.
 - Clave **solo** de `ELEVENLABS_API_KEY` (nunca guardarla ni imprimirla).
@@ -69,6 +81,8 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 - **Caché**: `cache/voice/<hash>.mp3/.json` (hash de configuración + texto), versionada en git. **Cambiar el texto del guion obliga a regenerar la voz (cuesta créditos)**; cambiar planos/acciones/recursos no.
 - **Una toma por vídeo**; antes, decir caracteres y créditos y esperar el OK.
 - Timestamps: se verifican contra la envolvente real (correlación) y se corrigen si se desvían ≥30 ms (vídeo 01: +0,12 s, coincidencia 0,65 → 0,77); pausas > 0,42 s se acortan a 0,30 s sin regenerar (vídeo 01: 6 cortes, −1,6 s).
+
+- **Formato B**: misma voz `851ejYcv2BoNPjrkw93G` (elegida por el usuario), modelo `eleven_v3`, `language_code es`, stability 0,5, similarity 0,85. La clave del entorno es **restringida** (sin permiso de leer voces, modelos ni saldo: 401 en esas llamadas); el coste se estima a ≈1 crédito/carácter. Gastado en esta sesión: 726 + 926 + 547 + 504 + 1.176 = **3.879 caracteres**. Máster del formato B: −14 LUFS / ≤ −1 dBTP (regla del kit, `nucleo/audio.py`).
 
 ## 9. Reglas
 - **Guion**: español de España, tono de colega, humor seco, frases cortas, **80–105 palabras**; gancho ≤3 s, bucle abierto a mitad, 3–4 razones fáciles, cierre útil; prohibido estilo ChatGPT («en el mundo actual», «descubre cómo», «sin más dilación», «es importante destacar», «te voy a contar», «en este vídeo», relleno, emojis); lo dudoso con «se cree que» y cada afirmación con confianza en `facts_to_verify.md`; cifras y siglas escritas como se pronuncian; **enseñar guion + storyboard + coste y esperar OK antes de generar la voz**.
@@ -79,6 +93,8 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 - **Físicas/contactos**: nada atraviesa nada ni el suelo; volúmenes OBB por pieza comprobados en cada fotograma (tolerancia 2 cm); restricciones automáticas (codo hacia fuera si el antebrazo invade el cuerpo, cuello arriba si la cabeza invade las patas); pies apoyados (también sobre el cojín); contacto de lengua con objetivo real (se detiene en la superficie, 5 rayos, margen 1,2 cm, aplastamiento; la mano cede); `approach` coloca al perro frente al objetivo; anticipación y amortiguación en saltos. `python tools/check_physics.py <guion>` debe dar **0** antes de renderizar.
 - **Revisión antes de entregar**: hoja con 1 fotograma por plano (`contact.jpg`), primeros planos de contactos (`contactos.jpg`), `qa.md` en verde (montaje, holgura de cámara, interpenetraciones, pies, contactos, zonas seguras, textos 3D cortados, boca, LUFS, efectos), revisión manual de fotogramas; corregir y repetir si algo falla.
 - **Protección**: no modificar narrador, estilo ni pipeline base sin permiso explícito; las novedades se añaden sin romper lo existente; cada versión aprobada → tag `vK` y anotarla aquí.
+
+- **Reglas del usuario para el formato B** (están en `SKILL.md` §7 del kit, obligatorias): vertical 9:16 si pide «formato TikTok»; voz fija; ritmo sin prisas (≈2,1–2,3 palabras/s; si sale largo, recortar pausas, nunca acelerar > 5 %); **efectos de sonido suaves** en transiciones y detalles, nunca encima de la voz; **explicaciones sencillas para todos los públicos** (que lo entienda un niño de 12 años); clave grande al final de la frase; datos con fuente URL y lo hipotético dicho como hipótesis; un vídeo a la vez; el usuario no quiere preguntas técnicas: decidir y entregar, respuestas cortas en español.
 
 ## 10. Historial de cambios pedidos por el usuario (orden cronológico; sesiones 2026-11-26-01 y -02)
 1. **Encargo inicial**: pipeline desde cero, estilo MMO retro low-poly, narrador aventurero + perro creados por código, voz ElevenLabs, subtítulos, 1080×1920 −14 LUFS; vídeo de prueba «¿Por qué tu perro te lame?». → Fases 1–4 hechas; motor moderngl elegido tras medir.
@@ -102,6 +118,13 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 10. **Aprobación**: «Me quedo con la primera [−16 LUFS], ya está, este TikTok lo subiré» → tag `v5` en `978dfcd`; regla de −16 LUFS y música anotadas en `CLAUDE.md`. Aviso: en los próximos vídeos querrá cambiar muchas cosas de la animación.
 11. **Sistema de sesiones** (`/save-session`, `/resume-session`, este documento, regla de protección y tags). → Esta entrada.
 
+12. **Sesión 2026-11-27-01 (formato B)**: el usuario trae el kit «documental-animado» y un prompt (vídeo horizontal YouTube). Instalado y adaptado a Linux; voz con su clave de ElevenLabs y su voz favorita `851ejYcv2BoNPjrkw93G`.
+13. **Documental 01 «bombas sobre la Puerta del Sol»** (9:16, pedido como TikTok): granada, MOAB, Hiroshima, 1 Mt, Bomba del Zar sobre Madrid con radios en metros. Se creó el motor vertical. Fallos resueltos: vídeo codificado a 30 fps (el núcleo ya había importado FPS=30 → se igualan todos los módulos), hueco negro en el mapa (relleno de la Comunidad), clave en medio de frase («Bola de de 180»). Usuario: «me gusta, aunque quizá un poco apresurado, y faltan efectos de sonido (no muy altos)» → reglas nuevas, sin editar el 01.
+14. **Documental 02 «Europa sin Francia»** (60 s pedidos, salió 57 s): hueco con paredes de roca donde estaba Francia; Napoleón 1808, juntas de 1810, Luisiana, metro 1795, Schuman 1950, exportaciones. Se añadieron escenas geo/fecha/lista y efectos suaves. Usuario: «explicaciones más sencillas y para todos los públicos» → regla nueva.
+15. **Documental 03 «¿el centro del mundo?»** (35 s): gancho engañoso «si los españoles estamos literalmente aquí» y desmentido (China, mapa australiano al revés 1979, Greenwich 1884 por Castellón, una bola no tiene centro). Escenas `mundo` y `globo`; arreglado un fallo de franjas horizontales (anillos que cruzan los 180°: `np.unwrap`).
+16. **Documental 04 «si desapareciera la mitad de la humanidad»** (32 s). Usuario: «me he quedado con ganas de más, hazlo de ~1,5 min, construye a partir de lo que hay» → **04-v2** (66 s, voz nueva 1.176 caracteres): coches/aviones (4 casos de 2 pilotos), apagones, 16 combinaciones de abuelos, comida que no llega, Chernóbil, hijos por mujer 1974 vs hoy. Quedó en 66 s porque la toma dura eso; se ofreció añadir 2–3 ideas para llegar a 90 s.
+17. El usuario pidió guardar la sesión para seguir en un chat nuevo → esta entrada.
+
 ## 11. Vídeos producidos
 | Vídeo | Ruta / commit | Contenido | Duración | Render (solo imagen) | Estado |
 |---|---|---|---|---|---|
@@ -113,6 +136,16 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 | **v5** | `videos/01-perro-lame-v5.mp4` (commit `978dfcd`, guion `scripts/01-perro-lame-v5.json`; imágenes de la v4 con `--reuse-video`) | máster `clean2` sin ruido de fondo, −16 LUFS / −1,7 dBTP; música original «aldea» generada por código | 37,75 s | solo audio (~30 s) | **APROBADA (tag `v5`)**, el usuario la sube a TikTok |
 - Informes: `docs/01-perro-lame-v3/`, `-v4/` (qa, contact, contactos, sfx, framing) y `-v5/` (qa de audio, sfx).
 - Informes de la v2 en `docs/01-perro-lame-v2/` (`qa.md`, `contact.jpg`, `contactos.jpg`, `sfx_report.md/.json`). Resultado: 24 planos, montaje OK, holgura cámara 0,30 m, 0 interpenetraciones, 0 pies flotando, 24 contactos, 0 subtítulos fuera de zona, 0 textos cortados, boca coherente 94,2 %, −14,0 LUFS / −2,1 dBTP, 36 efectos, 0 sostenidos.
+
+### Formato B — documentales verticales (1080×1920, 60 fps, −14 LUFS)
+| Vídeo | Ruta | Commit | Duración | Voz (caracteres) | Estado |
+|---|---|---|---|---|---|
+| 01 bombas en Madrid | `documentales/01-bombas-madrid/final/01-bombas-madrid.mp4` | `dc10e69` | 43,8 s | 726 | entregado; «me gusta», apresurado y sin SFX (no editar) |
+| 02 Europa sin Francia | `documentales/02-europa-sin-francia/final/02-europa-sin-francia.mp4` | `1cfd6c2` | 57,0 s | 926 | entregado; pidió explicaciones más sencillas |
+| 03 ¿el centro del mundo? | `documentales/03-centro-del-mundo/final/03-centro-del-mundo.mp4` | `0102ba0` | 34,7 s | 547 | entregado |
+| 04 mitad de la humanidad | `documentales/04-mitad-humanidad/final/04-mitad-humanidad.mp4` | `17f3f73` | 32,3 s | 504 | entregado; le encantó el tema |
+| **04-v2 (versión larga)** | `documentales/04-mitad-humanidad-v2/final/04-mitad-humanidad-v2.mp4` | `518a871` | 66,4 s | 1.176 | entregado; pendiente de su opinión |
+- Render ≈ 2,5–5 min por vídeo (4 procesos). QA del kit OK en todos con `qa_aceptadas` medidas (zona_segura por fondos a sangre; literal_final sin Whisper; caídas de final de palabra idénticas en la toma original).
 
 ## 12. Versiones aprobadas (tags de git)
 - Aprobaciones explícitas: guion + voz del vídeo 01 original («OK A TODO»); diseño del narrador v3 («Perfecto, OK», `b649c5c`); **vídeo 01 v5** («Me quedo con la primera, ya está»).
@@ -133,7 +166,10 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 - `tools/preview_characters.py` muestra acciones antiguas (la hoja oficial del narrador es `tools/narrator_sheet.py`).
 - `CLAUDE.md` conserva notas antiguas de distancias de cámara y del aventurero en secciones de formato; las reglas vigentes son las de este documento.
 
+- **Formato B**: sin Whisper no se verifica la voz palabra por palabra (revisión de oído del usuario); la clave de ElevenLabs no lee saldo; el push de tags lo bloquea el proxy (403); los mapas de Madrid están georreferenciados por ajuste al contorno municipal (error ±150 m); el globo deja ver pines viejos en el borde mientras gira.
+
 ## 14. Pendiente y siguiente paso exacto
+0. **Formato B (lo activo)**: esperar el tema del próximo documental o la respuesta sobre alargar el 04-v2 hasta ~90 s (requiere añadir frases y **regenerar toda la voz**, ~1.600 caracteres). Flujo: `documentales/NN-tema/guion.json` (copiar el del 04-v2 como plantilla) → verificar datos con WebSearch → `$M escenas` + `prueba` y revisar fotogramas → `voz_eleven.py` (una toma) → `prueba` con tiempos reales → `render --procesos 4` → leer `qa.json` y la `-hoja.jpg` → `descripcion.md` → commit + push → enviar el MP4 al usuario con resumen corto.
 1. **Esperar al usuario**: tema del vídeo 02 y/o lista de cambios de animación. No tocar nada antes.
 2. Vídeo nuevo: copiar `scripts/01-perro-lame-v5.json` (trae `master: clean2`, `lufs: -16`, `music`, `icon_style: world`, `cam_smooth`) → guion `scripts/02-…json` → `--dry` + `tools/shot_frames.py --dry` → enseñar guion + storyboard + coste → esperar OK → `--tts` → `tools/shot_frames.py` (0 avisos) + `tools/check_physics.py` (0) → `--contact` → QA.
 3. Cambios de animación que toquen el narrador, el estilo o el pipeline base: solo con permiso explícito y sin romper lo anterior (opciones nuevas en el guion).
@@ -149,6 +185,9 @@ Pipeline completo y funcionando; narrador definitivo **aprobado**; **vídeo 01 a
 - Narrador: ¿número del jersey («00»)?, ¿ropa alternativa (`outfit`)?
 - Si los vídeos crecen: ¿Git LFS o guardarlos fuera del repo? (5 MP4 de ~25–30 MB en `videos/`).
 
+- Formato B: ¿alargar el 04-v2 a ~90 s (voz nueva)? ¿Tema del documental 05? ¿Música de fondo propia para los documentales (ahora sin música)? ¿Unir `claude/gallant-curie-6ab9x5` a `main` (PR)?
+
 ## 16. Índice de sesiones
 - [2026-11-26-01](sessions/2026-11-26-01.md) — creación del pipeline, vídeo 01 (v1 detallada, v1 minimalista, v2), narrador fijo, sistema de sesiones.
 - [2026-11-26-02](sessions/2026-11-26-02.md) — vídeo 01 v3 (audio, iconos con brillo, cámara, encuadres), v4 (guion del usuario, iconos integrados), v5 (voz sin ruido, −16 LUFS, música original); **v5 aprobada (tag `v5`)**.
+- [2026-11-27-01](sessions/2026-11-27-01.md) — **formato B**: kit «documental-animado» instalado y motor vertical 9:16 propio; documentales 01 (bombas en Madrid), 02 (Europa sin Francia), 03 (¿el centro del mundo?), 04 (mitad de la humanidad) y 04-v2 (66 s).

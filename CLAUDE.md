@@ -2,6 +2,8 @@
 
 > **AL EMPEZAR CUALQUIER SESIÓN:** lee `docs/PIPELINE_STATE.md` (estado, historial y siguiente paso) y la última sesión de `docs/sessions/`, o usa `/resume-session`. No cambies nada hasta que el usuario lo pida. Al terminar o si se acaba el contexto: `/save-session`.
 
+> **Segundo formato (documentales animados verticales 9:16 con mapas y cifras, voz del usuario):** se piden con «hazme un documental animado sobre…». Todo está en `.claude/skills/documental-animado/SKILL.md` (§0 instalación en Linux con `instalar/instalar_linux.sh`, §7 reglas del usuario) y en `docs/PIPELINE_STATE.md` §7b; los proyectos van en `documentales/NN-tema/`.
+
 ## REGLAS DE PROTECCIÓN (permanentes)
 - **No modificar el narrador, el estilo ni el pipeline base sin permiso explícito del usuario.** El narrador (`config/narrator.json` + `retro3d/characters/narrator.py` + `config/narrator.lock`), el estilo (`STYLE.md`, `retro3d/style.py`) y el pipeline base (`make_video.py`, `retro3d/`) solo cambian si el usuario lo pide.
 - **Las novedades se añaden sin romper lo existente**: nuevas acciones, escenarios, recursos o tipos de plano como opciones adicionales; los guiones y vídeos anteriores deben seguir renderizando igual.
