@@ -164,6 +164,7 @@ class Vertical(ES.Estilo):
             if n in self.idx_linea and self.palabras[self.idx_linea[n][0]]["s"] <= t and (n == e["n"] or not self.lineas[n - 1].get("escena")):
                 if n > e["n"] and self.lineas[n - 1].get("escena"): break
                 z += .012 * (1 - math.exp(-6 * max(0, t - self.palabras[self.idx_linea[n][0]]["s"])))
+        if s["tipo"] == "bolas": z = 1.0                                  # juego continuo: la cámara no se mueve
         c.save(); c.translate(CX, CY); c.scale(z, z); c.translate(-CX, -CY)
         getattr(self, "e_" + s["tipo"])(c, e, t, SUP[sup])
         c.restore()
@@ -573,6 +574,12 @@ class Vertical(ES.Estilo):
             if s.get("tipo") == "bolas":
                 for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
                 pon(self.ta(s["blanco_word"], e), "destello", .6)
+                if s.get("ciclo"):
+                    tb, tn, per = self.ta(s["blanco_word"], e), self.ta(s["numeros_word"], e), s.get("ciclo_s", 1.5)
+                    tt = tb + per
+                    while tt < tn - .2:
+                        if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .3)
+                        tt += per
                 for x in s.get("extra", []): pon(self.ta(x["word"], e), "pop", .4)
                 pon(self.ta(s["parar_word"], e) + .1, "golpe", .5)
                 pon(self.ta(s["numeros_word"], e), "pop", .35)
@@ -1199,6 +1206,12 @@ class Vertical(ES.Estilo):
             if self._B["nac"][i] is None: self._B["nac"][i] = np.argmax(~np.isnan(P[:, i, 0])) * DT
         return self._B
 
+    def _bolas_color(self, s, tb, t, base):
+        cic = s["ciclo"]; per = s.get("ciclo_s", 1.5); kc = int((t - tb) // per); uc = TI.clamp(((t - tb) - kc * per) / .3)
+        prev = base if kc == 0 else __import__("nucleo.compositor", fromlist=["hex_rgb"]).hex_rgb(cic[(kc - 1) % len(cic)])
+        now = hex_rgb(cic[kc % len(cic)])
+        return "#%02X%02X%02X" % tuple(int(round(x)) for x in (prev * (1 - uc) + now * uc))
+
     def e_bolas(self, c, e, t, S):
         s = e["spec"]; B = self._bolas_prep(e); R = B["R"]; P = B["P"]; DT = B["DT"]
         ta = lambda w: self.ta(w, e)
@@ -1255,6 +1268,9 @@ class Vertical(ES.Estilo):
             dtn = t - B["nac"][i]; sc = resorte(dtn, 9, 13) if dtn < 1.2 else 1.0
             base = ROJO if i == 0 else VERDE
             col = mezc(base, BLANCO, ub)
+            if s.get("ciclo") and t >= tb:                                   # todas a la vez cambian de color cada `ciclo_s`
+                c_t = lambda tt: self._bolas_color(s, tb, tt, base)
+                col = c_t(t) if t < tn else mezc(hex_rgb(c_t(tn)), BLANCO, TI.clamp((t - tn) / .3))
             if i == 0 and ur > 0: col = mezc(BLANCO, ROJO, ur)
             dim = 1 - .6 * ur if i != 0 else 1.0
             x, y = float(pos[i, 0]), float(pos[i, 1])
@@ -1278,6 +1294,10 @@ class Vertical(ES.Estilo):
             # destello al cambiar de color
             if 0 < t - tb < .6:
                 u = (t - tb) / .6; c.drawCircle(x, y, R * (1 + 1.4 * u), trazo("#FFFFFF", 3, .7 * (1 - u)))
+            elif s.get("ciclo") and tb < t < tn:
+                per = s.get("ciclo_s", 1.5); dc = (t - tb) % per
+                if (t - tb) >= per and dc < .45:
+                    u = dc / .45; c.drawCircle(x, y, R * (1 + .8 * u), trazo(col, 2.5, .6 * (1 - u)))
             # marcador de la roja (antes del cambio)
             if i == 0 and t < tb + .3:
                 am = TI.clamp((tb + .3 - t) / .3) * aparece(dtn, .2); yy = y - R - 26 + 5 * math.sin(t * 6)

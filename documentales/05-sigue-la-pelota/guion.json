@@ -3,7 +3,7 @@
  "formato": "vertical 1080x1920 (TikTok / Reels)",
  "voz_modelo": "eleven_v3",
  "tope_caracteres": 1000,
- "pausa": 0.45,
+ "pausa": 0.75,
  "sfx": true,
  "lineas": [
   {
@@ -77,12 +77,22 @@
       "word": "Dónde",
       "txt": "¿DÓNDE ESTÁ LA ROJA?"
      }
-    ]
+    ],
+    "ciclo": [
+     "#3D8BFF",
+     "#FFD23F",
+     "#2ED47A",
+     "#FF5FC8",
+     "#3FE0E8",
+     "#FF9A3D",
+     "#9B6BFF"
+    ],
+    "ciclo_s": 1.5
    }
   },
   {
-   "texto": "Parece fácil: hay tres y van despacio.",
-   "tts": "Parece fácil: hay tres y van despacio.",
+   "texto": "Parece fácil: ahora van despacio.",
+   "tts": "Parece fácil: ahora van despacio.",
    "key": "despacio"
   },
   {
@@ -106,24 +116,19 @@
    "key": "*memoria"
   },
   {
+   "texto": "Que no te despisten los colores.",
+   "tts": "Que no te despisten los colores.",
+   "key": "colores"
+  },
+  {
    "texto": "Nivel tres. Y entra una pelota más.",
    "tts": "Nivel tres. Y entra una pelota más.",
    "key": "más"
   },
   {
-   "texto": "Un dato: esto se estudia desde 1988.",
-   "tts": "Un dato: esto se estudia desde mil novecientos ochenta y ocho.",
-   "key": "1988"
-  },
-  {
-   "texto": "Los científicos lo llaman seguimiento de objetos múltiples.",
-   "tts": "Los científicos lo llaman seguimiento de objetos múltiples.",
-   "key": "múltiples"
-  },
-  {
-   "texto": "Y casi siempre, solo podemos seguir unas cuatro a la vez.",
-   "tts": "Y casi siempre, solo podemos seguir unas cuatro a la vez.",
-   "key": "a la vez"
+   "texto": "Ahora son cuatro. Tú, solo a la tuya.",
+   "tts": "Ahora son cuatro. Tú, solo a la tuya.",
+   "key": "tuya"
   },
   {
    "texto": "Nivel cuatro. No parpadees.",
@@ -131,14 +136,29 @@
    "key": "parpadees"
   },
   {
+   "texto": "Cada vez se cruzan más… y más rápido.",
+   "tts": "Cada vez se cruzan más... y más rápido.",
+   "key": "rápido"
+  },
+  {
    "texto": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
    "tts": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
    "key": "mucha gente"
   },
   {
+   "texto": "Y si aún la tienes, vas muy bien.",
+   "tts": "Y si aún la tienes, vas muy bien.",
+   "key": "muy bien"
+  },
+  {
    "texto": "Último nivel. Velocidad máxima.",
    "tts": "[firm] Último nivel. Velocidad máxima.",
    "key": "máxima"
+  },
+  {
+   "texto": "Sigue, sigue, sigue…",
+   "tts": "Sigue, sigue, sigue...",
+   "key": "sigue"
   },
   {
    "texto": "Aguanta un poco más… ¡Quietas!",
@@ -171,18 +191,5 @@
    "key": "Acertaste"
   }
  ],
- "fuentes": [
-  {
-   "dato": "Seguimiento de objetos múltiples (MOT), Pylyshyn y Storm, 1988",
-   "url": "https://ruccs.rutgers.edu/images/personal-zenon-pylyshyn/docs/storm88.pdf"
-  },
-  {
-   "dato": "Límite habitual de unos cuatro objetos (Alvarez y Franconeri, 2007)",
-   "url": "https://visualcognition.psych.northwestern.edu/publications/AlvarezTracking2007.pdf"
-  },
-  {
-   "dato": "El límite varía según la velocidad y el espacio entre objetos",
-   "url": "https://en.wikipedia.org/wiki/Multiple_object_tracking"
-  }
- ]
+ "fuentes": []
 }
