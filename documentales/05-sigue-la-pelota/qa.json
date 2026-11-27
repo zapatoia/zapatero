@@ -1,0 +1,295 @@
+{
+ "video": "/home/user/zapatero/documentales/05-sigue-la-pelota/final/05-sigue-la-pelota.mp4",
+ "duracion_s": 52.21,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.1,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 0.0,
+   "abajo": 0.0,
+   "derecha": 0.0
+  },
+  "tramo_s": {
+   "arriba": 0.0,
+   "abajo": 0.0,
+   "derecha": 0.0
+  },
+  "ok": true
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.1222,
+  "pico_cuadro0_db": -38.6,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -37.4,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,12 s con la «P» suave de «¿Puedes» (el silencio inicial ya está recortado a −45 dB); recortar más se comería la consonante"
+ },
+ "pausas": {
+  "pausa_max_s": 0.76,
+  "hueco_entre_marcas_s": 0.83,
+  "fin_voz_s": 51.81,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 33,
+  "peor": {
+   "w": "¿Acertaste?",
+   "t": 51.782,
+   "caida_db": 34.1,
+   "desde_db": -38.6
+  },
+  "malas": [
+   {
+    "w": "roja?",
+    "t": 1.454,
+    "caida_db": 27.5,
+    "desde_db": -19.8
+   },
+   {
+    "w": "despacio.",
+    "t": 4.136,
+    "caida_db": 26.5,
+    "desde_db": -35.5
+   },
+   {
+    "w": "gente.",
+    "t": 30.51,
+    "caida_db": 31.8,
+    "desde_db": -26.9
+   },
+   {
+    "w": "nivel.",
+    "t": 34.258,
+    "caida_db": 28.8,
+    "desde_db": -24.7
+   },
+   {
+    "w": "¿Acertaste?",
+    "t": 51.782,
+    "caida_db": 34.1,
+    "desde_db": -38.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "roja?",
+    "t": 1.454,
+    "caida_db": 27.5,
+    "desde_db": -19.8
+   },
+   {
+    "w": "fácil:",
+    "t": 2.8,
+    "caida_db": 19.2,
+    "desde_db": -25.7
+   },
+   {
+    "w": "despacio.",
+    "t": 4.136,
+    "caida_db": 26.5,
+    "desde_db": -35.5
+   },
+   {
+    "w": "encima.",
+    "t": 5.72,
+    "caida_db": 0.0,
+    "desde_db": -49.7
+   },
+   {
+    "w": "dos.",
+    "t": 7.006,
+    "caida_db": 16.4,
+    "desde_db": -35.9
+   },
+   {
+    "w": "rápido.",
+    "t": 8.679,
+    "caida_db": 5.1,
+    "desde_db": -37.6
+   },
+   {
+    "w": "atento:",
+    "t": 10.04,
+    "caida_db": 0.0,
+    "desde_db": -54.8
+   },
+   {
+    "w": "color.",
+    "t": 11.56,
+    "caida_db": 0.0,
+    "desde_db": -47.1
+   },
+   {
+    "w": "memoria.",
+    "t": 13.738,
+    "caida_db": 23.3,
+    "desde_db": -29.6
+   },
+   {
+    "w": "colores.",
+    "t": 15.56,
+    "caida_db": 0.0,
+    "desde_db": -59.0
+   },
+   {
+    "w": "tres.",
+    "t": 16.724,
+    "caida_db": 21.6,
+    "desde_db": -32.1
+   },
+   {
+    "w": "más.",
+    "t": 18.336,
+    "caida_db": 19.8,
+    "desde_db": -27.0
+   },
+   {
+    "w": "cuatro.",
+    "t": 19.689,
+    "caida_db": 19.0,
+    "desde_db": -34.9
+   },
+   {
+    "w": "tuya.",
+    "t": 21.434,
+    "caida_db": 15.6,
+    "desde_db": -38.0
+   },
+   {
+    "w": "cuatro.",
+    "t": 23.275,
+    "caida_db": 3.3,
+    "desde_db": -16.6
+   },
+   {
+    "w": "parpadees.",
+    "t": 24.132,
+    "caida_db": 20.1,
+    "desde_db": -34.9
+   },
+   {
+    "w": "más…",
+    "t": 25.93,
+    "caida_db": 0.0,
+    "desde_db": -64.6
+   },
+   {
+    "w": "rápido.",
+    "t": 27.209,
+    "caida_db": 0.0,
+    "desde_db": -58.2
+   },
+   {
+    "w": "tranquilo:",
+    "t": 29.215,
+    "caida_db": 6.8,
+    "desde_db": -14.9
+   },
+   {
+    "w": "gente.",
+    "t": 30.51,
+    "caida_db": 31.8,
+    "desde_db": -26.9
+   },
+   {
+    "w": "bien.",
+    "t": 32.686,
+    "caida_db": 13.3,
+    "desde_db": -37.4
+   },
+   {
+    "w": "nivel.",
+    "t": 34.258,
+    "caida_db": 28.8,
+    "desde_db": -24.7
+   },
+   {
+    "w": "máxima.",
+    "t": 35.73,
+    "caida_db": 0.0,
+    "desde_db": -50.6
+   },
+   {
+    "w": "sigue…",
+    "t": 37.634,
+    "caida_db": 17.6,
+    "desde_db": -24.8
+   },
+   {
+    "w": "más…",
+    "t": 39.65,
+    "caida_db": 0.0,
+    "desde_db": -58.0
+   },
+   {
+    "w": "¡Quietas!",
+    "t": 41.013,
+    "caida_db": 15.1,
+    "desde_db": -18.1
+   },
+   {
+    "w": "roja?",
+    "t": 42.417,
+    "caida_db": 17.0,
+    "desde_db": -32.4
+   },
+   {
+    "w": "respuesta.",
+    "t": 45.411,
+    "caida_db": 23.8,
+    "desde_db": -39.2
+   },
+   {
+    "w": "Tres…",
+    "t": 47.374,
+    "caida_db": 14.7,
+    "desde_db": -13.8
+   },
+   {
+    "w": "dos…",
+    "t": 48.694,
+    "caida_db": 2.2,
+    "desde_db": -10.9
+   },
+   {
+    "w": "uno…",
+    "t": 49.108,
+    "caida_db": 23.7,
+    "desde_db": -21.4
+   },
+   {
+    "w": "tres.",
+    "t": 50.778,
+    "caida_db": 13.6,
+    "desde_db": -31.0
+   },
+   {
+    "w": "¿Acertaste?",
+    "t": 51.782,
+    "caida_db": 34.1,
+    "desde_db": -38.6
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: «roja?» (1,45 s), «gente.» y «nivel.» tienen la misma caída en audio/toma.mp3 (27,5 / 31,8 / 28,8 dB): final seco de la voz. «despacio.» y «¿Acertaste?» caen desde −35 y −39 dB bajo el pico (cola casi inaudible con fundido de 6 ms)"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}
