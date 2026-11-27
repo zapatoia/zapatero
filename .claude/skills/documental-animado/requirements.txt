@@ -1,0 +1,13 @@
+# Dibujo y video
+skia-python>=87.6
+numpy>=1.26
+opencv-python-headless>=4.9
+scipy>=1.11
+soundfile>=0.12
+uharfbuzz>=0.39
+imageio-ffmpeg>=0.4.9
+# Whisper local (verificación de la voz y tiempos por palabra)
+mlx-whisper>=0.4 ; sys_platform == "darwin" and platform_machine == "arm64"
+faster-whisper>=1.1 ; sys_platform != "darwin" or platform_machine != "arm64"
+# Navegador sin ventana para el motor HTML/JS (después: python -m playwright install chromium)
+playwright>=1.45

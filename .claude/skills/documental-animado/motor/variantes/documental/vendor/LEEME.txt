@@ -1,0 +1,1 @@
+Librerías libres que usa el motor sin internet: d3 v7 (ISC), topojson-client v3 (ISC) y world-atlas v2 countries-50m (ISC; datos de Natural Earth, dominio público).

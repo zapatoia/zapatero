@@ -1,0 +1,512 @@
+{
+ "titulo": "Europa sin Francia",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1100,
+ "pausa": 0.75,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "Imagina Europa con un agujero…",
+   "tts": "Imagina Europa con un agujero...",
+   "key": "agujero",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     6,
+     46
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       10,
+       50
+      ],
+      "r": 1900
+     },
+     {
+      "t": "Justo",
+      "c": [
+       3,
+       46.5
+      ],
+      "r": 900,
+      "dur": 1.2
+     }
+    ],
+    "hueco": {
+     "word": "agujero"
+    },
+    "rotulos": [
+     {
+      "lon": -3.7,
+      "lat": 40.0,
+      "txt": "España",
+      "word": "@0"
+     },
+     {
+      "lon": 10.4,
+      "lat": 51.2,
+      "txt": "Alemania",
+      "word": "@0"
+     },
+     {
+      "lon": 12.5,
+      "lat": 43.0,
+      "txt": "Italia",
+      "word": "@0"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "justo donde estaba Francia.",
+   "tts": "justo donde estaba Francia.",
+   "key": "Francia"
+  },
+  {
+   "texto": "Más de medio millón de kilómetros cuadrados",
+   "tts": "Más de medio millón de kilómetros cuadrados",
+   "key": "kilómetros cuadrados",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "hueco",
+    "pill": "Francia metropolitana",
+    "valor": 547000,
+    "unidad": "km²",
+    "word": "medio",
+    "nota": "68,6 millones de personas",
+    "nota_word": "68"
+   }
+  },
+  {
+   "texto": "y 68 millones de personas, fuera.",
+   "tts": "y sesenta y ocho millones de personas, fuera.",
+   "key": "fuera"
+  },
+  {
+   "texto": "España acabaría en los Pirineos… y después, el vacío.",
+   "tts": "España acabaría en los Pirineos... y después, el vacío.",
+   "key": "vacío",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     6,
+     46
+    ],
+    "transicion": "zoom",
+    "hueco_ya": true,
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       -2,
+       41.5
+      ],
+      "r": 700
+     },
+     {
+      "t": "Pirineos-0.2",
+      "c": [
+       0.8,
+       42.6
+      ],
+      "r": 260,
+      "dur": 1.2
+     }
+    ],
+    "resaltar": [
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#5C96FF",
+      "word": "España"
+     }
+    ],
+    "pins": [
+     {
+      "lon": 0.0,
+      "lat": 42.75,
+      "label": "Pirineos",
+      "word": "Pirineos",
+      "lado": "i"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Sin Napoleón, no hay invasión de 1808.",
+   "tts": "Sin Napoleón, no hay invasión de mil ochocientos ocho.",
+   "key": "1808",
+   "cap": false,
+   "escena": {
+    "tipo": "fecha",
+    "surface": "blue",
+    "transicion": "card",
+    "anio": 1808,
+    "word": "Napoleón",
+    "desde": 1760,
+    "pill": "Invasión napoleónica de España",
+    "tachar_word": "1808>-0.15"
+   }
+  },
+  {
+   "texto": "Ni Guerra de la Independencia, ni Constitución de Cádiz.",
+   "tts": "Ni Guerra de la Independencia, ni Constitución de Cádiz.",
+   "key": "Cádiz",
+   "escena": {
+    "tipo": "lista",
+    "surface": "light",
+    "transicion": "mask",
+    "pill": "Lo que no habría pasado",
+    "items": [
+     {
+      "txt": "Guerra de la Independencia · 1808",
+      "word": "Guerra"
+     },
+     {
+      "txt": "Constitución de Cádiz · 1812",
+      "word": "Constitución"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y América Latina, probablemente, se independizaría más tarde:",
+   "tts": "Y América Latina, probablemente, se independizaría más tarde:",
+   "key": "más tarde",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     -70,
+     0
+    ],
+    "transicion": "whip",
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       -72,
+       2
+      ],
+      "r": 4200
+     },
+     {
+      "t": "juntas-0.3",
+      "c": [
+       -68,
+       -6
+      ],
+      "r": 3600,
+      "dur": 1.0
+     }
+    ],
+    "pins": [
+     {
+      "lon": -99.13,
+      "lat": 19.43,
+      "label": "México",
+      "word": "1810",
+      "lado": "d"
+     },
+     {
+      "lon": -66.9,
+      "lat": 10.49,
+      "label": "Caracas",
+      "word": "juntas",
+      "lado": "d"
+     },
+     {
+      "lon": -74.07,
+      "lat": 4.71,
+      "label": "Bogotá",
+      "word": "1810",
+      "lado": "i"
+     },
+     {
+      "lon": -70.65,
+      "lat": -33.45,
+      "label": "Santiago",
+      "word": "ahí",
+      "lado": "i"
+     },
+     {
+      "lon": -58.38,
+      "lat": -34.6,
+      "label": "Buenos Aires",
+      "word": "ahí",
+      "lado": "d"
+     }
+    ],
+    "rotulos": [
+     {
+      "lon": -60,
+      "lat": -14,
+      "txt": "Juntas de 1810",
+      "word": "juntas",
+      "grande": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "sus juntas de 1810 nacieron de ahí.",
+   "tts": "sus juntas de mil ochocientos diez nacieron de ahí.",
+   "key": "1810"
+  },
+  {
+   "texto": "Luisiana quizá seguiría siendo española:",
+   "tts": "Luisiana quizá seguiría siendo española:",
+   "key": "española",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     -95,
+     38
+    ],
+    "transicion": "zoom",
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       -88,
+       38
+      ],
+      "r": 3400
+     },
+     {
+      "t": "española-0.3",
+      "c": [
+       -96,
+       38
+      ],
+      "r": 2200,
+      "dur": 1.1
+     }
+    ],
+    "pins": [
+     {
+      "lon": -90.07,
+      "lat": 29.95,
+      "label": "Nueva Orleans",
+      "word": "Luisiana",
+      "lado": "d"
+     }
+    ],
+    "rotulos": [
+     {
+      "lon": -98,
+      "lat": 42,
+      "txt": "Luisiana 1762–1800 · España",
+      "word": "española",
+      "grande": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "se la cedimos a Francia en 1800,",
+   "tts": "se la cedimos a Francia en mil ochocientos,",
+   "key": "1800"
+  },
+  {
+   "texto": "que se la vendió a Estados Unidos en 1803.",
+   "tts": "que se la vendió a Estados Unidos en mil ochocientos tres.",
+   "key": "1803",
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "card",
+    "objeto": "mapa_x2",
+    "pill": "Compra de Luisiana · 1803",
+    "valor": 2144000,
+    "unidad": "km²",
+    "word": "vendió",
+    "nota": "duplicó el tamaño de EE. UU.",
+    "nota_word": "1803"
+   }
+  },
+  {
+   "texto": "Y el metro nació en Francia en 1795:",
+   "tts": "Y el metro nació en Francia en mil setecientos noventa y cinco:",
+   "key": "1795",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "regla",
+    "pill": "Sistema métrico",
+    "valor": 1795,
+    "unidad": "año",
+    "word": "nació",
+    "miles": false,
+    "nota": "1/10.000.000 del cuarto de meridiano",
+    "nota_word": "1795",
+    "desde": 1700
+   },
+   "cap": false
+  },
+  {
+   "texto": "quizá hoy medirías todo en pies y pulgadas.",
+   "tts": "quizá hoy medirías todo en pies y pulgadas.",
+   "key": "pulgadas"
+  },
+  {
+   "texto": "Hasta la Unión Europea arrancó con un plan francés, en 1950.",
+   "tts": "Hasta la Unión Europea arrancó con un plan francés, en mil novecientos cincuenta.",
+   "key": "1950",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     6,
+     49
+    ],
+    "transicion": "mask",
+    "hueco_ya": true,
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       7,
+       49
+      ],
+      "r": 1500
+     },
+     {
+      "t": "francés",
+      "c": [
+       7,
+       49.5
+      ],
+      "r": 1150,
+      "dur": 1.0
+     }
+    ],
+    "resaltar": [
+     {
+      "ids": [
+       "276",
+       "380",
+       "056",
+       "528",
+       "442"
+      ],
+      "col": "#FFD34D",
+      "word": "Unión",
+      "alfa": 0.55
+     }
+    ],
+    "rotulos": [
+     {
+      "lon": 7,
+      "lat": 55.3,
+      "txt": "Declaración Schuman · 9 mayo 1950",
+      "word": "plan",
+      "grande": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "España perdería a su primer cliente: 61.400 millones al año.",
+   "tts": "España perdería a su primer cliente: sesenta y un mil cuatrocientos millones al año.",
+   "key": "cliente",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "zoom",
+    "objeto": "euros",
+    "pill": "Exportaciones de España a Francia · 2024",
+    "valor": 61400,
+    "unidad": "millones de €",
+    "word": "61.400",
+    "nota": "su primer destino",
+    "nota_word": "año"
+   }
+  },
+  {
+   "texto": "Europa sería más pequeña, más rara…",
+   "tts": "Europa sería más pequeña, más rara...",
+   "key": "rara",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     6,
+     46
+    ],
+    "transicion": "whip",
+    "hueco_ya": true,
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       3,
+       46.5
+      ],
+      "r": 900
+     },
+     {
+      "t": "Europa+0.2",
+      "c": [
+       9,
+       49
+      ],
+      "r": 1900,
+      "dur": 1.6
+     },
+     {
+      "t": "precipicio-0.3",
+      "c": [
+       0.6,
+       42.7
+      ],
+      "r": 300,
+      "dur": 1.4
+     }
+    ],
+    "pins": [
+     {
+      "lon": 0.0,
+      "lat": 42.75,
+      "label": "Pirineos",
+      "word": "Pirineos",
+      "lado": "i"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "y con un precipicio en los Pirineos.",
+   "tts": "y con un precipicio en los Pirineos.",
+   "key": "Pirineos"
+  }
+ ],
+ "fuentes": [
+  "Superficie de Francia metropolitana ≈ 547.000 km² medida sobre Natural Earth 1:50m (oficial ~544.000 km²); España ≈ 500.000 km² — https://www.naturalearthdata.com/",
+  "Población de Francia: 68,6 millones a 1 ene 2025 (INSEE, Bilan démographique 2024) — https://www.insee.fr/fr/statistiques/8313983",
+  "Invasión napoleónica de 1808, Guerra de la Independencia y Constitución de Cádiz (1812); la crisis de 1808 desencadenó las juntas americanas de 1810 (Caracas 19 abr, Buenos Aires 25 may, Bogotá 20 jul, Grito de Dolores 16 sep, Santiago 18 sep) — https://research.kent.ac.uk/warandnation/?p=1992 · https://allanbrewercarias.com/wp-content/uploads/2018/07/932.-Crisis-de-España-1808-1810.pdf",
+  "Luisiana: española 1762–1800 (Tratado de Fontainebleau / Tercer Tratado de San Ildefonso), vendida por Francia a EE. UU. en 1803: ~2.144.000 km², duplicó su tamaño — https://www.britannica.com/event/Louisiana-Purchase · https://www.worldhistory.org/Louisiana_Purchase/",
+  "Sistema métrico: ley del 18 germinal del año III (7 abr 1795); metro = 1/10.000.000 de la distancia del polo al ecuador por el meridiano de París — https://www.britannica.com/science/measurement-system/The-metric-system-of-measurement · https://physicsworld.com/a/the-evolution-of-the-metre-how-a-product-of-the-french-revolution-became-a-mainstay-of-worldwide-scientific-collaboration/",
+  "Declaración Schuman, 9 mayo 1950, origen de la CECA (1951) y de la UE; fundadores: Francia, RFA, Italia, Bélgica, Países Bajos, Luxemburgo — https://european-union.europa.eu/principles-countries-history/history-eu/1945-59/schuman-declaration-may-1950_es",
+  "Francia, primer destino de las exportaciones españolas en 2024: 61.400 millones € (INE, Península Ibérica en cifras 2025) — https://ine.es/prodyser/pubweb/pin/pin2025/66/",
+  "Francia, país más visitado del mundo en 2024: ~100 millones de turistas internacionales (Atout France) — https://fortune.com/europe/2025/01/22/france-retains-worlds-top-tourist-destination-competition-spain-olympics/",
+  "Todo lo demás es hipótesis contrafactual (se dice con «quizá», «probablemente»)."
+ ],
+ "clave_en_linea": true,
+ "stat_alto": true,
+ "qa_aceptadas": {
+  "zona_segura": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapas, rejilla, partículas). Textos, píldoras y cifras están dentro de x 40–950 e y 150–1460 por construcción",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
+  "palabras_completas": "medido: las caídas de 1808 y 1795 son idénticas muestra a muestra en la toma original de ElevenLabs (audio/toma.mp3, ≈18,1 s y ≈38,4 s): es el final seco de la voz, no un corte. La toma original acaba con aire a −30 dB tras «Pirineos» (la «s» termina en 57,52 s según la alineación) y se cierra con un fundido de 0,22 s"
+ }
+}

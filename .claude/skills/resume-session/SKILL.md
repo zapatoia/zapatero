@@ -14,7 +14,8 @@ description: Retoma el proyecto en un chat nuevo. Lee CLAUDE.md, docs/PIPELINE_S
    - `docs/PIPELINE_STATE.md`
    - la última sesión: el fichero más reciente de `docs/sessions/` (orden alfabético = cronológico, `AAAA-MM-DD-NN.md`)
 2. Ejecutar (solo lectura): `git branch --show-current`, `git status --short`, `git log --oneline -15`, `git tag -n`.
-3. Comprobar en silencio que el entorno está listo (sin instalar nada todavía): `python3 -c "import moderngl, numpy, PIL, scipy, soundfile, pyloudnorm"` y `[ -n "$ELEVENLABS_API_KEY" ] && echo clave-presente` (no imprimir la clave). Si falta algo, mencionarlo en el resumen con el comando de instalación de CLAUDE.md, pero no ejecutarlo.
+3. Formato activo = documentales 9:16 (ver `CLAUDE.md`): comprobar en silencio `[ -x ~/.venvs/documental-animado/bin/python ] && echo kit-listo`; si no está, decir en el resumen que antes del próximo vídeo hay que correr `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min) y leer `.claude/skills/documental-animado/SKILL.md`. Solo si el usuario pide el formato 3D archivado:
+   comprobar en silencio que el entorno está listo (sin instalar nada todavía): `python3 -c "import moderngl, numpy, PIL, scipy, soundfile, pyloudnorm"` y `[ -n "$ELEVENLABS_API_KEY" ] && echo clave-presente` (no imprimir la clave). Si falta algo, mencionarlo en el resumen con el comando de instalación de CLAUDE.md, pero no ejecutarlo.
 4. Responder en español, breve (máx. ~15 líneas):
    - **Dónde estamos**: versión actual, último vídeo, rama y si hay cambios sin commit.
    - **Pendiente**: lo que quedó abierto, incluidas las decisiones que tocan al usuario.

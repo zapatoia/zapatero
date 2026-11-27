@@ -1,0 +1,199 @@
+{
+ "video": "/home/user/zapatero/documentales/02-europa-sin-francia/final/02-europa-sin-francia.mp4",
+ "duracion_s": 57.02,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 39.0,
+   "abajo": 56.1,
+   "derecha": 51.8
+  },
+  "tramo_s": {
+   "arriba": 9.75,
+   "abajo": 13.75,
+   "derecha": 8.25
+  },
+  "ok": false,
+  "aceptada": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapas, rejilla, partículas). Textos, píldoras y cifras están dentro de x 40–950 e y 150–1460 por construcción"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0117,
+  "pico_cuadro0_db": -11.3,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -21.7,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.75,
+  "hueco_entre_marcas_s": 0.837,
+  "fin_voz_s": 56.623,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 20,
+  "peor": {
+   "w": "1795:",
+   "t": 37.843,
+   "caida_db": 29.8,
+   "desde_db": -31.5
+  },
+  "malas": [
+   {
+    "w": "1808.",
+    "t": 17.638,
+    "caida_db": 28.5,
+    "desde_db": -37.8
+   },
+   {
+    "w": "1795:",
+    "t": 37.843,
+    "caida_db": 29.8,
+    "desde_db": -31.5
+   }
+  ],
+  "detalle": [
+   {
+    "w": "agujero…",
+    "t": 2.065,
+    "caida_db": 2.4,
+    "desde_db": -32.4
+   },
+   {
+    "w": "Francia.",
+    "t": 3.451,
+    "caida_db": 14.8,
+    "desde_db": -34.7
+   },
+   {
+    "w": "cuadrados",
+    "t": 6.02,
+    "caida_db": 18.0,
+    "desde_db": -10.6
+   },
+   {
+    "w": "fuera.",
+    "t": 9.908,
+    "caida_db": 17.6,
+    "desde_db": -37.4
+   },
+   {
+    "w": "Pirineos…",
+    "t": 11.693,
+    "caida_db": 0.0,
+    "desde_db": -62.5
+   },
+   {
+    "w": "vacío.",
+    "t": 13.819,
+    "caida_db": 24.4,
+    "desde_db": -38.6
+   },
+   {
+    "w": "1808.",
+    "t": 17.638,
+    "caida_db": 28.5,
+    "desde_db": -37.8
+   },
+   {
+    "w": "Cádiz.",
+    "t": 20.34,
+    "caida_db": 14.6,
+    "desde_db": -40.0
+   },
+   {
+    "w": "tarde:",
+    "t": 23.883,
+    "caida_db": 0.0,
+    "desde_db": -51.3
+   },
+   {
+    "w": "ahí.",
+    "t": 26.503,
+    "caida_db": 16.1,
+    "desde_db": -33.1
+   },
+   {
+    "w": "española:",
+    "t": 29.398,
+    "caida_db": 15.6,
+    "desde_db": -30.6
+   },
+   {
+    "w": "1800,",
+    "t": 31.339,
+    "caida_db": 6.2,
+    "desde_db": -18.5
+   },
+   {
+    "w": "1803.",
+    "t": 33.976,
+    "caida_db": 21.2,
+    "desde_db": -36.9
+   },
+   {
+    "w": "1795:",
+    "t": 37.843,
+    "caida_db": 29.8,
+    "desde_db": -31.5
+   },
+   {
+    "w": "pulgadas.",
+    "t": 40.798,
+    "caida_db": 13.6,
+    "desde_db": -29.2
+   },
+   {
+    "w": "1950.",
+    "t": 46.073,
+    "caida_db": 0.0,
+    "desde_db": -55.8
+   },
+   {
+    "w": "cliente:",
+    "t": 48.473,
+    "caida_db": 0.0,
+    "desde_db": -57.3
+   },
+   {
+    "w": "año.",
+    "t": 51.147,
+    "caida_db": 17.7,
+    "desde_db": -23.8
+   },
+   {
+    "w": "rara…",
+    "t": 54.678,
+    "caida_db": 13.4,
+    "desde_db": -40.0
+   },
+   {
+    "w": "Pirineos.",
+    "t": 56.551,
+    "caida_db": 9.4,
+    "desde_db": -36.3
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: las caídas de 1808 y 1795 son idénticas muestra a muestra en la toma original de ElevenLabs (audio/toma.mp3, ≈18,1 s y ≈38,4 s): es el final seco de la voz, no un corte. La toma original acaba con aire a −30 dB tras «Pirineos» (la «s» termina en 57,52 s según la alineación) y se cierra con un fundido de 0,22 s"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

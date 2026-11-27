@@ -1,0 +1,523 @@
+{
+ "titulo": "Bombas sobre la Puerta del Sol",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 900,
+ "lineas": [
+  {
+   "texto": "Una granada en la Puerta del Sol.",
+   "tts": "Una granada en la Puerta del Sol.",
+   "key": "Sol",
+   "escena": {
+    "tipo": "map",
+    "surface": "dark",
+    "capas": "ciudad",
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       0,
+       6500
+      ],
+      "r": 17500
+     },
+     {
+      "t": "Puerta-0.1",
+      "c": "sol",
+      "r": 520,
+      "dur": 1.3
+     }
+    ],
+    "pins": [
+     {
+      "p": "sol",
+      "label": "Puerta del Sol · Km 0",
+      "word": "Sol",
+      "big": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "A cinco metros, mata.",
+   "tts": "A cinco metros, mata.",
+   "key": "mata",
+   "escena": {
+    "tipo": "radio",
+    "surface": "light",
+    "transicion": "zoom",
+    "cam": [
+     {
+      "t": "@0",
+      "r": 7.5
+     },
+     {
+      "t": "quince-0.2",
+      "r": 17.5,
+      "dur": 0.8
+     }
+    ],
+    "objeto": "granada",
+    "objeto_label": "Granada de mano",
+    "rings": [
+     {
+      "r": 5,
+      "col": "#E5322D",
+      "word": "cinco",
+      "label": "5 m · letal",
+      "ang": -35
+     },
+     {
+      "r": 15,
+      "col": "#F08A1C",
+      "word": "quince",
+      "label": "15 m · heridos",
+      "ang": -35
+     }
+    ],
+    "personas": [
+     [
+      -3.2,
+      1.5
+     ],
+     [
+      3.8,
+      -1.2
+     ],
+     [
+      1.2,
+      3.6
+     ],
+     [
+      -9.5,
+      -4.5
+     ],
+     [
+      10.5,
+      3.2
+     ],
+     [
+      7.5,
+      -9.5
+     ],
+     [
+      -6.5,
+      10.2
+     ],
+     [
+      -17.5,
+      3.0
+     ],
+     [
+      17.0,
+      -2.0
+     ],
+     [
+      2.5,
+      12.5
+     ]
+    ]
+   }
+  },
+  {
+   "texto": "A quince, hiere.",
+   "tts": "A quince, hiere.",
+   "key": "hiere"
+  },
+  {
+   "texto": "La mayor bomba no nuclear de Estados Unidos: la MOAB.",
+   "tts": "La mayor bomba no nuclear de Estados Unidos: la Moab.",
+   "key": "MOAB",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "moab",
+    "pill": "GBU-43/B · «MOAB»",
+    "valor": 11,
+    "unidad": "t de TNT",
+    "word": "Once",
+    "decimales": 0,
+    "nota": "9.800 kg · 9,1 m de largo",
+    "nota_word": "Once"
+   }
+  },
+  {
+   "texto": "Once toneladas de TNT.",
+   "tts": "Once toneladas de te ene te.",
+   "key": "TNT",
+   "cap": false
+  },
+  {
+   "texto": "Arrasa un par de manzanas",
+   "tts": "Arrasa un par de manzanas",
+   "key": "manzanas",
+   "escena": {
+    "tipo": "map",
+    "surface": "dark",
+    "capas": "ciudad",
+    "transicion": "mask",
+    "cam": [
+     {
+      "t": "@0",
+      "c": "sol",
+      "r": 420
+     },
+     {
+      "t": "revienta-0.1",
+      "c": "sol",
+      "r": 2150,
+      "dur": 0.9
+     }
+    ],
+    "pins": [
+     {
+      "p": "sol",
+      "label": "Sol",
+      "word": "@0"
+     }
+    ],
+    "rings": [
+     {
+      "r": 154,
+      "col": "#E5322D",
+      "word": "Arrasa",
+      "label": "≈150 m",
+      "ang": -40
+     },
+     {
+      "r": 1600,
+      "col": "#FFD34D",
+      "word": "cristales",
+      "label": "cristales rotos · 1,6 km",
+      "ang": -55,
+      "dash": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "y revienta cristales a kilómetro y medio.",
+   "tts": "y revienta cristales a kilómetro y medio.",
+   "key": "kilómetro y medio"
+  },
+  {
+   "texto": "Hiroshima: quince kilotones.",
+   "tts": "Hiroshima: quince kilotones.",
+   "key": "Hiroshima",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "card",
+    "objeto": "nuclear",
+    "tam": 0.42,
+    "pill": "Hiroshima · 6 ago 1945",
+    "valor": 15,
+    "unidad": "kilotones",
+    "word": "quince",
+    "nota": "≈ 1.364 MOAB",
+    "nota_word": "kilotones"
+   }
+  },
+  {
+   "texto": "Bola de fuego de 180 metros.",
+   "tts": "Bola de fuego de ciento ochenta metros.",
+   "key": "180 metros",
+   "escena": {
+    "tipo": "map",
+    "surface": "dark",
+    "capas": "ciudad",
+    "transicion": "zoom",
+    "cam": [
+     {
+      "t": "@0",
+      "c": "sol",
+      "r": 650
+     },
+     {
+      "t": "Edificios-0.15",
+      "c": [
+       -300,
+       0
+      ],
+      "r": 2700,
+      "dur": 0.9
+     }
+    ],
+    "fuego": {
+     "r": 180,
+     "word": "Bola",
+     "label": "bola de fuego · 180 m"
+    },
+    "rings": [
+     {
+      "r": 1700,
+      "col": "#E5322D",
+      "word": "Edificios",
+      "label": "edificios hundidos · 1,7 km",
+      "ang": -62
+     },
+     {
+      "r": 2030,
+      "col": "#F08A1C",
+      "word": "Quemaduras",
+      "label": "quemaduras graves · 2 km",
+      "ang": 118
+     }
+    ],
+    "pins": [
+     {
+      "p": "palacio",
+      "label": "Palacio Real",
+      "word": "Palacio",
+      "lado": "i"
+     },
+     {
+      "p": "retiro",
+      "label": "Retiro",
+      "word": "Retiro",
+      "lado": "d"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Edificios hundidos más allá del Palacio Real.",
+   "tts": "Edificios hundidos más allá del Palacio Real.",
+   "key": "Palacio Real"
+  },
+  {
+   "texto": "Quemaduras graves hasta el Retiro.",
+   "tts": "Quemaduras graves hasta el Retiro.",
+   "key": "Retiro"
+  },
+  {
+   "texto": "Una ojiva moderna de un megatón.",
+   "tts": "Una ojiva moderna de un megatón.",
+   "key": "megatón",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "nuclear",
+    "tam": 0.62,
+    "pill": "Ojiva termonuclear",
+    "valor": 1,
+    "unidad": "megatón",
+    "word": "megatón",
+    "nota": "≈ 67 Hiroshimas",
+    "nota_word": "megatón+0.35"
+   }
+  },
+  {
+   "texto": "Siete kilómetros de edificios caídos, incluido el Bernabéu.",
+   "tts": "Siete kilómetros de edificios caídos, incluido el Bernabéu.",
+   "key": "Bernabéu",
+   "escena": {
+    "tipo": "map",
+    "surface": "dark",
+    "capas": "ciudad",
+    "transicion": "mask",
+    "cam": [
+     {
+      "t": "@0",
+      "c": "sol",
+      "r": 3000
+     },
+     {
+      "t": "Siete",
+      "c": [
+       0,
+       900
+      ],
+      "r": 8800,
+      "dur": 0.8
+     },
+     {
+      "t": "quemaduras-0.15",
+      "c": [
+       1500,
+       1500
+      ],
+      "r": 14000,
+      "dur": 0.8
+     }
+    ],
+    "pins": [
+     {
+      "p": "sol",
+      "label": "Sol",
+      "word": "@0"
+     },
+     {
+      "p": "bernabeu",
+      "label": "Bernabéu",
+      "word": "Bernabéu",
+      "lado": "d"
+     },
+     {
+      "p": "barajas",
+      "label": "Barajas",
+      "word": "Barajas",
+      "lado": "d"
+     }
+    ],
+    "rings": [
+     {
+      "r": 6900,
+      "col": "#E5322D",
+      "word": "Siete",
+      "label": "edificios caídos · 6,9 km",
+      "ang": -125
+     },
+     {
+      "r": 11400,
+      "col": "#F08A1C",
+      "word": "quemaduras",
+      "label": "quemaduras graves · 11,4 km",
+      "ang": -130
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y quemaduras casi hasta Barajas.",
+   "tts": "Y quemaduras casi hasta Barajas.",
+   "key": "Barajas"
+  },
+  {
+   "texto": "Y la Bomba del Zar:",
+   "tts": "Y la Bomba del Zar:",
+   "key": "Zar",
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "card",
+    "objeto": "nuclear",
+    "tam": 0.66,
+    "pill": "Bomba del Zar · URSS",
+    "valor": 50,
+    "unidad": "megatones",
+    "word": "cincuenta",
+    "nota": "≈ 3.333 Hiroshimas",
+    "nota_word": "potente"
+   }
+  },
+  {
+   "texto": "cincuenta megatones,",
+   "tts": "cincuenta megatones,",
+   "cap": false
+  },
+  {
+   "texto": "la más potente jamás detonada.",
+   "tts": "la más potente jamás detonada.",
+   "key": "detonada"
+  },
+  {
+   "texto": "Veinticinco kilómetros arrasados: toda Madrid.",
+   "tts": "Veinticinco kilómetros arrasados: toda Madrid.",
+   "key": "Madrid",
+   "escena": {
+    "tipo": "map",
+    "surface": "dark",
+    "capas": "region",
+    "transicion": "zoom",
+    "cam": [
+     {
+      "t": "@0",
+      "c": "sol",
+      "r": 16000
+     },
+     {
+      "t": "Veinticinco",
+      "c": "sol",
+      "r": 32000,
+      "dur": 0.8
+     },
+     {
+      "t": "quemaduras-0.15",
+      "c": [
+       16000,
+       2000
+      ],
+      "r": 66000,
+      "dur": 0.9
+     }
+    ],
+    "pins": [
+     {
+      "p": "sol",
+      "label": "Sol",
+      "word": "@0"
+     },
+     {
+      "p": "guadalajara",
+      "label": "Guadalajara",
+      "word": "Guadalajara",
+      "lado": "i"
+     }
+    ],
+    "ciudad_word": "Madrid",
+    "rings": [
+     {
+      "r": 25400,
+      "col": "#E5322D",
+      "word": "Veinticinco",
+      "label": "todo arrasado · 25 km",
+      "ang": -125
+     },
+     {
+      "r": 56600,
+      "col": "#F08A1C",
+      "word": "quemaduras",
+      "label": "quemaduras graves · 57 km",
+      "ang": -125
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y quemaduras graves hasta Guadalajara.",
+   "tts": "Y quemaduras graves hasta Guadalajara.",
+   "key": "Guadalajara"
+  },
+  {
+   "texto": "Por suerte, solo se probó una vez: en 1961.",
+   "tts": "Por suerte, solo se probó una vez: en mil novecientos sesenta y uno.",
+   "key": "1961",
+   "cap": false,
+   "escena": {
+    "tipo": "artico",
+    "surface": "clay",
+    "transicion": "whip",
+    "pin": {
+     "lon": 54.5,
+     "lat": 73.85,
+     "label": "Nueva Zembla",
+     "word": "probó"
+    },
+    "anio": 1961,
+    "anio_word": "1961",
+    "pill": "30 oct 1961 · Ártico ruso"
+   }
+  }
+ ],
+ "fuentes": [
+  "Granada M67: radio letal 5 m, heridos hasta 15 m — https://www.nammo.com/products/grenades-warheads-energetics/m67-grenade/ · https://man.fas.org/dod-101/sys/land/m67.htm",
+  "MOAB (GBU-43/B): 11 t de TNT; destruiría una o dos manzanas y rompería cristales hasta ~1,6 km (1 milla) — https://en.wikipedia.org/wiki/GBU-43/B_MOAB · https://www.inverse.com/article/30306-moab-mother-of-all-bombs-compare-nuclear-atomic-bomb-hiroshima-nagasaki",
+  "Hiroshima (Little Boy): ~15 kt, 6 ago 1945 — https://en.wikipedia.org/wiki/Little_Boy",
+  "Bomba del Zar: 50 Mt, 30 oct 1961, Nueva Zembla; la mayor explosión jamás detonada — https://ahf.nuclearmuseum.org/ahf/history/tsar-bomba/",
+  "Radios nucleares (explosión aérea, cielo despejado) calculados con las leyes de escala de Glasstone y Dolan, The Effects of Nuclear Weapons (1977): 5 psi = 0,69·Y^(1/3) km; quemaduras de 3.er grado = 0,67·Y^0,41 km (C. Sublette, Nuclear Weapons FAQ §5); bola de fuego ≈ 0,061·Y^0,4 km — https://nuclearweaponarchive.org/Nwfaq/Nfaq5.html · https://www.osti.gov/biblio/6852629",
+  "Mapas: madrid-atlas (secciones censales del Ayuntamiento de Madrid, 2017) y es-atlas (INE/IGN); Ártico: Natural Earth / world-atlas",
+  "Posiciones (OpenStreetMap): Km 0 40.4167,-3.7036 · Palacio Real 40.4180,-3.7143 (0,9 km) · Estanque del Retiro 40.4180,-3.6840 (1,7 km) · Bernabéu 40.4531,-3.6883 (4,2 km) · T4 Barajas 40.4917,-3.5933 (12,5 km) · Guadalajara 40.6337,-3.1667 (51 km) — https://www.openstreetmap.org/?mlat=40.4167&mlon=-3.7036#map=13/40.4167/-3.7036"
+ ],
+ "tempo": 1.04,
+ "pausa": 0.28,
+ "qa_aceptadas": {
+  "palabras_completas": "medido: las tres caídas (MOAB, TNT, Guadalajara) aparecen igual en la toma original de ElevenLabs (audio/toma.mp3): es el final seco de la voz, no un corte de edición",
+  "zona_segura": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapa, rejilla, partículas). Textos, píldoras y cifras están dentro de x 40–950 e y 150–1460 por construcción (pildora() recorta a x≤950; tipografía en y 1268–1460)",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs (118 palabras del tts alineadas en orden, sin huecos). Revisión de oído pendiente del usuario"
+ }
+}

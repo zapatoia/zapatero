@@ -1,0 +1,143 @@
+{
+ "video": "/home/user/zapatero/documentales/03-centro-del-mundo/final/03-centro-del-mundo.mp4",
+ "duracion_s": 34.72,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 45.3,
+   "abajo": 15.1,
+   "derecha": 72.7
+  },
+  "tramo_s": {
+   "arriba": 8.75,
+   "abajo": 4.5,
+   "derecha": 7.0
+  },
+  "ok": false,
+  "aceptada": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapas a pantalla completa, rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0003,
+  "pico_cuadro0_db": -28.3,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -30.4,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.59,
+  "hueco_entre_marcas_s": 0.65,
+  "fin_voz_s": 34.32,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 13,
+  "peor": {
+   "w": "medio?",
+   "t": 18.224,
+   "caida_db": 19.3,
+   "desde_db": -38.0
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "mundo…",
+    "t": 3.009,
+    "caida_db": 0.0,
+    "desde_db": -60.8
+   },
+   {
+    "w": "aquí?",
+    "t": 6.408,
+    "caida_db": 8.3,
+    "desde_db": -35.8
+   },
+   {
+    "w": "no:",
+    "t": 8.202,
+    "caida_db": 8.1,
+    "desde_db": -39.7
+   },
+   {
+    "w": "mapa.",
+    "t": 9.804,
+    "caida_db": 17.2,
+    "desde_db": -27.4
+   },
+   {
+    "w": "China.",
+    "t": 12.646,
+    "caida_db": 15.1,
+    "desde_db": -27.6
+   },
+   {
+    "w": "arriba.",
+    "t": 15.264,
+    "caida_db": 11.9,
+    "desde_db": -32.1
+   },
+   {
+    "w": "medio?",
+    "t": 18.224,
+    "caida_db": 19.3,
+    "desde_db": -38.0
+   },
+   {
+    "w": "cero:",
+    "t": 21.623,
+    "caida_db": 4.2,
+    "desde_db": -39.1
+   },
+   {
+    "w": "Londres.",
+    "t": 23.414,
+    "caida_db": 8.2,
+    "desde_db": -38.9
+   },
+   {
+    "w": "Castellón.",
+    "t": 26.47,
+    "caida_db": 0.0,
+    "desde_db": -52.9
+   },
+   {
+    "w": "bola,",
+    "t": 28.34,
+    "caida_db": 0.0,
+    "desde_db": -63.5
+   },
+   {
+    "w": "centro.",
+    "t": 30.955,
+    "caida_db": 17.8,
+    "desde_db": -30.8
+   },
+   {
+    "w": "mapa.",
+    "t": 34.205,
+    "caida_db": 5.5,
+    "desde_db": -32.9
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

@@ -1,0 +1,432 @@
+{
+ "titulo": "Si desapareciera la mitad (v2)",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1500,
+ "pausa": 0.8,
+ "sfx": true,
+ "clave_en_linea": true,
+ "stat_alto": true,
+ "lineas": [
+  {
+   "texto": "Imagina que, de golpe, la mitad de la humanidad desaparece.",
+   "tts": "Imagina que, de golpe, la mitad de la humanidad desaparece.",
+   "key": "desaparece",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "cols": 10,
+    "rows": 10,
+    "quitar_word": "desaparece",
+    "pill": "100 personas = toda la humanidad",
+    "pill_word": "@0"
+   }
+  },
+  {
+   "texto": "Pasaríamos de 8.200 millones a 4.100.",
+   "tts": "Pasaríamos de ocho mil doscientos millones a cuatro mil cien.",
+   "key": "4.100",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "zoom",
+    "objeto": null,
+    "pill": "Personas en el mundo",
+    "desde": 8200,
+    "valor": 4100,
+    "unidad": "millones",
+    "word": "4.100",
+    "ver_desde": true
+   }
+  },
+  {
+   "texto": "Tantos como en 1974.",
+   "tts": "Tantos como en mil novecientos setenta y cuatro.",
+   "key": "1974",
+   "cap": false,
+   "escena": {
+    "tipo": "fecha",
+    "surface": "clay",
+    "transicion": "whip",
+    "anio": 1974,
+    "word": "Tantos",
+    "desde": 2025,
+    "pill": "Éramos 4.000 millones"
+   }
+  },
+  {
+   "texto": "Y como pasaría a la vez, habría coches sin conductor…",
+   "tts": "Y como pasaría a la vez, habría coches sin conductor...",
+   "key": "conductor",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "card",
+    "grupos": [
+     {
+      "label": "Coche",
+      "word": "@0.1",
+      "n": 1,
+      "patron": [
+       1
+      ],
+      "icono": "coche"
+     },
+     {
+      "label": "Coche",
+      "word": "conductor",
+      "n": 1,
+      "patron": [
+       0
+      ],
+      "icono": "coche",
+      "alerta": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "y aviones sin piloto: llevan dos, así que en 1 de cada 4 faltarían los dos.",
+   "tts": "y aviones sin piloto: llevan dos, así que en uno de cada cuatro faltarían los dos.",
+   "key": "los dos",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "whip",
+    "pill": "2 pilotos por avión: 4 casos posibles",
+    "pill_word": "llevan",
+    "grupos": [
+     {
+      "label": "Avión A",
+      "word": "llevan",
+      "n": 2,
+      "patron": [
+       1,
+       1
+      ],
+      "icono": "avion"
+     },
+     {
+      "label": "Avión B",
+      "word": "así",
+      "n": 2,
+      "patron": [
+       1,
+       0
+      ],
+      "icono": "avion"
+     },
+     {
+      "label": "Avión C",
+      "word": "así",
+      "n": 2,
+      "patron": [
+       0,
+       1
+      ],
+      "icono": "avion"
+     },
+     {
+      "label": "Avión D",
+      "word": "faltarían",
+      "n": 2,
+      "patron": [
+       0,
+       0
+      ],
+      "alerta": true,
+      "icono": "avion"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Primero, caos: en cada hospital, cada fábrica y cada autobús, faltaría la mitad de la gente.",
+   "tts": "Primero, caos: en cada hospital, cada fábrica y cada autobús, faltaría la mitad de la gente.",
+   "key": "gente",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "card",
+    "grupos": [
+     {
+      "label": "Hospital",
+      "word": "hospital"
+     },
+     {
+      "label": "Fábrica",
+      "word": "fábrica"
+     },
+     {
+      "label": "Autobús",
+      "word": "autobús"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y sin la mitad de quien maneja las centrales, probablemente habría apagones.",
+   "tts": "Y sin la mitad de quien maneja las centrales, probablemente habría apagones.",
+   "key": "apagones",
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "zoom",
+    "objeto": "ciudad",
+    "pill": "Centrales eléctricas",
+    "valor": null,
+    "word": "apagones"
+   }
+  },
+  {
+   "texto": "Casi todos perderíamos a alguien:",
+   "tts": "Casi todos perderíamos a alguien:",
+   "key": "alguien",
+   "escena": {
+    "tipo": "gente",
+    "surface": "clay",
+    "transicion": "mask",
+    "pill": "Tus 4 abuelos",
+    "pill_word": "@0",
+    "grupos": [
+     {
+      "label": "Familia",
+      "word": "@0.2",
+      "n": 4,
+      "patron": [
+       1,
+       0,
+       1,
+       0
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "texto": "con 4 abuelos, solo en 1 de cada 16 familias seguirían los cuatro.",
+   "tts": "con cuatro abuelos, solo en una de cada dieciséis familias seguirían los cuatro.",
+   "key": "los cuatro",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "familias",
+    "pill": "Familias con sus 4 abuelos",
+    "prefijo": "1 de ",
+    "desde": 16,
+    "valor": 16,
+    "unidad": "familias",
+    "word": "16",
+    "ver_desde": false
+   }
+  },
+  {
+   "texto": "Luego, sobrarían casas, coches y comida.",
+   "tts": "Luego, sobrarían casas, coches y comida.",
+   "key": "comida",
+   "escena": {
+    "tipo": "lista",
+    "surface": "light",
+    "transicion": "mask",
+    "pill": "Sobraría…",
+    "marca": "mas",
+    "items": [
+     {
+      "txt": "Casas",
+      "word": "casas"
+     },
+     {
+      "txt": "Coches",
+      "word": "coches"
+     },
+     {
+      "txt": "Comida",
+      "word": "comida"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Aunque sobrara comida, con la mitad de agricultores y camioneros podría no llegar a las tiendas.",
+   "tts": "Aunque sobrara comida, con la mitad de agricultores y camioneros podría no llegar a las tiendas.",
+   "key": "tiendas",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "card",
+    "grupos": [
+     {
+      "label": "Agricultores",
+      "word": "agricultores"
+     },
+     {
+      "label": "Camioneros",
+      "word": "camioneros"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y el planeta respiraría: en 2020, con el mundo encerrado, el CO₂ bajó un 7 %.",
+   "tts": "Y el planeta respiraría: en dos mil veinte, con el mundo encerrado, el ce o dos bajó un siete por ciento.",
+   "key": "7 %",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "humo",
+    "prefijo": "−",
+    "pill": "Emisiones de CO₂ · 2020",
+    "desde": 0,
+    "valor": 7,
+    "unidad": "% en un año",
+    "word": "bajó",
+    "nota": "récord histórico",
+    "nota_word": "7"
+   }
+  },
+  {
+   "texto": "Y los animales volverían: en Chernóbil, sin gente, hoy hay lobos, linces y caballos salvajes.",
+   "tts": "Y los animales volverían: en Chernóbil, sin gente, hoy hay lobos, linces y caballos salvajes.",
+   "key": "caballos salvajes",
+   "escena": {
+    "tipo": "geo",
+    "surface": "dark",
+    "proj": [
+     25,
+     50
+    ],
+    "transicion": "zoom",
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       15,
+       50
+      ],
+      "r": 1700
+     },
+     {
+      "t": "Chernóbil-0.3",
+      "c": [
+       30.1,
+       51.4
+      ],
+      "r": 330,
+      "dur": 1.2
+     }
+    ],
+    "pins": [
+     {
+      "lon": 30.1,
+      "lat": 51.39,
+      "label": "Chernóbil",
+      "word": "Chernóbil",
+      "lado": "d"
+     }
+    ],
+    "rotulos": [
+     {
+      "lon": 29.0,
+      "lat": 52.6,
+      "txt": "lobos",
+      "word": "lobos",
+      "grande": true
+     },
+     {
+      "lon": 31.6,
+      "lat": 52.25,
+      "txt": "linces",
+      "word": "linces",
+      "grande": true
+     },
+     {
+      "lon": 29.4,
+      "lat": 50.4,
+      "txt": "caballos de Przewalski",
+      "word": "caballos",
+      "grande": true
+     }
+    ]
+   }
+  },
+  {
+   "texto": "¿Y cuánto tardaríamos en volver a ser 8.000 millones?",
+   "tts": "¿Y cuánto tardaríamos en volver a ser ocho mil millones?",
+   "key": "8.000 millones",
+   "escena": {
+    "tipo": "fecha",
+    "surface": "blue",
+    "transicion": "card",
+    "anio": 2022,
+    "word": "última",
+    "desde": 1974,
+    "pill": "De 4.000 a 8.000 millones"
+   }
+  },
+  {
+   "texto": "La última vez, 48 años.",
+   "tts": "La última vez, cuarenta y ocho años.",
+   "key": "48 años"
+  },
+  {
+   "texto": "Pero en 1974 cada mujer tenía más de 4 hijos de media; hoy, 2,2.",
+   "tts": "Pero en mil novecientos setenta y cuatro cada mujer tenía más de cuatro hijos de media; hoy, dos coma dos.",
+   "key": "2,2",
+   "escena": {
+    "tipo": "barras",
+    "surface": "light",
+    "transicion": "mask",
+    "pill": "Hijos por mujer en el mundo",
+    "pill_word": "@0",
+    "barras": [
+     {
+      "label": "1974",
+      "valor": 4.3,
+      "txt": "más de 4",
+      "word": "1974"
+     },
+     {
+      "label": "Hoy",
+      "valor": 2.25,
+      "txt": "2,2",
+      "word": "hoy"
+     }
+    ],
+    "max": 4.6
+   }
+  },
+  {
+   "texto": "Así que esta vez tardaríamos bastante más.",
+   "tts": "Así que esta vez tardaríamos bastante más.",
+   "key": "bastante más",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "zoom",
+    "cols": 10,
+    "rows": 10,
+    "ya_quitados": true,
+    "rellenar_word": "tardaríamos",
+    "pill": "Volver a llenar el hueco…",
+    "pill_word": "@0"
+   }
+  }
+ ],
+ "fuentes": [
+  "Población mundial 8.200 millones en 2024 (ONU, World Population Prospects 2024) — https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/",
+  "4.000 millones en 1974 y 8.000 millones el 15 nov 2022 (ONU) — https://www.un.org/global-issues/population · https://www.un.org/development/desa/pd/node/4259",
+  "Emisiones fósiles de CO₂ en 2020: −7 % aprox. (−2,4 GtCO₂), la mayor caída registrada (Global Carbon Project) — https://www.carbonbrief.org/global-carbon-project-coronavirus-causes-record-fall-in-fossil-fuel-emissions-in-2020",
+  "Probabilidades (dos pilotos: 1/4 sin ninguno; cuatro abuelos: (1/2)^4 = 1/16 conserva los cuatro): cálculo con el supuesto de que cada persona desaparece al 50 % por separado",
+  "Chernóbil: lobos, linces y caballos de Przewalski (introducidos en 1998) en la zona de exclusión — https://www.pbs.org/newshour/science/chernobyl-full-of-life-as-wildlife-reoccupies-a-radioactive-landscape · https://www.iflscience.com/an-accidental-eden-chornobyl-has-become-a-wildlife-refuge-for-extremely-rare-animals-including-przewalskis-horses-83555",
+  "Hijos por mujer: 4,42 en 1973 y 2,25 hoy (ONU, WPP 2024) — https://www.un.org/development/desa/pd/node/4354 · https://www.populationpyramid.net/fertility/world/1973/",
+  "Lo demás (caos, apagones, abastecimiento, tiempo de recuperación) es hipótesis."
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido: lo que se mueve en esas zonas es el fondo (mapa, rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
+  "palabras_completas": "medido: las caídas de «alguien:» y «volverían:» son idénticas en la toma original de ElevenLabs (audio/toma.mp3, ≈28,8 s y ≈49,3 s): final seco de la voz, no un corte"
+ }
+}

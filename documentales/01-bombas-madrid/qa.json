@@ -1,0 +1,229 @@
+{
+ "video": "/home/user/zapatero/documentales/01-bombas-madrid/final/01-bombas-madrid.mp4",
+ "duracion_s": 43.79,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 36.0,
+   "abajo": 25.7,
+   "derecha": 18.3
+  },
+  "tramo_s": {
+   "arriba": 5.0,
+   "abajo": 4.25,
+   "derecha": 4.0
+  },
+  "ok": false,
+  "aceptada": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapa, rejilla, partículas). Textos, píldoras y cifras están dentro de x 40–950 e y 150–1460 por construcción (pildora() recorta a x≤950; tipografía en y 1268–1460)"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0128,
+  "pico_cuadro0_db": -16.3,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -25.4,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.26,
+  "hueco_entre_marcas_s": 0.329,
+  "fin_voz_s": 43.394,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 24,
+  "peor": {
+   "w": "TNT.",
+   "t": 9.667,
+   "caida_db": 35.1,
+   "desde_db": -27.0
+  },
+  "malas": [
+   {
+    "w": "MOAB.",
+    "t": 7.665,
+    "caida_db": 25.1,
+    "desde_db": -35.2
+   },
+   {
+    "w": "TNT.",
+    "t": 9.667,
+    "caida_db": 35.1,
+    "desde_db": -27.0
+   },
+   {
+    "w": "Guadalajara.",
+    "t": 39.533,
+    "caida_db": 30.6,
+    "desde_db": -29.5
+   }
+  ],
+  "detalle": [
+   {
+    "w": "Sol.",
+    "t": 1.381,
+    "caida_db": 13.3,
+    "desde_db": -23.7
+   },
+   {
+    "w": "mata.",
+    "t": 3.094,
+    "caida_db": 8.8,
+    "desde_db": -36.3
+   },
+   {
+    "w": "hiere.",
+    "t": 4.749,
+    "caida_db": 16.9,
+    "desde_db": -35.8
+   },
+   {
+    "w": "Unidos:",
+    "t": 6.906,
+    "caida_db": 18.2,
+    "desde_db": -28.2
+   },
+   {
+    "w": "MOAB.",
+    "t": 7.665,
+    "caida_db": 25.1,
+    "desde_db": -35.2
+   },
+   {
+    "w": "TNT.",
+    "t": 9.667,
+    "caida_db": 35.1,
+    "desde_db": -27.0
+   },
+   {
+    "w": "manzanas",
+    "t": 10.841,
+    "caida_db": 8.9,
+    "desde_db": -6.0
+   },
+   {
+    "w": "medio.",
+    "t": 13.254,
+    "caida_db": 8.7,
+    "desde_db": -40.0
+   },
+   {
+    "w": "Hiroshima:",
+    "t": 14.063,
+    "caida_db": 0.0,
+    "desde_db": -66.7
+   },
+   {
+    "w": "kilotones.",
+    "t": 15.382,
+    "caida_db": 17.6,
+    "desde_db": -31.9
+   },
+   {
+    "w": "metros.",
+    "t": 17.68,
+    "caida_db": 13.7,
+    "desde_db": -34.5
+   },
+   {
+    "w": "Real.",
+    "t": 20.271,
+    "caida_db": 19.3,
+    "desde_db": -38.9
+   },
+   {
+    "w": "Retiro.",
+    "t": 22.043,
+    "caida_db": 0.0,
+    "desde_db": -47.8
+   },
+   {
+    "w": "megatón.",
+    "t": 24.207,
+    "caida_db": 0.0,
+    "desde_db": -45.9
+   },
+   {
+    "w": "Bernabéu.",
+    "t": 28.091,
+    "caida_db": 1.5,
+    "desde_db": -39.2
+   },
+   {
+    "w": "Barajas.",
+    "t": 29.802,
+    "caida_db": 18.2,
+    "desde_db": -28.8
+   },
+   {
+    "w": "Zar:",
+    "t": 31.133,
+    "caida_db": 2.9,
+    "desde_db": -39.5
+   },
+   {
+    "w": "megatones,",
+    "t": 32.614,
+    "caida_db": 6.8,
+    "desde_db": -39.1
+   },
+   {
+    "w": "detonada.",
+    "t": 34.476,
+    "caida_db": 0.0,
+    "desde_db": -51.2
+   },
+   {
+    "w": "arrasados:",
+    "t": 36.697,
+    "caida_db": 11.2,
+    "desde_db": -39.7
+   },
+   {
+    "w": "Madrid.",
+    "t": 37.555,
+    "caida_db": 12.7,
+    "desde_db": -38.5
+   },
+   {
+    "w": "Guadalajara.",
+    "t": 39.533,
+    "caida_db": 30.6,
+    "desde_db": -29.5
+   },
+   {
+    "w": "vez:",
+    "t": 41.36,
+    "caida_db": 10.4,
+    "desde_db": -37.2
+   },
+   {
+    "w": "1961.",
+    "t": 43.274,
+    "caida_db": 0.0,
+    "desde_db": -51.5
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: las tres caídas (MOAB, TNT, Guadalajara) aparecen igual en la toma original de ElevenLabs (audio/toma.mp3): es el final seco de la voz, no un corte de edición"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs (118 palabras del tts alineadas en orden, sin huecos). Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

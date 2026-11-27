@@ -1,0 +1,128 @@
+{
+ "video": "/home/user/zapatero/documentales/04-mitad-humanidad/final/04-mitad-humanidad.mp4",
+ "duracion_s": 32.25,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 41.1,
+   "abajo": 10.9,
+   "derecha": 30.2
+  },
+  "tramo_s": {
+   "arriba": 6.0,
+   "abajo": 3.25,
+   "derecha": 5.5
+  },
+  "ok": false,
+  "aceptada": "medido: lo que se mueve en esas zonas es el fondo (rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0112,
+  "pico_cuadro0_db": -16.8,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -21.5,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.595,
+  "hueco_entre_marcas_s": 0.602,
+  "fin_voz_s": 31.853,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 10,
+  "peor": {
+   "w": "%.",
+   "t": 25.542,
+   "caida_db": 20.6,
+   "desde_db": -32.1
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "desaparece.",
+    "t": 3.642,
+    "caida_db": 0.0,
+    "desde_db": -60.6
+   },
+   {
+    "w": "4.100.",
+    "t": 7.393,
+    "caida_db": 0.0,
+    "desde_db": -56.7
+   },
+   {
+    "w": "1974.",
+    "t": 9.603,
+    "caida_db": 10.8,
+    "desde_db": -25.6
+   },
+   {
+    "w": "caos:",
+    "t": 11.791,
+    "caida_db": 2.0,
+    "desde_db": -39.2
+   },
+   {
+    "w": "gente.",
+    "t": 16.012,
+    "caida_db": 0.0,
+    "desde_db": -55.2
+   },
+   {
+    "w": "comida.",
+    "t": 18.869,
+    "caida_db": 13.7,
+    "desde_db": -27.6
+   },
+   {
+    "w": "respiraría:",
+    "t": 21.197,
+    "caida_db": 3.2,
+    "desde_db": -38.8
+   },
+   {
+    "w": "%.",
+    "t": 25.542,
+    "caida_db": 20.6,
+    "desde_db": -32.1
+   },
+   {
+    "w": "millones?",
+    "t": 29.045,
+    "caida_db": 16.3,
+    "desde_db": -39.9
+   },
+   {
+    "w": "años.",
+    "t": 31.781,
+    "caida_db": 9.5,
+    "desde_db": -27.8
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 1,
+  "t": [
+   27.916
+  ],
+  "ok": false,
+  "aceptada": "medido: en 27,916 s es la vibrante final de «ser» (voz continua de 27,82 a 27,93 s a −12/−35 dB, sin hueco), que va más allá de la marca de fin que da ElevenLabs (27,803 s); no es un clic"
+ },
+ "ok": true
+}
