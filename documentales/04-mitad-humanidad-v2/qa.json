@@ -1,0 +1,205 @@
+{
+ "video": "/home/user/zapatero/documentales/04-mitad-humanidad-v2/final/04-mitad-humanidad-v2.mp4",
+ "duracion_s": 66.37,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 33.2,
+   "abajo": 21.1,
+   "derecha": 50.6
+  },
+  "tramo_s": {
+   "arriba": 11.25,
+   "abajo": 5.75,
+   "derecha": 9.25
+  },
+  "ok": false,
+  "aceptada": "medido: lo que se mueve en esas zonas es el fondo (mapa, rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0103,
+  "pico_cuadro0_db": -16.9,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -22.1,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.775,
+  "hueco_entre_marcas_s": 0.837,
+  "fin_voz_s": 65.968,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 21,
+  "peor": {
+   "w": "volverían:",
+   "t": 47.99,
+   "caida_db": 33.2,
+   "desde_db": -26.6
+  },
+  "malas": [
+   {
+    "w": "alguien:",
+    "t": 28.365,
+    "caida_db": 28.5,
+    "desde_db": -36.5
+   },
+   {
+    "w": "volverían:",
+    "t": 47.99,
+    "caida_db": 33.2,
+    "desde_db": -26.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "desaparece.",
+    "t": 2.762,
+    "caida_db": 19.0,
+    "desde_db": -28.4
+   },
+   {
+    "w": "4.100.",
+    "t": 6.505,
+    "caida_db": 21.5,
+    "desde_db": -39.1
+   },
+   {
+    "w": "1974.",
+    "t": 9.255,
+    "caida_db": 6.0,
+    "desde_db": -35.0
+   },
+   {
+    "w": "conductor…",
+    "t": 12.168,
+    "caida_db": 0.0,
+    "desde_db": -56.6
+   },
+   {
+    "w": "piloto:",
+    "t": 13.389,
+    "caida_db": 9.3,
+    "desde_db": -24.6
+   },
+   {
+    "w": "dos.",
+    "t": 16.381,
+    "caida_db": 15.6,
+    "desde_db": -27.7
+   },
+   {
+    "w": "caos:",
+    "t": 18.078,
+    "caida_db": 18.3,
+    "desde_db": -23.8
+   },
+   {
+    "w": "gente.",
+    "t": 21.915,
+    "caida_db": 22.4,
+    "desde_db": -29.0
+   },
+   {
+    "w": "apagones.",
+    "t": 25.916,
+    "caida_db": 13.6,
+    "desde_db": -39.5
+   },
+   {
+    "w": "alguien:",
+    "t": 28.365,
+    "caida_db": 28.5,
+    "desde_db": -36.5
+   },
+   {
+    "w": "cuatro.",
+    "t": 32.05,
+    "caida_db": 15.4,
+    "desde_db": -24.7
+   },
+   {
+    "w": "comida.",
+    "t": 35.149,
+    "caida_db": 18.6,
+    "desde_db": -33.9
+   },
+   {
+    "w": "tiendas.",
+    "t": 39.924,
+    "caida_db": 7.1,
+    "desde_db": -33.3
+   },
+   {
+    "w": "respiraría:",
+    "t": 41.899,
+    "caida_db": 23.3,
+    "desde_db": -33.5
+   },
+   {
+    "w": "%.",
+    "t": 45.936,
+    "caida_db": 18.5,
+    "desde_db": -21.2
+   },
+   {
+    "w": "volverían:",
+    "t": 47.99,
+    "caida_db": 33.2,
+    "desde_db": -26.6
+   },
+   {
+    "w": "salvajes.",
+    "t": 51.582,
+    "caida_db": 17.0,
+    "desde_db": -19.8
+   },
+   {
+    "w": "millones?",
+    "t": 55.559,
+    "caida_db": 17.0,
+    "desde_db": -39.7
+   },
+   {
+    "w": "años.",
+    "t": 57.466,
+    "caida_db": 20.8,
+    "desde_db": -30.3
+   },
+   {
+    "w": "2,2.",
+    "t": 63.295,
+    "caida_db": 23.4,
+    "desde_db": -37.1
+   },
+   {
+    "w": "más.",
+    "t": 65.894,
+    "caida_db": 13.9,
+    "desde_db": -34.9
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: las caídas de «alguien:» y «volverían:» son idénticas en la toma original de ElevenLabs (audio/toma.mp3, ≈28,8 s y ≈49,3 s): final seco de la voz, no un corte"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

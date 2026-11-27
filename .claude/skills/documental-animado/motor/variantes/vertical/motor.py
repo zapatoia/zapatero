@@ -389,6 +389,7 @@ class Vertical(ES.Estilo):
         elif obj: getattr(self, "obj_" + obj)(c, ox, oy, dt0, t, S, e)
         if s.get("pill"):
             a = aparece(dt0 - .05, .15); self.pildora(c, s["pill"], CX, 245 - 20 * (1 - resorte(dt0, 9, 12)), S, a, fnt=self.F["pillb"])
+        if s.get("valor") is None: return
         tw = self.ta(s["word"], e); dt = t - tw
         de = s.get("desde", 0); v = de + (s["valor"] - de) * TI.cubic_out(TI.clamp(dt / .9)) if dt > 0 else de
         a = aparece(dt + .25, .2) if not s.get("ver_desde") else aparece(dt0 - .1, .2)
@@ -397,7 +398,7 @@ class Vertical(ES.Estilo):
             fnt = self.F["big"]; yb = 850 if self.guion.get("stat_alto") else 905
             if ancho(txt, fnt) > 860: fnt = fuente("Inter", 800, int(250 * 860 / ancho(txt, fnt)))
             sc = .9 + .1 * resorte(dt + .25, 8, 11)
-            vel = abs(s["valor"] / .9 * 3 * (1 - TI.clamp(dt / .9)) ** 2) if 0 < dt < .9 else 0
+            vel = abs((s["valor"] - s.get("desde", 0)) / .9 * 3 * (1 - TI.clamp(dt / .9)) ** 2) if 0 < dt < .9 else 0
             c.save(); c.translate(CX, yb); c.scale(sc, sc)
             with capa(c, alfa=a, blur=min(6, vel * .4)):
                 texto(c, txt, 0, 0, fnt, S["txt"], tnum=True)
@@ -981,24 +982,29 @@ class Vertical(ES.Estilo):
         s = e["spec"]; dt0 = t - e["t0"]
         if s.get("pill"): self.pildora(c, s["pill"], CX, 220, S, aparece(dt0 - .05, .15), fnt=self.F["pillb"])
         if s.get("grupos"):
-            gs = s["grupos"]; hh = 230; y0 = 640 - (len(gs) - 1) * hh / 2
+            gs = s["grupos"]; hh = min(230, 820 / len(gs)); y0 = 680 - (len(gs) - 1) * hh / 2; ch = min(200, hh - 24); fh = ch * .55
             for i, gr in enumerate(gs):
                 dt = t - self.ta(gr["word"], e)
                 if dt <= -.05: continue
                 a = aparece(dt + .05, .15); sl = 1 - resorte(dt + .05, 8, 11); y = y0 + i * hh; x = CX + 60 * sl
-                r = rrc(x, y, 880, 200, 30)
+                r = rrc(x, y, 880, ch, 30)
                 c.drawRRect(r, relleno("#FFFFFF", .10 * a)); c.drawRRect(r, trazo("#FFFFFF", 2, .25 * a))
-                texto(c, gr["label"], x - 410, y - 62, self.F["pillb"], S["txt"], alinear="i", alfa=a)
-                n = gr.get("n", 8)
+                texto(c, gr["label"], x - 410, y - ch * .31, self.F["pillb"], S["txt"], alinear="i", alfa=a)
+                ic = gr.get("icono")
+                if ic: self.vehiculo(c, ic, x - 300, y + ch * .12, ch * .5, a)
+                n = gr.get("n", 8); pat = gr.get("patron"); paso = 104 if n > 4 else 150; fx0 = x - (n - 1) * paso / 2 + (110 if n <= 4 else 0)
+                if gr.get("alerta") and dt > .35:
+                    c.drawRRect(r, trazo("#E5322D", 5, aparece(dt - .35, .15)))
                 for j in range(n):
-                    fx = x - 380 + j * 104; hueco = j % 2 == 1
+                    fx = fx0 + j * paso if n <= 4 else x - 380 + j * 104; hueco = (j % 2 == 1) if pat is None else not pat[j]
                     fa = a * (1 if not hueco else TI.clamp((dt - .35) / .25) if dt > .35 else 0)
-                    if hueco: self.figura(c, fx, y + 80, 110, "#FF6A5C", fa, True)
-                    else: self.figura(c, fx, y + 80, 110, "#CFE0FF", a)
+                    if hueco: self.figura(c, fx, y + ch * .4, fh, "#FF6A5C", fa, True)
+                    else: self.figura(c, fx, y + ch * .4, fh, "#CFE0FF", a)
             return
         cols, rows = s.get("cols", 10), s.get("rows", 10); h = 62; gx, gy = 84, 78
         x0 = CX - (cols - 1) * gx / 2; y0 = 300 + h
-        tq = self.ta(s["quitar_word"], e) if s.get("quitar_word") else None
+        tq = self.ta(s["quitar_word"], e) if s.get("quitar_word") else (e["t0"] - 9 if s.get("ya_quitados") else None)
+        tr = self.ta(s["rellenar_word"], e) if s.get("rellenar_word") else None
         rng = np.random.default_rng(11); orden = rng.permutation(cols * rows); quita = set(orden[:cols * rows // 2].tolist())
         retraso = {k: .5 * rng.random() for k in quita}
         for i in range(rows):
@@ -1006,7 +1012,10 @@ class Vertical(ES.Estilo):
                 k = i * cols + j; x = x0 + j * gx; y = y0 + i * gy
                 ap = aparece(dt0 - .02 * k / 3, .15)
                 if ap <= 0: continue
-                if tq is not None and k in quita and t > tq + retraso[k]:
+                if tr is not None and k in quita and list(sorted(quita)).index(k) % 7 == 0 and t > tr + 1.2 * (list(sorted(quita)).index(k) // 7) / 8:
+                    u = aparece(t - tr - 1.2 * (list(sorted(quita)).index(k) // 7) / 8, .3); self.figura(c, x, y, h, "#8FE3A8", ap * u)
+                    if u < 1: self.figura(c, x, y, h, "#CFE0FF", .35 * ap * (1 - u), True)
+                elif tq is not None and k in quita and t > tq + retraso[k]:
                     u = TI.clamp((t - tq - retraso[k]) / .6)
                     if u < 1:
                         self.figura(c, x, y, h, "#CFE0FF", (1 - u) * ap)
@@ -1018,6 +1027,71 @@ class Vertical(ES.Estilo):
                         self.figura(c, x, y, h, "#CFE0FF", .35 * ap, True)
                 else:
                     self.figura(c, x, y, h, "#CFE0FF", ap)
+
+
+    def obj_ciudad(self, c, x, y, dt, t, S, e):
+        """Perfil de ciudad de noche; tras la palabra se apaga la mitad de las ventanas (con parpadeo)."""
+        tw = self.ta(e["spec"]["word"], e); a = aparece(dt, .2); yb = y + 260
+        rng = np.random.default_rng(3); xs = x - 420
+        while xs < x + 420:
+            w = 70 + 60 * rng.random(); hgt = 180 + 280 * rng.random()
+            c.drawRect(skia.Rect(xs, yb - hgt, xs + w - 8, yb), relleno("#152B5C", a))
+            for wy in np.arange(yb - hgt + 18, yb - 20, 30):
+                for wx in np.arange(xs + 12, xs + w - 22, 22):
+                    k = rng.random(); apaga = k < .5
+                    on = 1.0
+                    if apaga and t > tw - .35:
+                        ph = t - tw + .35 - k * .6
+                        on = 0 if ph > .25 else (1 if ph < 0 else (1 if int(ph * 40) % 2 else .2))
+                    if rng.random() < .85: c.drawRect(skia.Rect(wx, wy, wx + 11, wy + 14), relleno("#FFD98A", .9 * a * on + .06))
+            xs += w
+        c.drawRect(skia.Rect(x - 440, yb, x + 440, yb + 6), relleno("#0B1530", a))
+
+    def e_barras(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]
+        if s.get("pill"): self.pildora(c, s["pill"], CX, 330, S, aparece(t - self.ta(s.get("pill_word", "@0"), e), .15), fnt=self.F["pillb"], fondo="#0C1630")
+        bs = s["barras"]; mx = s.get("max", max(b["valor"] for b in bs)); hh = 210; y0 = 640 - (len(bs) - 1) * hh / 2; W_ = 640
+        for i, b in enumerate(bs):
+            dt = t - self.ta(b["word"], e)
+            if dt <= -.05: continue
+            a = aparece(dt + .05, .15); u = TI.cubic_out(TI.clamp(dt / .8)); y = y0 + i * hh
+            texto(c, b["label"], 110, y - 62, self.F["pillb"], "#0C1630", alinear="i", alfa=a)
+            c.drawRRect(rrc(110 + W_ / 2, y + 10, W_, 70, 35), relleno("#C9D6EE", .5 * a))
+            w = max(70, W_ * b["valor"] / mx * u)
+            c.drawRRect(skia.RRect.MakeRectXY(skia.Rect(110, y - 25, 110 + w, y + 45), 35, 35), skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(110, 0), (110 + W_, 0)], [color(b.get("col", "#2F6BFF")), color("#6EA0FF")])))
+            texto(c, b["txt"], 110 + w + 24, y + 10, self.F["item"], "#0C1630", alinear="i", alfa=aparece(dt - .5, .2))
+
+
+    def vehiculo(self, c, tipo, x, y, h, a):
+        col = color("#9DB8FF", a)
+        if tipo == "coche":
+            w = h * 2.2
+            b = skia.Path(); b.moveTo(x - w / 2, y + h * .2); b.lineTo(x - w / 2, y - h * .05); b.lineTo(x - w * .28, y - h * .1); b.lineTo(x - w * .15, y - h * .45)
+            b.lineTo(x + w * .2, y - h * .45); b.lineTo(x + w * .33, y - h * .1); b.lineTo(x + w / 2, y - h * .02); b.lineTo(x + w / 2, y + h * .2); b.close()
+            c.drawPath(b, skia.Paint(AntiAlias=True, Color=col))
+            for wx in (x - w * .28, x + w * .28): c.drawCircle(wx, y + h * .22, h * .17, relleno("#0B1530", a)); c.drawCircle(wx, y + h * .22, h * .09, relleno("#9DB8FF", a))
+            c.drawRect(skia.Rect(x - w * .1, y - h * .38, x + w * .15, y - h * .12), relleno("#0B1530", .7 * a))
+        else:
+            s_ = h / 75; x += 20
+            b = skia.Path(); b.moveTo(70 * s_ + x, y); b.cubicTo(60 * s_ + x, y - 9 * s_, 30 * s_ + x, y - 9 * s_, x - 60 * s_, y - 7 * s_); b.lineTo(x - 72 * s_, y - 26 * s_)
+            b.lineTo(x - 80 * s_, y - 26 * s_); b.lineTo(x - 74 * s_, y); b.lineTo(x - 60 * s_, y + 8 * s_); b.cubicTo(30 * s_ + x, y + 9 * s_, 60 * s_ + x, y + 9 * s_, 70 * s_ + x, y); b.close()
+            wg = skia.Path(); wg.moveTo(x + 10 * s_, y + 2 * s_); wg.lineTo(x - 25 * s_, y + 40 * s_); wg.lineTo(x - 38 * s_, y + 40 * s_); wg.lineTo(x - 18 * s_, y + 3 * s_); wg.close()
+            c.drawPath(b, skia.Paint(AntiAlias=True, Color=col)); c.drawPath(wg, skia.Paint(AntiAlias=True, Color=col))
+
+    def obj_familias(self, c, x, y, dt, t, S, e):
+        """Las 16 combinaciones posibles de 4 abuelos (cada uno sigue o no): solo una conserva a los cuatro."""
+        tw = self.ta(e["spec"]["word"], e); a = aparece(dt, .2)
+        for k in range(16):
+            i, j = divmod(k, 4); cx_ = x - 330 + j * 220; cy_ = y - 185 + i * 115
+            ak = a * aparece(dt - .04 * k, .12)
+            if ak <= 0: continue
+            todos = k == 15; on = todos and t > tw - .1
+            c.drawRRect(rrc(cx_, cy_, 200, 100, 22), relleno("#2FBF71" if on else "#FFFFFF", (.35 if on else .08) * ak))
+            if on: c.drawRRect(rrc(cx_, cy_, 200, 100, 22), trazo("#2FBF71", 4, ak))
+            for q in range(4):
+                vivo = (k >> q) & 1; fx = cx_ - 66 + q * 44
+                if vivo: self.figura(c, fx, cy_ + 34, 58, "#CFE0FF", ak)
+                else: self.figura(c, fx, cy_ + 34, 58, "#FF6A5C", .8 * ak, True)
 
 
 def escenas(e):
