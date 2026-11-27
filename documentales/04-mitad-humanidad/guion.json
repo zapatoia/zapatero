@@ -1,0 +1,158 @@
+{
+ "titulo": "Si desapareciera la mitad",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 700,
+ "pausa": 0.6,
+ "sfx": true,
+ "clave_en_linea": true,
+ "stat_alto": true,
+ "lineas": [
+  {
+   "texto": "Imagina que, de golpe, la mitad de la humanidad desaparece.",
+   "tts": "Imagina que, de golpe, la mitad de la humanidad desaparece.",
+   "key": "desaparece",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "cols": 10,
+    "rows": 10,
+    "quitar_word": "desaparece",
+    "pill": "100 personas = toda la humanidad",
+    "pill_word": "@0"
+   }
+  },
+  {
+   "texto": "Pasaríamos de 8.200 millones a 4.100.",
+   "tts": "Pasaríamos de ocho mil doscientos millones a cuatro mil cien.",
+   "key": "4.100",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "zoom",
+    "objeto": null,
+    "pill": "Personas en el mundo",
+    "desde": 8200,
+    "valor": 4100,
+    "unidad": "millones",
+    "word": "4.100",
+    "ver_desde": true
+   }
+  },
+  {
+   "texto": "Tantos como en 1974.",
+   "tts": "Tantos como en mil novecientos setenta y cuatro.",
+   "key": "1974",
+   "cap": false,
+   "escena": {
+    "tipo": "fecha",
+    "surface": "clay",
+    "transicion": "whip",
+    "anio": 1974,
+    "word": "Tantos",
+    "desde": 2025,
+    "pill": "Éramos 4.000 millones"
+   }
+  },
+  {
+   "texto": "Primero, caos: en cada hospital, cada fábrica y cada autobús, faltaría la mitad de la gente.",
+   "tts": "Primero, caos: en cada hospital, cada fábrica y cada autobús, faltaría la mitad de la gente.",
+   "key": "gente",
+   "escena": {
+    "tipo": "gente",
+    "surface": "dark",
+    "transicion": "card",
+    "grupos": [
+     {
+      "label": "Hospital",
+      "word": "hospital"
+     },
+     {
+      "label": "Fábrica",
+      "word": "fábrica"
+     },
+     {
+      "label": "Autobús",
+      "word": "autobús"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Luego, sobrarían casas, coches y comida.",
+   "tts": "Luego, sobrarían casas, coches y comida.",
+   "key": "comida",
+   "escena": {
+    "tipo": "lista",
+    "surface": "light",
+    "transicion": "mask",
+    "pill": "Sobraría…",
+    "marca": "mas",
+    "items": [
+     {
+      "txt": "Casas",
+      "word": "casas"
+     },
+     {
+      "txt": "Coches",
+      "word": "coches"
+     },
+     {
+      "txt": "Comida",
+      "word": "comida"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y el planeta respiraría: en 2020, con el mundo encerrado, el CO₂ bajó un 7 %.",
+   "tts": "Y el planeta respiraría: en dos mil veinte, con el mundo encerrado, el ce o dos bajó un siete por ciento.",
+   "key": "7 %",
+   "escena": {
+    "tipo": "stat",
+    "surface": "clay",
+    "transicion": "whip",
+    "objeto": "humo",
+    "prefijo": "−",
+    "pill": "Emisiones de CO₂ · 2020",
+    "desde": 0,
+    "valor": 7,
+    "unidad": "% en un año",
+    "word": "bajó",
+    "nota": "récord histórico",
+    "nota_word": "7"
+   }
+  },
+  {
+   "texto": "¿Y cuánto tardaríamos en volver a ser 8.000 millones?",
+   "tts": "¿Y cuánto tardaríamos en volver a ser ocho mil millones?",
+   "key": "8.000 millones",
+   "escena": {
+    "tipo": "fecha",
+    "surface": "blue",
+    "transicion": "card",
+    "anio": 2022,
+    "word": "última",
+    "desde": 1974,
+    "pill": "De 4.000 a 8.000 millones"
+   }
+  },
+  {
+   "texto": "La última vez, 48 años.",
+   "tts": "La última vez, cuarenta y ocho años.",
+   "key": "48 años"
+  }
+ ],
+ "fuentes": [
+  "Población mundial 8.200 millones en 2024 (ONU, World Population Prospects 2024) — https://www.un.org/sustainabledevelopment/blog/2024/07/press-release-wpp2024/",
+  "4.000 millones en 1974 y 8.000 millones el 15 nov 2022 (ONU) — https://www.un.org/global-issues/population · https://www.un.org/development/desa/pd/node/4259",
+  "Emisiones fósiles de CO₂ en 2020: −7 % aprox. (−2,4 GtCO₂), la mayor caída registrada (Global Carbon Project) — https://www.carbonbrief.org/global-carbon-project-coronavirus-causes-record-fall-in-fossil-fuel-emissions-in-2020",
+  "Lo demás (caos, sobrantes) es hipótesis."
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido: lo que se mueve en esas zonas es el fondo (rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
+  "transitorios": "medido: en 27,916 s es la vibrante final de «ser» (voz continua de 27,82 a 27,93 s a −12/−35 dB, sin hueco), que va más allá de la marca de fin que da ElevenLabs (27,803 s); no es un clic"
+ }
+}

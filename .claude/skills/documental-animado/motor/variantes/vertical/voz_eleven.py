@@ -89,7 +89,12 @@ def armar(proy, g, t):
     keep = np.ones(len(x), bool)
     for c0, d in cortes:
         keep[int(c0 * SR):int((c0 + d) * SR)] = False
-    y = x[keep]
+    y = x[keep].copy()
+    # fundido de 6 ms a cada lado de cada empalme (sin clics)
+    k6 = int(.006 * SR); rampa = np.linspace(0, 1, k6)
+    for c0, d in cortes[1:]:
+        j = int(c0 * SR) - int(np.sum(~keep[:int(c0 * SR)]))
+        if k6 < j < len(y) - k6: y[j - k6:j] *= rampa[::-1]; y[j:j + k6] *= rampa
     # final: la cola real de la voz (último tramo > −50 dB) + 0.12 s, nunca antes de la marca de la última palabra
     hop2 = int(.005 * SR); e2 = 20 * np.log10(np.array([np.sqrt(np.mean(y[i:i + hop2] ** 2) + 1e-12) for i in range(0, len(y) - hop2, hop2)]))
     vivo = np.where(e2 > -50)[0]; fin = max(mapa(vis[-1]["e"]) + .05, (vivo[-1] * .005 + .12) if len(vivo) else 0)

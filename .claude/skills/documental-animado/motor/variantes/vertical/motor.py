@@ -391,9 +391,9 @@ class Vertical(ES.Estilo):
             a = aparece(dt0 - .05, .15); self.pildora(c, s["pill"], CX, 245 - 20 * (1 - resorte(dt0, 9, 12)), S, a, fnt=self.F["pillb"])
         tw = self.ta(s["word"], e); dt = t - tw
         de = s.get("desde", 0); v = de + (s["valor"] - de) * TI.cubic_out(TI.clamp(dt / .9)) if dt > 0 else de
-        a = aparece(dt + .25, .2)
+        a = aparece(dt + .25, .2) if not s.get("ver_desde") else aparece(dt0 - .1, .2)
         if a > 0:
-            dec = s.get("decimales", 0); txt = f"{v:.{dec}f}".replace(".", ",") if dec else (f"{int(round(v)):,}".replace(",", ".") if s.get("miles", True) else str(int(round(v))))
+            dec = s.get("decimales", 0); txt = s.get("prefijo", "") + (f"{v:.{dec}f}".replace(".", ",") if dec else (f"{int(round(v)):,}".replace(",", ".") if s.get("miles", True) else str(int(round(v)))))
             fnt = self.F["big"]; yb = 850 if self.guion.get("stat_alto") else 905
             if ancho(txt, fnt) > 860: fnt = fuente("Inter", 800, int(250 * 860 / ancho(txt, fnt)))
             sc = .9 + .1 * resorte(dt + .25, 8, 11)
@@ -729,9 +729,16 @@ class Vertical(ES.Estilo):
             c.drawRRect(r, relleno("#FFFFFF", .92 * a)); c.drawRRect(r, trazo("#9AAFD6", 2, .6 * a))
             fnt = self.F["item"]; tw_ = ancho(it["txt"], fnt); f2 = fnt if tw_ < 700 else fuente("Inter", 700, int(44 * 700 / tw_))
             texto(c, it["txt"], x - 330, y, f2, "#0C1630", alinear="i", alfa=a)
+            cx_, cy_ = x - 375, y; L = 22
+            if s.get("marca") == "mas":
+                u = TI.clamp((dt - .3) / .25)
+                c.drawCircle(cx_, cy_, 30, relleno("#2FBF71", .18 * a))
+                if u > 0:
+                    p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=8, Color=color("#2FBF71"), StrokeCap=skia.Paint.kRound_Cap)
+                    c.drawLine(cx_ - L * u, cy_, cx_ + L * u, cy_, p); c.drawLine(cx_, cy_ - L * u, cx_, cy_ + L * u, p)
+                continue
             # ✕
             u = TI.clamp((dt - .55) / .3)
-            cx_, cy_ = x - 375, y; L = 22
             c.drawCircle(cx_, cy_, 30, relleno("#E5322D", .15 * a))
             if u > 0:
                 p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=8, Color=color("#E5322D"), StrokeCap=skia.Paint.kRound_Cap)
@@ -742,6 +749,21 @@ class Vertical(ES.Estilo):
                 if ul > 0: c.drawLine(x - 330, y + 2, x - 330 + min(tw_, 700) * TI.cubic_out(ul), y + 2, trazo("#E5322D", 5, .85))
 
     # ------------------------------------------------------------------ objetos de las cifras
+    def obj_humo(self, c, x, y, dt, t, S, e):
+        """Fábrica con chimeneas; el humo adelgaza tras la palabra de la cifra."""
+        tw = self.ta(e["spec"]["word"], e); baja = 1 - .75 * TI.clamp((t - tw) / 1.2) if t > tw else 1
+        a = aparece(dt, .2); yb = y + 190
+        c.drawRect(skia.Rect(x - 300, yb - 120, x + 300, yb), relleno("#5A3A2A", a))
+        for i in range(4):
+            xx = x - 300 + i * 150; tri = skia.Path.Polygon([(xx, yb - 120), (xx + 150, yb - 120), (xx + 150, yb - 190)], True); c.drawPath(tri, relleno("#6E4A36", a))
+        for k, cx_ in enumerate((x - 210, x + 30, x + 230)):
+            c.drawRect(skia.Rect(cx_ - 26, yb - 280, cx_ + 26, yb - 120), relleno("#7A5240", a)); c.drawRect(skia.Rect(cx_ - 30, yb - 295, cx_ + 30, yb - 275), relleno("#94664F", a))
+            for q in range(7):
+                ph = ((t * .45 + q / 7 + k * .13) % 1); r = (14 + 26 * ph) * baja
+                c.drawCircle(cx_ + 40 * ph + 10 * math.sin(t * 2 + q), yb - 305 - 95 * ph, r, relleno("#B9A99C", .42 * (1 - ph) * a * (.4 + .6 * baja)))
+        for i in range(6):
+            c.drawRect(skia.Rect(x - 270 + i * 95, yb - 80, x - 230 + i * 95, yb - 40), relleno("#FFC46B", .55 * a))
+
     def obj_hueco(self, c, x, y, dt, t, S, e):
         u = resorte(dt, 6, 8); rx, ry = 330 * u, 120 * u; y += 20
         if rx < 2: return
@@ -943,6 +965,59 @@ class Vertical(ES.Estilo):
             if V[0]: self.pin(c, float(X[0]), float(Y[0]), pi, dt, t, S)
         if s.get("pill"):
             self.pildora(c, s["pill"], CX, 170, S, aparece(t - self.ta(s.get("pill_word", "@0"), e), .2), fnt=self.F["pillb"])
+
+
+    # ------------------------------------------------------------------ gente: rejilla de personas que desaparecen (o grupos con huecos)
+    def figura(self, c, x, y, h, col, a=1.0, hueco=False):
+        w = h * .42
+        if hueco:
+            p = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=2.5, Color=color(col, .7 * a))
+            p.setPathEffect(skia.DashPathEffect.Make([7, 6], 0))
+            c.drawRRect(rrc(x, y - h * .3, w, h * .56, w * .45), p); c.drawCircle(x, y - h * .74, w * .36, p); return
+        c.drawRRect(rrc(x, y - h * .3, w, h * .56, w * .45), relleno(col, a))
+        c.drawCircle(x, y - h * .74, w * .36, relleno(col, a))
+
+    def e_gente(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]
+        if s.get("pill"): self.pildora(c, s["pill"], CX, 220, S, aparece(dt0 - .05, .15), fnt=self.F["pillb"])
+        if s.get("grupos"):
+            gs = s["grupos"]; hh = 230; y0 = 640 - (len(gs) - 1) * hh / 2
+            for i, gr in enumerate(gs):
+                dt = t - self.ta(gr["word"], e)
+                if dt <= -.05: continue
+                a = aparece(dt + .05, .15); sl = 1 - resorte(dt + .05, 8, 11); y = y0 + i * hh; x = CX + 60 * sl
+                r = rrc(x, y, 880, 200, 30)
+                c.drawRRect(r, relleno("#FFFFFF", .10 * a)); c.drawRRect(r, trazo("#FFFFFF", 2, .25 * a))
+                texto(c, gr["label"], x - 410, y - 62, self.F["pillb"], S["txt"], alinear="i", alfa=a)
+                n = gr.get("n", 8)
+                for j in range(n):
+                    fx = x - 380 + j * 104; hueco = j % 2 == 1
+                    fa = a * (1 if not hueco else TI.clamp((dt - .35) / .25) if dt > .35 else 0)
+                    if hueco: self.figura(c, fx, y + 80, 110, "#FF6A5C", fa, True)
+                    else: self.figura(c, fx, y + 80, 110, "#CFE0FF", a)
+            return
+        cols, rows = s.get("cols", 10), s.get("rows", 10); h = 62; gx, gy = 84, 78
+        x0 = CX - (cols - 1) * gx / 2; y0 = 300 + h
+        tq = self.ta(s["quitar_word"], e) if s.get("quitar_word") else None
+        rng = np.random.default_rng(11); orden = rng.permutation(cols * rows); quita = set(orden[:cols * rows // 2].tolist())
+        retraso = {k: .5 * rng.random() for k in quita}
+        for i in range(rows):
+            for j in range(cols):
+                k = i * cols + j; x = x0 + j * gx; y = y0 + i * gy
+                ap = aparece(dt0 - .02 * k / 3, .15)
+                if ap <= 0: continue
+                if tq is not None and k in quita and t > tq + retraso[k]:
+                    u = TI.clamp((t - tq - retraso[k]) / .6)
+                    if u < 1:
+                        self.figura(c, x, y, h, "#CFE0FF", (1 - u) * ap)
+                        r2 = np.random.default_rng(k)
+                        for q in range(9):
+                            px = x + (r2.random() - .5) * 26 + 70 * u * r2.random(); py = y - h * r2.random() - 60 * u * r2.random()
+                            c.drawCircle(px, py, 2.5 * (1 - u) + .5, relleno("#FFD9A0", .8 * (1 - u)))
+                    else:
+                        self.figura(c, x, y, h, "#CFE0FF", .35 * ap, True)
+                else:
+                    self.figura(c, x, y, h, "#CFE0FF", ap)
 
 
 def escenas(e):
