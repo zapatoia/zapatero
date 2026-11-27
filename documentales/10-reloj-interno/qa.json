@@ -1,0 +1,176 @@
+{
+ "video": "/home/user/zapatero/documentales/10-reloj-interno/final/10-reloj-interno.mp4",
+ "duracion_s": 91.23,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 8.8,
+   "abajo": 9.6,
+   "derecha": 41.9
+  },
+  "tramo_s": {
+   "arriba": 8.0,
+   "abajo": 5.25,
+   "derecha": 24.5
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: lo que salta son fondos a pantalla completa (piel, cama, agua, calor/frío) y partículas decorativas (ascuas, nieve, escarcha, burbujas) distintas de la mediana; ningún texto, cifra ni bocadillo entra en la franja de botones"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0001,
+  "pico_cuadro0_db": -13.4,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -18.8,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 44.77,
+  "hueco_entre_marcas_s": 44.775,
+  "fin_voz_s": 90.83,
+  "cierre_s": 0.4,
+  "ok": false,
+  "aceptada": "a propósito: juego de 44 s en silencio real tras «¡Ya!» (lineas[].silencio) para que la voz no dé pistas al contar"
+ },
+ "palabras_completas": {
+  "n": 17,
+  "peor": {
+   "w": "aceleran.",
+   "t": 79.908,
+   "caida_db": 28.0,
+   "desde_db": -31.6
+  },
+  "malas": [
+   {
+    "w": "aceleran.",
+    "t": 79.908,
+    "caida_db": 28.0,
+    "desde_db": -31.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "segundos?",
+    "t": 1.72,
+    "caida_db": 0.0,
+    "desde_db": -49.2
+   },
+   {
+    "w": "contar.",
+    "t": 2.565,
+    "caida_db": 21.3,
+    "desde_db": -24.7
+   },
+   {
+    "w": "30.",
+    "t": 6.797,
+    "caida_db": 18.9,
+    "desde_db": -22.3
+   },
+   {
+    "w": "abrirlos.",
+    "t": 9.55,
+    "caida_db": 10.1,
+    "desde_db": -39.3
+   },
+   {
+    "w": "¿Listo?",
+    "t": 11.494,
+    "caida_db": 4.1,
+    "desde_db": -21.6
+   },
+   {
+    "w": "¡Ya!",
+    "t": 11.667,
+    "caida_db": 15.5,
+    "desde_db": -3.6
+   },
+   {
+    "w": "pasaste?",
+    "t": 59.59,
+    "caida_db": 15.5,
+    "desde_db": -39.9
+   },
+   {
+    "w": "igual:",
+    "t": 62.55,
+    "caida_db": 0.0,
+    "desde_db": -60.4
+   },
+   {
+    "w": "atrasa.",
+    "t": 64.531,
+    "caida_db": 18.0,
+    "desde_db": -20.2
+   },
+   {
+    "w": "deprisa.",
+    "t": 70.371,
+    "caida_db": 19.4,
+    "desde_db": -36.5
+   },
+   {
+    "w": "acelera.",
+    "t": 72.392,
+    "caida_db": 23.2,
+    "desde_db": -28.3
+   },
+   {
+    "w": "frena.",
+    "t": 74.313,
+    "caida_db": 20.1,
+    "desde_db": -30.0
+   },
+   {
+    "w": "despacio.",
+    "t": 77.662,
+    "caida_db": 13.1,
+    "desde_db": -27.3
+   },
+   {
+    "w": "aceleran.",
+    "t": 79.908,
+    "caida_db": 28.0,
+    "desde_db": -31.6
+   },
+   {
+    "w": "rápido.",
+    "t": 84.004,
+    "caida_db": 14.9,
+    "desde_db": -39.5
+   },
+   {
+    "w": "lento.",
+    "t": 87.631,
+    "caida_db": 13.3,
+    "desde_db": -39.7
+   },
+   {
+    "w": "fino.",
+    "t": 90.762,
+    "caida_db": 12.3,
+    "desde_db": -37.8
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: «aceleran.» baja despacio de −17 a −30 dB en 0,2 s (la n final) y luego cae; queda tapado por el sonido de la transición que entra justo ahí"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

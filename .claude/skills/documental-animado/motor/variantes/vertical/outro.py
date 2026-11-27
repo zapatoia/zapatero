@@ -30,6 +30,7 @@ CX = 520; CAP_CTX_Y, CAP_KEY_Y = 1268, 1400
 ACC = "#6EA0FF"
 
 
+SFX_DB = 4.0                                                      # regla del usuario: efectos un poco más altos (+4 dB)
 def run(*a, **k): return subprocess.run(list(a), check=True, **k)
 
 
@@ -127,13 +128,14 @@ def main(proy):
     t_tap, t_vuelo, d_vuelo = .62, t_amigo - .05, .8
     Fctx, Fkey, Flab = fuente("Inter", 600, 46), fuente("Inter", 800, 124), fuente("Inter", 700, 34)
     L = Lienzo(); c = L.canvas
-    ff = subprocess.Popen([FF, "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+    solo_audio = "--solo-audio" in sys.argv and (tmp / "outro.mp4").exists()      # remezcla: reutiliza la animación ya hecha
+    ff = None if solo_audio else subprocess.Popen([FF, "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
                            *ENC, str(tmp / "outro.mp4")], stdin=subprocess.PIPE)
     def curva(u):
         p0, p1, p2 = np.array([BX, BY - 20]), np.array([CX + 330, 700]), np.array([AX, AY])
         q = (1 - u) ** 2 * p0 + 2 * (1 - u) * u * p1 + u * u * p2
         d = 2 * (1 - u) * (p1 - p0) + 2 * u * (p2 - p1); return q, math.atan2(d[1], d[0])
-    for f in range(nf):
+    for f in (range(0) if solo_audio else range(nf)):
         t = f / FPS; c.clear(skia.ColorBLACK)
         u = ease(t / .4); s = 1 + .04 * u
         c.save(); c.translate(CX, 760); c.scale(s, s); c.translate(-CX, -760)
@@ -208,7 +210,7 @@ def main(proy):
                 with capa(c, alfa=.55 * a, blur=22): texto(c, kt, 0, 0, Fkey, ACC)
                 texto(c, kt, 0, 0, Fkey, ACC, alfa=a, sombra=(4, 12, .35)); c.restore()
         L.arr[..., 3] = 255; ff.stdin.write(L.arr.tobytes())
-    ff.stdin.close(); ff.wait()
+    if ff: ff.stdin.close(); ff.wait()
     # audio: voz al mismo nivel que la voz del vídeo + efectos suaves
     orig = np.frombuffer(run(FF, "-v", "error", "-i", str(vid), "-f", "f32le", "-ac", "2", "-ar", str(SR), "-", capture_output=True).stdout, np.float32).reshape(-1, 2)
     def rms_activa(m):
@@ -218,7 +220,7 @@ def main(proy):
     n = int(fin * SR); mono = np.zeros(n, np.float32); a0 = int(T0 * SR)
     mono[a0:a0 + len(x)] += (x * ganancia)[: n - a0]
     def sfx(t, nom, vol):
-        e_ = efecto(nom) * vol * ganancia * .55; i = int(t * SR); m = min(n, i + len(e_)); mono[i:m] += e_[: m - i]
+        e_ = efecto(nom) * vol * ganancia * .55 * 10 ** (g.get("sfx_db", SFX_DB) / 20); i = int(t * SR); m = min(n, i + len(e_)); mono[i:m] += e_[: m - i]
     sfx(.12, "pop", .5); sfx(t_tap - .02, "tecla", .6); sfx(t_vuelo, "whoosh", .7); sfx(t_vuelo + d_vuelo, "ding", .6)
     pico = np.abs(mono).max(); lim = 10 ** (-1.5 / 20)
     if pico > lim: mono *= lim / pico

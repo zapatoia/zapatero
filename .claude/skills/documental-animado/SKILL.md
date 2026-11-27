@@ -185,6 +185,29 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Juegos verticales:** escenas `bolas` (sigue la pelota: silueta de neón, niveles, `ciclo` de colores, respuesta fija) y `penalti` (pausa cuando el portero se tire: cronómetro, escala de reacción, rondas con `espera`, `amagos`). En los juegos la cámara no se mueve y las esperas son silencios reales: `lineas[].silencio` (s) en guion.json (voz_eleven.py los inserta; el QA de pausas se acepta con esa razón).
 - Ganchos de juego: retadores y cortos, sin datos científicos si el usuario no los pide.
 
+**Del usuario (27 nov 2026, documental 08)**
+- **Más detalle en los efectos de sonido, sin pasarse:** cada cosa que se mueve suena (rodillo de tics que frenan + «clac» al rodar cifras y años: `"rodillo": true` en stat/fecha; nota por generación en `arbol`; barrido en barras; campana, destello, mensaje). Los tics del rodillo pueden ir bajo la voz (son muy suaves); el resto, en los huecos.
+- **Vídeos a partir del guion de un reel:** se toma solo el texto (gancho y partes) y se anima con el kit vertical; nada del estilo de la referencia. Escena `arbol` (`motor/variantes/vertical/escena_arbol.py`) para árboles genealógicos.
+
+**Del usuario (27 nov 2026, tras el documental 09): efectos un poco más altos**
+- Volumen de los SFX **+4 dB sobre el nivel anterior** (ya es el valor por defecto en `motor.py` y `outro.py`; `guion.json → "sfx_db"` lo cambia por vídeo). La voz no se toca.
+- Para retocar solo el audio de un vídeo ya hecho, sin renderizar la imagen: `motor.py <proy> audio` y luego `outro.py <proy> --solo-audio` (reutiliza la animación de la outro).
+
+**Del usuario (27 nov 2026, documental 09): «con cada generación, mejoremos»**
+- Cada vídeo nuevo debe superar al anterior en algo visual y en algo de audio, y decirlo al entregar. Escenas de objetos cotidianos en `escenas_cotidianas.py`: `ojo`, `reloj` (24 h), `bateria`, `digital` (despertador de 7 segmentos, `tachar_word`). Las escenas nuevas van en módulos aparte con su `efectos_<tipo>` y se enganchan solas.
+- Nada quieto: cada escena lleva micro-movimiento propio (parpadeo, estrellas que titilan, ola y burbujas, pantalla que se desplaza, chispas).
+
+**Documental 10 (27 nov 2026), mejoras que quedan como regla**
+- Cada transición suena según su tipo (`SFX_TRANS`: whip→whoosh, zoom→zum, mask→barrido, card→desliz); `"sfx_trans": false` vuelve al whoosh único.
+- En juegos de tiempo, el silencio es de verdad: nada rítmico mientras el jugador cuenta (solo pitido de salida y golpe al parar); `lineas[].cap_dur` quita el subtítulo para que no tape el juego.
+- Cronómetros de juego cuentan en tiempo real desde el final de la palabra (`inicio_fin`), para que el reto sea justo.
+- Nada de cifras no verificadas aunque salgan en la referencia: se cuenta sin el número.
+
+**Corrección del usuario sobre el documental 10 (cifra que se salía del cronómetro y «30» duplicado en la barra)**
+- La hoja de cuadros es demasiado pequeña para ver fallos finos. Antes de entregar, revisa a tamaño real (recorte a 50 %, `ffmpeg -ss T -i final.mp4 -vf crop=…`) un cuadro de CADA tipo de escena en su peor momento: la cifra más larga, la etiqueta más ancha, todos los bocadillos a la vez.
+- Ningún texto puede salirse de su contenedor: las cifras se ajustan al ancho útil (`maxw`) midiendo el caso más ancho («88,8»), no el actual.
+- Nunca dibujes dos veces la misma etiqueta: si una marca se resalta (el 30 en verde), se quita de la serie normal.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

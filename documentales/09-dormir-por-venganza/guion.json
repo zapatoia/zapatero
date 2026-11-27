@@ -1,0 +1,419 @@
+{
+ "titulo": "No es insomnio: es venganza",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1100,
+ "pausa": 0.8,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Por qué te niegas a dormir aunque te caigas de sueño?",
+   "tts": "¿Por qué te niegas a dormir aunque te caigas de sueño?",
+   "key": "de sueño",
+   "escena": {
+    "tipo": "ojo",
+    "surface": "noche",
+    "parpado": [
+     {
+      "word": "@0",
+      "v": 0.62
+     },
+     {
+      "word": "caigas",
+      "v": 0.22,
+      "dur": 0.9
+     },
+     {
+      "word": "insomnio",
+      "v": 0.5,
+      "dur": 0.3
+     },
+     {
+      "word": "venganza",
+      "v": 1.0,
+      "dur": 0.18
+     }
+    ],
+    "movil_word": "@0",
+    "rojo_word": "venganza",
+    "titulos": [
+     {
+      "word": "nombre",
+      "txt": "Procrastinación del sueño",
+      "sub": "POR VENGANZA"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "No es insomnio: es venganza.",
+   "tts": "No es insomnio... es venganza.",
+   "key": "venganza"
+  },
+  {
+   "texto": "Hasta tiene nombre: procrastinación del sueño por venganza.",
+   "tts": "Hasta tiene nombre: procrastinación del sueño por venganza.",
+   "key": "por venganza",
+   "cap": false
+  },
+  {
+   "texto": "Durante el día, tus horas son de otros:",
+   "tts": "Durante el día, tus horas son de otros:",
+   "key": "de otros",
+   "escena": {
+    "tipo": "reloj",
+    "surface": "dark",
+    "transicion": "zoom",
+    "noche": [
+     0,
+     7.5
+    ],
+    "aguja": [
+     {
+      "word": "@0",
+      "h": 7.5
+     },
+     {
+      "word": "trabajo",
+      "h": 13
+     },
+     {
+      "word": "casa",
+      "h": 21
+     },
+     {
+      "word": "noche",
+      "h": 23.5,
+      "dur": 1.2
+     }
+    ],
+    "porciones": [
+     {
+      "word": "trabajo",
+      "desde": 8,
+      "hasta": 16,
+      "txt": "TRABAJO",
+      "col": "#2F6BFF"
+     },
+     {
+      "word": "estudios",
+      "desde": 16,
+      "hasta": 18.5,
+      "txt": "ESTUDIOS",
+      "col": "#8B5CF6"
+     },
+     {
+      "word": "tráfico",
+      "desde": 7.5,
+      "hasta": 8,
+      "txt": "TRÁFICO",
+      "col": "#EF4444",
+      "extra": [
+       16,
+       16
+      ]
+     },
+     {
+      "word": "casa",
+      "desde": 18.5,
+      "hasta": 21.5,
+      "txt": "CASA",
+      "col": "#10B981"
+     }
+    ],
+    "tuyas": {
+     "word": "tuyas",
+     "desde": 21.5,
+     "hasta": 24,
+     "txt": "TUYAS"
+    },
+    "atenuar_word": "demás"
+   }
+  },
+  {
+   "texto": "el trabajo, los estudios, el tráfico, la casa.",
+   "tts": "el trabajo, los estudios, el tráfico, la casa.",
+   "key": "la casa"
+  },
+  {
+   "texto": "Solo por la noche esas horas son tuyas.",
+   "tts": "Solo por la noche, esas horas son tuyas.",
+   "key": "tuyas"
+  },
+  {
+   "texto": "Y no quieres soltarlas: es lo único que no es de los demás.",
+   "tts": "Y no quieres soltarlas: es lo único que no es de los demás.",
+   "key": "de los demás"
+  },
+  {
+   "texto": "Además, llegas a la noche como la batería del móvil.",
+   "tts": "Además, llegas a la noche como la batería del móvil.",
+   "key": "del móvil",
+   "escena": {
+    "tipo": "bateria",
+    "surface": "dark",
+    "transicion": "card",
+    "etiqueta": "VOLUNTAD",
+    "niveles": [
+     {
+      "word": "@0",
+      "v": 100,
+      "hora": "08:00"
+     },
+     {
+      "word": "noche",
+      "v": 38,
+      "hora": "18:00",
+      "dur": 1.2
+     },
+     {
+      "word": "once",
+      "v": 5,
+      "hora": "23:00",
+      "dur": 1.4
+     }
+    ],
+    "aviso_word": "gastado"
+   }
+  },
+  {
+   "texto": "A las once te queda un 5 % de voluntad.",
+   "tts": "A las once te queda un cinco por ciento de voluntad.",
+   "key": "de voluntad"
+  },
+  {
+   "texto": "Te la has gastado entera durante el día.",
+   "tts": "Te la has gastado entera durante el día.",
+   "key": "durante el día"
+  },
+  {
+   "texto": "Así que sigues con el móvil a costa de tu sueño…",
+   "tts": "Así que sigues con el móvil a costa de tu sueño...",
+   "key": "tu sueño",
+   "escena": {
+    "tipo": "digital",
+    "surface": "noche",
+    "transicion": "whip",
+    "horas": [
+     {
+      "word": "@0",
+      "h": "23:00"
+     },
+     {
+      "word": "móvil",
+      "h": "02:00",
+      "dur": 1.4
+     },
+     {
+      "word": "pagas",
+      "h": "04:55",
+      "dur": 1.0
+     },
+     {
+      "word": "siguiente",
+      "h": "07:00",
+      "dur": 0.8
+     }
+    ],
+    "alarma_word": "siguiente"
+   }
+  },
+  {
+   "texto": "y lo pagas al día siguiente.",
+   "tts": "y lo pagas al día siguiente.",
+   "key": "día siguiente"
+  },
+  {
+   "texto": "Duermes poco, y mañana tienes aún menos voluntad.",
+   "tts": "Duermes poco, y mañana tienes aún menos voluntad.",
+   "key": "menos voluntad",
+   "escena": {
+    "tipo": "bateria",
+    "surface": "dark",
+    "transicion": "mask",
+    "etiqueta": "VOLUNTAD",
+    "niveles": [
+     {
+      "word": "@0",
+      "v": 5,
+      "hora": "07:00"
+     },
+     {
+      "word": "mañana",
+      "v": 47,
+      "hora": "12:00",
+      "dur": 1.4
+     },
+     {
+      "word": "empezar",
+      "v": 3,
+      "hora": "23:00",
+      "dur": 1.0
+     }
+    ],
+    "ayer": {
+     "word": "menos",
+     "txt": "Ayer: 100 %"
+    }
+   }
+  },
+  {
+   "texto": "Y vuelta a empezar.",
+   "tts": "Y vuelta a empezar.",
+   "key": "a empezar"
+  },
+  {
+   "texto": "El truco no es obligarte a dormir antes.",
+   "tts": "El truco no es obligarte a dormir antes.",
+   "key": "dormir antes",
+   "escena": {
+    "tipo": "digital",
+    "surface": "noche",
+    "transicion": "zoom",
+    "horas": [
+     {
+      "word": "@0",
+      "h": "22:00"
+     }
+    ],
+    "tachar_word": "obligarte",
+    "titulos": [
+     {
+      "word": "@0",
+      "txt": "El truco",
+      "sub": "NO ES ESTO"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Es guardarte un rato tuyo durante el día.",
+   "tts": "Es guardarte un rato tuyo durante el día.",
+   "key": "durante el día",
+   "escena": {
+    "tipo": "reloj",
+    "surface": "dark",
+    "transicion": "card",
+    "noche": [
+     0,
+     7.5
+    ],
+    "aguja": [
+     {
+      "word": "@0",
+      "h": 22
+     },
+     {
+      "word": "día",
+      "h": 14.5,
+      "dur": 1.0
+     }
+    ],
+    "porciones": [
+     {
+      "word": "@0",
+      "desde": 8,
+      "hasta": 16,
+      "txt": "",
+      "col": "#2F6BFF",
+      "ya": true
+     },
+     {
+      "word": "@0",
+      "desde": 16,
+      "hasta": 18.5,
+      "txt": "",
+      "col": "#8B5CF6",
+      "ya": true
+     },
+     {
+      "word": "@0",
+      "desde": 7.5,
+      "hasta": 8,
+      "txt": "",
+      "col": "#EF4444",
+      "ya": true,
+      "extra": [
+       16,
+       16
+      ]
+     },
+     {
+      "word": "@0",
+      "desde": 18.5,
+      "hasta": 21.5,
+      "txt": "",
+      "col": "#10B981",
+      "ya": true
+     }
+    ],
+    "tuyas": {
+     "word": "@0",
+     "desde": 21.5,
+     "hasta": 24,
+     "txt": "TUYO",
+     "ya": true
+    },
+    "mover": {
+     "word": "rato",
+     "desde": 14,
+     "hasta": 15.5
+    }
+   }
+  },
+  {
+   "texto": "Así, por la noche, no tendrás nada que vengar.",
+   "tts": "Así, por la noche... no tendrás nada que vengar.",
+   "key": "nada que vengar",
+   "escena": {
+    "tipo": "ojo",
+    "surface": "noche",
+    "transicion": "whip",
+    "parpado": [
+     {
+      "word": "@0",
+      "v": 0.7
+     },
+     {
+      "word": "noche",
+      "v": 0.0,
+      "dur": 1.6
+     }
+    ],
+    "dormir_word": "noche"
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a ese amigo que a las tres sigue con el móvil.",
+  "tts": "[playful] Pásaselo a ese amigo que a las tres sigue con el móvil.",
+  "key": "el móvil",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "09-dormir-por-venganza-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Procrastinación del sueño: irse a la cama más tarde de lo previsto sin causa externa (Kroese et al., 2014)",
+   "url": "https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2014.00611/text"
+  },
+  {
+   "dato": "«Por venganza»: término nacido en China por jornadas largas sin tiempo libre; sacrificar sueño por ocio",
+   "url": "https://www.sleepfoundation.org/sleep-hygiene/revenge-bedtime-procrastination"
+  },
+  {
+   "dato": "Quien resiste más deseos durante el día procrastina más el sueño (Kamphorst et al., 2018)",
+   "url": "https://www.medicalnewstoday.com/articles/revenge-bedtime-procrastination-a-plight-of-our-times"
+  },
+  {
+   "dato": "Explicación divulgativa",
+   "url": "https://www.psychologytoday.com/us/blog/sleepless-in-america/202106/what-is-revenge-bedtime-procrastination"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: el fondo cambia a pantalla completa entre escenas (piel del ojo, habitación de noche, azul oscuro) y difiere de la mediana; ningún texto ni gráfico entra en la franja de botones (ojo ±405 px y reloj R 380+44 px terminan antes de x=950) ni por encima de y=150",
+  "palabras_completas": "medido: «nombre:» y «casa.» caen desde −38,6 dB bajo el pico (casi el umbral de −40 dB): es la cola casi inaudible de la palabra al recortar la pausa, no un corte",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}
