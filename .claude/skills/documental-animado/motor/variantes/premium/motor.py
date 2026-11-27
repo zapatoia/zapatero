@@ -255,3 +255,12 @@ if __name__ == "__main__":
     if len(sys.argv) > 2 and sys.argv[2] == "escenas":
         escenas(Premium(sys.argv[1])); sys.exit()
     ES.principal(Premium, Path(__file__).resolve())
+    if len(sys.argv) > 2 and sys.argv[2] in ("render", "audio"):        # el grano dispara el peso a crf 16: se recomprime a crf 23 (≈ 0,5 MB/s)
+        import subprocess
+        from nucleo.rutas import FF
+        fin = Path(sys.argv[1]).resolve() / "final" / f"{Path(sys.argv[1]).resolve().name}.mp4"
+        if fin.exists() and fin.stat().st_size > 40e6:
+            tmp = fin.with_suffix(".tmp.mp4")
+            subprocess.run([FF, "-v", "error", "-y", "-i", str(fin), "-c:v", "libx264", "-preset", "slow", "-crf", "23", "-pix_fmt", "yuv420p",
+                            "-c:a", "copy", "-movflags", "+faststart", str(tmp)], check=True)
+            tmp.replace(fin); print(f"recomprimido: {fin.stat().st_size / 1e6:.1f} MB")

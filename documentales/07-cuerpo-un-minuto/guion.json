@@ -148,5 +148,10 @@
   "boton": "Compartir",
   "contacto": "Tu amigo",
   "salida": "07-cuerpo-un-minuto-v2.mp4"
+ },
+ "qa_aceptadas": {
+  "zona_segura": "estilo premium: lo que se mueve en esas zonas es el mundo 3D a sangre (tarjetas en vuelo, reflejo, rejilla, partículas). Rótulos y etiquetas quedan dentro de x ≤ 935 e y 220–1460 por construcción",
+  "pausas": "a propósito: respiros (lineas[].silencio) para que las cifras terminen de rodar antes de la frase siguiente (el usuario pidió ritmo sin prisas)",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
  }
 }

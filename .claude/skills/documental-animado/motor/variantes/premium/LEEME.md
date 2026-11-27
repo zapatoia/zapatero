@@ -73,6 +73,7 @@ whoosh en cada vuelo de cámara · golpe al aparecer el título · pop + tics al
   `piezas/iconos.py` (convierte píxeles de pantalla a unidades locales). Un blur sin convertir llegó a 4.000 px y hacía cada cuadro 10× más lento.
 - Nunca `saveLayer(None, …)` con desenfoque sobre la pantalla entera por cada elemento: acota la capa a su caja.
 - Texturas por piezas cacheadas (`tarjetas._cache`): fondo fijo + icono a 20 fps + cifra por texto. Iconos repetidos (enjambres): sprite único.
+- El grano de película hace que a crf 16 un vídeo de 35 s pese ~195 MB (GitHub no admite > 100 MB): `motor.py render` lo recomprime solo a crf 23 (~18 MB). La outro se pega después sobre ese archivo.
 - Objetivo: ≤ 0,4 s por cuadro (×4 en los vuelos con desenfoque de movimiento). Mídelo con unos cuadros antes del render completo.
 
 ## Límites conocidos
@@ -80,4 +81,4 @@ Sin objetos fotorrealistas (todo vectorial con volumen). Sin modelos 3D complejo
 
 ## Historial de vídeos premium
 - `documentales/_pruebas/premium/prueba-premium.mp4` (prueba 1, plana) · `prueba-premium-2.mp4` (prueba 2, «Tu cuerpo en un minuto», 8 s).
-- `documentales/07-cuerpo-un-minuto` — primer vídeo completo con el motor.
+- `documentales/07-cuerpo-un-minuto` — primer vídeo completo con el motor (33 s + outro; render 4,4 min con 4 procesos). Pendiente de la opinión del usuario.
