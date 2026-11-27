@@ -583,7 +583,12 @@ class Vertical(ES.Estilo):
             for it in s.get("items", []): pon(self.ta(it["word"], e) + .55, "sello", .3)
             if s.get("tipo") == "penalti":
                 for r in self._pen_rondas(e):
-                    pon(r["t0"], "pop", .3)
+                    if libre(r["t0"] + .02, r["t0"] + .3): self.sfx(TI.f_de_t(r["t0"] + .02), "ding", .6)      # «bling» al empezar la ronda
+                    k = 0
+                    while r["t0"] + .7 + k * .8 < r["td"] + 1.0:                                          # latido de espera (ritmo fijo: no avisa)
+                        tl_ = r["t0"] + .7 + k * .8
+                        if libre(tl_, tl_ + .3): self.sfx(TI.f_de_t(tl_), "golpe", .16); self.sfx(TI.f_de_t(tl_ + .2), "golpe", .10)
+                        k += 1
                     if libre(r["td"] + .45, r["td"] + .8): self.sfx(TI.f_de_t(r["td"] + .45), "golpe", .35)   # cae el portero (después: el sonido no avisa)
                     if libre(r["td"] + .73, r["td"] + 1.07): self.sfx(TI.f_de_t(r["td"] + .73), "whoosh", .5)   # chut
                     if libre(r["td"] + 1.09, r["td"] + 1.2): self.sfx(TI.f_de_t(r["td"] + 1.09), "pop", .4)       # red
@@ -1426,8 +1431,18 @@ class Vertical(ES.Estilo):
         c.restore()
         # portero (según la ronda)
         act = next((r for r in reversed(R) if t >= r["t0"] - .25), None)
-        x0, y0, lean, rot, brz, sh = CX, GY - 144, 0.0, 0.0, 0.0, 1.0
-        x0 += 22 * math.sin(t * 2.6); y0 -= 7 * abs(math.sin(t * 5.2))
+        x0, y0, lean, rot, brz, sh = CX, GY - 144, 0.0, 0.0, 0.0, 1.0      # quieto del todo hasta que se tira
+        ap_p, ycae = 1.0, 0.0
+        pw = s.get("portero_word"); dtw = s.get("demo_tiro"); dw_ = s.get("demo_word")
+        if pw and not act:                                                       # el portero entra al nombrarlo (cae desde arriba)
+            dp = t - ta(pw) + .05; ap_p = min(1.0, max(0.0, dp / .15)); ycae = -260 * (1 - resorte(dp, 8, 11)) if dp > 0 else 0
+        if act: ap_p = min(1.0, max(0.0, (t - act["t0"] + .25) / .2)) if act["n"] > 1 else 1.0
+        demo = (not act) and dtw and ta(dtw) <= t < (ta(dw_) if dw_ else 1e9)
+        if dw_ and not act and t >= ta(dw_): ap_p = min(ap_p, max(0.0, (t - ta(dw_)) / .2))
+        if demo:                                                                 # estirada de ejemplo
+            u = (t - ta(dtw)) / .5; v = min(u, 1.0); ev = 1 - (1 - v) ** 2
+            rot = 78 * ev; x0 += 270 * ev; y0 += -110 * math.sin(math.pi * v) + 92 * ev; brz = ev; sh = 1 - .5 * math.sin(math.pi * v)
+        y0 += ycae
         if act:
             for ta_, sd in act["amagos"]:
                 u = (t - ta_) / .5
@@ -1437,8 +1452,10 @@ class Vertical(ES.Estilo):
                 v = min(u, 1.0); ev = 1 - (1 - v) ** 2; sd = act["lado"]
                 rot = sd * 78 * ev; x0 += sd * 270 * ev; y0 += -110 * math.sin(math.pi * v) + 92 * ev; brz = ev
                 sh = 1 - .5 * math.sin(math.pi * v)
-        c.drawOval(skia.Rect.MakeXYWH(x0 - 70 * sh, GY + 4, 140 * sh, 22), skia.Paint(AntiAlias=True, Color=color("#000000", .45), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
-        self.portero(c, x0, y0, lean, rot, brz)
+        if ap_p > 0:
+            c.drawOval(skia.Rect.MakeXYWH(x0 - 70 * sh, GY + 4, 140 * sh, 22), skia.Paint(AntiAlias=True, Color=color("#000000", .45 * ap_p), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
+            self.portero(c, x0, y0, lean, rot, brz, ap_p)
+        if demo and t - ta(dtw) > .1: self.pildora(c, s.get("demo_txt", "ASÍ"), x0 - 40, GY + 70, S, min(1, (t - ta(dtw) - .1) / .15), fnt=self.F["pillb"])
         # balón: tras la estirada sale disparado a la escuadra contraria (después del momento de pausar: no avisa)
         bx, by, br, en_red, ur = CX, 800.0, 36.0, False, 0.0
         if act and t >= act["td"] + .75:
@@ -1463,8 +1480,23 @@ class Vertical(ES.Estilo):
         lab = None
         if act and t < act["t1"]: lab = s.get("ronda_txt", "RONDA {n} DE {N}").format(n=act["n"], N=len(R))
         elif rot_: lab = rot_[-1]["txt"]
-        if lab: self.pildora(c, lab, CX, 200, S, aparece(dt0, .2), fnt=self.F["pillb"])
-        # marcador
+        if lab:
+            dl = (t - act["t0"] + .3) if (act and t < act["t1"]) else (t - ta(rot_[-1]["word"]) + .05)
+            c.save(); sc_ = .9 + .1 * resorte(dl, 9, 12); c.translate(CX, 200); c.scale(sc_, sc_); c.translate(-CX, -200)
+            self.pildora(c, lab, CX, 200, S, aparece(dl, .15), fnt=self.F["pillb"]); c.restore()
+        # marcador: solo en la demo y en cada ronda; sale mientras se explica otra cosa
+        tramos = []
+        if s.get("demo_word") and R: tramos.append((ta(s["demo_word"]), R[0]["t0"] - .3))
+        for r in R: tramos.append((r["t0"] - .3, min(r["td"] + 1.75, r["t1"])))
+        un = []
+        for a0, a1 in sorted(tramos):
+            if un and a0 <= un[-1][1] + .5: un[-1][1] = max(un[-1][1], a1)
+            else: un.append([a0, a1])
+        tramos = un
+        pv = max([min(1.0, max(0.0, (t - a0) / .3)) * min(1.0, max(0.0, (a1 - t) / .25)) for a0, a1 in tramos] + [0.0])
+        if pv <= 0: return
+        pe = 1 - (1 - pv) ** 3
+        c.save(); c.translate(0, 70 * (1 - pe)); c.saveLayer(None, skia.Paint(Alphaf=pv))
         val = 0.0; estado = "espera"
         dw = s.get("demo_word")
         if act and t >= act["t0"] - .25:
@@ -1501,6 +1533,7 @@ class Vertical(ES.Estilo):
         px = min(pos_val(val), x0e + wt - 6)
         tri = skia.Path(); tri.moveTo(px - 13, ye - 46); tri.lineTo(px + 13, ye - 46); tri.lineTo(px, ye - 26); tri.close()
         c.drawPath(tri, relleno("#FFFFFF"))
+        c.restore(); c.restore()
 
 
 def escenas(e):

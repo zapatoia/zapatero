@@ -56,14 +56,16 @@
     ],
     "rotulos": [
      {
-      "word": "@0",
+      "word": "Pausa",
       "txt": "PAUSA CUANDO EL PORTERO SE TIRE"
      },
      {
       "word": "Comenta",
       "txt": "COMENTA TU MEJOR TIEMPO"
      }
-    ]
+    ],
+    "portero_word": "tiempo",
+    "demo_tiro": "tire"
    }
   },
   {
