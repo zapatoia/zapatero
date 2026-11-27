@@ -75,36 +75,35 @@ def instalar(V, G):
         return h["desde"] + (h["hasta"] - h["desde"]) * u, (0 < t - tw < d)
 
     def capa_hud(self, c, e, t, S):
+        """Contador «HORA X · DESPIERTO». Si la escena abre un hito (`hud.capitulo`), aparece GRANDE en el centro sobre un velo,
+        rueda hasta la nueva hora y vuela a su sitio arriba. (Sin párpados: el usuario no los quiere.)"""
         r = horas(self, e, t)
         if r is None: return
-        hv, rodando = r; s = e["spec"]
-        if s.get("parpados", True):
-            k = min(1.0, max(0.0, (hv - 6) / 90)) * .24                  # cierre por cansancio
-            ph = (t * .37 + e["t0"]) % 1; bl = max(0.0, 1 - abs(ph - .5) / .03) if hv > 30 else 0   # parpadeo lento de vez en cuando
-            k = max(k, bl * .6)
-            if k > .005:
-                for top in (True, False):
-                    p = skia.Path(); hh = H * .5 * k * (1.0 if top else .7)
-                    if top:
-                        p.moveTo(-50, -50); p.lineTo(W + 50, -50); p.lineTo(W + 50, hh * .6); p.quadTo(CX, hh * 1.8, -50, hh * .6)
-                    else:
-                        p.moveTo(-50, H + 50); p.lineTo(W + 50, H + 50); p.lineTo(W + 50, H - hh * .6); p.quadTo(CX, H - hh * 1.8, -50, H - hh * .6)
-                    p.close()
-                    c.drawPath(p, skia.Paint(AntiAlias=True, Color=color("#05040A", .92), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 22)))
-        # contador arriba
-        a = aparece(t - e["t0"], .2); txt = f"{int(round(hv))} H"
+        hv, rodando = r; h = e["spec"]["hud"]; dt0 = t - e["t0"]
+        x0, y0, sc = CX, 205, 1.0
+        if h.get("capitulo"):
+            uf = _io(TI.clamp((dt0 - h.get("grande", 1.0)) / .45))
+            if uf < 1:
+                c.drawRect(skia.Rect(-60, -60, W + 60, 1240), relleno("#05060E", .62 * (1 - uf)))
+            x0, y0, sc = CX, 650 + (205 - 650) * uf, 2.3 + (1 - 2.3) * uf
+            if uf < 1:
+                sc *= .85 + .15 * resorte(dt0 + .05, 8, 11)
+        a = aparece(dt0 + .05, .15); txt = f"{int(round(hv))} H"
         f1 = fuente("Inter", 800, 44); f2 = fuente("Inter", 700, 24)
-        w = 330; x, y = CX, 205
-        c.drawRRect(rrc(x, y, w, 92, 46), relleno("#0B0B14", .82 * a)); c.drawRRect(rrc(x, y, w, 92, 46), trazo("#FF6A5A" if hv >= 17 else "#9DB8FF", 2.5, .8 * a))
-        # reloj de arena / icono reloj
-        ix = x - w / 2 + 50
-        c.drawCircle(ix, y, 24, trazo("#FFFFFF", 3.5, a)); ang = t * 6
-        c.drawLine(ix, y, ix + 15 * math.cos(ang), y + 15 * math.sin(ang), trazo("#FFFFFF", 3.5, a))
-        with capa(c, alfa=a, blur=(3 if rodando else 0)): texto(c, txt, x + 30, y - 14, f1, "#FF6A5A" if hv >= 17 else "#FFFFFF", tnum=True)
-        texto(c, "DESPIERTO", x + 30, y + 24, f2, "#C9D3EA", alfa=a)
+        c.save(); c.translate(x0, y0); c.scale(sc, sc)
+        w = 330; col = "#FF6A5A" if hv >= 17 else "#9DB8FF"
+        c.drawRRect(rrc(0, 0, w, 92, 46), relleno("#0B0B14", .88 * a)); c.drawRRect(rrc(0, 0, w, 92, 46), trazo(col, 2.5, .9 * a))
+        if rodando:
+            with capa(c, modo=skia.BlendMode.kPlus): c.drawRRect(rrc(0, 0, w + 10, 102, 51), skia.Paint(AntiAlias=True, Color=color(col, .25), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 14)))
+        ix = -w / 2 + 50
+        c.drawCircle(ix, 0, 24, trazo("#FFFFFF", 3.5, a)); ang = t * (14 if rodando else 3)
+        c.drawLine(ix, 0, ix + 15 * math.cos(ang), 15 * math.sin(ang), trazo("#FFFFFF", 3.5, a)); c.drawLine(ix, 0, ix + 10 * math.cos(ang / 12), 10 * math.sin(ang / 12), trazo("#FFFFFF", 4, a))
+        with capa(c, alfa=a, blur=(3 if rodando else 0)): texto(c, txt, 30, -14, f1, "#FF6A5A" if hv >= 17 else "#FFFFFF", tnum=True)
+        texto(c, "DESPIERTO", 30, 24, f2, "#C9D3EA", alfa=a)
+        c.restore()
 
     # ---------------------------------------------------------------- cara ilustrada
-    def _cara(c, x, y, s, t, ojos=1.0, ojeras=0.0, enfado=0.0, palillos=0.0, venas=0.0, caen=0.0, a=1.0):
+    def _cara(c, x, y, s, t, ojos=1.0, ojeras=0.0, enfado=0.0, palillos=0.0, venas=0.0, caen=0.0, a=1.0, mirar=0.0, sudor=0.0):
         c.save(); c.translate(x, y); c.scale(s, s)
         _sombra(c, 0, 300, 230, 30, .3 * a)
         # cuello y jersey
@@ -138,7 +137,7 @@ def instalar(V, G):
                     x0 = ex + sx * 58 * (1 if k % 2 else -1); yy = ey + (rv.random() - .5) * 40; pv.moveTo(x0, yy)
                     pv.lineTo(x0 - (1 if k % 2 else -1) * sx * (20 + 20 * rv.random()), yy + (rv.random() - .5) * 20)
                 c.drawPath(pv, trazo("#D2323C", 2, .8 * venas * a))
-            ix = ex + 5 * math.sin(t * .7)
+            ix = ex + 5 * math.sin(t * .7) + 22 * mirar
             c.drawCircle(ix, ey + 4, 27, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((ix, ey + 4), 27, [color("#5A3A1A", a), color("#8A5A2A", a), color("#3A2410", a)], [0, .7, 1])))
             c.drawCircle(ix, ey + 4, 13, relleno("#0A0A10", a)); c.drawCircle(ix - 9, ey - 6, 6, relleno("#FFFFFF", .9 * a))
             # párpado superior (piel) según apertura
@@ -160,6 +159,9 @@ def instalar(V, G):
                     c.save(); c.translate(ex + dx + 30 * ca * sx, py + 400 * ca * ca); c.rotate(4 * sx + 120 * ca * sx)
                     c.drawRRect(rrc(0, 40, 9, 92, 4), skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(-4, 0), (4, 0)], [color("#F2DDB0", ap), color("#C9A86A", ap)])))
                     c.restore()
+        if sudor > 0:   # gota de sudor
+            g = skia.Path(); g.moveTo(170, -120); g.cubicTo(150, -80, 150, -50, 170, -45); g.cubicTo(190, -50, 190, -80, 170, -120)
+            c.drawPath(g, relleno("#9FDCFF", .9 * sudor * a)); c.drawCircle(164, -64, 5, relleno("#FFFFFF", .8 * sudor * a))
         # nariz y boca
         n_ = skia.Path(); n_.moveTo(-6, 20); n_.quadTo(-26, 80, 0, 88); n_.quadTo(16, 90, 22, 80); c.drawPath(n_, trazo("#B07050", 4, .8 * a))
         if enfado > .3: c.drawArc(skia.Rect(-55, 130, 55, 180), 200, 140, False, trazo("#8A3A2A", 6, a))
@@ -212,7 +214,8 @@ def instalar(V, G):
     def e_calendario(self, c, e, t, S):
         s = e["spec"]; dt0 = t - e["t0"]; tw = self.ta(s["word"], e); dias = s.get("dias", 11); d = s.get("dur", 2.0)
         u = TI.clamp((t - tw) / d) if t > tw else 0
-        hoja = 1 + int((dias - 1) * _io(u) + 1e-6) if t > tw else 1
+        d0 = s.get("desde_dia", 1)
+        hoja = d0 + int((dias - d0) * _io(u) + 1e-6) if t > tw else d0
         x, y, w, h = CX, 700, 560, 640
         _sombra(c, x + 20, y + h / 2 + 10, w * .55, 26, .4)
         # base y pila de hojas
@@ -225,7 +228,7 @@ def instalar(V, G):
         texto(c, str(hoja), x, y + 120, fuente("Inter", 800, 260), "#14182A", tnum=True)
         # hoja que se arranca y vuela
         if 0 < u < 1:
-            ph = ((dias - 1) * _io(u)) % 1
+            ph = ((dias - d0) * _io(u)) % 1
             c.save(); c.translate(x + 300 * ph, y - 200 * ph - 120 * ph * ph); c.rotate(40 * ph)
             c.drawRRect(rrc(0, 70, w, h - 140, 18), relleno("#FFFDF7", 1 - ph)); texto(c, str(max(1, hoja - 1)), 0, 120, fuente("Inter", 800, 200), "#14182A", alfa=1 - ph)
             c.restore()
@@ -251,7 +254,14 @@ def instalar(V, G):
             wa, wb = 2 + 14 * q ** 2, 2 + 14 * q2 ** 2
             c.drawPath(skia.Path.Polygon([(CX - wa, ya), (CX + wa, ya), (CX + wb, yb), (CX - wb, yb)], True), relleno("#F2D35A", .9))
         for sx in (-1, 1): c.drawLine(CX + sx * 30, hz, CX + sx * 600, 1260, trazo("#FFFFFF", 6, .8))
-        ue = TI.clamp((t - te) / .6)
+        # faros de frente que pasan y señales en el arcén
+        for k in range(2):
+            q = ((t * .35 + k * .5) % 1); yy = 600 + (1200 - 600) * q ** 2; xx = CX + 30 + 520 * q ** 2
+            for dx in (-1, 1): c.drawCircle(xx + dx * (6 + 40 * q ** 2), yy, 3 + 16 * q ** 2, skia.Paint(AntiAlias=True, Color=color("#FFF6D0", .9), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 3 + 10 * q)))
+        for k in range(3):
+            q = ((t * .3 + k / 3) % 1); yy = 600 + 600 * q ** 2; xx = CX - 40 - 620 * q ** 2; hh = 10 + 150 * q ** 2
+            c.drawLine(xx, yy, xx, yy - hh, trazo("#9AA0AA", 2 + 5 * q, .9)); c.drawCircle(xx, yy - hh, 6 + 40 * q ** 2, relleno("#E5322D", .95)); c.drawCircle(xx, yy - hh, 4 + 30 * q ** 2, relleno("#FFFFFF", .95))
+        ue = TI.clamp((t - te) / .6) * (1 + .7 * TI.clamp((t - _tw(self, e, s.get("eses2_word"))) / .6))   # más eses con el doble
         cx_ = CX + ue * (170 * math.sin((t - te) * 2.2) + 40 * math.sin((t - te) * 5.1)); rot = ue * 7 * math.cos((t - te) * 2.2)
         c.save(); c.translate(cx_, 1000); c.rotate(rot)
         _sombra(c, 0, 120, 230, 24, .5)
@@ -266,12 +276,17 @@ def instalar(V, G):
         # alcoholímetro
         st = s.get("medidor")
         if st:
-            tv = self.ta(st["word"], e); dv = t - tv
-            v = st["valor"] * TI.cubic_out(TI.clamp(dv / 1.0)) if dv > 0 else 0
+            pasos = st.get("pasos") or [dict(word=st["word"], valor=st["valor"], label=st.get("label", ""))]
+            v = float(st.get("desde", 0)); lab = pasos[0].get("label", ""); dv = -1; fin = False
+            for q in pasos:
+                tq = self.ta(q["word"], e)
+                if t > tq:
+                    u = TI.cubic_out(TI.clamp((t - tq) / 1.0)); v = v + (q["valor"] - v) * u; lab = q.get("label", lab); dv = t - tq; fin = u >= 1
+            st = dict(st, valor=v if fin else 1e9, label=lab)
             a = aparece(dt0 - .2, .2); mx, my = CX, 440
             c.drawRRect(rrc(mx, my, 520, 210, 40), relleno("#121826", .92 * a)); c.drawRRect(rrc(mx, my, 520, 210, 40), trazo("#5A6A8A", 3, a))
             c.drawRRect(rrc(mx, my - 20, 440, 110, 18), relleno("#0A2A1E", a))
-            col = "#FF5A4A" if v >= st["valor"] - .001 else "#5AF2A0"
+            col = "#FF5A4A" if v >= .499 else "#5AF2A0"
             with capa(c, alfa=a, blur=10): texto(c, f"{v:.2f}".replace(".", ",") + " g/l", mx, my - 20, fuente("Inter", 800, 80), col, tnum=True)
             texto(c, f"{v:.2f}".replace(".", ",") + " g/l", mx, my - 20, fuente("Inter", 800, 80), col, alfa=a, tnum=True)
             texto(c, st.get("label", ""), mx, my + 70, fuente("Inter", 800, 30), "#C9D3EA", alfa=a)
@@ -448,8 +463,8 @@ def instalar(V, G):
                 ph = ((t - te) * .9 + j / 4) % 1; vx = cx + 60 + (j - 1.5) * 60; vy = cy - 300 - 180 * ph
                 c.drawCircle(vx + 20 * math.sin(t * 3 + j), vy, 26 + 30 * ph, relleno("#FFFFFF", .5 * (1 - ph) * enf))
         c.restore()
-        if t > tm: self.pildora(c, s.get("memoria_txt", "MEMORIA"), CX, 1140, S, aparece(t - tm, .15) * (1 - enf), fnt=self.F["pillb"], fondo="#4F6BD8")
-        if enf > 0: self.pildora(c, s.get("enfado_txt", "IRRITABLE"), CX, 1140, S, enf, fnt=self.F["pillb"], fondo="#E5322D")
+        if t > tm: self.pildora(c, s.get("memoria_txt", "MEMORIA"), CX, 1100, S, aparece(t - tm, .15) * (1 - enf), fnt=self.F["pillb"], fondo="#4F6BD8")
+        if enf > 0: self.pildora(c, s.get("enfado_txt", "IRRITABLE"), CX, 1100, S, enf, fnt=self.F["pillb"], fondo="#E5322D")
         capa_hud(self, c, e, t, S)
 
     # ---------------------------------------------------------------- dormir para recuperarse
@@ -513,11 +528,126 @@ def instalar(V, G):
                 dp = t - tp; c.drawCircle(bx + 50, by, 40 + 160 * dp, trazo("#FFFFFF", 4, max(0, .8 - dp)))
         capa_hud(self, c, e, t, S)
 
+
+    # ---------------------------------------------------------------- hora 16: se acaba el día
+    def e_atardecer(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]; tn, tm = _tw(self, e, s.get("noche_word")), _tw(self, e, s.get("luna_word"))
+        un = TI.clamp((t - tn + .3) / 1.6)
+        def mix(a_, b_, u):
+            ca, cb = color(a_), color(b_)
+            return skia.Color(int(skia.ColorGetR(ca) + (skia.ColorGetR(cb) - skia.ColorGetR(ca)) * u), int(skia.ColorGetG(ca) + (skia.ColorGetG(cb) - skia.ColorGetG(ca)) * u), int(skia.ColorGetB(ca) + (skia.ColorGetB(cb) - skia.ColorGetB(ca)) * u))
+        c.drawRect(skia.Rect(-40, -40, W + 40, 1240), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 0), (0, 1100)], [mix("#F28A5A", "#0B1030", un), mix("#FFC27A", "#2A2A60", un), mix("#FFE2B0", "#4A3A6A", un)], [0, .6, 1])))
+        for k in range(50):
+            rng = np.random.default_rng(100 + k); c.drawCircle(float(rng.random() * W), float(rng.random() * 600), 1.6, relleno("#FFFFFF", un * (.5 + .4 * math.sin(t * 2 + k))))
+        sy = 520 + 520 * _io(un); c.drawCircle(CX + 160, sy, 110, skia.Paint(AntiAlias=True, Color=color("#FFD27A", 1 - .3 * un), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 30))); c.drawCircle(CX + 160, sy, 80, relleno("#FFE7A3"))
+        if t > tm:   # luna que sube
+            um = resorte(t - tm, 4, 6); mx, my = CX - 220, 560 - 220 * um
+            a1 = skia.Path(); a1.addCircle(mx, my, 70); a2 = skia.Path(); a2.addCircle(mx + 32, my - 20, 64)
+            c.drawPath(skia.Op(a1, a2, skia.PathOp.kDifference_PathOp), relleno("#FFF2C4")); c.drawCircle(mx, my, 110, skia.Paint(AntiAlias=True, Color=color("#FFF2C4", .18), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 30)))
+        rng = np.random.default_rng(7); x = -20
+        while x < W:
+            bw = 90 + rng.random() * 90; bh = 220 + rng.random() * 330; top = 1180 - bh
+            c.drawRect(skia.Rect(x, top, x + bw - 6, 1240), relleno("#1A1A2E" if un > .5 else "#3A2A3E"))
+            for wy in range(int(top + 20), 1160, 46):
+                for wx in range(int(x + 14), int(x + bw - 30), 34):
+                    k = (wx * 7 + wy * 13) % 100 / 100
+                    if un > k * .9: c.drawRect(skia.Rect(wx, wy, wx + 18, wy + 26), relleno("#FFD27A", .9 * min(1, (un - k * .9) * 4) * (0 if (wx + wy) % 5 == 0 and t > tm + 1 else 1)))
+            x += bw
+        if t > tm:   # tu ventana sigue encendida, con brillo
+            c.drawRect(skia.Rect(CX + 40, 900, CX + 120, 980), skia.Paint(AntiAlias=True, Color=color("#FFE7A3", .7), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 20)))
+            self.pildora(c, s.get("tu_txt", "TÚ SIGUES DESPIERTO"), CX, 1060, S, aparece(t - tm, .15), fnt=self.F["pillb"], fondo="#E5322D")
+        capa_hud(self, c, e, t, S)
+
+    # ---------------------------------------------------------------- hambre
+    def _comida(c, tipo, x, y, s, a):
+        c.save(); c.translate(x, y); c.scale(s, s)
+        if tipo == "burger":
+            c.drawArc(skia.Rect(-60, -50, 60, 30), 180, 180, True, relleno("#E8A04A", a)); c.drawRect(skia.Rect(-62, -12, 62, 0), relleno("#5AC04A", a))
+            c.drawRRect(rrc(0, 8, 124, 18, 8), relleno("#6A3A1A", a)); c.drawRect(skia.Rect(-58, 16, 58, 24), relleno("#F2C14E", a)); c.drawRRect(rrc(0, 34, 118, 20, 8), relleno("#E8A04A", a))
+            for k in range(5): c.drawCircle(-30 + k * 15, -30 + (k % 2) * 6, 3, relleno("#FFF2C4", a))
+        elif tipo == "donut":
+            c.drawCircle(0, 0, 55, relleno("#E8A04A", a)); c.drawCircle(0, -4, 48, relleno("#F27AB0", a)); c.drawCircle(0, 0, 18, relleno("#00000000", 0))
+            c.drawCircle(0, 0, 18, relleno("#14141E", a))
+            for k in range(8):
+                an = k * .8; c.drawLine(30 * math.cos(an), 30 * math.sin(an) - 4, 38 * math.cos(an), 38 * math.sin(an) - 4, trazo(("#FFE15A", "#6EA0FF", "#FFFFFF")[k % 3], 4, a))
+        else:
+            c.drawPath(skia.Path.Polygon([(0, 60), (-55, -50), (55, -50)], True), relleno("#F2C14E", a)); c.drawRRect(rrc(0, -54, 120, 18, 8), relleno("#D9893A", a))
+            for (px, py) in ((-15, -20), (14, -10), (0, 20)): c.drawCircle(px, py, 9, relleno("#D2323C", a))
+        c.restore()
+
+    def e_hambre(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]; th = _tw(self, e, s.get("hambre_word"))
+        uh = TI.clamp((t - th) / .5); cx, cy = CX, 700
+        shake = 10 * uh * math.sin(t * 40) * (.5 + .5 * math.sin(t * 3))
+        # estómago
+        st = skia.Path(); st.moveTo(cx - 40, cy - 300); st.lineTo(cx - 40, cy - 200)
+        st.cubicTo(cx - 40, cy - 150, cx - 250, cy - 170, cx - 250, cy + 10)
+        st.cubicTo(cx - 250, cy + 190, cx - 80, cy + 260, cx + 60, cy + 220)
+        st.cubicTo(cx + 160, cy + 190, cx + 210, cy + 120, cx + 260, cy + 130); st.lineTo(cx + 275, cy + 70)
+        st.cubicTo(cx + 200, cy + 60, cx + 150, cy + 110, cx + 80, cy + 120)
+        st.cubicTo(cx - 40, cy + 130, cx - 120, cy + 60, cx - 110, cy - 30)
+        st.cubicTo(cx - 100, cy - 110, cx + 20, cy - 150, cx + 20, cy - 200); st.lineTo(cx + 20, cy - 300); st.close()
+        c.save(); c.translate(shake, 0)
+        c.drawPath(st, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((cx - 120, cy + 20), 330, [color("#FFC2CF"), color("#F27A95"), color("#C2456A")])))
+        c.save(); c.clipPath(st, doAntiAlias=True)
+        for k in range(6):   # pliegues internos
+            pg = skia.Path(); pg.moveTo(cx - 230, cy - 20 + k * 40); pg.cubicTo(cx - 160, cy - 60 + k * 45, cx - 60, cy + 40 + k * 30, cx + 60, cy + 120 + k * 20)
+            c.drawPath(pg, trazo("#C2456A", 4, .35))
+        c.drawOval(skia.Rect(cx - 220, cy - 80, cx - 150, cy + 60), relleno("#FFFFFF", .18)); c.restore()
+        c.drawPath(st, trazo("#8A2A4A", 5, .8))
+        c.restore()
+        if uh > 0:   # GRRR y ondas
+            for k in range(3):
+                r = 300 + ((t * 220 + k * 70) % 210); c.drawArc(skia.Rect(cx - r, cy - r * .8, cx + r, cy + r * .8), -40, 80, False, trazo("#FFFFFF", 5, .35 * (1 - (r - 300) / 210) * uh))
+                c.drawArc(skia.Rect(cx - r, cy - r * .8, cx + r, cy + r * .8), 140, 80, False, trazo("#FFFFFF", 5, .35 * (1 - (r - 300) / 210) * uh))
+            f = fuente("Inter", 800, 90); sc = .7 + .3 * resorte(t - th, 10, 14)
+            c.save(); c.translate(cx + 30, 330); c.rotate(-6 + 3 * math.sin(t * 20)); c.scale(sc, sc)
+            texto(c, "GRRR…", 5, 8, f, "#14182A", alfa=uh); texto(c, "GRRR…", 0, 0, f, "#FFE15A", alfa=uh); c.restore()
+            for k, tp in enumerate(("burger", "donut", "pizza", "burger", "donut")):
+                an = t * .9 + k * 2 * math.pi / 5; R_ = 360
+                _comida(c, tp, cx + R_ * math.cos(an), cy + R_ * .75 * math.sin(an), .9 + .1 * math.sin(t * 3 + k), TI.clamp((t - th - k * .12) / .3))
+            self.pildora(c, s.get("hambre_txt", "HORMONA DEL HAMBRE ▲"), CX, 1100, S, uh, fnt=self.F["pillb"], fondo="#C2456A")
+        capa_hud(self, c, e, t, S)
+
+    # ---------------------------------------------------------------- paranoia (hora 72)
+    def e_paranoia(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]; tc = _tw(self, e, s.get("cree_word"))
+        uc = TI.clamp((t - tc) / .5)
+        # ojos que vigilan desde la oscuridad
+        for j, (ox, oy) in enumerate(((CX - 330, 420), (CX + 330, 470), (CX - 360, 900), (CX + 360, 860), (CX, 330))):
+            ua = TI.clamp((t - tc - j * .18) / .3); bl = 1 if (t * .7 + j * .29) % 1 > .07 else .1
+            look = -1 if ox > CX else 1
+            for sx in (-1, 1):
+                c.drawOval(skia.Rect(ox + sx * 26 - 20, oy - 12 * bl, ox + sx * 26 + 20, oy + 12 * bl), relleno("#FFFFFF", .9 * ua))
+                c.drawCircle(ox + sx * 26 + look * 8, oy, 7 * bl, relleno("#14141E", ua))
+        mir = math.sin(t * 2.6) if uc > 0 else 0
+        _cara(c, CX, 720, 1.05, t, .95, .9, .3, 0, .7, 0, aparece(dt0 + .1, .2), mirar=mir, sudor=uc)
+        if uc > 0:   # bocadillo de pensamiento
+            bx, by = CX + 160, 330; sc = .6 + .4 * resorte(t - tc, 8, 11)
+            for k, (dx, dy, r) in enumerate(((-120, 140, 14), (-80, 100, 22))): c.drawCircle(bx + dx, by + dy + 60, r * sc, relleno("#FFFFFF", .95 * uc))
+            c.save(); c.translate(bx, by); c.scale(sc, sc)
+            c.drawRRect(rrc(0, 0, 400, 130, 65), relleno("#FFFFFF", .95 * uc))
+            texto(c, s.get("idea_txt", "¿ME VIGILAN?"), 0, 0, fuente("Inter", 800, 46), "#14182A", alfa=uc); c.restore()
+            self.pildora(c, s.get("pill", "IDEAS FALSAS"), CX, 1100, S, uc, fnt=self.F["pillb"], fondo="#5A2A8A")
+        capa_hud(self, c, e, t, S)
+
     # ---------------------------------------------------------------- efectos
     def efectos_sueno(self, e, pon, libre):
         s = e["spec"]; tp = s["tipo"]; T = lambda w: self.ta(w, e)
         h = s.get("hud")
         if h and h.get("word"): self.rodillo(T(h["word"]), h.get("dur", 1.0))
+        if h and h.get("capitulo"):   # entrada de capítulo: golpe de reloj + vuelo al sitio
+            self.sfx(TI.f_de_t(e["t0"] + .12), "ding", .7); self.sfx(TI.f_de_t(e["t0"] + h.get("grande", 1.0)), "whoosh", .45)
+        if tp == "atardecer":
+            if s.get("noche_word"): self.sfx(TI.f_de_t(T(s["noche_word"])), "bajada", .7)
+            if s.get("luna_word"): self.sfx(TI.f_de_t(T(s["luna_word"])), "campana", .45)
+            for j in range(6): self.sfx(TI.f_de_t(T(s["noche_word"]) + .4 + j * .2), "tic", .35) if s.get("noche_word") else None
+        if tp == "hambre" and s.get("hambre_word"):
+            th = T(s["hambre_word"]); self.sfx(TI.f_de_t(th), "vibra", 1.0); self.sfx(TI.f_de_t(th + .7), "vibra", .7)
+            for j in range(5): self.sfx(TI.f_de_t(th + .1 + j * .12), "pop", .3)
+        if tp == "paranoia" and s.get("cree_word"):
+            tc = T(s["cree_word"]); self.sfx(TI.f_de_t(tc), "susurro", 1.0); self.sfx(TI.f_de_t(tc + .9), "susurro", .7)
+            for j in range(5): self.sfx(TI.f_de_t(tc + j * .18), "parpadeo", .5)
         if tp == "insomne":
             if s.get("palillos_word"): self.sfx(TI.f_de_t(T(s["palillos_word"]) + .3), "clac", 1.0); self.sfx(TI.f_de_t(T(s["palillos_word"]) + .42), "clac", .8)
             if s.get("caen_word"): self.sfx(TI.f_de_t(T(s["caen_word"]) + .45), "clac", .7); self.sfx(TI.f_de_t(T(s["caen_word"]) + .8), "zzz", .9)
@@ -530,7 +660,9 @@ def instalar(V, G):
         if tp == "conducir":
             self.sfx(TI.f_de_t(e["t0"] + .2), "motor", .8)
             if s.get("eses_word"): self.sfx(TI.f_de_t(T(s["eses_word"])), "motor", .9)
-            if s.get("medidor"): self.rodillo(T(s["medidor"]["word"]), 1.0); self.sfx(TI.f_de_t(T(s["medidor"]["word"]) + 1.0), "bip", .8)
+            if s.get("medidor"):
+                for q in (s["medidor"].get("pasos") or [s["medidor"]]): self.rodillo(T(q["word"]), 1.0); self.sfx(TI.f_de_t(T(q["word"]) + 1.0), "bip", .8)
+            if s.get("eses2_word"): self.sfx(TI.f_de_t(T(s["eses2_word"])), "motor", 1.0)
         if tp == "neuronas":
             if s.get("apaga_word"):
                 for j in range(3): self.sfx(TI.f_de_t(T(s["apaga_word"]) + j * .45), "bajada", .5)
@@ -553,6 +685,6 @@ def instalar(V, G):
             self.sfx(TI.f_de_t(e["t0"] + .25), "noti", .8)
             if s.get("pulsa_word"): self.sfx(TI.f_de_t(T(s["pulsa_word"])), "tecla", .9)
 
-    for k, fn in (("insomne", e_insomne), ("calendario", e_calendario), ("conducir", e_conducir), ("neuronas", e_neuronas), ("limpieza", e_limpieza),
+    for k, fn in (("atardecer", e_atardecer), ("hambre", e_hambre), ("paranoia", e_paranoia), ("insomne", e_insomne), ("calendario", e_calendario), ("conducir", e_conducir), ("neuronas", e_neuronas), ("limpieza", e_limpieza),
                   ("alucina", e_alucina), ("recuerdos", e_recuerdos), ("dormir", e_dormir), ("capitulo", e_capitulo)):
         setattr(V, "e_" + k, fn); setattr(V, "efectos_" + k, efectos_sueno)

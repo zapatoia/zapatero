@@ -1,0 +1,355 @@
+{
+ "titulo": "¿Qué pasaría si dejases de dormir? (hora a hora)",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1200,
+ "pausa": 0.6,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Qué pasaría si dejases de dormir a propósito?",
+   "tts": "[curious] ¿Qué pasaría si dejases de dormir... a propósito?",
+   "key": "a propósito",
+   "escena": {
+    "tipo": "insomne",
+    "surface": "noche",
+    "ojos": [
+     {
+      "word": "@0",
+      "v": 0.55
+     },
+     {
+      "word": "dormir",
+      "v": 0.25,
+      "dur": 0.5
+     }
+    ],
+    "palillos_word": "propósito",
+    "ojeras": 0.4,
+    "cabecea": true,
+    "hud": {
+     "desde": 0,
+     "hasta": 0
+    }
+   }
+  },
+  {
+   "texto": "Vamos hora a hora.",
+   "tts": "Vamos hora a hora.",
+   "key": "hora a hora"
+  },
+  {
+   "texto": "Hora 16. Tu día normal se acaba, pero tú sigues.",
+   "tts": "Hora dieciséis. Tu día normal se acaba... pero tú sigues.",
+   "key": "tú sigues",
+   "escena": {
+    "tipo": "atardecer",
+    "surface": "clay",
+    "noche_word": "acaba",
+    "luna_word": "sigues",
+    "hud": {
+     "desde": 0,
+     "hasta": 16,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hora 17. Tu cerebro ya rinde como con el límite de alcohol para conducir.",
+   "tts": "Hora diecisiete. Tu cerebro ya rinde como con el límite de alcohol para conducir.",
+   "key": "para conducir",
+   "escena": {
+    "tipo": "conducir",
+    "surface": "dark",
+    "eses_word": "alcohol",
+    "medidor": {
+     "pasos": [
+      {
+       "word": "límite",
+       "valor": 0.5,
+       "label": "LÍMITE PARA CONDUCIR"
+      }
+     ]
+    },
+    "hud": {
+     "desde": 16,
+     "hasta": 17,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hora 24. Como con el doble.",
+   "tts": "Hora veinticuatro. Como con el doble.",
+   "key": "el doble",
+   "escena": {
+    "tipo": "conducir",
+    "surface": "clay",
+    "eses_word": "@0",
+    "eses2_word": "doble",
+    "medidor": {
+     "pasos": [
+      {
+       "word": "@0",
+       "valor": 0.5,
+       "label": "LÍMITE PARA CONDUCIR"
+      },
+      {
+       "word": "doble",
+       "valor": 1.0,
+       "label": "EL DOBLE DEL LÍMITE"
+      }
+     ],
+     "desde": 0.5
+    },
+    "hud": {
+     "desde": 17,
+     "hasta": 24,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Y además tienes más hambre de lo normal.",
+   "tts": "Y además tienes más hambre de lo normal.",
+   "key": "de lo normal",
+   "escena": {
+    "tipo": "hambre",
+    "surface": "dark",
+    "hambre_word": "hambre",
+    "hud": {
+     "desde": 24,
+     "hasta": 24
+    }
+   }
+  },
+  {
+   "texto": "Hora 31. Tu cerebro no ha podido sacar la basura de la noche, y se acumula.",
+   "tts": "Hora treinta y una. Tu cerebro no ha podido sacar la basura de la noche... y se acumula.",
+   "key": "y se acumula",
+   "escena": {
+    "tipo": "limpieza",
+    "surface": "light",
+    "acumula_word": "acumula",
+    "acumula_txt": "UNA NOCHE SIN LIMPIEZA",
+    "hud": {
+     "desde": 24,
+     "hasta": 31,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hora 36. Empieza a apagarse a trozos, aunque tengas los ojos abiertos:",
+   "tts": "Hora treinta y seis. Empieza a apagarse a trozos, aunque tengas los ojos abiertos:",
+   "key": "los ojos abiertos",
+   "escena": {
+    "tipo": "neuronas",
+    "surface": "dark",
+    "apaga_word": "apagarse",
+    "micro_word": "microsueños",
+    "hud": {
+     "desde": 31,
+     "hasta": 36,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "son microsueños.",
+   "tts": "son microsueños.",
+   "key": "microsueños"
+  },
+  {
+   "texto": "Hora 48. Ves cosas que no están.",
+   "tts": "Hora cuarenta y ocho. Ves cosas que no están.",
+   "key": "que no están",
+   "escena": {
+    "tipo": "alucina",
+    "surface": "noche",
+    "sombra_word": "Ves",
+    "ojos_word": "cosas",
+    "pill": "ALUCINACIONES",
+    "hud": {
+     "desde": 36,
+     "hasta": 48,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hora 72. Te crees cosas que no son verdad.",
+   "tts": "Hora setenta y dos. Te crees cosas que no son verdad.",
+   "key": "no son verdad",
+   "escena": {
+    "tipo": "paranoia",
+    "surface": "dark",
+    "cree_word": "crees",
+    "idea_txt": "¿ME VIGILAN?",
+    "pill": "IDEAS FALSAS",
+    "hud": {
+     "desde": 48,
+     "hasta": 72,
+     "word": "@0.15",
+     "dur": 0.7,
+     "capitulo": true,
+     "grande": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hora 264. Día 11: el récord de un estudiante en 1964.",
+   "tts": "Hora doscientas sesenta y cuatro. Día once: el récord de un estudiante en mil novecientos sesenta y cuatro.",
+   "key": "en 1964",
+   "escena": {
+    "tipo": "calendario",
+    "surface": "light",
+    "anio": "1964",
+    "word": "Día",
+    "desde_dia": 4,
+    "dias": 11,
+    "dur": 1.2,
+    "sello_txt": "RÉCORD",
+    "hud": {
+     "desde": 72,
+     "hasta": 264,
+     "word": "@0.15",
+     "dur": 1.0,
+     "capitulo": true,
+     "grande": 1.3
+    }
+   }
+  },
+  {
+   "texto": "Le fallaba la memoria y se enfadaba por todo.",
+   "tts": "Le fallaba la memoria y se enfadaba por todo.",
+   "key": "por todo",
+   "escena": {
+    "tipo": "recuerdos",
+    "surface": "blue",
+    "memoria_word": "memoria",
+    "enfado_word": "enfadaba",
+    "hud": {
+     "desde": 264,
+     "hasta": 264
+    }
+   }
+  },
+  {
+   "texto": "¿Cómo lo arregló? Durmiendo casi quince horas.",
+   "tts": "¿Cómo lo arregló? Durmiendo casi quince horas.",
+   "key": "quince horas",
+   "escena": {
+    "tipo": "dormir",
+    "surface": "dark",
+    "word": "Durmiendo",
+    "valor_h": 14,
+    "valor_m": 46,
+    "label": "DURMIENDO SEGUIDO"
+   }
+  },
+  {
+   "texto": "Así que esta noche, cuando pienses «un capítulo más»…",
+   "tts": "Así que esta noche, cuando pienses... «un capítulo más»...",
+   "key": "un capítulo más",
+   "escena": {
+    "tipo": "capitulo",
+    "surface": "light",
+    "pulsa_word": "más",
+    "titulo": "Episodio 7"
+   }
+  },
+  {
+   "texto": "acuérdate: tu cerebro tiene la basura esperando en la puerta.",
+   "tts": "[playful] acuérdate: tu cerebro tiene la basura esperando en la puerta.",
+   "key": "*en la puerta",
+   "escena": {
+    "tipo": "insomne",
+    "surface": "noche",
+    "ojos": [
+     {
+      "word": "@0",
+      "v": 0.9
+     }
+    ],
+    "palillos_word": "@-2",
+    "caen_word": "cerebro",
+    "bolsa_word": "basura",
+    "bolsa_txt": "LA BASURA ESPERA",
+    "ojeras": 0.8,
+    "venas": 0.6
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien siempre dice «un capítulo más».",
+  "tts": "[playful] Pásaselo a quien siempre dice... «un capítulo más».",
+  "key": "un capítulo más",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El trasnochador",
+  "salida": "13-sin-dormir-v2-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Randy Gardner, estudiante, 1964: unas 264 horas (11 días) sin dormir; memoria e irritabilidad; después durmió 14 h 46 min",
+   "url": "https://en.wikipedia.org/wiki/Randy_Gardner_sleep_deprivation_experiment"
+  },
+  {
+   "dato": "Gardner: problemas de memoria y cada vez más irritable (NPR, 60.º aniversario)",
+   "url": "https://www.npr.org/2024/01/28/1227217274/sleep-deprivation-record"
+  },
+  {
+   "dato": "17–19 h despierto ≈ rendimiento con 0,05 % de alcohol en sangre (= 0,5 g/l, límite general en España) (Williamson y Feyer 2000)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1739867"
+  },
+  {
+   "dato": "Neuronas que se «apagan» a trozos en cerebros despiertos con sueño (Vyazovskiy et al., Nature 2011)",
+   "url": "https://www.nimh.nih.gov/news/science-news/2011/tired-neurons-caught-nodding-off-in-sleep-deprived-rats"
+  },
+  {
+   "dato": "El cerebro limpia residuos durante el sueño, unas 10 veces más activo (Xie et al., Science 2013, en ratones)",
+   "url": "https://www.nih.gov/news-events/news-releases/brain-may-flush-out-toxins-during-sleep"
+  },
+  {
+   "dato": "Alucinaciones entre las 48 y las 90 h sin dormir (Waters et al., Frontiers in Psychiatry 2018)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30042701/"
+  },
+  {
+   "dato": "17 h despierto ≈ 0,05 % de alcohol; 24 h ≈ 0,10 % (CDC/NIOSH)",
+   "url": "https://archive.cdc.gov/www_cdc_gov/niosh/emres/longhourstraining/impaired.html"
+  },
+  {
+   "dato": "Una noche sin dormir sube la grelina (hormona del hambre) y el hambre (Schmid et al., J Sleep Res 2008)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/18564298/"
+  },
+  {
+   "dato": "Tras ~31 h despierto aumenta el beta-amiloide en el cerebro (Shokri-Kojori et al., PNAS 2018)",
+   "url": "https://www.nih.gov/news-events/nih-research-matters/sleep-deprivation-increases-alzheimers-protein"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (ciudad, carretera, habitación) y el velo de los rótulos de capítulo; ningún texto entra en la columna de botones",
+  "voz_cuadro_0": "medido: la voz arranca a 0,099 s; «¿Qué» entra suave por la etiqueta [curious] (misma toma pagada)",
+  "palabras_completas": "medido: «1964.» (…cuatro) cae de −33 a −60 dB igual que en la toma original de ElevenLabs (53,35–53,40 s): final natural",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}
