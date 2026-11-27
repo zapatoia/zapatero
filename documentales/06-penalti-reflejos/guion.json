@@ -3,7 +3,7 @@
  "formato": "vertical 1080x1920 (TikTok / Reels)",
  "voz_modelo": "eleven_v3",
  "tope_caracteres": 1000,
- "pausa": 0.6,
+ "pausa": 0.95,
  "sfx": true,
  "lineas": [
   {
@@ -18,40 +18,25 @@
     "rondas": [
      {
       "word": "uno>",
-      "espera": 2.0,
+      "espera": 2.4,
       "lado": 1
      },
      {
       "word": "amaga>",
-      "espera": 2.8,
-      "amagos": [
-       1.1
-      ],
-      "lado": -1
-     },
-     {
-      "word": "rápida>",
-      "espera": 0.8,
-      "lado": 1,
-      "vel": 1.25
-     },
-     {
-      "word": "veces>",
       "espera": 3.2,
       "amagos": [
-       0.9,
-       2.0
+       1.4
       ],
       "lado": -1
      },
      {
       "word": "decisivo>",
-      "espera": 3.8,
+      "espera": 4.0,
       "amagos": [
        2.6
       ],
       "lado": 1,
-      "vel": 1.2
+      "vel": 1.1
      }
     ],
     "rotulos": [
@@ -65,7 +50,9 @@
      }
     ],
     "portero_word": "tiempo",
-    "demo_tiro": "tire"
+    "demo_tiro": "tire",
+    "ver_s": 2.5,
+    "chut_s": 0.9
    }
   },
   {
@@ -81,57 +68,62 @@
   {
    "texto": "Abajo verás si es gol… o parada.",
    "tts": "Abajo verás si es gol... o parada.",
-   "key": "parada"
+   "key": "parada",
+   "silencio": 1.0
   },
   {
    "texto": "Ronda uno.",
    "tts": "Ronda uno.",
    "key": "uno",
-   "silencio": 3.6
+   "silencio": 5.2
   },
   {
    "texto": "¿Qué te ha salido? Vamos a complicarlo.",
    "tts": "¿Qué te ha salido? Vamos a complicarlo.",
-   "key": "complicarlo"
+   "key": "complicarlo",
+   "silencio": 0.5
   },
   {
    "texto": "Ronda dos. Ojo, que amaga.",
    "tts": "Ronda dos. Ojo, que amaga.",
    "key": "amaga",
-   "silencio": 4.4
+   "silencio": 6.0
   },
   {
    "texto": "Si pausaste en el amago, te ha engañado.",
    "tts": "Si pausaste en el amago, te ha engañado.",
-   "key": "engañado"
+   "key": "engañado",
+   "silencio": 0.6
   },
   {
    "texto": "Ronda tres. Esta va rápida.",
    "tts": "Ronda tres. Esta va rápida.",
    "key": "rápida",
-   "silencio": 2.4
+   "omitir": true
   },
   {
    "texto": "¿Te ha pillado? Normal.",
    "tts": "¿Te ha pillado? Normal.",
-   "key": "Normal"
+   "key": "Normal",
+   "omitir": true
   },
   {
    "texto": "Ronda cuatro. Ahora amaga dos veces.",
    "tts": "Ronda cuatro. Ahora amaga dos veces.",
    "key": "dos veces",
-   "silencio": 4.8
+   "omitir": true
   },
   {
    "texto": "Ya casi está.",
    "tts": "Ya casi está.",
-   "key": "casi está"
+   "key": "casi está",
+   "omitir": true
   },
   {
    "texto": "Última ronda. El penalti decisivo.",
    "tts": "[firm] Última ronda. El penalti decisivo.",
    "key": "decisivo",
-   "silencio": 5.4
+   "silencio": 6.8
   },
   {
    "texto": "Comenta tu mejor tiempo.",

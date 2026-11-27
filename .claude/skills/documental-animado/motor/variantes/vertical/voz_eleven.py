@@ -116,6 +116,18 @@ def armar(proy, g, t):
             if j is not None:
                 w["s"] = round(max(j * .005 - .01, w["s"]), 3); w["e"] = max(w["e"], round(w["s"] + .08, 3))
                 if k + 1 < len(pal) and pal[k + 1]["s"] < w["e"]: pal[k + 1]["s"] = w["e"]
+    # líneas omitidas (guion.json → lineas[].omitir): se quita su audio de la toma ya pagada (con la pausa que la sigue)
+    for n, l in reversed(list(enumerate(g["lineas"], 1))):
+        if not l.get("omitir"): continue
+        ks = [k for k, w in enumerate(pal) if w["linea"] == n]
+        if not ks: continue
+        k0, k1 = ks[0], ks[-1]; a = max(pal[k0]["s"] - .03, pal[k0 - 1]["e"] + .02 if k0 else 0)
+        b = pal[k1 + 1]["s"] - .03 if k1 + 1 < len(pal) else len(y) / SR
+        ia, ib = int(a * SR), int(b * SR); f6 = int(.006 * SR); y = y.copy()
+        y[max(0, ia - f6):ia] *= np.linspace(1, 0, min(f6, ia)); y[ib:ib + f6] *= np.linspace(0, 1, len(y[ib:ib + f6]))
+        y = np.concatenate([y[:ia], y[ib:]]); d = b - a
+        for w in pal[k1 + 1:]: w["s"] = round(w["s"] - d, 3); w["e"] = round(w["e"] - d, 3)
+        del pal[k0:k1 + 1]
     # silencios pedidos (guion.json → lineas[].silencio, en s): se insertan tras la última palabra de la línea (juegos con espera)
     for n, l in reversed(list(enumerate(g["lineas"], 1))):
         sil_s = float(l.get("silencio", 0) or 0)

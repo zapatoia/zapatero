@@ -1,8 +1,8 @@
 {
  "video": "/home/user/zapatero/documentales/06-penalti-reflejos/final/06-penalti-reflejos.mp4",
- "duracion_s": 55.5,
+ "duracion_s": 46.7,
  "nivel": {
-  "lufs": -14.2,
+  "lufs": -14.1,
   "dbtp": -1.2,
   "ok": true
  },
@@ -31,25 +31,25 @@
   "ok": true
  },
  "pausas": {
-  "pausa_max_s": 5.675,
-  "hueco_entre_marcas_s": 5.852,
-  "fin_voz_s": 55.103,
+  "pausa_max_s": 7.075,
+  "hueco_entre_marcas_s": 7.252,
+  "fin_voz_s": 46.303,
   "cierre_s": 0.4,
   "ok": false,
   "aceptada": "a propósito: juego de reflejos; cada ronda deja un silencio real (lineas[].silencio) para que la voz no delate cuándo se tira el portero"
  },
  "palabras_completas": {
-  "n": 23,
+  "n": 16,
   "peor": {
    "w": "uno.",
-   "t": 11.306,
+   "t": 12.456,
    "caida_db": 25.5,
    "desde_db": -34.5
   },
   "malas": [
    {
     "w": "uno.",
-    "t": 11.306,
+    "t": 12.456,
     "caida_db": 25.5,
     "desde_db": -34.5
    }
@@ -69,127 +69,85 @@
    },
    {
     "w": "tire.",
-    "t": 7.568,
+    "t": 7.638,
     "caida_db": 9.6,
     "desde_db": -37.8
    },
    {
     "w": "gol…",
-    "t": 9.213,
+    "t": 9.283,
     "caida_db": 0.0,
     "desde_db": -60.3
    },
    {
     "w": "parada.",
-    "t": 10.093,
+    "t": 10.163,
     "caida_db": 0.0,
     "desde_db": -66.4
    },
    {
     "w": "uno.",
-    "t": 11.306,
+    "t": 12.456,
     "caida_db": 25.5,
     "desde_db": -34.5
    },
    {
     "w": "salido?",
-    "t": 15.668,
+    "t": 18.418,
     "caida_db": 14.7,
     "desde_db": -28.1
    },
    {
     "w": "complicarlo.",
-    "t": 17.328,
+    "t": 20.188,
     "caida_db": 14.1,
     "desde_db": -33.0
    },
    {
     "w": "dos.",
-    "t": 18.462,
+    "t": 21.822,
     "caida_db": 18.2,
     "desde_db": -27.5
    },
    {
     "w": "amaga.",
-    "t": 19.742,
+    "t": 23.102,
     "caida_db": 0.0,
     "desde_db": -53.3
    },
    {
     "w": "engañado.",
-    "t": 26.392,
+    "t": 31.352,
     "caida_db": 12.3,
     "desde_db": -17.2
    },
    {
-    "w": "tres.",
-    "t": 27.868,
-    "caida_db": 18.2,
-    "desde_db": -26.8
-   },
-   {
-    "w": "rápida.",
-    "t": 28.983,
-    "caida_db": 0.0,
-    "desde_db": -57.9
-   },
-   {
-    "w": "pillado?",
-    "t": 32.543,
-    "caida_db": 0.0,
-    "desde_db": -69.7
-   },
-   {
-    "w": "Normal.",
-    "t": 33.623,
-    "caida_db": 0.0,
-    "desde_db": -53.8
-   },
-   {
-    "w": "cuatro.",
-    "t": 34.807,
-    "caida_db": 21.5,
-    "desde_db": -29.0
-   },
-   {
-    "w": "veces.",
-    "t": 36.383,
-    "caida_db": 0.0,
-    "desde_db": -53.7
-   },
-   {
-    "w": "está.",
-    "t": 42.402,
-    "caida_db": 8.9,
-    "desde_db": -39.1
-   },
-   {
     "w": "ronda.",
-    "t": 43.63,
-    "caida_db": 17.7,
-    "desde_db": -38.6
+    "t": 33.43,
+    "caida_db": 17.4,
+    "desde_db": -38.7
    },
    {
     "w": "decisivo.",
-    "t": 44.967,
+    "t": 34.767,
     "caida_db": 17.2,
-    "desde_db": -28.1
+    "desde_db": -28.0
    },
    {
     "w": "tiempo.",
-    "t": 51.91,
+    "t": 43.11,
     "caida_db": 12.9,
     "desde_db": -25.3
    },
    {
     "w": "0,2…",
-    "t": 53.943,
+    "t": 45.143,
     "caida_db": 0.0,
     "desde_db": -42.4
    },
    {
     "w": "selección.",
-    "t": 54.983,
+    "t": 46.183,
     "caida_db": 0.0,
     "desde_db": -64.0
    }

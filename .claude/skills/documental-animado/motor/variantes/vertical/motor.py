@@ -503,7 +503,7 @@ class Vertical(ES.Estilo):
             ids = self.idx_linea.get(n)
             if not ids or ln.get("cap", True) is False: continue
             s0 = pal[ids[0]]["s"] - .05
-            nxt = self.idx_linea.get(n + 1); fin = (pal[nxt[0]]["s"] - 3 / FPS - .05) if nxt else self.fin_s + 1
+            nxt = next((self.idx_linea[m] for m in range(n + 1, len(self.lineas) + 1) if m in self.idx_linea), None); fin = (pal[nxt[0]]["s"] - 3 / FPS - .05) if nxt else self.fin_s + 1
             if not (s0 <= t < fin): continue
             sc = next((es for es in reversed(self.escenas) if es["t0"] <= max(t, s0)), self.escenas[0])
             S = SUP[sc["spec"].get("surface", "dark")]
@@ -585,13 +585,14 @@ class Vertical(ES.Estilo):
                 for r in self._pen_rondas(e):
                     if libre(r["t0"] + .02, r["t0"] + .3): self.sfx(TI.f_de_t(r["t0"] + .02), "ding", .6)      # «bling» al empezar la ronda
                     k = 0
-                    while r["t0"] + .7 + k * .8 < r["td"] + 1.0:                                          # latido de espera (ritmo fijo: no avisa)
+                    while r["t0"] + .7 + k * .8 < r["td"] + .4:                                          # latido de espera (ritmo fijo: no avisa)
                         tl_ = r["t0"] + .7 + k * .8
                         if libre(tl_, tl_ + .3): self.sfx(TI.f_de_t(tl_), "golpe", .16); self.sfx(TI.f_de_t(tl_ + .2), "golpe", .10)
                         k += 1
                     if libre(r["td"] + .45, r["td"] + .8): self.sfx(TI.f_de_t(r["td"] + .45), "golpe", .35)   # cae el portero (después: el sonido no avisa)
-                    if libre(r["td"] + .73, r["td"] + 1.07): self.sfx(TI.f_de_t(r["td"] + .73), "whoosh", .5)   # chut
-                    if libre(r["td"] + 1.09, r["td"] + 1.2): self.sfx(TI.f_de_t(r["td"] + 1.09), "pop", .4)       # red
+                    tch = s.get("chut_s", .75)
+                    if libre(r["td"] + tch - .02, r["td"] + tch + .32): self.sfx(TI.f_de_t(r["td"] + tch - .02), "whoosh", .5)   # chut
+                    if libre(r["td"] + tch + .34, r["td"] + tch + .45): self.sfx(TI.f_de_t(r["td"] + tch + .34), "pop", .4)       # red
             if s.get("tipo") == "bolas":
                 for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
                 pon(self.ta(s["blanco_word"], e), "destello", .6)
@@ -1458,10 +1459,11 @@ class Vertical(ES.Estilo):
         if demo and t - ta(dtw) > .1: self.pildora(c, s.get("demo_txt", "ASÍ"), x0 - 40, GY + 70, S, min(1, (t - ta(dtw) - .1) / .15), fnt=self.F["pillb"])
         # balón: tras la estirada sale disparado a la escuadra contraria (después del momento de pausar: no avisa)
         bx, by, br, en_red, ur = CX, 800.0, 36.0, False, 0.0
-        if act and t >= act["td"] + .75:
-            u = min(1.0, (t - act["td"] - .75) / .34); ue = 1 - (1 - u) ** 2; tx_, ty_ = CX - act["lado"] * 300, TY + 78
+        tch = s.get("chut_s", .75)
+        if act and t >= act["td"] + tch:
+            u = min(1.0, (t - act["td"] - tch) / .34); ue = 1 - (1 - u) ** 2; tx_, ty_ = CX - act["lado"] * 300, TY + 78
             bx = CX + (tx_ - CX) * ue; by = 800 + (ty_ - 800) * ue - 90 * math.sin(math.pi * u); br = 36 - 17 * ue; en_red = u >= 1
-            ur = (t - act["td"] - 1.09) / .5
+            ur = (t - act["td"] - tch - .34) / .5
             for k in range(1, 6):                                                # estela
                 uk = max(0.0, u - k * .05); uke = 1 - (1 - uk) ** 2
                 c.drawCircle(CX + (tx_ - CX) * uke, 800 + (ty_ - 800) * uke - 90 * math.sin(math.pi * uk), br * (1 - k * .12), relleno("#FFFFFF", .12 * (1 - k / 6) * (u < 1)))
@@ -1487,7 +1489,7 @@ class Vertical(ES.Estilo):
         # marcador: solo en la demo y en cada ronda; sale mientras se explica otra cosa
         tramos = []
         if s.get("demo_word") and R: tramos.append((ta(s["demo_word"]), R[0]["t0"] - .3))
-        for r in R: tramos.append((r["t0"] - .3, min(r["td"] + 1.75, r["t1"])))
+        for r in R: tramos.append((r["t0"] - .3, min(r["td"] + s.get("ver_s", 1.75), r["t1"])))
         un = []
         for a0, a1 in sorted(tramos):
             if un and a0 <= un[-1][1] + .5: un[-1][1] = max(un[-1][1], a1)
