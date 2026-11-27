@@ -236,6 +236,11 @@ Corrige y vuelve a revisar hasta que todo pase.
   (qué pasa exactamente en cada uno), no un resumen.
 - Siempre más detalle visual y de sonido que la versión anterior (el 13 v2 pasó de 108 a 156 efectos): cada cosa que aparece o cambia, suena.
 
+**Corrección del usuario sobre el 13 v2: el velo oscuro de la entrada de capítulo**
+- El velo/borrón que tapa la escena mientras el contador sale grande NO le gusta: entra y sale de golpe, sin transición de desenfocado a enfocado. Regla general:
+  **ningún desenfoque, velo ni oscurecido de fondo si no tiene una transición suave y bien hecha (entrada y salida graduales, con desenfoque real que se va
+  enfocando). Si no se puede hacer bien, no se pone.** Para los capítulos: o un desenfoque real animado (blur que baja de N px a 0 con easing), o nada.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
