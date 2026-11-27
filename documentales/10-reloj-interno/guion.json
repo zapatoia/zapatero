@@ -364,5 +364,11 @@
    "dato": "Baddeley (1966), «Time estimation at reduced body temperature», American Journal of Psychology 79: buzos en agua fría",
    "url": "https://www.psychologytoday.com/gb/blog/the-speed-life/202011/not-all-times-are-alike"
   }
- ]
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: lo que salta son fondos a pantalla completa (piel, cama, agua, calor/frío) y partículas decorativas (ascuas, nieve, escarcha, burbujas) distintas de la mediana; ningún texto, cifra ni bocadillo entra en la franja de botones",
+  "pausas": "a propósito: juego de 44 s en silencio real tras «¡Ya!» (lineas[].silencio) para que la voz no dé pistas al contar",
+  "palabras_completas": "medido: «aceleran.» baja despacio de −17 a −30 dB en 0,2 s (la n final) y luego cae; queda tapado por el sonido de la transición que entra justo ahí",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
 }

@@ -197,6 +197,12 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Cada vídeo nuevo debe superar al anterior en algo visual y en algo de audio, y decirlo al entregar. Escenas de objetos cotidianos en `escenas_cotidianas.py`: `ojo`, `reloj` (24 h), `bateria`, `digital` (despertador de 7 segmentos, `tachar_word`). Las escenas nuevas van en módulos aparte con su `efectos_<tipo>` y se enganchan solas.
 - Nada quieto: cada escena lleva micro-movimiento propio (parpadeo, estrellas que titilan, ola y burbujas, pantalla que se desplaza, chispas).
 
+**Documental 10 (27 nov 2026), mejoras que quedan como regla**
+- Cada transición suena según su tipo (`SFX_TRANS`: whip→whoosh, zoom→zum, mask→barrido, card→desliz); `"sfx_trans": false` vuelve al whoosh único.
+- En juegos de tiempo, el silencio es de verdad: nada rítmico mientras el jugador cuenta (solo pitido de salida y golpe al parar); `lineas[].cap_dur` quita el subtítulo para que no tape el juego.
+- Cronómetros de juego cuentan en tiempo real desde el final de la palabra (`inicio_fin`), para que el reto sea justo.
+- Nada de cifras no verificadas aunque salgan en la referencia: se cuenta sin el número.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
