@@ -37,6 +37,30 @@ def _ruta_serif(familia, peso):                                   # la serif del
 TX._ruta = _ruta_serif
 
 W, H, FPS = TI.W, TI.H, TI.FPS
+
+# ---- efectos de sonido extra (se registran en el núcleo; los existentes no cambian)
+from nucleo import audio as AU                                     # noqa: E402
+def _s_silbato():
+    """Silbato de árbitro: tono ~3 kHz con el trino de la bolita (FM ~32 Hz) y algo de soplido."""
+    d = .55; n = int(d * AU.SR); t = np.arange(n) / AU.SR
+    f = 3050 + 220 * np.sign(np.sin(2 * np.pi * 32 * t)) * .5 + 90 * np.sin(2 * np.pi * 32 * t)
+    x = np.sin(2 * np.pi * np.cumsum(f) / AU.SR) + .25 * np.sin(4 * np.pi * np.cumsum(f) / AU.SR)
+    x = x * (.8 + .2 * np.sin(2 * np.pi * 32 * t)) + .18 * AU._banda(AU._ruido(n, 9), 2000, 6000)
+    env = np.minimum(1, t / .015) * np.minimum(1, (d - t) / .08) * (1 - .15 * t / d)
+    return x * env
+def _s_latido():
+    """Latido (lub-dub) grave y suave."""
+    d = .5; n = int(d * AU.SR); t = np.arange(n) / AU.SR; x = np.zeros(n)
+    for t0, a in ((0.0, 1.0), (.19, .7)):
+        k = int(t0 * AU.SR); tt = t[:n - k]
+        x[k:] += a * (np.sin(2 * np.pi * (58 - 12 * tt / .12) * tt) * np.exp(-tt / .055) * np.minimum(1, tt / .004))
+    return np.tanh(1.6 * AU._bajos(x, 180))
+def _s_estadio():
+    """Rumor de estadio que crece y se apaga (un solo golpe de 2 s, sin bucle)."""
+    d = 2.0; n = int(d * AU.SR); u = np.linspace(0, 1, n)
+    x = AU._banda(AU._ruido(n, 21), 250, 2400) + .5 * AU._banda(AU._ruido(n, 22), 900, 3500) * (1 + .3 * np.sin(2 * np.pi * 3.1 * u * d))
+    return x * np.sin(np.pi * u) ** 1.5
+AU.SFX.setdefault("silbato", (_s_silbato, -21)); AU.SFX.setdefault("latido", (_s_latido, -21)); AU.SFX.setdefault("estadio", (_s_estadio, -33))
 CX, CY = 520, 700              # centro de la franja de gráficos (corrido a la izquierda por la columna de botones)
 GW = 430                       # medio ancho útil de gráficos (px)
 CAP_CTX_Y, CAP_KEY_Y = 1268, 1400
@@ -583,16 +607,25 @@ class Vertical(ES.Estilo):
             for it in s.get("items", []): pon(self.ta(it["word"], e) + .55, "sello", .3)
             if s.get("tipo") == "penalti":
                 for r in self._pen_rondas(e):
-                    if libre(r["t0"] + .02, r["t0"] + .3): self.sfx(TI.f_de_t(r["t0"] + .02), "ding", .6)      # «bling» al empezar la ronda
+                    self.sfx(TI.f_de_t(r["t0"] + .05), "silbato", 1.0)                                    # silbato: empieza la ronda
                     k = 0
-                    while r["t0"] + .7 + k * .8 < r["td"] + .4:                                          # latido de espera (ritmo fijo: no avisa)
-                        tl_ = r["t0"] + .7 + k * .8
-                        if libre(tl_, tl_ + .3): self.sfx(TI.f_de_t(tl_), "golpe", .16); self.sfx(TI.f_de_t(tl_ + .2), "golpe", .10)
+                    while r["t0"] + .8 + k * .78 < r["td"] + .5:                                         # latido de espera (ritmo fijo: no avisa)
+                        tl_ = r["t0"] + .8 + k * .78
+                        if libre(tl_, tl_ + .4): self.sfx(TI.f_de_t(tl_), "latido", 1.0)
                         k += 1
                     if libre(r["td"] + .45, r["td"] + .8): self.sfx(TI.f_de_t(r["td"] + .45), "golpe", .35)   # cae el portero (después: el sonido no avisa)
                     tch = s.get("chut_s", .75)
-                    if libre(r["td"] + tch - .02, r["td"] + tch + .32): self.sfx(TI.f_de_t(r["td"] + tch - .02), "whoosh", .5)   # chut
+                    if libre(r["td"] + tch - .02, r["td"] + tch + .32): self.sfx(TI.f_de_t(r["td"] + tch - .02), "whoosh", 1.0)   # chut
                     if libre(r["td"] + tch + .34, r["td"] + tch + .45): self.sfx(TI.f_de_t(r["td"] + tch + .34), "pop", .4)       # red
+                # gancho: estadio, portero que cae, estirada de ejemplo, marcador que aparece
+                self.sfx(0, "estadio", 1.0)
+                if s.get("portero_word"):
+                    tp = self.ta(s["portero_word"], e); pon(tp, "whoosh", .4); self.sfx(TI.f_de_t(tp + .32), "golpe", .45)
+                if s.get("demo_tiro"):
+                    tt_ = self.ta(s["demo_tiro"], e); pon(tt_, "whoosh", .55); self.sfx(TI.f_de_t(tt_ + .45), "golpe", .4)
+                if s.get("demo_word"):
+                    td_ = self.ta(s["demo_word"], e); pon(td_, "pop", .45)
+                    for j in range(8): self.sfx(TI.f_de_t(td_ + .1 + j * .22), "tic", .5)
             if s.get("tipo") == "bolas":
                 for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
                 pon(self.ta(s["blanco_word"], e), "destello", .6)
