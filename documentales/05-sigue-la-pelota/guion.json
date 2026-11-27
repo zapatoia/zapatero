@@ -1,0 +1,209 @@
+{
+ "titulo": "¿Puedes seguir la pelota roja?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.75,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Puedes seguir la pelota roja?",
+   "tts": "¿Puedes seguir la pelota roja?",
+   "key": "roja",
+   "escena": {
+    "tipo": "bolas",
+    "surface": "dark",
+    "n": 3,
+    "radio": 36,
+    "respuesta": 3,
+    "silueta": {
+     "ids": [
+      "724"
+     ],
+     "lon": [
+      -10,
+      4.5
+     ],
+     "lat": [
+      35.5,
+      44.5
+     ],
+     "ancho": 860,
+     "cy": 770
+    },
+    "niveles": [
+     {
+      "word": "@0",
+      "v": 230
+     },
+     {
+      "word": "Nivel",
+      "v": 330
+     },
+     {
+      "word": "Nivel#2",
+      "v": 430
+     },
+     {
+      "word": "Nivel#3",
+      "v": 540
+     },
+     {
+      "word": "Último",
+      "v": 680
+     }
+    ],
+    "extra": [
+     {
+      "word": "entra"
+     }
+    ],
+    "blanco_word": "color",
+    "parar_word": "Quietas",
+    "numeros_word": "Dónde",
+    "revelar_word": "tres#3",
+    "rotulos": [
+     {
+      "word": "@0",
+      "txt": "SIGUE LA PELOTA ROJA",
+      "hasta": "color"
+     },
+     {
+      "word": "memoria",
+      "txt": "AHORA, DE MEMORIA",
+      "hasta": "Dónde"
+     },
+     {
+      "word": "Dónde",
+      "txt": "¿DÓNDE ESTÁ LA ROJA?"
+     }
+    ],
+    "ciclo": [
+     "#3D8BFF",
+     "#FFD23F",
+     "#2ED47A",
+     "#FF5FC8",
+     "#3FE0E8",
+     "#FF9A3D",
+     "#9B6BFF"
+    ],
+    "ciclo_s": 1.5
+   }
+  },
+  {
+   "texto": "Parece fácil: ahora van despacio.",
+   "tts": "Parece fácil: ahora van despacio.",
+   "key": "despacio"
+  },
+  {
+   "texto": "No le quites el ojo de encima.",
+   "tts": "No le quites el ojo de encima.",
+   "key": "encima"
+  },
+  {
+   "texto": "Nivel dos. Un poco más rápido.",
+   "tts": "Nivel dos. Un poco más rápido.",
+   "key": "rápido"
+  },
+  {
+   "texto": "Y ahora, atento: todas cambian de color.",
+   "tts": "Y ahora, atento: todas cambian de color.",
+   "key": "color"
+  },
+  {
+   "texto": "A partir de aquí, la sigues de memoria.",
+   "tts": "A partir de aquí, la sigues de memoria.",
+   "key": "*memoria"
+  },
+  {
+   "texto": "Que no te despisten los colores.",
+   "tts": "Que no te despisten los colores.",
+   "key": "colores"
+  },
+  {
+   "texto": "Nivel tres. Y entra una pelota más.",
+   "tts": "Nivel tres. Y entra una pelota más.",
+   "key": "más"
+  },
+  {
+   "texto": "Ahora son cuatro. Tú, solo a la tuya.",
+   "tts": "Ahora son cuatro. Tú, solo a la tuya.",
+   "key": "tuya"
+  },
+  {
+   "texto": "Nivel cuatro. No parpadees.",
+   "tts": "Nivel cuatro. No parpadees.",
+   "key": "parpadees"
+  },
+  {
+   "texto": "Cada vez se cruzan más… y más rápido.",
+   "tts": "Cada vez se cruzan más... y más rápido.",
+   "key": "rápido"
+  },
+  {
+   "texto": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
+   "tts": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
+   "key": "mucha gente"
+  },
+  {
+   "texto": "Y si aún la tienes, vas muy bien.",
+   "tts": "Y si aún la tienes, vas muy bien.",
+   "key": "muy bien"
+  },
+  {
+   "texto": "Último nivel. Velocidad máxima.",
+   "tts": "[firm] Último nivel. Velocidad máxima.",
+   "key": "máxima"
+  },
+  {
+   "texto": "Sigue, sigue, sigue…",
+   "tts": "Sigue, sigue, sigue...",
+   "key": "sigue"
+  },
+  {
+   "texto": "Aguanta un poco más… ¡Quietas!",
+   "tts": "Aguanta un poco más... ¡Quietas!",
+   "key": "Quietas"
+  },
+  {
+   "texto": "¿Dónde está la pelota roja?",
+   "tts": "[curious] ¿Dónde está la pelota roja?",
+   "key": "roja"
+  },
+  {
+   "texto": "Antes de que te lo diga, comenta tu respuesta.",
+   "tts": "Antes de que te lo diga, comenta tu respuesta.",
+   "key": "respuesta"
+  },
+  {
+   "texto": "Tres… dos… uno…",
+   "tts": "Tres... dos... uno...",
+   "key": "uno"
+  },
+  {
+   "texto": "Era la número tres.",
+   "tts": "[playful] Era la número tres.",
+   "key": "tres"
+  },
+  {
+   "texto": "¿Acertaste?",
+   "tts": "¿Acertaste?",
+   "key": "Acertaste"
+  }
+ ],
+ "fuentes": [],
+ "qa_aceptadas": {
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
+  "palabras_completas": "medido: «roja?» (1,45 s), «gente.» y «nivel.» tienen la misma caída en audio/toma.mp3 (27,5 / 31,8 / 28,8 dB): final seco de la voz. «despacio.» y «¿Acertaste?» caen desde −35 y −39 dB bajo el pico (cola casi inaudible con fundido de 6 ms)",
+  "voz_cuadro_0": "medido: la voz arranca a 0,12 s con la «P» suave de «¿Puedes» (el silencio inicial ya está recortado a −45 dB); recortar más se comería la consonante"
+ },
+ "outro": {
+  "texto": "Mándaselo a ese amigo que está ciego.",
+  "tts": "[playful] Mándaselo a ese amigo que está ciego.",
+  "key": "ciego",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "05-sigue-la-pelota-v2.mp4"
+ }
+}

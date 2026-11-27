@@ -37,6 +37,30 @@ def _ruta_serif(familia, peso):                                   # la serif del
 TX._ruta = _ruta_serif
 
 W, H, FPS = TI.W, TI.H, TI.FPS
+
+# ---- efectos de sonido extra (se registran en el núcleo; los existentes no cambian)
+from nucleo import audio as AU                                     # noqa: E402
+def _s_silbato():
+    """Silbato de árbitro: tono ~3 kHz con el trino de la bolita (FM ~32 Hz) y algo de soplido."""
+    d = .55; n = int(d * AU.SR); t = np.arange(n) / AU.SR
+    f = 3050 + 220 * np.sign(np.sin(2 * np.pi * 32 * t)) * .5 + 90 * np.sin(2 * np.pi * 32 * t)
+    x = np.sin(2 * np.pi * np.cumsum(f) / AU.SR) + .25 * np.sin(4 * np.pi * np.cumsum(f) / AU.SR)
+    x = x * (.8 + .2 * np.sin(2 * np.pi * 32 * t)) + .18 * AU._banda(AU._ruido(n, 9), 2000, 6000)
+    env = np.minimum(1, t / .015) * np.minimum(1, (d - t) / .08) * (1 - .15 * t / d)
+    return x * env
+def _s_latido():
+    """Latido (lub-dub) grave y suave."""
+    d = .5; n = int(d * AU.SR); t = np.arange(n) / AU.SR; x = np.zeros(n)
+    for t0, a in ((0.0, 1.0), (.19, .7)):
+        k = int(t0 * AU.SR); tt = t[:n - k]
+        x[k:] += a * (np.sin(2 * np.pi * (58 - 12 * tt / .12) * tt) * np.exp(-tt / .055) * np.minimum(1, tt / .004))
+    return np.tanh(1.6 * AU._bajos(x, 180))
+def _s_estadio():
+    """Rumor de estadio que crece y se apaga (un solo golpe de 2 s, sin bucle)."""
+    d = 2.0; n = int(d * AU.SR); u = np.linspace(0, 1, n)
+    x = AU._banda(AU._ruido(n, 21), 250, 2400) + .5 * AU._banda(AU._ruido(n, 22), 900, 3500) * (1 + .3 * np.sin(2 * np.pi * 3.1 * u * d))
+    return x * np.sin(np.pi * u) ** 1.5
+AU.SFX.setdefault("silbato", (_s_silbato, -21)); AU.SFX.setdefault("latido", (_s_latido, -21)); AU.SFX.setdefault("estadio", (_s_estadio, -33))
 CX, CY = 520, 700              # centro de la franja de gráficos (corrido a la izquierda por la columna de botones)
 GW = 430                       # medio ancho útil de gráficos (px)
 CAP_CTX_Y, CAP_KEY_Y = 1268, 1400
@@ -84,7 +108,16 @@ class Vertical(ES.Estilo):
 
     # ------------------------------------------------------------------ preparación
     def preparar(self):
-        g = self.guion; pal = self.palabras
+        g = self.guion
+        if not (self.proy / "palabras.json").exists() and any(l.get("silencio") for l in g["lineas"]):   # prueba sin voz: respeta los silencios
+            from nucleo.tiempo import LineaTiempo
+            extra = 0.0; ult = {}
+            for k, p in enumerate(self.palabras): ult[p.get("linea", 1)] = k
+            add = {ult[n]: float(l.get("silencio", 0) or 0) for n, l in enumerate(g["lineas"], 1) if n in ult}
+            for k, p in enumerate(self.palabras):
+                p["s"] += extra; p["e"] += extra; extra += add.get(k, 0)
+            self.tl = LineaTiempo(self.palabras, alias=g.get("alias")); self.fin_s = self.palabras[-1]["e"] + self.COLA; self.nf = TI.f_de_t(self.fin_s)
+        pal = self.palabras
         self.lineas = g["lineas"]
         self.idx_linea = {}
         for i, p in enumerate(pal): self.idx_linea.setdefault(p.get("linea", 1), []).append(i)
@@ -134,7 +167,8 @@ class Vertical(ES.Estilo):
         self.F = dict(ctx=fuente("Inter", 600, 46), key=fuente("Inter", 800, 124), keyserif=fuente("InstrumentSerif", 400, 140),
                       pill=fuente("Inter", 600, 30), pillb=fuente("Inter", 700, 34), big=fuente("Inter", 800, 250),
                       unit=fuente("Inter", 700, 64), nota=fuente("Inter", 600, 40), lab=fuente("Inter", 700, 30),
-                      item=fuente("Inter", 700, 44), rot=fuente("Inter", 600, 32))
+                      item=fuente("Inter", 700, 44), rot=fuente("Inter", 600, 32), cron=fuente("Inter", 800, 128),
+                      etq=fuente("Inter", 800, 46), mini=fuente("Inter", 700, 25), mini2=fuente("Inter", 700, 29))
 
     # ------------------------------------------------------------------ tiempo
     def ta(self, ref, e):
@@ -164,6 +198,7 @@ class Vertical(ES.Estilo):
             if n in self.idx_linea and self.palabras[self.idx_linea[n][0]]["s"] <= t and (n == e["n"] or not self.lineas[n - 1].get("escena")):
                 if n > e["n"] and self.lineas[n - 1].get("escena"): break
                 z += .012 * (1 - math.exp(-6 * max(0, t - self.palabras[self.idx_linea[n][0]]["s"])))
+        if s["tipo"] in ("bolas", "penalti") or s.get("camara_fija"): z = 1.0                                  # juego continuo: la cámara no se mueve
         c.save(); c.translate(CX, CY); c.scale(z, z); c.translate(-CX, -CY)
         getattr(self, "e_" + s["tipo"])(c, e, t, SUP[sup])
         c.restore()
@@ -492,7 +527,7 @@ class Vertical(ES.Estilo):
             ids = self.idx_linea.get(n)
             if not ids or ln.get("cap", True) is False: continue
             s0 = pal[ids[0]]["s"] - .05
-            nxt = self.idx_linea.get(n + 1); fin = (pal[nxt[0]]["s"] - 3 / FPS - .05) if nxt else self.fin_s + 1
+            nxt = next((self.idx_linea[m] for m in range(n + 1, len(self.lineas) + 1) if m in self.idx_linea), None); fin = (pal[nxt[0]]["s"] - 3 / FPS - .05) if nxt else self.fin_s + 1
             if not (s0 <= t < fin): continue
             sc = next((es for es in reversed(self.escenas) if es["t0"] <= max(t, s0)), self.escenas[0])
             S = SUP[sc["spec"].get("surface", "dark")]
@@ -570,6 +605,40 @@ class Vertical(ES.Estilo):
                     if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .35)
             if s.get("hueco"): pon(self.ta(s["hueco"]["word"], e), "golpe", .55)
             for it in s.get("items", []): pon(self.ta(it["word"], e) + .55, "sello", .3)
+            if s.get("tipo") == "penalti":
+                for r in self._pen_rondas(e):
+                    self.sfx(TI.f_de_t(r["t0"] + .05), "silbato", 1.0)                                    # silbato: empieza la ronda
+                    k = 0
+                    while r["t0"] + .8 + k * .78 < r["td"] + .5:                                         # latido de espera (ritmo fijo: no avisa)
+                        tl_ = r["t0"] + .8 + k * .78
+                        if libre(tl_, tl_ + .4): self.sfx(TI.f_de_t(tl_), "latido", 1.0)
+                        k += 1
+                    if libre(r["td"] + .45, r["td"] + .8): self.sfx(TI.f_de_t(r["td"] + .45), "golpe", .35)   # cae el portero (después: el sonido no avisa)
+                    tch = s.get("chut_s", .75)
+                    if libre(r["td"] + tch - .02, r["td"] + tch + .32): self.sfx(TI.f_de_t(r["td"] + tch - .02), "whoosh", 1.0)   # chut
+                    if libre(r["td"] + tch + .34, r["td"] + tch + .45): self.sfx(TI.f_de_t(r["td"] + tch + .34), "pop", .4)       # red
+                # gancho: estadio, portero que cae, estirada de ejemplo, marcador que aparece
+                self.sfx(0, "estadio", 1.0)
+                if s.get("portero_word"):
+                    tp = self.ta(s["portero_word"], e); pon(tp, "whoosh", .4); self.sfx(TI.f_de_t(tp + .32), "golpe", .45)
+                if s.get("demo_tiro"):
+                    tt_ = self.ta(s["demo_tiro"], e); pon(tt_, "whoosh", .55); self.sfx(TI.f_de_t(tt_ + .45), "golpe", .4)
+                if s.get("demo_word"):
+                    td_ = self.ta(s["demo_word"], e); pon(td_, "pop", .45)
+                    for j in range(8): self.sfx(TI.f_de_t(td_ + .1 + j * .22), "tic", .5)
+            if s.get("tipo") == "bolas":
+                for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
+                pon(self.ta(s["blanco_word"], e), "destello", .6)
+                if s.get("ciclo"):
+                    tb, tn, per = self.ta(s["blanco_word"], e), self.ta(s["numeros_word"], e), s.get("ciclo_s", 1.5)
+                    tt = tb + per
+                    while tt < tn - .2:
+                        if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .3)
+                        tt += per
+                for x in s.get("extra", []): pon(self.ta(x["word"], e), "pop", .4)
+                pon(self.ta(s["parar_word"], e) + .1, "golpe", .5)
+                pon(self.ta(s["numeros_word"], e), "pop", .35)
+                pon(self.ta(s["revelar_word"], e), "golpe", .55)
         vistos = set(); ev = []
         for x in sorted(self.ev, key=lambda x: x["f"]):
             if (x["f"] // 6, x["sfx"]) not in vistos: vistos.add((x["f"] // 6, x["sfx"])); ev.append(x)
@@ -1092,6 +1161,414 @@ class Vertical(ES.Estilo):
                 vivo = (k >> q) & 1; fx = cx_ - 66 + q * 44
                 if vivo: self.figura(c, fx, cy_ + 34, 58, "#CFE0FF", ak)
                 else: self.figura(c, fx, cy_ + 34, 58, "#FF6A5C", .8 * ak, True)
+
+    # ------------------------------------------------------------------ bolas (juego «sigue la pelota roja» sobre una silueta de neón)
+    def _bolas_prep(self, e):
+        """Simulación determinista (120 Hz, independiente del FPS): pelotas que rebotan en el borde de la silueta y entre sí.
+        La semilla se elige para que, al pararse, la roja quede en la posición `respuesta` (contando de izquierda a derecha)."""
+        if getattr(self, "_B", None) is not None: return self._B
+        from scipy import ndimage
+        s = e["spec"]; R = s.get("radio", 30)
+        # silueta: países (ids ISO numéricos) con los anillos dentro de `lon_min..lon_max` / `lat_min..lat_max`
+        sil = s.get("silueta", {}); rings = self._mundo_rings()
+        lo0, lo1 = sil.get("lon", [-180, 180]); la0, la1 = sil.get("lat", [-90, 90])
+        rs = [r for cid in sil.get("ids", ["724"]) for r in rings.get(cid, [])
+              if lo0 <= r[:, 0].mean() <= lo1 and la0 <= r[:, 1].mean() <= la1 and len(r) > 8]
+        l0 = np.radians(np.mean([r[:, 0].mean() for r in rs])); p0 = np.radians(np.mean([r[:, 1].mean() for r in rs]))
+        def pr(r):
+            l = np.radians(r[:, 0]) - l0; p = np.radians(r[:, 1])
+            cc = np.sin(p0) * np.sin(p) + np.cos(p0) * np.cos(p) * np.cos(l); k = np.sqrt(2 / (1 + cc))
+            return np.c_[k * np.cos(p) * np.sin(l), -k * (np.cos(p0) * np.sin(p) - np.sin(p0) * np.cos(p) * np.cos(l))]
+        q = [pr(r) for r in rs]; allp = np.vstack(q); mn, mx = allp.min(0), allp.max(0)
+        ancho_px = sil.get("ancho", 820); esc = ancho_px / (mx[0] - mx[0] + mx[0] - mn[0])
+        cy = sil.get("cy", 760); off = np.array([CX, cy]) - (mn + mx) / 2 * esc
+        q = [p * esc + off for p in q]
+        grande = max(range(len(q)), key=lambda i: len(q[i]))                 # el contorno principal es el campo de juego
+        path = path_de(q); campo = path_de([q[grande]])
+        # máscara y distancia al borde (a 1/2 de resolución)
+        ds = 2; mw, mh = W // ds, H // ds
+        from nucleo.lienzo import Lienzo
+        Lm = Lienzo(mw, mh); Lm.canvas.clear(skia.ColorBLACK); Lm.canvas.scale(1 / ds, 1 / ds)
+        Lm.canvas.drawPath(campo, relleno("#FFFFFF")); m = Lm.arr[..., 0] > 127
+        dist = ndimage.gaussian_filter(ndimage.distance_transform_edt(m) * ds, 2.0)
+        gy, gx = np.gradient(dist)
+        def D(x, y):
+            i = int(min(max(y / ds, 0), mh - 1)); j = int(min(max(x / ds, 0), mw - 1)); return dist[i, j], gx[i, j], gy[i, j]
+        # tiempos
+        ta = lambda w: self.ta(w, e)
+        niv = sorted((ta(n["word"]), n["v"]) for n in s["niveles"])
+        t_stop = ta(s["parar_word"]); extra = [(ta(x["word"]), x) for x in s.get("extra", [])]
+        def vel(t):
+            v = niv[0][1]
+            for tt, vv in niv:
+                if t >= tt: v = v + (vv - v) * 1  # escalón suavizado abajo
+            vs = niv[0][1]
+            for k, (tt, vv) in enumerate(niv):
+                u = TI.clamp((t - tt) / .6); u = u * u * (3 - 2 * u); vs = vs + (vv - vs) * u
+            if t > t_stop: vs *= max(0.0, 1 - (t - t_stop) / .35) ** 2
+            return vs
+        n0 = s.get("n", 3); DT = 1 / 120; T = self.fin_s + 1; N = int(T / DT) + 2
+        cand = [(x, y) for y in range(0, H, 12) for x in range(0, W, 12) if D(x, y)[0] > R + 30]
+        def simular(seed):
+            rng = np.random.default_rng(seed)
+            nb = n0 + sum(x["n"] if "n" in x else 1 for _, x in extra)
+            P = np.full((N, nb, 2), np.nan, np.float32)
+            pos = []; head = []; activo = []
+            for i in range(n0):
+                for _ in range(400):
+                    x, y = cand[rng.integers(len(cand))]
+                    if all(math.hypot(x - a, y - b) > 6 * R for a, b in pos): break
+                pos.append([float(x), float(y)]); head.append(rng.random() * 2 * math.pi); activo.append(True)
+            pend = sorted([tt for tt, x in extra for _ in range(x.get("n", 1))])
+            for k in range(N):
+                t = k * DT
+                while pend and t >= pend[0]:
+                    pend.pop(0)
+                    best = max(cand[::7], key=lambda c: min(math.hypot(c[0] - a, c[1] - b) for a, b in pos) + rng.random() * 30)
+                    pos.append([float(best[0]), float(best[1])]); head.append(rng.random() * 2 * math.pi)
+                v = vel(t)
+                for i in range(len(pos)):
+                    head[i] += rng.normal(0, 1.6) * math.sqrt(DT)
+                    pos[i][0] += math.cos(head[i]) * v * DT; pos[i][1] += math.sin(head[i]) * v * DT
+                    d, nx, ny = D(*pos[i]); nn = math.hypot(nx, ny) + 1e-9; nx /= nn; ny /= nn
+                    if d < R + 8:
+                        vx, vy = math.cos(head[i]), math.sin(head[i]); dot = vx * nx + vy * ny
+                        if dot < 0: vx -= 2 * dot * nx; vy -= 2 * dot * ny; head[i] = math.atan2(vy, vx)
+                        pos[i][0] += nx * (R + 8 - d); pos[i][1] += ny * (R + 8 - d)
+                for i in range(len(pos)):
+                    for j in range(i + 1, len(pos)):
+                        dx = pos[j][0] - pos[i][0]; dy = pos[j][1] - pos[i][1]; dd = math.hypot(dx, dy)
+                        if dd < 2 * R + 6 and dd > 1e-6:
+                            ux, uy = dx / dd, dy / dd
+                            ai = math.cos(head[i]) * ux + math.sin(head[i]) * uy; aj = math.cos(head[j]) * ux + math.sin(head[j]) * uy
+                            if ai - aj > 0:          # se acercan: intercambian la componente normal (choque elástico)
+                                vi = (math.cos(head[i]) + (aj - ai) * ux, math.sin(head[i]) + (aj - ai) * uy)
+                                vj = (math.cos(head[j]) + (ai - aj) * ux, math.sin(head[j]) + (ai - aj) * uy)
+                                head[i] = math.atan2(vi[1], vi[0]); head[j] = math.atan2(vj[1], vj[0])
+                            sep = (2 * R + 6 - dd) / 2
+                            pos[i][0] -= ux * sep; pos[i][1] -= uy * sep; pos[j][0] += ux * sep; pos[j][1] += uy * sep
+                for i in range(len(pos)): P[k, i] = pos[i]
+            return P
+        resp = s.get("respuesta"); ks = min(N - 1, int((t_stop + .6) / DT)); P = None
+        for seed in range(s.get("semilla", 1), s.get("semilla", 1) + 300):
+            P = simular(seed)
+            fin = P[ks]; xs = fin[:, 0]; orden = list(np.argsort(xs))
+            gap = np.diff(np.sort(xs)).min() if len(xs) > 1 else 999
+            if resp is None or (orden.index(0) + 1 == resp and gap > 100 and fin[:, 1].min() > 430): break
+        self._B = dict(P=P, DT=DT, R=R, path=path, campo=campo, orden=orden, t_stop=t_stop, niv=niv, seed=seed,
+                       nac={i: (0.0 if i < n0 else None) for i in range(P.shape[1])})
+        for i in range(P.shape[1]):
+            if self._B["nac"][i] is None: self._B["nac"][i] = np.argmax(~np.isnan(P[:, i, 0])) * DT
+        return self._B
+
+    def _bolas_color(self, s, tb, t, base):
+        cic = s["ciclo"]; per = s.get("ciclo_s", 1.5); kc = int((t - tb) // per); uc = TI.clamp(((t - tb) - kc * per) / .3)
+        prev = base if kc == 0 else __import__("nucleo.compositor", fromlist=["hex_rgb"]).hex_rgb(cic[(kc - 1) % len(cic)])
+        now = hex_rgb(cic[kc % len(cic)])
+        return "#%02X%02X%02X" % tuple(int(round(x)) for x in (prev * (1 - uc) + now * uc))
+
+    def e_bolas(self, c, e, t, S):
+        s = e["spec"]; B = self._bolas_prep(e); R = B["R"]; P = B["P"]; DT = B["DT"]
+        ta = lambda w: self.ta(w, e)
+        NEON = s.get("neon", "#8F7CFF")
+        # halo de fondo
+        c.drawCircle(CX, 760, 620, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(
+            (CX, 760), 620, [color(NEON, .22), color(NEON, .06), color(NEON, 0)], [0, .55, 1])))
+        # silueta de neón
+        pulso = .85 + .15 * math.sin(t * 2.2)
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear(
+            [(0, 420), (0, 1110)], [color("#151B45", .96), color("#0A0F2C", .96)])))
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=26, Color=color(NEON, .30 * pulso),
+                                         MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 16)))
+        c.save(); c.clipPath(B["path"], doAntiAlias=True)
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=40, Color=color(NEON, .22),
+                                         MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 14)))
+        rng = np.random.default_rng(3)
+        for i in range(60):                                                      # polvo de luz dentro de la silueta
+            x = 110 + rng.random() * 820; y = 420 + ((rng.random() * 700 - t * (5 + 8 * rng.random())) % 700)
+            c.drawCircle(x, y, 1 + 1.6 * rng.random(), relleno("#C9C0FF", .10 + .18 * rng.random()))
+        c.restore()
+        c.drawPath(B["path"], trazo("#B7ACFF", 5, .55 * pulso))
+        c.drawPath(B["path"], trazo("#EEEAFF", 2, .95))
+        # dificultad
+        dt0 = t - e["t0"]; a0 = aparece(dt0, .25)
+        texto(c, s.get("dificultad", "DIFICULTAD"), CX, 178, self.F["lab"], "#C9C3EE", alfa=.9 * a0, tracking=.32)
+        nv = sum(1 for tt, _ in B["niv"] if t >= tt); nseg = len(B["niv"]); bw = 560; seg = bw / nseg
+        cols = ["#7CFF4F", "#B6F23F", "#FFD24A", "#FF8A3D", "#FF3B4A"]
+        for k in range(nseg):
+            x = CX - bw / 2 + k * seg
+            c.drawRRect(rrc(x + seg / 2, 224, seg - 6, 14, 7), relleno("#FFFFFF", .10 * a0))
+            if k < nv:
+                u = resorte(t - B["niv"][k][0], 9, 12); col = cols[min(nv - 1, len(cols) - 1)]
+                w_ = (seg - 6) * min(1, u)
+                with capa(c, alfa=.8 * a0, blur=8): c.drawRRect(rrc(x + 3 + w_ / 2, 224, w_, 14, 7), relleno(col))
+                c.drawRRect(rrc(x + 3 + w_ / 2, 224, w_, 14, 7), relleno(col, a0))
+        # rótulo (píldora) que cambia por fases
+        rot = [r for r in s.get("rotulos", []) if t >= ta(r["word"]) - .05]
+        if rot:
+            r = rot[-1]; dt = t - ta(r["word"]) + .05; a = aparece(dt, .15)
+            fin = r.get("hasta"); a *= 1 if not fin else TI.clamp((ta(fin) - t) / .15)
+            if a > 0: self.pildora(c, r["txt"], CX, 312 - 12 * (1 - resorte(dt, 9, 12)), S, a, fnt=self.F["pillb"],
+                                   col="#FFFFFF" if not r.get("acento") else r["acento"])
+        # pelotas
+        k = t / DT; k0 = int(min(max(k, 0), P.shape[0] - 2)); fr = TI.clamp(k - k0)
+        pos = P[k0] * (1 - fr) + P[k0 + 1] * fr
+        tb = ta(s["blanco_word"]); tn = ta(s["numeros_word"]); tr = ta(s["revelar_word"])
+        ub = TI.clamp((t - tb) / .45); ur = TI.clamp((t - tr) / .3)
+        ROJO, VERDE, BLANCO = hex_rgb("#FF3B4A"), hex_rgb(s.get("otras", "#2ED47A")), hex_rgb("#F2EEFF")
+        mezc = lambda a, b, u: "#%02X%02X%02X" % tuple(int(round(x)) for x in (a * (1 - u) + b * u))
+        orden = B["orden"]
+        for i in range(P.shape[1]):
+            if np.isnan(pos[i, 0]): continue
+            dtn = t - B["nac"][i]; sc = resorte(dtn, 9, 13) if dtn < 1.2 else 1.0
+            base = ROJO if i == 0 else VERDE
+            col = mezc(base, BLANCO, ub)
+            if s.get("ciclo") and t >= tb:                                   # todas a la vez cambian de color cada `ciclo_s`
+                c_t = lambda tt: self._bolas_color(s, tb, tt, base)
+                col = c_t(t) if t < tn else mezc(hex_rgb(c_t(tn)), BLANCO, TI.clamp((t - tn) / .3))
+            if i == 0 and ur > 0: col = mezc(BLANCO, ROJO, ur)
+            dim = 1 - .6 * ur if i != 0 else 1.0
+            x, y = float(pos[i, 0]), float(pos[i, 1])
+            # estela
+            for j in range(1, 9):
+                kk = k0 - j * 2
+                if kk < 0 or np.isnan(P[kk, i, 0]): break
+                c.drawCircle(float(P[kk, i, 0]), float(P[kk, i, 1]), R * (1 - j * .09) * sc, relleno(col, .10 * (1 - j / 9) * dim))
+            # anillo de suelo tras parar
+            if t > tn:
+                ua = aparece(t - tn - .05 * orden.index(i), .2)
+                c.drawOval(skia.Rect.MakeXYWH(x - R * 2, y + R * .85, R * 4, R * .9), trazo("#C9C0FF", 2.2, .5 * ua * dim))
+            with capa(c, alfa=.55 * dim, blur=18): c.drawCircle(x, y, R * 1.15 * sc, relleno(col))
+            c.drawCircle(x, y + R * .35, R * .95 * sc, skia.Paint(AntiAlias=True, Color=color("#000000", .35 * dim),
+                                                                    MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 8)))
+            hl = mezc(hex_rgb(col), np.array([255., 255, 255]), .65); sh = mezc(hex_rgb(col), np.array([10., 10, 30]), .45)
+            c.drawCircle(x, y, R * sc, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(
+                (x - R * .35, y - R * .4), R * 1.5 * max(sc, .01), [color(hl, dim), color(col, dim), color(sh, dim)], [0, .45, 1])))
+            c.drawOval(skia.Rect.MakeXYWH(x - R * .55, y - R * .72, R * .5, R * .3), relleno("#FFFFFF", .55 * dim * sc))
+            c.drawCircle(x, y, R * sc, trazo("#FFFFFF", 1.2, .25 * dim))
+            # destello al cambiar de color
+            if 0 < t - tb < .6:
+                u = (t - tb) / .6; c.drawCircle(x, y, R * (1 + 1.4 * u), trazo("#FFFFFF", 3, .7 * (1 - u)))
+            elif s.get("ciclo") and tb < t < tn:
+                per = s.get("ciclo_s", 1.5); dc = (t - tb) % per
+                if (t - tb) >= per and dc < .45:
+                    u = dc / .45; c.drawCircle(x, y, R * (1 + .8 * u), trazo(col, 2.5, .6 * (1 - u)))
+            # marcador de la roja (antes del cambio)
+            if i == 0 and t < tb + .3:
+                am = TI.clamp((tb + .3 - t) / .3) * aparece(dtn, .2); yy = y - R - 26 + 5 * math.sin(t * 6)
+                tri = skia.Path(); tri.moveTo(x - 11, yy - 9); tri.lineTo(x + 11, yy - 9); tri.lineTo(x, yy + 7); tri.close()
+                c.drawPath(tri, relleno("#FFFFFF", am))
+            # revelado: pulsos rojos
+            if i == 0 and ur > 0:
+                for qn in range(2):
+                    ph = ((t - tr) * .9 + qn * .5) % 1; c.drawCircle(x, y, R * (1.1 + 1.6 * ph), trazo("#FF3B4A", 3, .7 * (1 - ph)))
+            # número
+            if t > tn:
+                n = orden.index(i) + 1; dtq = t - tn - .08 * (n - 1)
+                if dtq > 0:
+                    aq = aparece(dtq, .15); yq = y - R - 52 - 14 * (1 - resorte(dtq, 9, 12))
+                    fq = self.F["unit"]; colq = "#FF3B4A" if (i == 0 and ur > 0) else "#FFFFFF"
+                    texto(c, str(n), x, yq, fq, colq, alfa=aq * (dim if i else 1), sombra=(4, 10, .5))
+
+    # ------------------------------------------------------------------ penalti (juego: pausa el vídeo cuando el portero se tire)
+    ESCALA_PEN = [(0.00, .10, "#8A93A6", "Te adelantaste", "TE ADELANTASTE"), (.10, .20, "#2ED47A", "Golazo", "¡GOLAZO!"),
+                  (.20, .30, "#B6F23F", "Gol", "¡GOL!"), (.30, .45, "#FF9A3D", "Al palo", "AL PALO"), (.45, 9.9, "#FF3B4A", "Parada", "PARADA")]
+
+    def _pen_rondas(self, e):
+        if getattr(self, "_PR", None) is not None: return self._PR
+        s = e["spec"]; out = []
+        for k, r in enumerate(s["rondas"]):
+            t0 = self.ta(r["word"], e)
+            out.append(dict(n=k + 1, t0=t0, td=t0 + r["espera"], lado=r.get("lado", 1 if k % 2 == 0 else -1),
+                            amagos=[(t0 + a, (-1 if k % 2 == 0 else 1) * (1 if j % 2 == 0 else -1)) for j, a in enumerate(r.get("amagos", []))],
+                            vel=r.get("vel", 1.0)))
+        for k, r in enumerate(out): r["t1"] = out[k + 1]["t0"] - .25 if k + 1 < len(out) else self.ta(s["fin_word"], e)
+        self._PR = out; return out
+
+    def portero(self, c, x, y, lean, rot, brazos, a=1.0):
+        """Portero de frente. (x, y) = caderas. lean/rot en grados; brazos 0 = abiertos a los lados, 1 = estirados por encima."""
+        c.save(); c.translate(x, y); c.rotate(rot + lean); c.scale(1.22, 1.22)
+        cam, cam2, pant, piel = "#D7FF3A", "#8DB81A", "#1C2340", "#F0C3A0"
+        # sombra en el suelo se dibuja fuera
+        for sx in (-1, 1):                                                       # piernas
+            c.save(); c.translate(sx * 17, 8); c.rotate(-sx * (8 + 10 * brazos))
+            c.drawRRect(rrc(0, 46, 24, 92, 11), skia.Paint(AntiAlias=True, Alphaf=a, Shader=skia.GradientShader.MakeLinear([(-12, 0), (12, 0)], [color("#2A3360"), color(pant)])))
+            c.drawRRect(rrc(0, 70, 25, 42, 10), relleno("#E9ECF5", .95 * a))   # medias
+            c.drawRRect(rrc(sx * 6, 96, 36, 16, 8), relleno("#111522", a))      # botas
+            c.restore()
+        c.drawRRect(rrc(0, 6, 64, 30, 12), relleno(pant, a))                     # pantalón
+        for sx in (-1, 1):                                                       # brazos
+            ang = sx * (100 - 70 * brazos) if brazos < 1 else sx * 30
+            ang = sx * (105 * (1 - brazos) + 165 * brazos)
+            c.save(); c.translate(sx * 30, -78); c.rotate(-ang)
+            c.drawRRect(rrc(0, 40, 20, 80, 10), skia.Paint(AntiAlias=True, Alphaf=a, Shader=skia.GradientShader.MakeLinear([(-10, 0), (10, 0)], [color(cam), color(cam2)])))
+            c.drawCircle(0, 86, 15, relleno("#FFFFFF", a)); c.drawCircle(0, 86, 15, trazo("#B9C2DA", 2, a))   # guantes
+            c.restore()
+        c.drawRRect(rrc(0, -44, 70, 92, 22), skia.Paint(AntiAlias=True, Alphaf=a, Shader=skia.GradientShader.MakeLinear([(-35, -90), (35, 0)], [color("#F2FF8A"), color(cam), color(cam2)], [0, .45, 1])))
+        texto(c, "1", 0, -48, self.F["lab"], "#1C2340", alfa=.85 * a)
+        c.drawRRect(rrc(0, -94, 18, 14, 6), relleno(piel, a))                    # cuello
+        c.drawCircle(0, -114, 24, skia.Paint(AntiAlias=True, Alphaf=a, Shader=skia.GradientShader.MakeRadial((-8, -122), 30, [color("#FFD9BE"), color(piel), color("#C9906C")], [0, .6, 1])))
+        c.drawArc(skia.Rect.MakeXYWH(-25, -140, 50, 34), 180, 180, True, relleno("#2B1A10", a))   # pelo
+        c.restore()
+
+    def balon(self, c, x, y, r):
+        c.drawOval(skia.Rect.MakeXYWH(x - r * 1.1, y + r * .7, r * 2.2, r * .55), skia.Paint(AntiAlias=True, Color=color("#000000", .45),
+                                                                                            MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 5)))
+        c.drawCircle(x, y, r, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((x - r * .35, y - r * .4), r * 1.6,
+                                                                                              [color("#FFFFFF"), color("#E6EAF2"), color("#8D96AE")], [0, .5, 1])))
+        def pent(cx, cy, rr, rot):
+            p = skia.Path()
+            for i in range(5):
+                a_ = math.radians(rot + 72 * i - 90); (p.moveTo if i == 0 else p.lineTo)(cx + rr * math.cos(a_), cy + rr * math.sin(a_))
+            p.close(); return p
+        c.save(); pc = skia.Path(); pc.addCircle(x, y, r); c.clipPath(pc, doAntiAlias=True)
+        c.drawPath(pent(x, y, r * .32, 0), relleno("#1A1F2E"))
+        for i in range(5):
+            a_ = math.radians(72 * i - 90); c.drawPath(pent(x + r * .82 * math.cos(a_), y + r * .82 * math.sin(a_), r * .3, 36), relleno("#1A1F2E"))
+        c.restore()
+        c.drawCircle(x, y, r, trazo("#FFFFFF", 1.2, .4))
+
+    def e_penalti(self, c, e, t, S):
+        s = e["spec"]; R = self._pen_rondas(e); ta = lambda w: self.ta(w, e)
+        GY, PL, PR_, TY = 650, 92, 948, 300                                    # línea de gol, postes, larguero
+        # estadio: focos y grada
+        for fx in (130, 910):
+            c.drawCircle(fx, 90, 330, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((fx, 90), 330, [color("#CFE0FF", .30), color("#6EA0FF", .08), color("#6EA0FF", 0)], [0, .4, 1])))
+            for i in range(3):
+                for j in range(4): c.drawCircle(fx - 45 + j * 30, 70 + i * 26, 9, relleno("#FFFFFF", .9))
+        rng = np.random.default_rng(8)
+        for i in range(260):                                                     # público desenfocado
+            x = rng.random() * W; y = 360 + rng.random() * 250
+            c.drawCircle(x, y, 5 + 5 * rng.random(), relleno(["#2A3A6E", "#3B2A6E", "#6E2A3B", "#2A5A6E"][i % 4], .35 + .2 * math.sin(t * 2 + i)))
+        # césped con franjas en perspectiva
+        c.drawRect(skia.Rect.MakeXYWH(0, GY - 40, W, H - GY + 40), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, GY - 40), (0, 1250)], [color("#0F4A2A"), color("#072012")])))
+        y = GY - 40; k = 0
+        while y < 1240:
+            hgt = 22 + (y - GY + 40) * .35
+            if k % 2 == 0: c.drawRect(skia.Rect.MakeXYWH(0, y, W, hgt), relleno("#FFFFFF", .035))
+            y += hgt; k += 1
+        c.drawRect(skia.Rect.MakeXYWH(0, 1100, W, H - 1100), skia.Paint(Shader=skia.GradientShader.MakeLinear([(0, 1100), (0, 1320)], [color("#04120A", 0), color("#04120A", .9)])))
+        ln = trazo("#FFFFFF", 4, .55)
+        c.drawLine(0, GY, W, GY, ln)
+        ar = skia.Path(); ar.moveTo(240, GY); ar.lineTo(190, 745); ar.lineTo(850, 745); ar.lineTo(800, GY); c.drawPath(ar, ln)
+        # red y portería
+        c.save()
+        red = trazo("#FFFFFF", 1.4, .22)
+        bl, br, bt, bb = PL + 50, PR_ - 50, TY + 34, GY - 30
+        for i in range(0, 26):
+            x = bl + (br - bl) * i / 25; c.drawLine(x, bt, x, bb, red)
+        for j in range(0, 10):
+            yy = bt + (bb - bt) * j / 9; c.drawLine(bl, yy, br, yy, red)
+        for (x0, y0), (x1, y1) in (((PL, TY), (bl, bt)), ((PR_, TY), (br, bt)), ((PL, GY), (bl, bb)), ((PR_, GY), (br, bb))): c.drawLine(x0, y0, x1, y1, trazo("#FFFFFF", 2, .35))
+        for j in range(1, 6):
+            yy = TY + (GY - TY) * j / 6; c.drawLine(PL, yy, bl, bt + (bb - bt) * j / 6, red); c.drawLine(PR_, yy, br, bt + (bb - bt) * j / 6, red)
+        c.restore()
+        # portero (según la ronda)
+        act = next((r for r in reversed(R) if t >= r["t0"] - .25), None)
+        x0, y0, lean, rot, brz, sh = CX, GY - 144, 0.0, 0.0, 0.0, 1.0      # quieto del todo hasta que se tira
+        ap_p, ycae = 1.0, 0.0
+        pw = s.get("portero_word"); dtw = s.get("demo_tiro"); dw_ = s.get("demo_word")
+        if pw and not act:                                                       # el portero entra al nombrarlo (cae desde arriba)
+            dp = t - ta(pw) + .05; ap_p = min(1.0, max(0.0, dp / .15)); ycae = -260 * (1 - resorte(dp, 8, 11)) if dp > 0 else 0
+        if act: ap_p = min(1.0, max(0.0, (t - act["t0"] + .25) / .2)) if act["n"] > 1 else 1.0
+        demo = (not act) and dtw and ta(dtw) <= t < (ta(dw_) if dw_ else 1e9)
+        if dw_ and not act and t >= ta(dw_): ap_p = min(ap_p, max(0.0, (t - ta(dw_)) / .2))
+        if demo:                                                                 # estirada de ejemplo
+            u = (t - ta(dtw)) / .5; v = min(u, 1.0); ev = 1 - (1 - v) ** 2
+            rot = 78 * ev; x0 += 270 * ev; y0 += -110 * math.sin(math.pi * v) + 92 * ev; brz = ev; sh = 1 - .5 * math.sin(math.pi * v)
+        y0 += ycae
+        if act:
+            for ta_, sd in act["amagos"]:
+                u = (t - ta_) / .5
+                if 0 < u < 1: lean += sd * 16 * math.sin(math.pi * u); x0 += sd * 46 * math.sin(math.pi * u)
+            u = (t - act["td"]) / (.5 / act["vel"])
+            if u > 0:
+                v = min(u, 1.0); ev = 1 - (1 - v) ** 2; sd = act["lado"]
+                rot = sd * 78 * ev; x0 += sd * 270 * ev; y0 += -110 * math.sin(math.pi * v) + 92 * ev; brz = ev
+                sh = 1 - .5 * math.sin(math.pi * v)
+        if ap_p > 0:
+            c.drawOval(skia.Rect.MakeXYWH(x0 - 70 * sh, GY + 4, 140 * sh, 22), skia.Paint(AntiAlias=True, Color=color("#000000", .45 * ap_p), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
+            self.portero(c, x0, y0, lean, rot, brz, ap_p)
+        if demo and t - ta(dtw) > .1: self.pildora(c, s.get("demo_txt", "ASÍ"), x0 - 40, GY + 70, S, min(1, (t - ta(dtw) - .1) / .15), fnt=self.F["pillb"])
+        # balón: tras la estirada sale disparado a la escuadra contraria (después del momento de pausar: no avisa)
+        bx, by, br, en_red, ur = CX, 800.0, 36.0, False, 0.0
+        tch = s.get("chut_s", .75)
+        if act and t >= act["td"] + tch:
+            u = min(1.0, (t - act["td"] - tch) / .34); ue = 1 - (1 - u) ** 2; tx_, ty_ = CX - act["lado"] * 300, TY + 78
+            bx = CX + (tx_ - CX) * ue; by = 800 + (ty_ - 800) * ue - 90 * math.sin(math.pi * u); br = 36 - 17 * ue; en_red = u >= 1
+            ur = (t - act["td"] - tch - .34) / .5
+            for k in range(1, 6):                                                # estela
+                uk = max(0.0, u - k * .05); uke = 1 - (1 - uk) ** 2
+                c.drawCircle(CX + (tx_ - CX) * uke, 800 + (ty_ - 800) * uke - 90 * math.sin(math.pi * uk), br * (1 - k * .12), relleno("#FFFFFF", .12 * (1 - k / 6) * (u < 1)))
+        if en_red:
+            if 0 < ur < 1:                                                       # la red se hincha
+                for q in range(3): c.drawCircle(bx, by, 30 + 70 * ur + q * 18, trazo("#FFFFFF", 2, .35 * (1 - ur)))
+            self.balon(c, bx, by, br)
+        # postes y larguero encima del portero
+        for p in (skia.Rect.MakeLTRB(PL - 9, TY - 9, PL + 9, GY), skia.Rect.MakeLTRB(PR_ - 9, TY - 9, PR_ + 9, GY), skia.Rect.MakeLTRB(PL - 9, TY - 9, PR_ + 9, TY + 9)):
+            c.drawRect(p.makeOffset(4, 6), relleno("#000000", .3))
+            c.drawRect(p, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(p.left(), p.top()), (p.right(), p.bottom())], [color("#FFFFFF"), color("#C9D3EA")])))
+        if not en_red: self.balon(c, bx, by, br)
+        # rótulos arriba
+        dt0 = t - e["t0"]
+        rot_ = [r for r in s.get("rotulos", []) if t >= ta(r["word"]) - .05]
+        lab = None
+        if act and t < act["t1"]: lab = s.get("ronda_txt", "RONDA {n} DE {N}").format(n=act["n"], N=len(R))
+        elif rot_: lab = rot_[-1]["txt"]
+        if lab:
+            dl = (t - act["t0"] + .3) if (act and t < act["t1"]) else (t - ta(rot_[-1]["word"]) + .05)
+            c.save(); sc_ = .9 + .1 * resorte(dl, 9, 12); c.translate(CX, 200); c.scale(sc_, sc_); c.translate(-CX, -200)
+            self.pildora(c, lab, CX, 200, S, aparece(dl, .15), fnt=self.F["pillb"]); c.restore()
+        # marcador: solo en la demo y en cada ronda; sale mientras se explica otra cosa
+        tramos = []
+        if s.get("demo_word") and R: tramos.append((ta(s["demo_word"]), R[0]["t0"] - .3))
+        for r in R: tramos.append((r["t0"] - .3, min(r["td"] + s.get("ver_s", 1.75), r["t1"])))
+        un = []
+        for a0, a1 in sorted(tramos):
+            if un and a0 <= un[-1][1] + .5: un[-1][1] = max(un[-1][1], a1)
+            else: un.append([a0, a1])
+        tramos = un
+        pv = max([min(1.0, max(0.0, (t - a0) / .3)) * min(1.0, max(0.0, (a1 - t) / .25)) for a0, a1 in tramos] + [0.0])
+        if pv <= 0: return
+        pe = 1 - (1 - pv) ** 3
+        c.save(); c.translate(0, 70 * (1 - pe)); c.saveLayer(None, skia.Paint(Alphaf=pv))
+        val = 0.0; estado = "espera"
+        dw = s.get("demo_word")
+        if act and t >= act["t0"] - .25:
+            if t >= act["td"]: val = min(t, act["t1"], act["td"] + 1.5) - act["td"]; estado = "corre"
+        elif dw and t >= ta(dw):
+            val = min(.62, (t - ta(dw)) * .3); estado = "demo"
+        PY = 920
+        r_ = rrc(CX, PY, 700, 150, 34)
+        c.drawRRect(r_.makeOffset(0, 10), skia.Paint(AntiAlias=True, Color=color("#000000", .45), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 16)))
+        c.drawRRect(r_, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, PY - 75), (0, PY + 75)], [color("#1C2340", .92), color("#070B1A", .95)])))
+        c.drawRRect(r_, trazo("#FFFFFF", 2.5, .35))
+        txt = f"{val:.3f}".replace(".", ",")
+        texto(c, txt, CX - 20, PY, self.F["cron"], "#FFFFFF", tnum=True, sombra=(4, 10, .4))
+        texto(c, "s", CX + 268, PY + 30, self.F["unit"], "#AFC3EE")
+        seg = next(sg for sg in self.ESCALA_PEN if sg[0] <= val < sg[1]) if val > 0 else self.ESCALA_PEN[0]
+        etq = s.get("espera_txt", "AÚN NO") if estado == "espera" else seg[4]
+        colp = "#3A4462" if estado == "espera" else seg[2]
+        fp = self.F["etq"]; wq = ancho(etq, fp) + 70
+        rq = rrc(CX, 1042, wq, 76, 22); c.drawRRect(rq, relleno(colp, .95)); c.drawRRect(rq, trazo("#FFFFFF", 2, .25))
+        texto(c, etq, CX, 1042, fp, "#0B1020" if estado != "espera" else "#FFFFFF")
+        # escala
+        x0e, wt = 82, 860; ws = wt / 5; ye = 1122
+        for i, (a_, b_, col, nom, _) in enumerate(self.ESCALA_PEN):
+            xx = x0e + i * ws; on = seg is self.ESCALA_PEN[i] and estado != "espera"
+            c.drawRRect(rrc(xx + ws / 2, ye, ws - 6, 40, 8), relleno(col, .95 if on else .45))
+            rango = (f"{a_:.2f}–{b_:.2f}" if b_ < 9 else f"+{a_:.2f}").replace(".", ",")
+            texto(c, rango, xx + ws / 2, ye, self.F["mini"], "#0B1020", alfa=.95 if on else .7, tnum=True)
+            texto(c, nom, xx + ws / 2, ye + 46, self.F["mini2"], "#FFFFFF", alfa=1 if on else .6)
+        # puntero
+        def pos_val(v):
+            for i, (a_, b_, *_r) in enumerate(self.ESCALA_PEN):
+                if v < b_: return x0e + i * ws + ws * (v - a_) / ((b_ if b_ < 9 else .80) - a_) if v < (b_ if b_ < 9 else .80) else x0e + wt - 4
+            return x0e + wt - 4
+        px = min(pos_val(val), x0e + wt - 6)
+        tri = skia.Path(); tri.moveTo(px - 13, ye - 46); tri.lineTo(px + 13, ye - 46); tri.lineTo(px, ye - 26); tri.close()
+        c.drawPath(tri, relleno("#FFFFFF"))
+        c.restore(); c.restore()
 
 
 def escenas(e):

@@ -1,0 +1,120 @@
+{
+ "video": "/home/user/zapatero/documentales/07-cuerpo-un-minuto/final/07-cuerpo-un-minuto.mp4",
+ "duracion_s": 33.23,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 0.0,
+   "abajo": 8.3,
+   "derecha": 33.8
+  },
+  "tramo_s": {
+   "arriba": 0.0,
+   "abajo": 2.75,
+   "derecha": 4.0
+  },
+  "ok": false,
+  "aceptada": "estilo premium: lo que se mueve en esas zonas es el mundo 3D a sangre (tarjetas en vuelo, reflejo, rejilla, partículas). Rótulos y etiquetas quedan dentro de x ≤ 935 e y 220–1460 por construcción"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0048,
+  "pico_cuadro0_db": -8.7,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -12.3,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 1.505,
+  "hueco_entre_marcas_s": 1.487,
+  "fin_voz_s": 32.828,
+  "cierre_s": 0.4,
+  "ok": false,
+  "aceptada": "a propósito: respiros (lineas[].silencio) para que las cifras terminen de rodar antes de la frase siguiente (el usuario pidió ritmo sin prisas)"
+ },
+ "palabras_completas": {
+  "n": 9,
+  "peor": {
+   "w": "segundo.",
+   "t": 3.666,
+   "caida_db": 24.7,
+   "desde_db": -24.0
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "segundo.",
+    "t": 3.666,
+    "caida_db": 24.7,
+    "desde_db": -24.0
+   },
+   {
+    "w": "veces…",
+    "t": 7.157,
+    "caida_db": 0.0,
+    "desde_db": -48.0
+   },
+   {
+    "w": "sangre.",
+    "t": 10.138,
+    "caida_db": 0.0,
+    "desde_db": -54.8
+   },
+   {
+    "w": "veces…",
+    "t": 13.578,
+    "caida_db": 0.0,
+    "desde_db": -52.6
+   },
+   {
+    "w": "aire.",
+    "t": 16.277,
+    "caida_db": 0.0,
+    "desde_db": -46.6
+   },
+   {
+    "w": "cuenta.",
+    "t": 20.438,
+    "caida_db": 0.0,
+    "desde_db": -53.7
+   },
+   {
+    "w": "rojos.",
+    "t": 27.204,
+    "caida_db": 10.8,
+    "desde_db": -39.8
+   },
+   {
+    "w": "móvil.",
+    "t": 30.625,
+    "caida_db": 5.3,
+    "desde_db": -39.4
+   },
+   {
+    "w": "vida.",
+    "t": 32.708,
+    "caida_db": 0.0,
+    "desde_db": -60.2
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

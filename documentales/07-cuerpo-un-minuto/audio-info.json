@@ -1,0 +1,23 @@
+{
+ "voz_lufs": -15.6,
+ "efectos": 15,
+ "efectos_lista": [
+  "0.45 golpe",
+  "4.37 whoosh",
+  "5.83 pop",
+  "7.47 whoosh",
+  "8.75 pop",
+  "11.05 whoosh",
+  "12.35 pop",
+  "14.98 pop",
+  "17.23 whoosh",
+  "18.65 pop",
+  "21.27 whoosh",
+  "23.07 pop",
+  "23.90 tic",
+  "26.90 whoosh",
+  "28.48 destello"
+ ],
+ "lufs": -14.2,
+ "dbtp": -1.2
+}
