@@ -161,6 +161,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Falso positivo:** si mides que una falla no es real (p. ej. un final carrasposo que baja poco a poco), anótalo en `guion.json → "qa_aceptadas": {"palabras_completas": "medido: cola baja a −60 dB antes de la siguiente palabra"}` y dile al usuario cuál aceptaste y por qué. Nunca lo uses para tapar un corte real.
 
 ## 7 · Reglas que salieron de correcciones reales (obligatorias)
+**Del usuario (27 nov 2026)**
+- Voz: SIEMPRE su voz favorita de ElevenLabs, voice_id `851ejYcv2BoNPjrkw93G` (ya en `perfil.json → voz_id`). No cambiarla por cuenta propia.
+- Clave: la de su cuenta, en la variable de entorno `ELEVENLABS_API_KEY` de este servidor. No guardarla en archivos ni mostrarla. Es una clave restringida (sin permiso de leer voces, modelos ni saldo): `voz_ia.py` y `voz.py … saldo` dan 401; se ignora y se genera directamente; el coste se estima ≈1 crédito por carácter.
+
 **Del formato**
 1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
    de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
