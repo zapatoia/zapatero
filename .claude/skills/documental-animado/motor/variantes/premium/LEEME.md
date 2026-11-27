@@ -66,6 +66,17 @@ whoosh en cada vuelo de cámara · golpe al aparecer el título · pop + tics al
 ## Reglas aprendidas (historial de correcciones del usuario; obligatorias)
 - (27 nov 2026) El usuario quiere este estilo «casi 3D», con muy buenos movimientos de cámara y efectos; lo plano «tipo diapositiva» no vale.
 - (27 nov 2026) Outro de compartir en todos los vídeos.
+- (27 nov 2026, opinión del usuario sobre el vídeo 07 — descartado, «olvida este vídeo»):
+  - Había **desenfoques innecesarios**: la profundidad de campo y el desenfoque de movimiento solo donde aporten (vuelos rápidos, fondo lejano);
+    el protagonista y los textos SIEMPRE nítidos. Revisar cuadro a cuadro que nada importante salga borroso.
+  - Había **cortes de audio**: no recortar ni empalmar la voz de forma que se note (los `silencio` insertados y los recortes deben sonar
+    naturales; escuchar/medir cada empalme). Revisar también que los SFX no corten ni se pisen.
+  - **Cifras que ruedan → sonido de rodillo** («tictictic») continuo durante todo el rodaje, que acelera/frena con la cifra y para al fijarse.
+  - **Las tarjetas de cristal 3D (y el apilado en capas) son UN recurso más, no el vídeo entero.** Úsalas cuando haya que explicar algo
+    en bloques; el resto del vídeo debe variar: escenas distintas según el tema (objetos/ilustraciones en 3D, mapas, líneas de tiempo,
+    escenarios, comparativas visuales, tipografía grande en el espacio, etc.). Ser flexible y crear recursos nuevos para cada tema.
+  - En general, «un largo etcétera de cosas mal»: antes de entregar, revisión mucho más estricta (cuadro a cuadro en transiciones,
+    audio escuchado en los empalmes) y pedir al usuario sus correcciones concretas para añadirlas aquí.
 - Ritmo sin prisas, explicaciones sencillas, voz fija del usuario, datos verificados con fuente (reglas generales de SKILL.md §7).
 
 ## Reglas técnicas (rendimiento; aprendidas en el vídeo 07)
@@ -81,4 +92,4 @@ Sin objetos fotorrealistas (todo vectorial con volumen). Sin modelos 3D complejo
 
 ## Historial de vídeos premium
 - `documentales/_pruebas/premium/prueba-premium.mp4` (prueba 1, plana) · `prueba-premium-2.mp4` (prueba 2, «Tu cuerpo en un minuto», 8 s).
-- `documentales/07-cuerpo-un-minuto` — primer vídeo completo con el motor (33 s + outro; render 4,4 min con 4 procesos). Pendiente de la opinión del usuario.
+- `documentales/07-cuerpo-un-minuto` — primer vídeo completo con el motor (33 s + outro; render 4,4 min con 4 procesos). Descartado por el usuario (ver reglas aprendidas); sirve solo como referencia de lo que NO debe repetirse.
