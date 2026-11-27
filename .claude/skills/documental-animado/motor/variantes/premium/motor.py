@@ -177,13 +177,21 @@ class Premium(ES.Estilo):
             r = 760 + 520 * rng.random(); w = .25 + .35 * rng.random(); ph = rng.random() * 6.28; yy = -380 + 760 * rng.random()
             P = e["O"] + np.array([r * math.cos(ph + w * t), yy + 30 * math.sin(t + i), 350 + r * abs(math.sin(ph + w * t)) * .9])
             q, z = cam.pantalla(P[None, :]); pts.append((z[0], q[0], i))
+        if a0 <= 0: return
+        spr = self._sprite(s.get("icono", "globulo"))                            # el icono se dibuja UNA vez y se reutiliza (rápido)
         for z, q, i in sorted(pts, key=lambda x: -x[0]):
             if z < 80: continue
-            sz = 46 * cam.f / z; bl = min(10, abs(z - foco) * .004)
-            if bl > .8:
-                c.saveLayer(None, skia.Paint(Alphaf=a0, ImageFilter=skia.ImageFilters.Blur(bl, bl))); fn(c, float(q[0]), float(q[1]), sz, t + i); c.restore()
-            elif a0 > 0:
-                c.saveLayer(None, skia.Paint(Alphaf=a0)); fn(c, float(q[0]), float(q[1]), sz, t + i); c.restore()
+            sz = 46 * cam.f / z; bl = min(10, abs(z - foco) * .004); r = sz * 1.6
+            p = skia.Paint(Alphaf=a0, AntiAlias=True)
+            if bl > .8: p.setImageFilter(skia.ImageFilters.Blur(bl, bl))
+            c.drawImageRect(spr, skia.Rect.MakeXYWH(float(q[0]) - r, float(q[1]) - r, 2 * r, 2 * r), skia.SamplingOptions(skia.FilterMode.kLinear), p)
+
+    def _sprite(self, nombre):
+        cache = self.__dict__.setdefault("_spr", {})
+        if nombre not in cache:
+            sf_ = skia.Surface(160, 160); cc = sf_.getCanvas(); cc.clear(skia.ColorTRANSPARENT)
+            ICONOS[nombre](cc, 80, 80, 50, 0.0); cache[nombre] = sf_.makeImageSnapshot()
+        return cache[nombre]
 
     def rotulo(self, c, t):
         P = self.palabras; ch = next((x for x in self.ch if x["t0"] <= t < x["t1"]), None)
@@ -196,9 +204,10 @@ class Premium(ES.Estilo):
             if dt > 0:
                 a = min(1, dt / .1) * sal; y = 300 + 18 * (1 - resorte(dt, 12, 13)); bl = max(.01, 8 * (1 - min(1, dt / .12)))
                 col = "#FFFFFF" if i == act else "#7D8597"
-                c.saveLayer(None, skia.Paint(Alphaf=a, ImageFilter=skia.ImageFilters.Blur(bl, bl)))
+                caja = skia.Rect.MakeLTRB(x - 40, y - 90, x + ww + 40, y + 70)          # capa acotada a la palabra (rápido)
+                c.saveLayer(caja, skia.Paint(Alphaf=a, ImageFilter=skia.ImageFilters.Blur(bl, bl)))
                 if i == act:
-                    with capa(c, alfa=.35, blur=16): texto(c, w, x, y, f, ORO2, alinear="i")
+                    c.saveLayer(caja, skia.Paint(Alphaf=.35, ImageFilter=skia.ImageFilters.Blur(16, 16))); texto(c, w, x, y, f, ORO2, alinear="i"); c.restore()
                 texto(c, w, x, y, f, col, alinear="i", sombra=(3, 10, .5)); c.restore()
             x += ww + esp
 

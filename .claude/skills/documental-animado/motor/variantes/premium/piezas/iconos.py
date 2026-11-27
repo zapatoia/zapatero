@@ -10,8 +10,17 @@ from nucleo.texto import color
 from nucleo.lienzo import capa, relleno, trazo
 
 
+def _px(c, blur):
+    """Convierte un desenfoque en píxeles de pantalla a unidades locales (los iconos se dibujan escalados: sin esto el blur se multiplica por s)."""
+    return blur / max(1e-6, abs(c.getTotalMatrix().getScaleX()))
+
+
+def capa_px(c, alfa, blur):
+    return capa(c, alfa=alfa, blur=_px(c, blur))
+
+
 def _halo(c, p, col, a=.55, blur=26):
-    with capa(c, alfa=a, blur=blur): c.drawPath(p, relleno(col))
+    with capa_px(c, a, blur): c.drawPath(p, relleno(col))
 
 
 def corazon(c, x, y, s, t, lpm=70, **_):
@@ -56,7 +65,8 @@ def gota(c, x, y, s, t, nivel=1.0, col="#E0182B", **_):
     c.save(); c.translate(x, y); c.scale(s, s)
     p = skia.Path(); p.moveTo(0, -1.1); p.cubicTo(.35, -.55, .78, -.1, .78, .3); p.cubicTo(.78, .78, .4, 1.0, 0, 1.0)
     p.cubicTo(-.4, 1.0, -.78, .78, -.78, .3); p.cubicTo(-.78, -.1, -.35, -.55, 0, -1.1); p.close()
-    _halo(c, p, col, .45, 24)
+    _halo(c, p, col, .12 + .35 * max(0.0, min(1.0, nivel)), 24)
+    c.drawPath(p, relleno("#0A0D16", .85))
     c.drawPath(p, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, -1), (0, 1)], [color("#FFFFFF", .10), color("#FFFFFF", .04)])))
     c.save(); c.clipPath(p, doAntiAlias=True)
     yn = 1.0 - 2.1 * max(0.0, min(1.0, nivel)); ola = skia.Path(); ola.moveTo(-1, 1.2)
@@ -82,7 +92,7 @@ def reloj(c, x, y, s, t, **_):
         a = math.radians(k * 6); r0 = .72 if k % 5 == 0 else .78
         c.drawLine(r0 * math.sin(a), -r0 * math.cos(a), .84 * math.sin(a), -.84 * math.cos(a), trazo("#FFFFFF", .03 if k % 5 == 0 else .012, .8))
     a = math.radians((t * 6) % 360)
-    with capa(c, alfa=.6, blur=8): c.drawLine(0, 0, .8 * math.sin(a), -.8 * math.cos(a), trazo("#E8B04A", .06))
+    with capa_px(c, .6, 8): c.drawLine(0, 0, .8 * math.sin(a), -.8 * math.cos(a), trazo("#E8B04A", .06))
     c.drawLine(-.15 * math.sin(a), .15 * math.cos(a), .8 * math.sin(a), -.8 * math.cos(a), trazo("#FFD98A", .035))
     c.drawCircle(0, 0, .06, relleno("#FFD98A"))
     c.drawArc(skia.Rect.MakeXYWH(-.9, -.9, 1.8, 1.8), 200, 50, False, trazo("#FFFFFF", .04, .25))
@@ -108,7 +118,7 @@ def aire(c, x, y, s, t, **_):
         ph = (t * .8 + k * .3) % 1
         pa = skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=.09, StrokeCap=skia.Paint.kRound_Cap,
                         Shader=skia.GradientShader.MakeLinear([(-ln / 2, 0), (ln / 2, 0)], [color("#5FC8FF", .3), color("#E9F6FF"), color("#5FC8FF", .3)], [0, ph, 1]))
-        with capa(c, alfa=.5, blur=10): c.drawPath(p, pa)
+        with capa_px(c, .5, 10): c.drawPath(p, pa)
         c.drawPath(p, pa)
     c.restore()
 

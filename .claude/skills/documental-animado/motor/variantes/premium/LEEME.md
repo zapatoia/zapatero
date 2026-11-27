@@ -68,6 +68,13 @@ whoosh en cada vuelo de cámara · golpe al aparecer el título · pop + tics al
 - (27 nov 2026) Outro de compartir en todos los vídeos.
 - Ritmo sin prisas, explicaciones sencillas, voz fija del usuario, datos verificados con fuente (reglas generales de SKILL.md §7).
 
+## Reglas técnicas (rendimiento; aprendidas en el vídeo 07)
+- Dentro de un dibujo escalado (iconos con `c.scale(s)`), el desenfoque de una capa se multiplica por la escala: usa `capa_px()` de
+  `piezas/iconos.py` (convierte píxeles de pantalla a unidades locales). Un blur sin convertir llegó a 4.000 px y hacía cada cuadro 10× más lento.
+- Nunca `saveLayer(None, …)` con desenfoque sobre la pantalla entera por cada elemento: acota la capa a su caja.
+- Texturas por piezas cacheadas (`tarjetas._cache`): fondo fijo + icono a 20 fps + cifra por texto. Iconos repetidos (enjambres): sprite único.
+- Objetivo: ≤ 0,4 s por cuadro (×4 en los vuelos con desenfoque de movimiento). Mídelo con unos cuadros antes del render completo.
+
 ## Límites conocidos
 Sin objetos fotorrealistas (todo vectorial con volumen). Sin modelos 3D complejos. Render ≈ 1,5–2× más lento que el documental normal.
 
