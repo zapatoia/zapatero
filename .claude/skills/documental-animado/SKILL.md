@@ -215,6 +215,15 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Causas judiciales de terceros:** se pueden mencionar con su estado procesal exacto y verificado (condenado / condenado en primera instancia / pendiente de juicio) y, si existe, el dato que equilibra (p. ej. «la Fiscalía pide absolverla»). Nada en instrucción presentado como hecho.
 - Escenas en `escenas_politica.py`: `urna`, `programa`, `cita`, `nomina`, `expedientes`, `promesas`; superficie nueva `rojo`.
 
+**Del usuario (27 nov 2026, tras el 11 y para el 12 «¿Y si desaparecieran los mosquitos?»)**
+- **El tono habitual NO es el político:** el 11 tenía demasiados datos y era muy serio. Lo normal: pocas cifras (2–3 por vídeo) y que los CONCEPTOS que dice el narrador se animen literalmente (si dice «se los comen», un pez se las come; si dice «cambian de ruta», los renos se dan la vuelta; si dice «desaparecieran», una mano lo estampa).
+- **Gancho visual con acción en la palabra clave** (la mano que estampa al mosquito justo en «desaparecieran») y **cierre que vuelve al gancho** con un remate de humor.
+- Personaje protagonista ilustrado y GRANDE (≥ 50 % del ancho), reutilizado en todas las escenas; nada pequeño arriba con media franja vacía.
+- Al dibujar un golpe: polvo y estrella DETRÁS de la mano, rótulo de cómic («¡PLAF!») ENCIMA y sin pisar otros elementos.
+- Anclas: `"él"` se normaliza a `"el"` y casa con el artículo; usa `"palabra#n"` cuando una palabra corta se repite.
+- `outro.py` saca el último cuadro con `-sseof -0.3` (el audio puede durar unos ms más que el vídeo).
+- Escenas en `escenas_mosquito.py`: `mosquito`, `ranking`, `contagio`, `zumbido`, `estanque`, `tundra`, `orquidea`, `red`, `especies`, `selectivo`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

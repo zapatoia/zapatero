@@ -1,0 +1,217 @@
+{
+ "video": "/home/user/zapatero/documentales/12-sin-mosquitos/final/12-sin-mosquitos.mp4",
+ "duracion_s": 61.49,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 88.6,
+   "abajo": 32.9,
+   "derecha": 88.2
+  },
+  "tramo_s": {
+   "arriba": 39.25,
+   "abajo": 9.5,
+   "derecha": 39.0
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: lo que salta son fondos a pantalla completa (cielo, agua, piel, tundra) y partículas (nube de mosquitos); ningún texto ni píldora entra en la columna de botones"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0051,
+  "pico_cuadro0_db": -20.3,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -24.5,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.595,
+  "hueco_entre_marcas_s": 0.672,
+  "fin_voz_s": 61.093,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 24,
+  "peor": {
+   "w": "néctar.",
+   "t": 38.357,
+   "caida_db": 27.5,
+   "desde_db": -18.7
+  },
+  "malas": [
+   {
+    "w": "néctar.",
+    "t": 38.357,
+    "caida_db": 27.5,
+    "desde_db": -18.7
+   }
+  ],
+  "detalle": [
+   {
+    "w": "mosquitos?",
+    "t": 4.254,
+    "caida_db": 11.1,
+    "desde_db": -32.6
+   },
+   {
+    "w": "tiburón.",
+    "t": 7.361,
+    "caida_db": 21.6,
+    "desde_db": -31.4
+   },
+   {
+    "w": "él.",
+    "t": 8.378,
+    "caida_db": 19.5,
+    "desde_db": -24.5
+   },
+   {
+    "w": "malaria,",
+    "t": 11.196,
+    "caida_db": 5.7,
+    "desde_db": -13.7
+   },
+   {
+    "w": "2024.",
+    "t": 15.703,
+    "caida_db": 0.0,
+    "desde_db": -50.9
+   },
+   {
+    "w": "acabaría.",
+    "t": 18.411,
+    "caida_db": 19.8,
+    "desde_db": -35.1
+   },
+   {
+    "w": "mañana?",
+    "t": 20.43,
+    "caida_db": 15.5,
+    "desde_db": -37.8
+   },
+   {
+    "w": "Adiós.",
+    "t": 21.622,
+    "caida_db": 0.0,
+    "desde_db": -60.3
+   },
+   {
+    "w": "come?",
+    "t": 23.478,
+    "caida_db": 22.0,
+    "desde_db": -36.8
+   },
+   {
+    "w": "peces",
+    "t": 26.22,
+    "caida_db": 12.5,
+    "desde_db": -3.5
+   },
+   {
+    "w": "libélulas.",
+    "t": 27.135,
+    "caida_db": 23.1,
+    "desde_db": -26.8
+   },
+   {
+    "w": "grandes",
+    "t": 29.939,
+    "caida_db": 16.0,
+    "desde_db": -25.3
+   },
+   {
+    "w": "esquivarlas.",
+    "t": 32.578,
+    "caida_db": 19.3,
+    "desde_db": -39.1
+   },
+   {
+    "w": "orquídea.",
+    "t": 35.438,
+    "caida_db": 17.6,
+    "desde_db": -24.9
+   },
+   {
+    "w": "pican:",
+    "t": 37.594,
+    "caida_db": 5.5,
+    "desde_db": -14.0
+   },
+   {
+    "w": "néctar.",
+    "t": 38.357,
+    "caida_db": 27.5,
+    "desde_db": -18.7
+   },
+   {
+    "w": "naturaleza?",
+    "t": 40.963,
+    "caida_db": 0.0,
+    "desde_db": -56.9
+   },
+   {
+    "w": "no:",
+    "t": 43.562,
+    "caida_db": 16.7,
+    "desde_db": -38.3
+   },
+   {
+    "w": "hueco.",
+    "t": 46.236,
+    "caida_db": 4.8,
+    "desde_db": -39.5
+   },
+   {
+    "w": "pican.",
+    "t": 51.263,
+    "caida_db": 0.0,
+    "desde_db": -52.6
+   },
+   {
+    "w": "todos,",
+    "t": 53.913,
+    "caida_db": 0.0,
+    "desde_db": -47.4
+   },
+   {
+    "w": "enfermedades.",
+    "t": 56.344,
+    "caida_db": 17.9,
+    "desde_db": -29.6
+   },
+   {
+    "w": "mañana…",
+    "t": 59.881,
+    "caida_db": 6.7,
+    "desde_db": -17.7
+   },
+   {
+    "w": "todos.",
+    "t": 60.973,
+    "caida_db": 8.7,
+    "desde_db": -38.7
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: «néctar.» cae de −28 a −43 dB y luego silencio, igual que en la toma original de ElevenLabs (41,68 s): es el final natural de la r, no un corte"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

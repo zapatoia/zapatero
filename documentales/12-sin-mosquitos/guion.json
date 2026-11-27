@@ -1,0 +1,261 @@
+{
+ "titulo": "¿Y si desaparecieran los mosquitos?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1050,
+ "pausa": 0.6,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Qué pasaría si mañana desaparecieran todos los mosquitos?",
+   "tts": "[curious] ¿Qué pasaría si mañana... desaparecieran todos los mosquitos?",
+   "key": "todos los mosquitos",
+   "escena": {
+    "tipo": "mosquito",
+    "surface": "noche",
+    "golpe_word": "desaparecieran",
+    "fin_txt": "¿Y AHORA QUÉ?"
+   }
+  },
+  {
+   "texto": "El animal que más humanos mata no es el tiburón.",
+   "tts": "El animal que más humanos mata no es el tiburón.",
+   "key": "el tiburón",
+   "escena": {
+    "tipo": "ranking",
+    "surface": "dark",
+    "titulo": "EL ANIMAL MÁS MORTAL",
+    "tiburon_word": "animal",
+    "cruz_word": "no",
+    "mosquito_word": "él#3",
+    "pill_txt": "Nº 1 EN MUERTES HUMANAS"
+   }
+  },
+  {
+   "texto": "Es él.",
+   "tts": "Es él.",
+   "key": "Es él"
+  },
+  {
+   "texto": "Al picar, contagia enfermedades como la malaria,",
+   "tts": "Al picar, contagia enfermedades como la malaria,",
+   "key": "la malaria",
+   "escena": {
+    "tipo": "contagio",
+    "surface": "light",
+    "pica_word": "picar",
+    "parasitos_word": "enfermedades",
+    "parasitos_txt": "MALARIA",
+    "stat": {
+     "word": "610.000",
+     "valor": 610000,
+     "label": "MUERTES POR MALARIA EN 2024",
+     "dur": 1.2
+    },
+    "cero_word": "acabaría",
+    "cero_label": "SIN MOSQUITOS, SIN CONTAGIO"
+   }
+  },
+  {
+   "texto": "que mató a 610.000 personas solo en 2024.",
+   "tts": "que mató a seiscientas diez mil personas solo en dos mil veinticuatro.",
+   "key": "en 2024"
+  },
+  {
+   "texto": "Sin mosquitos, eso se acabaría.",
+   "tts": "Sin mosquitos, eso se acabaría.",
+   "key": "se acabaría"
+  },
+  {
+   "texto": "¿Y ese zumbido a las tres de la mañana?",
+   "tts": "¿Y ese zumbido a las tres de la mañana?",
+   "key": "de la mañana",
+   "escena": {
+    "tipo": "zumbido",
+    "surface": "noche",
+    "zumbido_word": "zumbido",
+    "despierta_word": "tres",
+    "fin_word": "Adiós",
+    "reloj": "3:00"
+   }
+  },
+  {
+   "texto": "Adiós.",
+   "tts": "[playful] Adiós.",
+   "key": "Adiós"
+  },
+  {
+   "texto": "Pero, ¿quién se los come?",
+   "tts": "Pero... ¿quién se los come?",
+   "key": "se los come",
+   "escena": {
+    "tipo": "estanque",
+    "surface": "blue",
+    "larvas_word": "larvas",
+    "pez_word": "peces",
+    "libelula_word": "libélulas"
+   }
+  },
+  {
+   "texto": "Sus larvas viven en el agua y alimentan a peces",
+   "tts": "Sus larvas viven en el agua y alimentan a peces",
+   "key": "a peces"
+  },
+  {
+   "texto": "y a libélulas.",
+   "tts": "y a libélulas.",
+   "key": "libélulas"
+  },
+  {
+   "texto": "En el Ártico forman nubes tan grandes",
+   "tts": "En el Ártico forman nubes tan grandes",
+   "key": "tan grandes",
+   "escena": {
+    "tipo": "tundra",
+    "surface": "light",
+    "nube_word": "nubes",
+    "ruta_word": "cambian"
+   }
+  },
+  {
+   "texto": "que los renos cambian de ruta para esquivarlas.",
+   "tts": "que los renos cambian de ruta para esquivarlas.",
+   "key": "para esquivarlas"
+  },
+  {
+   "texto": "Y algunos polinizan flores, como esta orquídea.",
+   "tts": "Y algunos polinizan flores, como esta orquídea.",
+   "key": "esta orquídea",
+   "escena": {
+    "tipo": "orquidea",
+    "surface": "dark",
+    "macho_word": "machos",
+    "polen_word": "néctar",
+    "rotulos": [
+     {
+      "word": "polinizan",
+      "txt": "POLINIZAN FLORES"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Los machos no pican: beben néctar.",
+   "tts": "Los machos no pican: beben néctar.",
+   "key": "beben néctar"
+  },
+  {
+   "texto": "¿Se vendría abajo la naturaleza?",
+   "tts": "¿Se vendría abajo la naturaleza?",
+   "key": "la naturaleza",
+   "escena": {
+    "tipo": "red",
+    "surface": "blue",
+    "nodos": [
+     "PECES",
+     "AVES",
+     "RANAS",
+     "LIBÉLULAS",
+     "MURCIÉLAGOS"
+    ],
+    "hueco_word": "abajo",
+    "relleno_word": "ocuparían"
+   }
+  },
+  {
+   "texto": "Muchos científicos creen que no: otros insectos ocuparían su hueco.",
+   "tts": "Muchos científicos creen que no: otros insectos ocuparían su hueco.",
+   "key": "su hueco"
+  },
+  {
+   "texto": "Además, de unas 3.500 especies, solo un centenar nos pican.",
+   "tts": "Además, de unas tres mil quinientas especies... solo un centenar nos pican.",
+   "key": "nos pican",
+   "escena": {
+    "tipo": "especies",
+    "surface": "dark",
+    "word": "3.500",
+    "pican_word": "centenar",
+    "total": 3500,
+    "pican": 100
+   }
+  },
+  {
+   "texto": "Por eso la idea no es borrarlos a todos,",
+   "tts": "Por eso la idea no es borrarlos a todos,",
+   "key": "a todos",
+   "escena": {
+    "tipo": "selectivo",
+    "surface": "light",
+    "objetivo_word": "transmiten",
+    "borra_word": "enfermedades",
+    "pill_txt": "SOLO LOS QUE TRANSMITEN"
+   }
+  },
+  {
+   "texto": "sino solo a los que transmiten enfermedades.",
+   "tts": "sino solo a los que transmiten enfermedades.",
+   "key": "enfermedades"
+  },
+  {
+   "texto": "Aunque a las tres de la mañana…",
+   "tts": "Aunque... a las tres de la mañana...",
+   "key": "de la mañana",
+   "escena": {
+    "tipo": "mosquito",
+    "surface": "noche",
+    "reloj": "3:00",
+    "zumbido": [
+     "Aunque"
+    ],
+    "golpe_word": "todos",
+    "tam": 2.1
+   }
+  },
+  {
+   "texto": "yo los borraría a todos.",
+   "tts": "[playful] yo los borraría a todos.",
+   "key": "*a todos"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien siempre acaba lleno de picaduras.",
+  "tts": "[playful] Pásaselo a quien siempre acaba lleno de picaduras.",
+  "key": "de picaduras",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El que pican",
+  "salida": "12-sin-mosquitos-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "610.000 muertes por malaria en 2024 (OMS, Informe mundial sobre la malaria 2025)",
+   "url": "https://www.who.int/teams/global-malaria-programme/reports/world-malaria-report-2025"
+  },
+  {
+   "dato": "El mosquito es el animal que más humanos mata (tiburones: unas pocas personas al año)",
+   "url": "https://ourworldindata.org/deadliest-animals"
+  },
+  {
+   "dato": "Solo pican las hembras; machos y hembras se alimentan de néctar (CDC)",
+   "url": "https://www.cdc.gov/mosquitoes/about/"
+  },
+  {
+   "dato": "Unas 3.500 especies descritas y solo un centenar pican a humanos (Institut Pasteur)",
+   "url": "https://www.pasteur.fr/en/node/21237"
+  },
+  {
+   "dato": "Larvas en el agua como alimento de peces y libélulas; nubes en el Ártico que hacen cambiar de ruta a los caribús; muchos científicos creen que otros insectos ocuparían su hueco (Fang, Nature 466, 2010)",
+   "url": "https://www.nature.com/news/2010/100721/pdf/466432a.pdf"
+  },
+  {
+   "dato": "Mosquitos Aedes polinizan la orquídea Platanthera obtusata (Lahondère et al., PNAS 2020)",
+   "url": "https://www.pnas.org/doi/10.1073/pnas.1910589117"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: lo que salta son fondos a pantalla completa (cielo, agua, piel, tundra) y partículas (nube de mosquitos); ningún texto ni píldora entra en la columna de botones",
+  "palabras_completas": "medido: «néctar.» cae de −28 a −43 dB y luego silencio, igual que en la toma original de ElevenLabs (41,68 s): es el final natural de la r, no un corte",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

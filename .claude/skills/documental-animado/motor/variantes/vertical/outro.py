@@ -118,7 +118,7 @@ def main(proy):
     fin = pal[-1]["e"] + .9; nf = int(round(fin * FPS))
     # último cuadro del vídeo original como fondo
     ult = tmp / "ultimo.png"
-    run(FF, "-v", "error", "-y", "-sseof", "-0.05", "-i", str(vid), "-frames:v", "1", "-update", "1", str(ult))
+    run(FF, "-v", "error", "-y", "-sseof", "-0.3", "-i", str(vid), "-frames:v", "1", "-update", "1", str(ult))
     fondo = skia.Image.MakeFromEncoded(skia.Data.MakeWithCopy(ult.read_bytes()))
     key = o.get("key", ""); kw = key.split(); idx = {i for i in range(len(pal) - len(kw), len(pal))} if kw else set()
     t_amigo = next((p["s"] for p in pal if TI.norm(p["w"]) == TI.norm(o.get("amigo_word", "amigo"))), pal[len(pal) // 2]["s"])
