@@ -14,7 +14,8 @@
     "texto": "1 MINUTO",
     "icono": "reloj",
     "sub": "lo que hace tu cuerpo"
-   }
+   },
+   "silencio": 0.7
   },
   {
    "texto": "Tu corazón latirá unas 70 veces…",
@@ -27,7 +28,8 @@
     "unidad": "latidos por minuto",
     "extra": "ecg",
     "word": "70"
-   }
+   },
+   "silencio": 0.5
   },
   {
    "texto": "y moverá unos 5 litros de sangre.",
@@ -40,7 +42,8 @@
     "sufijo": " L",
     "unidad": "de sangre por minuto",
     "word": "5"
-   }
+   },
+   "silencio": 0.8
   },
   {
    "texto": "Respirarás unas 15 veces…",
@@ -65,11 +68,13 @@
      }
     ],
     "sep": 470
-   }
+   },
+   "silencio": 0.3
   },
   {
    "texto": "y meterás unos 6 litros de aire.",
-   "tts": "y meterás unos seis litros de aire."
+   "tts": "y meterás unos seis litros de aire.",
+   "silencio": 0.8
   },
   {
    "texto": "Parpadearás otras 15 veces sin darte cuenta.",
@@ -81,7 +86,8 @@
     "valor": 15,
     "unidad": "parpadeos por minuto",
     "word": "15"
-   }
+   },
+   "silencio": 0.8
   },
   {
    "texto": "Y tu médula fabricará unos 120 millones de glóbulos rojos.",
@@ -95,7 +101,8 @@
     "word": "120",
     "enjambre": true,
     "dur": 2.0
-   }
+   },
+   "silencio": 1.0
   },
   {
    "texto": "Todo eso, mientras tú solo mirabas el móvil.",
@@ -103,7 +110,8 @@
    "escena": {
     "tipo": "apilado",
     "sep_capas": 250
-   }
+   },
+   "silencio": 0.6
   },
   {
    "texto": "Y lo hace cada minuto de tu vida.",

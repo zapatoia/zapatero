@@ -149,6 +149,9 @@ class Premium(ES.Estilo):
             rr = 1100 * cam.f / z[0] * .6
             c.drawCircle(float(q[0, 0]), float(q[0, 1]), rr, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(
                 (float(q[0, 0]), float(q[0, 1])), rr, [color(ORO, .16), color(ORO, 0)], [0, 1])))
+        ek = self.escenas[k]
+        if ek["spec"]["tipo"] == "contador" and ek["spec"].get("enjambre"):   # enjambre de iconos (detrás de la placa)
+            self.enjambre(c, cam, ek, t, foco)
         barr = (t * .45) % 1.5; etq = []
         for pl in sorted(pls, key=lambda p: -float(cam.vista(p.c[None, :])[0, 2])):
             r = dibujar_plano(c, cam, pl, foco, barrido=barr if barr <= 1 else None)
@@ -163,8 +166,6 @@ class Premium(ES.Estilo):
                 c.drawLine(xr, yr, xt - 8, yr - 50, trazo(ORO, 2, .9 * a)); c.drawCircle(xr, yr, 5, relleno(ORO2, a))
                 texto(c, d.get("titulo", ""), xt, yr - 64, self.F["et"], "#FFFFFF", alinear="i", tracking=.2, alfa=a)
                 texto(c, f"{d.get('prefijo', '')}{num_es(d.get('valor', 0), d.get('dec', 0))}{d.get('sufijo', '')}", xt, yr - 28, self.F["et2"], ORO, alinear="i", alfa=a)
-        if e["spec"]["tipo"] == "contador" and e["spec"].get("enjambre"):     # enjambre de iconos alrededor
-            self.enjambre(c, cam, e, t, foco)
         particulas(c, cam, self.polvo, foco, t)
         self.rotulo(c, t)
         return rapido
