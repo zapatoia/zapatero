@@ -501,7 +501,7 @@ class Vertical(ES.Estilo):
             kw = key.split(); nk = len(kw)
             # posición de la clave dentro de la línea
             norm = lambda w: TI.norm(w)
-            kpos = next((i for i in range(len(words) - nk + 1) if [norm(w) for w in words[i:i + nk]] == [norm(w) for w in kw]), None)
+            kpos = next((i for i in reversed(range(len(words) - nk + 1)) if [norm(w) for w in words[i:i + nk]] == [norm(w) for w in kw]), None)
             enlinea = set()
             if kpos is not None and kpos + nk < len(words) and self.guion.get("clave_en_linea", False):
                 enlinea = set(ids[kpos:kpos + nk]); kpos = None          # clave en medio de la frase: va resaltada dentro de la línea
@@ -797,6 +797,152 @@ class Vertical(ES.Estilo):
         wg2 = skia.Path(); wg2.moveTo(10 * s, -2 * s); wg2.lineTo(-20 * s, -30 * s); wg2.lineTo(-30 * s, -30 * s); wg2.lineTo(-16 * s, -3 * s); wg2.close()
         c.drawPath(wg2, relleno("#B9C6DE")); c.drawPath(b, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(0, -9 * s), (0, 9 * s)], [color("#FFFFFF"), color("#C4CFE3")])))
         c.drawPath(wg, relleno("#E3E9F5")); c.restore()
+
+
+    # ------------------------------------------------------------------ mapamundi Equal Earth con meridiano central móvil y giro
+    def _ee(self):
+        if getattr(self, "_eeR", None) is not None: return self._eeR
+        A1, A2, A3, A4 = 1.340264, -0.081106, 0.000893, 0.003796; M = np.sqrt(3) / 2
+        def fac(lat):
+            th = np.arcsin(M * np.sin(np.radians(lat)))
+            y = th * (A1 + A2 * th ** 2 + th ** 6 * (A3 + A4 * th ** 2))
+            gx = 2 * np.sqrt(3) * np.cos(th) / (3 * (A1 + 3 * A2 * th ** 2 + th ** 6 * (7 * A3 + 9 * A4 * th ** 2)))
+            return gx * 6371.0, y * 6371.0
+        rs = []
+        for cid, rings in self._mundo_rings().items():
+            for r in rings:
+                if len(r) < 4: continue
+                r = r[::2] if len(r) > 60 else r
+                lon = np.degrees(np.unwrap(np.radians(r[:, 0])))          # anillos que cruzan los 180°: longitud continua
+                gx, y = fac(r[:, 1]); rs.append((cid, lon, gx, y))
+        la = np.linspace(-90, 90, 181); gxo, yo = fac(la)
+        self._eeR = dict(fac=fac, rings=rs, borde=(gxo, yo)); return self._eeR
+
+    def _key(self, ks, e, t, campo="v", ease=True):
+        v = ks[0][campo]
+        for k in ks[1:]:
+            u = (t - self.ta(k["t"], e)) / k.get("dur", 1.0); u = ease_io_expo(u) if ease else TI.clamp(u)
+            v = v + (k[campo] - v) * u if not isinstance(v, list) else [a + (b - a) * u for a, b in zip(v, k[campo])]
+        return v
+
+    def e_mundo(self, c, e, t, S):
+        s = e["spec"]; E = self._ee(); fac = E["fac"]
+        lam = self._key(s.get("lam", [{"t": "@0", "v": 0}]), e, t)
+        rot = self._key(s.get("rot", [{"t": "@0", "v": 0}]), e, t)
+        def pr(lon, lat):
+            gx, y = fac(np.array([lat], float)); d = ((lon - lam + 180) % 360) - 180
+            return float(np.radians(d) * gx[0]), float(y[0])
+        cams = s.get("cam", [{"t": "@0", "c": [None, 0], "r": 17600}])
+        def cen_of(k):
+            cc = k["c"]; return np.array(pr(lam if cc[0] is None else cc[0], cc[1]))
+        cen = cen_of(cams[0]); r0 = cams[0]["r"]
+        for k in cams[1:]:
+            u = ease_io_expo((t - self.ta(k["t"], e)) / k.get("dur", 1.0)); c1 = cen_of(k)
+            r0 = math.exp(math.log(r0) + (math.log(k["r"]) - math.log(r0)) * u); cen = cen + (c1 - cen) * u
+        k_ = GW / r0; lw = lambda px: px / k_
+        c.save(); c.translate(CX, CY); c.rotate(rot); c.scale(k_, -k_); c.translate(-cen[0], -cen[1])
+        gxo, yo = E["borde"]; ol = skia.Path(); ol.moveTo(-math.pi * gxo[0], yo[0])
+        for g_, y_ in zip(gxo, yo): ol.lineTo(-math.pi * g_, y_)
+        for g_, y_ in zip(gxo[::-1], yo[::-1]): ol.lineTo(math.pi * g_, y_)
+        ol.close()
+        c.drawPath(ol, relleno("#0E2350", .95)); c.save(); c.clipPath(ol, doAntiAlias=True)
+        # retícula
+        gw = s.get("reticula_word"); ga = aparece(t - self.ta(gw, e), .4) if gw else (.35 if s.get("reticula") else 0)
+        if ga > 0:
+            for lo in range(-180, 181, 30):
+                p = skia.Path(); la_ = np.linspace(-90, 90, 61); g2, y2 = fac(la_); d = ((lo - lam + 180) % 360) - 180
+                p.moveTo(math.radians(d) * g2[0], y2[0])
+                for a_, b_ in zip(g2, y2): p.lineTo(math.radians(d) * a_, b_)
+                c.drawPath(p, trazo(S["borde"], lw(1.2), .5 * ga))
+            for la_ in range(-60, 61, 30):
+                g2, y2 = fac(np.array([la_], float)); c.drawLine(-math.pi * g2[0], y2[0], math.pi * g2[0], y2[0], trazo(S["borde"], lw(1.2), .5 * ga))
+        hl = {}
+        for h in s.get("resaltar", []):
+            a = aparece(t - self.ta(h["word"], e), .3)
+            for cid in h["ids"]: hl[cid] = (h["col"], a)
+        tierra = skia.Path(); extra = {}
+        for cid, lon, gx, y in E["rings"]:
+            for sh in (-720, -360, 0, 360, 720):
+                d = lon - lam + sh
+                if d.max() < -182 or d.min() > 182: continue
+                x = np.radians(d) * gx; pth = extra.setdefault(cid, skia.Path()) if cid in hl else tierra
+                pth.moveTo(x[0], y[0])
+                for xx, yy in zip(x[1:], y[1:]): pth.lineTo(xx, yy)
+                pth.close()
+        c.drawPath(tierra, relleno(S["tierra"] if S["tierra"] != "#12244A" else "#2A4F9A", 1)); c.drawPath(tierra, trazo("#0E2350", lw(1), .8))
+        for cid, pth in extra.items():
+            col, a = hl[cid]; c.drawPath(pth, relleno("#2A4F9A")); c.drawPath(pth, relleno(col, a)); c.drawPath(pth, trazo("#0E2350", lw(1), .8))
+        # meridiano cero
+        mw = s.get("meridiano_word")
+        if mw:
+            u = TI.clamp((t - self.ta(mw, e)) / .8)
+            if u > 0:
+                la_ = np.linspace(85, 85 - 170 * TI.cubic_out(u), 80); g2, y2 = fac(la_); d = ((0 - lam + 180) % 360) - 180
+                p = skia.Path(); p.moveTo(math.radians(d) * g2[0], y2[0])
+                for a_, b_ in zip(g2, y2): p.lineTo(math.radians(d) * a_, b_)
+                c.drawPath(p, skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=lw(12), Color=color("#FFD34D", .35), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, lw(6))))
+                c.drawPath(p, trazo("#FFD34D", lw(4)))
+        c.restore()
+        c.drawPath(ol, trazo("#7FA6F0", lw(2), .6))
+        # línea del centro del mapa (la que «engaña»)
+        cw = s.get("centro_word")
+        if cw:
+            a = aparece(t - self.ta(cw, e), .3)
+            if a > 0:
+                g2, y2 = fac(np.array([-75.0, 75.0])); p = trazo("#FFFFFF", lw(3), .75 * a); p.setPathEffect(skia.DashPathEffect.Make([lw(18), lw(12)], 0))
+                c.drawLine(0, y2[0], 0, y2[1], p)
+        c.restore()
+        def scr(lon, lat):
+            x, y = pr(lon, lat); x, y = (x - cen[0]) * k_, -(y - cen[1]) * k_
+            ca, sa = math.cos(math.radians(rot)), math.sin(math.radians(rot))
+            return CX + x * ca - y * sa, CY + x * sa + y * ca
+        if cw:
+            a = aparece(t - self.ta(cw, e) - .15, .2)
+            if a > 0:
+                xx, yy = scr(lam, 0); g2, y2 = fac(np.array([75.0]))
+                self.pildora(c, s.get("centro_label", "centro del mapa"), xx, CY - (y2[0] - cen[1]) * k_ - 30, S, a, fnt=self.F["pill"])
+        for pi in s.get("pins", []):
+            dt = t - self.ta(pi["word"], e)
+            if dt > 0:
+                x, y = scr(pi["lon"], pi["lat"]); self.pin(c, x, y, pi, dt, t, S)
+        if s.get("pill"):
+            a = aparece(t - self.ta(s.get("pill_word", "@0"), e), .2)
+            if a > 0: self.pildora(c, s["pill"], CX, 330, S, a, fnt=self.F["pillb"])
+
+    # ------------------------------------------------------------------ globo que gira (ortográfica)
+    def e_globo(self, c, e, t, S):
+        s = e["spec"]; dt0 = t - e["t0"]
+        lon0 = self._key(s["lon"], e, t) + s.get("vel", 0) * dt0 if "lon" in s else s.get("lon0", 0) + s.get("vel", 25) * dt0
+        lat0 = self._key(s["lat"], e, t) if "lat" in s else s.get("lat0", 20)
+        R = 400 * (.9 + .1 * resorte(dt0, 6, 8)); gx, gy = CX, 640
+        def pr(lon, lat):
+            l = np.radians(np.asarray(lon) - lon0); p = np.radians(np.asarray(lat)); p0 = np.radians(lat0)
+            x = np.cos(p) * np.sin(l); y = np.cos(p0) * np.sin(p) - np.sin(p0) * np.cos(p) * np.cos(l)
+            vis = np.sin(p0) * np.sin(p) + np.cos(p0) * np.cos(p) * np.cos(l) > 0
+            return gx + R * x, gy - R * y, vis
+        with capa(c, modo=skia.BlendMode.kPlus):
+            c.drawCircle(gx, gy, R * 1.25, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((gx, gy), R * 1.25, [color("#3A6FD8", .0), color("#3A6FD8", .0), color("#3A6FD8", .35), color("#000000", 0)], [0, .78, .8, 1])))
+        c.drawCircle(gx, gy, R, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((gx - R * .35, gy - R * .4), R * 1.6, [color("#2D63D0"), color("#163A8C"), color("#081436")], [0, .55, 1])))
+        land = skia.Path()
+        for cid, rings in self._mundo_rings().items():
+            for r in rings:
+                if len(r) < 4: continue
+                r = r[::2] if len(r) > 60 else r
+                X, Y, V = pr(r[:, 0], r[:, 1])
+                if V.mean() < .999: continue                      # solo anillos enteros a la vista (sin cortes raros en el borde)
+                land.moveTo(X[0], Y[0])
+                for xx, yy in zip(X[1:], Y[1:]): land.lineTo(xx, yy)
+                land.close()
+        c.drawPath(land, relleno("#5C8DF0", .95)); c.drawPath(land, trazo("#0E2350", 1, .6))
+        c.drawCircle(gx, gy, R, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial((gx + R * .3, gy + R * .35), R * 1.3, [color("#000000", 0), color("#000000", .0), color("#000000", .45)], [0, .5, 1])))
+        c.drawCircle(gx, gy, R, trazo("#BFD4FF", 2, .5))
+        for pi in s.get("pins", []):
+            dt = t - self.ta(pi["word"], e)
+            if dt <= 0: continue
+            X, Y, V = pr([pi["lon"]], [pi["lat"]])
+            if V[0]: self.pin(c, float(X[0]), float(Y[0]), pi, dt, t, S)
+        if s.get("pill"):
+            self.pildora(c, s["pill"], CX, 170, S, aparece(t - self.ta(s.get("pill_word", "@0"), e), .2), fnt=self.F["pillb"])
 
 
 def escenas(e):

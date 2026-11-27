@@ -1,0 +1,521 @@
+{
+ "titulo": "¿El centro del mundo?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 800,
+ "pausa": 0.6,
+ "sfx": true,
+ "clave_en_linea": true,
+ "stat_alto": true,
+ "lineas": [
+  {
+   "texto": "¿Cómo no nos vamos a sentir el centro del mundo…",
+   "tts": "¿Cómo no nos vamos a sentir el centro del mundo...",
+   "key": "mundo",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "lam": [
+     {
+      "t": "@0",
+      "v": 0
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       null,
+       0
+      ],
+      "r": 16000
+     },
+     {
+      "t": "españoles-0.2",
+      "c": [
+       0,
+       20
+      ],
+      "r": 9500,
+      "dur": 1.2
+     },
+     {
+      "t": "aquí-0.3",
+      "c": [
+       -3,
+       36
+      ],
+      "r": 4200,
+      "dur": 0.9
+     }
+    ],
+    "centro_word": "centro",
+    "centro_label": "centro del mapa",
+    "resaltar": [
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#FFD34D",
+      "word": "españoles"
+     }
+    ],
+    "pins": [
+     {
+      "lon": -3.7,
+      "lat": 40.4,
+      "label": "España",
+      "word": "aquí",
+      "lado": "d"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "si los españoles estamos, literalmente, aquí?",
+   "tts": "si los españoles estamos, literalmente, aquí?",
+   "key": "aquí"
+  },
+  {
+   "texto": "Pues no: es solo cómo dibujamos el mapa.",
+   "tts": "Pues no: es solo cómo dibujamos el mapa.",
+   "key": "mapa",
+   "escena": {
+    "tipo": "globo",
+    "surface": "blue",
+    "transicion": "zoom",
+    "lon0": -20,
+    "lat0": 25,
+    "vel": 30,
+    "pill": "Un mapa es solo un dibujo de esto",
+    "pill_word": "dibujamos"
+   }
+  },
+  {
+   "texto": "En los colegios de China, el centro es China.",
+   "tts": "En los colegios de China, el centro es China.",
+   "key": "China",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "transicion": "whip",
+    "lam": [
+     {
+      "t": "@0",
+      "v": 0
+     },
+     {
+      "t": "colegios",
+      "v": 110,
+      "dur": 1.6
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       null,
+       0
+      ],
+      "r": 16000
+     }
+    ],
+    "centro_word": "@0",
+    "centro_label": "centro del mapa",
+    "resaltar": [
+     {
+      "ids": [
+       "156"
+      ],
+      "col": "#E5322D",
+      "word": "China#2"
+     },
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#FFD34D",
+      "word": "@0"
+     }
+    ],
+    "pins": [
+     {
+      "lon": 104,
+      "lat": 35,
+      "label": "China",
+      "word": "China#2",
+      "lado": "i"
+     },
+     {
+      "lon": -3.7,
+      "lat": 40.4,
+      "label": "España",
+      "word": "centro",
+      "lado": "i"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y en Australia hay mapas con el sur arriba.",
+   "tts": "Y en Australia hay mapas con el sur arriba.",
+   "key": "arriba",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "transicion": "mask",
+    "lam": [
+     {
+      "t": "@0",
+      "v": 110
+     },
+     {
+      "t": "Australia",
+      "v": 140,
+      "dur": 1.0
+     }
+    ],
+    "rot": [
+     {
+      "t": "@0",
+      "v": 0
+     },
+     {
+      "t": "sur-0.2",
+      "v": 180,
+      "dur": 1.2
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       null,
+       0
+      ],
+      "r": 16000
+     }
+    ],
+    "resaltar": [
+     {
+      "ids": [
+       "036"
+      ],
+      "col": "#2FBF71",
+      "word": "Australia"
+     },
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#FFD34D",
+      "word": "@0"
+     }
+    ],
+    "pins": [
+     {
+      "lon": 134,
+      "lat": -25,
+      "label": "Australia",
+      "word": "Australia",
+      "lado": "d"
+     }
+    ],
+    "pill": "Mapa «al revés» de 1979",
+    "pill_word": "arriba"
+   }
+  },
+  {
+   "texto": "¿Por qué el nuestro pone a Europa en medio?",
+   "tts": "¿Por qué el nuestro pone a Europa en medio?",
+   "key": "medio",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "transicion": "whip",
+    "lam": [
+     {
+      "t": "@0",
+      "v": 60
+     },
+     {
+      "t": "nuestro",
+      "v": 0,
+      "dur": 1.2
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       null,
+       0
+      ],
+      "r": 16000
+     }
+    ],
+    "centro_word": "Europa",
+    "centro_label": "centro del mapa",
+    "resaltar": [
+     {
+      "ids": [
+       "724",
+       "250",
+       "276",
+       "380",
+       "826",
+       "620",
+       "056",
+       "528",
+       "756",
+       "040",
+       "616",
+       "203",
+       "208",
+       "752",
+       "578",
+       "246",
+       "372",
+       "300",
+       "642",
+       "348",
+       "100",
+       "703",
+       "705",
+       "191",
+       "070",
+       "688",
+       "499",
+       "008",
+       "807",
+       "440",
+       "428",
+       "233",
+       "112",
+       "804",
+       "498",
+       "442"
+      ],
+      "col": "#FFD34D",
+      "word": "Europa",
+      "alfa": 0.7
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Porque en 1884 se eligió una línea cero:",
+   "tts": "Porque en mil ochocientos ochenta y cuatro se eligió una línea cero:",
+   "key": "cero",
+   "escena": {
+    "tipo": "fecha",
+    "surface": "blue",
+    "transicion": "card",
+    "anio": 1884,
+    "word": "1884",
+    "desde": 1800,
+    "pill": "Reunión de 25 países · Washington"
+   }
+  },
+  {
+   "texto": "la que pasa por Greenwich, en Londres.",
+   "tts": "la que pasa por Grínuich, en Londres.",
+   "key": "Londres",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "transicion": "zoom",
+    "lam": [
+     {
+      "t": "@0",
+      "v": 0
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       0,
+       20
+      ],
+      "r": 9000
+     },
+     {
+      "t": "Greenwich-0.2",
+      "c": [
+       0,
+       46
+      ],
+      "r": 1500,
+      "dur": 1.2
+     }
+    ],
+    "meridiano_word": "pasa",
+    "resaltar": [
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#FFD34D",
+      "word": "España"
+     }
+    ],
+    "pins": [
+     {
+      "lon": 0.0,
+      "lat": 51.48,
+      "label": "Greenwich · Londres",
+      "word": "Greenwich",
+      "lado": "d"
+     },
+     {
+      "lon": -0.05,
+      "lat": 40.1,
+      "label": "Castellón",
+      "word": "Castellón",
+      "lado": "d"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y esa línea cruza España, por Castellón.",
+   "tts": "Y esa línea cruza España, por Castellón.",
+   "key": "Castellón"
+  },
+  {
+   "texto": "Pero la Tierra es una bola,",
+   "tts": "Pero la Tierra es una bola,",
+   "key": "bola",
+   "escena": {
+    "tipo": "globo",
+    "surface": "blue",
+    "transicion": "mask",
+    "vel": 3,
+    "pins": [
+     {
+      "lon": -3.7,
+      "lat": 40.4,
+      "label": "Madrid",
+      "word": "bola#2",
+      "lado": "d"
+     },
+     {
+      "lon": 116.4,
+      "lat": 39.9,
+      "label": "Pekín",
+      "word": "punto",
+      "lado": "d"
+     },
+     {
+      "lon": -77.0,
+      "lat": -12.0,
+      "label": "Lima",
+      "word": "centro",
+      "lado": "d"
+     }
+    ],
+    "lon": [
+     {
+      "t": "@0",
+      "v": -40
+     },
+     {
+      "t": "bola#2-0.5",
+      "v": -3.7,
+      "dur": 0.55
+     },
+     {
+      "t": "punto-0.5",
+      "v": 116,
+      "dur": 0.55
+     },
+     {
+      "t": "centro-0.5",
+      "v": 283,
+      "dur": 0.6
+     }
+    ],
+    "lat": [
+     {
+      "t": "@0",
+      "v": 25
+     },
+     {
+      "t": "bola#2-0.5",
+      "v": 38,
+      "dur": 0.55
+     },
+     {
+      "t": "punto-0.5",
+      "v": 35,
+      "dur": 0.55
+     },
+     {
+      "t": "centro-0.5",
+      "v": -10,
+      "dur": 0.6
+     }
+    ]
+   }
+  },
+  {
+   "texto": "y en una bola, cualquier punto puede ser el centro.",
+   "tts": "y en una bola, cualquier punto puede ser el centro.",
+   "key": "centro"
+  },
+  {
+   "texto": "El centro del mundo es donde tú pongas el mapa.",
+   "tts": "El centro del mundo es donde tú pongas el mapa.",
+   "key": "mapa",
+   "escena": {
+    "tipo": "mundo",
+    "surface": "dark",
+    "transicion": "zoom",
+    "lam": [
+     {
+      "t": "@0",
+      "v": -100
+     },
+     {
+      "t": "donde",
+      "v": 0,
+      "dur": 1.6
+     }
+    ],
+    "cam": [
+     {
+      "t": "@0",
+      "c": [
+       null,
+       0
+      ],
+      "r": 16000
+     }
+    ],
+    "centro_word": "@0",
+    "centro_label": "tu centro",
+    "resaltar": [
+     {
+      "ids": [
+       "724"
+      ],
+      "col": "#FFD34D",
+      "word": "pongas"
+     }
+    ]
+   }
+  }
+ ],
+ "fuentes": [
+  "Conferencia Internacional del Meridiano, octubre de 1884, Washington (41 delegados de 25 países): Greenwich como meridiano cero — https://en.wikipedia.org/wiki/International_Meridian_Conference · https://www.thegreenwichmeridian.org/tgm/articles.php?article=10",
+  "El meridiano de Greenwich cruza España por Huesca, Teruel y Castellón — https://www.aragondigital.com/2024/11/28/did-you-know-that-the-greenwich-meridian-zero-passes-through-aragon · https://theobjective.com/curiosidades/2024-11-08/espana-meridiano-greenwich-origen-inglaterra/",
+  "Los mapas de los colegios chinos ponen China en el centro (formato heredado del mapa de Matteo Ricci, 1602) — https://www.atlasobscura.com/articles/the-map-youll-see-in-chinese-classrooms · https://bigthink.com/strange-maps/future-world-map/",
+  "Mapa con el sur arriba: McArthur's Universal Corrective Map of the World, Australia, 1979 — https://mapdesign.icaci.org/?p=674 · https://mapasmilhaud.com/en/propaganda-maps/mcarthurs-universal-corrective-map-1979/",
+  "Mapas: Natural Earth / world-atlas; proyección Equal Earth"
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido: lo que se mueve en esas zonas es el fondo a sangre (mapas a pantalla completa, rejilla, partículas). Textos, píldoras y cifras quedan dentro de x 40–950 e y 150–1460 por construcción",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): no hay transcripción independiente; solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

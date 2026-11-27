@@ -177,6 +177,9 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Ritmo sin prisas:** el 01 se sintió apresurado. Escribe unas 2,1–2,3 palabras por segundo de duración pedida (60 s ≈ 125–135 palabras), deja las pausas naturales (`pausa` ≈ 0,45 s, sin `tempo`) y escenas de 2,5–4 s con su respiro.
 - **Efectos de sonido suaves siempre:** whoosh leve en las transiciones y detallitos (pop al aparecer un pin o una etiqueta, tic en los contadores, golpe sordo en los momentos fuertes), bajos (−26 a −32 dB aprox.) y colocados en el hueco justo antes de la palabra, nunca encima.
 
+**Corrección del usuario sobre el vídeo 02 (27 nov 2026)**
+- **Explicaciones sencillas, para todos los públicos:** palabras de todos los días, una idea por frase, nada de tecnicismos (o explicados con una comparación cotidiana), datos redondos cuando el exacto no aporta, y que un niño de 12 años lo entienda a la primera.
+
 **Del formato**
 1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
    de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
