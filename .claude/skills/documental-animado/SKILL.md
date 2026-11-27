@@ -189,6 +189,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Más detalle en los efectos de sonido, sin pasarse:** cada cosa que se mueve suena (rodillo de tics que frenan + «clac» al rodar cifras y años: `"rodillo": true` en stat/fecha; nota por generación en `arbol`; barrido en barras; campana, destello, mensaje). Los tics del rodillo pueden ir bajo la voz (son muy suaves); el resto, en los huecos.
 - **Vídeos a partir del guion de un reel:** se toma solo el texto (gancho y partes) y se anima con el kit vertical; nada del estilo de la referencia. Escena `arbol` (`motor/variantes/vertical/escena_arbol.py`) para árboles genealógicos.
 
+**Del usuario (27 nov 2026, tras el documental 09): efectos un poco más altos**
+- Volumen de los SFX **+4 dB sobre el nivel anterior** (ya es el valor por defecto en `motor.py` y `outro.py`; `guion.json → "sfx_db"` lo cambia por vídeo). La voz no se toca.
+- Para retocar solo el audio de un vídeo ya hecho, sin renderizar la imagen: `motor.py <proy> audio` y luego `outro.py <proy> --solo-audio` (reutiliza la animación de la outro).
+
 **Del usuario (27 nov 2026, documental 09): «con cada generación, mejoremos»**
 - Cada vídeo nuevo debe superar al anterior en algo visual y en algo de audio, y decirlo al entregar. Escenas de objetos cotidianos en `escenas_cotidianas.py`: `ojo`, `reloj` (24 h), `bateria`, `digital` (despertador de 7 segmentos, `tachar_word`). Las escenas nuevas van en módulos aparte con su `efectos_<tipo>` y se enganchan solas.
 - Nada quieto: cada escena lleva micro-movimiento propio (parpadeo, estrellas que titilan, ola y burbujas, pantalla que se desplaza, chispas).

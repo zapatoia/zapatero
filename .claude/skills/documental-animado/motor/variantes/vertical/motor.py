@@ -649,6 +649,8 @@ class Vertical(ES.Estilo):
                 pon(self.ta(s["parar_word"], e) + .1, "golpe", .5)
                 pon(self.ta(s["numeros_word"], e), "pop", .35)
                 pon(self.ta(s["revelar_word"], e), "golpe", .55)
+        k_sfx = 10 ** (self.guion.get("sfx_db", 4.0) / 20)                # regla del usuario (27 nov): efectos +4 dB sobre el nivel de antes
+        for x in self.ev: x["vol"] = x["vol"] * k_sfx
         vistos = set(); ev = []
         for x in sorted(self.ev, key=lambda x: x["f"]):
             if (x["f"] // 6, x["sfx"]) not in vistos: vistos.add((x["f"] // 6, x["sfx"])); ev.append(x)

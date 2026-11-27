@@ -9,7 +9,7 @@ reloj de 24 h que se llena (trabajo, estudios, tráfico, casa) y porción dorada
 despertador digital 23:00 → 02:00 → 04:55 → 07:00 con alarma y móvil encendido en la cama · batería que solo carga al 47 % («Ayer: 100 %») y vuelve al 3 % ·
 reloj tachado «El truco… no es esto» · la porción dorada viaja al día · ojo que se cierra en calma con «z».
 
-## Sonido (122 efectos, suaves)
+## Sonido (122 efectos, suaves; +4 dB tras la corrección del usuario, solo remezcla)
 vibración del móvil, parpadeos, golpe en «venganza», destello en el titular, nota por cada porción del reloj, tic-tac mientras gira la aguja,
 destello + campana en «TUYAS», bajada/subida de batería con rodillo de tics y «clac», tres bips de batería baja, tics de los dígitos y alarma de las 7,
 dos sellos al tachar, subida + destello cuando la porción viaja, «zzz» al dormirse.
