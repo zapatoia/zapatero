@@ -570,6 +570,13 @@ class Vertical(ES.Estilo):
                     if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .35)
             if s.get("hueco"): pon(self.ta(s["hueco"]["word"], e), "golpe", .55)
             for it in s.get("items", []): pon(self.ta(it["word"], e) + .55, "sello", .3)
+            if s.get("tipo") == "bolas":
+                for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
+                pon(self.ta(s["blanco_word"], e), "destello", .6)
+                for x in s.get("extra", []): pon(self.ta(x["word"], e), "pop", .4)
+                pon(self.ta(s["parar_word"], e) + .1, "golpe", .5)
+                pon(self.ta(s["numeros_word"], e), "pop", .35)
+                pon(self.ta(s["revelar_word"], e), "golpe", .55)
         vistos = set(); ev = []
         for x in sorted(self.ev, key=lambda x: x["f"]):
             if (x["f"] // 6, x["sfx"]) not in vistos: vistos.add((x["f"] // 6, x["sfx"])); ev.append(x)
@@ -1092,6 +1099,201 @@ class Vertical(ES.Estilo):
                 vivo = (k >> q) & 1; fx = cx_ - 66 + q * 44
                 if vivo: self.figura(c, fx, cy_ + 34, 58, "#CFE0FF", ak)
                 else: self.figura(c, fx, cy_ + 34, 58, "#FF6A5C", .8 * ak, True)
+
+    # ------------------------------------------------------------------ bolas (juego «sigue la pelota roja» sobre una silueta de neón)
+    def _bolas_prep(self, e):
+        """Simulación determinista (120 Hz, independiente del FPS): pelotas que rebotan en el borde de la silueta y entre sí.
+        La semilla se elige para que, al pararse, la roja quede en la posición `respuesta` (contando de izquierda a derecha)."""
+        if getattr(self, "_B", None) is not None: return self._B
+        from scipy import ndimage
+        s = e["spec"]; R = s.get("radio", 30)
+        # silueta: países (ids ISO numéricos) con los anillos dentro de `lon_min..lon_max` / `lat_min..lat_max`
+        sil = s.get("silueta", {}); rings = self._mundo_rings()
+        lo0, lo1 = sil.get("lon", [-180, 180]); la0, la1 = sil.get("lat", [-90, 90])
+        rs = [r for cid in sil.get("ids", ["724"]) for r in rings.get(cid, [])
+              if lo0 <= r[:, 0].mean() <= lo1 and la0 <= r[:, 1].mean() <= la1 and len(r) > 8]
+        l0 = np.radians(np.mean([r[:, 0].mean() for r in rs])); p0 = np.radians(np.mean([r[:, 1].mean() for r in rs]))
+        def pr(r):
+            l = np.radians(r[:, 0]) - l0; p = np.radians(r[:, 1])
+            cc = np.sin(p0) * np.sin(p) + np.cos(p0) * np.cos(p) * np.cos(l); k = np.sqrt(2 / (1 + cc))
+            return np.c_[k * np.cos(p) * np.sin(l), -k * (np.cos(p0) * np.sin(p) - np.sin(p0) * np.cos(p) * np.cos(l))]
+        q = [pr(r) for r in rs]; allp = np.vstack(q); mn, mx = allp.min(0), allp.max(0)
+        ancho_px = sil.get("ancho", 820); esc = ancho_px / (mx[0] - mx[0] + mx[0] - mn[0])
+        cy = sil.get("cy", 760); off = np.array([CX, cy]) - (mn + mx) / 2 * esc
+        q = [p * esc + off for p in q]
+        grande = max(range(len(q)), key=lambda i: len(q[i]))                 # el contorno principal es el campo de juego
+        path = path_de(q); campo = path_de([q[grande]])
+        # máscara y distancia al borde (a 1/2 de resolución)
+        ds = 2; mw, mh = W // ds, H // ds
+        from nucleo.lienzo import Lienzo
+        Lm = Lienzo(mw, mh); Lm.canvas.clear(skia.ColorBLACK); Lm.canvas.scale(1 / ds, 1 / ds)
+        Lm.canvas.drawPath(campo, relleno("#FFFFFF")); m = Lm.arr[..., 0] > 127
+        dist = ndimage.gaussian_filter(ndimage.distance_transform_edt(m) * ds, 2.0)
+        gy, gx = np.gradient(dist)
+        def D(x, y):
+            i = int(min(max(y / ds, 0), mh - 1)); j = int(min(max(x / ds, 0), mw - 1)); return dist[i, j], gx[i, j], gy[i, j]
+        # tiempos
+        ta = lambda w: self.ta(w, e)
+        niv = sorted((ta(n["word"]), n["v"]) for n in s["niveles"])
+        t_stop = ta(s["parar_word"]); extra = [(ta(x["word"]), x) for x in s.get("extra", [])]
+        def vel(t):
+            v = niv[0][1]
+            for tt, vv in niv:
+                if t >= tt: v = v + (vv - v) * 1  # escalón suavizado abajo
+            vs = niv[0][1]
+            for k, (tt, vv) in enumerate(niv):
+                u = TI.clamp((t - tt) / .6); u = u * u * (3 - 2 * u); vs = vs + (vv - vs) * u
+            if t > t_stop: vs *= max(0.0, 1 - (t - t_stop) / .35) ** 2
+            return vs
+        n0 = s.get("n", 3); DT = 1 / 120; T = self.fin_s + 1; N = int(T / DT) + 2
+        cand = [(x, y) for y in range(0, H, 12) for x in range(0, W, 12) if D(x, y)[0] > R + 30]
+        def simular(seed):
+            rng = np.random.default_rng(seed)
+            nb = n0 + sum(x["n"] if "n" in x else 1 for _, x in extra)
+            P = np.full((N, nb, 2), np.nan, np.float32)
+            pos = []; head = []; activo = []
+            for i in range(n0):
+                for _ in range(400):
+                    x, y = cand[rng.integers(len(cand))]
+                    if all(math.hypot(x - a, y - b) > 6 * R for a, b in pos): break
+                pos.append([float(x), float(y)]); head.append(rng.random() * 2 * math.pi); activo.append(True)
+            pend = sorted([tt for tt, x in extra for _ in range(x.get("n", 1))])
+            for k in range(N):
+                t = k * DT
+                while pend and t >= pend[0]:
+                    pend.pop(0)
+                    best = max(cand[::7], key=lambda c: min(math.hypot(c[0] - a, c[1] - b) for a, b in pos) + rng.random() * 30)
+                    pos.append([float(best[0]), float(best[1])]); head.append(rng.random() * 2 * math.pi)
+                v = vel(t)
+                for i in range(len(pos)):
+                    head[i] += rng.normal(0, 1.6) * math.sqrt(DT)
+                    pos[i][0] += math.cos(head[i]) * v * DT; pos[i][1] += math.sin(head[i]) * v * DT
+                    d, nx, ny = D(*pos[i]); nn = math.hypot(nx, ny) + 1e-9; nx /= nn; ny /= nn
+                    if d < R + 8:
+                        vx, vy = math.cos(head[i]), math.sin(head[i]); dot = vx * nx + vy * ny
+                        if dot < 0: vx -= 2 * dot * nx; vy -= 2 * dot * ny; head[i] = math.atan2(vy, vx)
+                        pos[i][0] += nx * (R + 8 - d); pos[i][1] += ny * (R + 8 - d)
+                for i in range(len(pos)):
+                    for j in range(i + 1, len(pos)):
+                        dx = pos[j][0] - pos[i][0]; dy = pos[j][1] - pos[i][1]; dd = math.hypot(dx, dy)
+                        if dd < 2 * R + 6 and dd > 1e-6:
+                            ux, uy = dx / dd, dy / dd
+                            ai = math.cos(head[i]) * ux + math.sin(head[i]) * uy; aj = math.cos(head[j]) * ux + math.sin(head[j]) * uy
+                            if ai - aj > 0:          # se acercan: intercambian la componente normal (choque elástico)
+                                vi = (math.cos(head[i]) + (aj - ai) * ux, math.sin(head[i]) + (aj - ai) * uy)
+                                vj = (math.cos(head[j]) + (ai - aj) * ux, math.sin(head[j]) + (ai - aj) * uy)
+                                head[i] = math.atan2(vi[1], vi[0]); head[j] = math.atan2(vj[1], vj[0])
+                            sep = (2 * R + 6 - dd) / 2
+                            pos[i][0] -= ux * sep; pos[i][1] -= uy * sep; pos[j][0] += ux * sep; pos[j][1] += uy * sep
+                for i in range(len(pos)): P[k, i] = pos[i]
+            return P
+        resp = s.get("respuesta"); ks = min(N - 1, int((t_stop + .6) / DT)); P = None
+        for seed in range(s.get("semilla", 1), s.get("semilla", 1) + 300):
+            P = simular(seed)
+            fin = P[ks]; xs = fin[:, 0]; orden = list(np.argsort(xs))
+            gap = np.diff(np.sort(xs)).min() if len(xs) > 1 else 999
+            if resp is None or (orden.index(0) + 1 == resp and gap > 100 and fin[:, 1].min() > 430): break
+        self._B = dict(P=P, DT=DT, R=R, path=path, campo=campo, orden=orden, t_stop=t_stop, niv=niv, seed=seed,
+                       nac={i: (0.0 if i < n0 else None) for i in range(P.shape[1])})
+        for i in range(P.shape[1]):
+            if self._B["nac"][i] is None: self._B["nac"][i] = np.argmax(~np.isnan(P[:, i, 0])) * DT
+        return self._B
+
+    def e_bolas(self, c, e, t, S):
+        s = e["spec"]; B = self._bolas_prep(e); R = B["R"]; P = B["P"]; DT = B["DT"]
+        ta = lambda w: self.ta(w, e)
+        NEON = s.get("neon", "#8F7CFF")
+        # halo de fondo
+        c.drawCircle(CX, 760, 620, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(
+            (CX, 760), 620, [color(NEON, .22), color(NEON, .06), color(NEON, 0)], [0, .55, 1])))
+        # silueta de neón
+        pulso = .85 + .15 * math.sin(t * 2.2)
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear(
+            [(0, 420), (0, 1110)], [color("#151B45", .96), color("#0A0F2C", .96)])))
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=26, Color=color(NEON, .30 * pulso),
+                                         MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 16)))
+        c.save(); c.clipPath(B["path"], doAntiAlias=True)
+        c.drawPath(B["path"], skia.Paint(AntiAlias=True, Style=skia.Paint.kStroke_Style, StrokeWidth=40, Color=color(NEON, .22),
+                                         MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 14)))
+        rng = np.random.default_rng(3)
+        for i in range(60):                                                      # polvo de luz dentro de la silueta
+            x = 110 + rng.random() * 820; y = 420 + ((rng.random() * 700 - t * (5 + 8 * rng.random())) % 700)
+            c.drawCircle(x, y, 1 + 1.6 * rng.random(), relleno("#C9C0FF", .10 + .18 * rng.random()))
+        c.restore()
+        c.drawPath(B["path"], trazo("#B7ACFF", 5, .55 * pulso))
+        c.drawPath(B["path"], trazo("#EEEAFF", 2, .95))
+        # dificultad
+        dt0 = t - e["t0"]; a0 = aparece(dt0, .25)
+        texto(c, s.get("dificultad", "DIFICULTAD"), CX, 178, self.F["lab"], "#C9C3EE", alfa=.9 * a0, tracking=.32)
+        nv = sum(1 for tt, _ in B["niv"] if t >= tt); nseg = len(B["niv"]); bw = 560; seg = bw / nseg
+        cols = ["#7CFF4F", "#B6F23F", "#FFD24A", "#FF8A3D", "#FF3B4A"]
+        for k in range(nseg):
+            x = CX - bw / 2 + k * seg
+            c.drawRRect(rrc(x + seg / 2, 224, seg - 6, 14, 7), relleno("#FFFFFF", .10 * a0))
+            if k < nv:
+                u = resorte(t - B["niv"][k][0], 9, 12); col = cols[min(nv - 1, len(cols) - 1)]
+                w_ = (seg - 6) * min(1, u)
+                with capa(c, alfa=.8 * a0, blur=8): c.drawRRect(rrc(x + 3 + w_ / 2, 224, w_, 14, 7), relleno(col))
+                c.drawRRect(rrc(x + 3 + w_ / 2, 224, w_, 14, 7), relleno(col, a0))
+        # rótulo (píldora) que cambia por fases
+        rot = [r for r in s.get("rotulos", []) if t >= ta(r["word"]) - .05]
+        if rot:
+            r = rot[-1]; dt = t - ta(r["word"]) + .05; a = aparece(dt, .15)
+            fin = r.get("hasta"); a *= 1 if not fin else TI.clamp((ta(fin) - t) / .15)
+            if a > 0: self.pildora(c, r["txt"], CX, 312 - 12 * (1 - resorte(dt, 9, 12)), S, a, fnt=self.F["pillb"],
+                                   col="#FFFFFF" if not r.get("acento") else r["acento"])
+        # pelotas
+        k = t / DT; k0 = int(min(max(k, 0), P.shape[0] - 2)); fr = TI.clamp(k - k0)
+        pos = P[k0] * (1 - fr) + P[k0 + 1] * fr
+        tb = ta(s["blanco_word"]); tn = ta(s["numeros_word"]); tr = ta(s["revelar_word"])
+        ub = TI.clamp((t - tb) / .45); ur = TI.clamp((t - tr) / .3)
+        ROJO, VERDE, BLANCO = hex_rgb("#FF3B4A"), hex_rgb(s.get("otras", "#2ED47A")), hex_rgb("#F2EEFF")
+        mezc = lambda a, b, u: "#%02X%02X%02X" % tuple(int(round(x)) for x in (a * (1 - u) + b * u))
+        orden = B["orden"]
+        for i in range(P.shape[1]):
+            if np.isnan(pos[i, 0]): continue
+            dtn = t - B["nac"][i]; sc = resorte(dtn, 9, 13) if dtn < 1.2 else 1.0
+            base = ROJO if i == 0 else VERDE
+            col = mezc(base, BLANCO, ub)
+            if i == 0 and ur > 0: col = mezc(BLANCO, ROJO, ur)
+            dim = 1 - .6 * ur if i != 0 else 1.0
+            x, y = float(pos[i, 0]), float(pos[i, 1])
+            # estela
+            for j in range(1, 9):
+                kk = k0 - j * 2
+                if kk < 0 or np.isnan(P[kk, i, 0]): break
+                c.drawCircle(float(P[kk, i, 0]), float(P[kk, i, 1]), R * (1 - j * .09) * sc, relleno(col, .10 * (1 - j / 9) * dim))
+            # anillo de suelo tras parar
+            if t > tn:
+                ua = aparece(t - tn - .05 * orden.index(i), .2)
+                c.drawOval(skia.Rect.MakeXYWH(x - R * 2, y + R * .85, R * 4, R * .9), trazo("#C9C0FF", 2.2, .5 * ua * dim))
+            with capa(c, alfa=.55 * dim, blur=18): c.drawCircle(x, y, R * 1.15 * sc, relleno(col))
+            c.drawCircle(x, y + R * .35, R * .95 * sc, skia.Paint(AntiAlias=True, Color=color("#000000", .35 * dim),
+                                                                    MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 8)))
+            hl = mezc(hex_rgb(col), np.array([255., 255, 255]), .65); sh = mezc(hex_rgb(col), np.array([10., 10, 30]), .45)
+            c.drawCircle(x, y, R * sc, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeRadial(
+                (x - R * .35, y - R * .4), R * 1.5 * max(sc, .01), [color(hl, dim), color(col, dim), color(sh, dim)], [0, .45, 1])))
+            c.drawOval(skia.Rect.MakeXYWH(x - R * .55, y - R * .72, R * .5, R * .3), relleno("#FFFFFF", .55 * dim * sc))
+            c.drawCircle(x, y, R * sc, trazo("#FFFFFF", 1.2, .25 * dim))
+            # destello al cambiar de color
+            if 0 < t - tb < .6:
+                u = (t - tb) / .6; c.drawCircle(x, y, R * (1 + 1.4 * u), trazo("#FFFFFF", 3, .7 * (1 - u)))
+            # marcador de la roja (antes del cambio)
+            if i == 0 and t < tb + .3:
+                am = TI.clamp((tb + .3 - t) / .3) * aparece(dtn, .2); yy = y - R - 26 + 5 * math.sin(t * 6)
+                tri = skia.Path(); tri.moveTo(x - 11, yy - 9); tri.lineTo(x + 11, yy - 9); tri.lineTo(x, yy + 7); tri.close()
+                c.drawPath(tri, relleno("#FFFFFF", am))
+            # revelado: pulsos rojos
+            if i == 0 and ur > 0:
+                for qn in range(2):
+                    ph = ((t - tr) * .9 + qn * .5) % 1; c.drawCircle(x, y, R * (1.1 + 1.6 * ph), trazo("#FF3B4A", 3, .7 * (1 - ph)))
+            # número
+            if t > tn:
+                n = orden.index(i) + 1; dtq = t - tn - .08 * (n - 1)
+                if dtq > 0:
+                    aq = aparece(dtq, .15); yq = y - R - 52 - 14 * (1 - resorte(dtq, 9, 12))
+                    fq = self.F["unit"]; colq = "#FF3B4A" if (i == 0 and ur > 0) else "#FFFFFF"
+                    texto(c, str(n), x, yq, fq, colq, alfa=aq * (dim if i else 1), sombra=(4, 10, .5))
 
 
 def escenas(e):

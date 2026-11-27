@@ -1,0 +1,188 @@
+{
+ "titulo": "¿Puedes seguir la pelota roja?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Puedes seguir la pelota roja?",
+   "tts": "¿Puedes seguir la pelota roja?",
+   "key": "roja",
+   "escena": {
+    "tipo": "bolas",
+    "surface": "dark",
+    "n": 3,
+    "radio": 36,
+    "respuesta": 3,
+    "silueta": {
+     "ids": [
+      "724"
+     ],
+     "lon": [
+      -10,
+      4.5
+     ],
+     "lat": [
+      35.5,
+      44.5
+     ],
+     "ancho": 860,
+     "cy": 770
+    },
+    "niveles": [
+     {
+      "word": "@0",
+      "v": 230
+     },
+     {
+      "word": "Nivel",
+      "v": 330
+     },
+     {
+      "word": "Nivel#2",
+      "v": 430
+     },
+     {
+      "word": "Nivel#3",
+      "v": 540
+     },
+     {
+      "word": "Último",
+      "v": 680
+     }
+    ],
+    "extra": [
+     {
+      "word": "entra"
+     }
+    ],
+    "blanco_word": "color",
+    "parar_word": "Quietas",
+    "numeros_word": "Dónde",
+    "revelar_word": "tres#3",
+    "rotulos": [
+     {
+      "word": "@0",
+      "txt": "SIGUE LA PELOTA ROJA",
+      "hasta": "color"
+     },
+     {
+      "word": "memoria",
+      "txt": "AHORA, DE MEMORIA",
+      "hasta": "Dónde"
+     },
+     {
+      "word": "Dónde",
+      "txt": "¿DÓNDE ESTÁ LA ROJA?"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Parece fácil: hay tres y van despacio.",
+   "tts": "Parece fácil: hay tres y van despacio.",
+   "key": "despacio"
+  },
+  {
+   "texto": "No le quites el ojo de encima.",
+   "tts": "No le quites el ojo de encima.",
+   "key": "encima"
+  },
+  {
+   "texto": "Nivel dos. Un poco más rápido.",
+   "tts": "Nivel dos. Un poco más rápido.",
+   "key": "rápido"
+  },
+  {
+   "texto": "Y ahora, atento: todas cambian de color.",
+   "tts": "Y ahora, atento: todas cambian de color.",
+   "key": "color"
+  },
+  {
+   "texto": "A partir de aquí, la sigues de memoria.",
+   "tts": "A partir de aquí, la sigues de memoria.",
+   "key": "*memoria"
+  },
+  {
+   "texto": "Nivel tres. Y entra una pelota más.",
+   "tts": "Nivel tres. Y entra una pelota más.",
+   "key": "más"
+  },
+  {
+   "texto": "Un dato: esto se estudia desde 1988.",
+   "tts": "Un dato: esto se estudia desde mil novecientos ochenta y ocho.",
+   "key": "1988"
+  },
+  {
+   "texto": "Los científicos lo llaman seguimiento de objetos múltiples.",
+   "tts": "Los científicos lo llaman seguimiento de objetos múltiples.",
+   "key": "múltiples"
+  },
+  {
+   "texto": "Y casi siempre, solo podemos seguir unas cuatro a la vez.",
+   "tts": "Y casi siempre, solo podemos seguir unas cuatro a la vez.",
+   "key": "a la vez"
+  },
+  {
+   "texto": "Nivel cuatro. No parpadees.",
+   "tts": "Nivel cuatro. No parpadees.",
+   "key": "parpadees"
+  },
+  {
+   "texto": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
+   "tts": "Si ya la has perdido, tranquilo: le pasa a mucha gente.",
+   "key": "mucha gente"
+  },
+  {
+   "texto": "Último nivel. Velocidad máxima.",
+   "tts": "[firm] Último nivel. Velocidad máxima.",
+   "key": "máxima"
+  },
+  {
+   "texto": "Aguanta un poco más… ¡Quietas!",
+   "tts": "Aguanta un poco más... ¡Quietas!",
+   "key": "Quietas"
+  },
+  {
+   "texto": "¿Dónde está la pelota roja?",
+   "tts": "[curious] ¿Dónde está la pelota roja?",
+   "key": "roja"
+  },
+  {
+   "texto": "Antes de que te lo diga, comenta tu respuesta.",
+   "tts": "Antes de que te lo diga, comenta tu respuesta.",
+   "key": "respuesta"
+  },
+  {
+   "texto": "Tres… dos… uno…",
+   "tts": "Tres... dos... uno...",
+   "key": "uno"
+  },
+  {
+   "texto": "Era la número tres.",
+   "tts": "[playful] Era la número tres.",
+   "key": "tres"
+  },
+  {
+   "texto": "¿Acertaste?",
+   "tts": "¿Acertaste?",
+   "key": "Acertaste"
+  }
+ ],
+ "fuentes": [
+  {
+   "dato": "Seguimiento de objetos múltiples (MOT), Pylyshyn y Storm, 1988",
+   "url": "https://ruccs.rutgers.edu/images/personal-zenon-pylyshyn/docs/storm88.pdf"
+  },
+  {
+   "dato": "Límite habitual de unos cuatro objetos (Alvarez y Franconeri, 2007)",
+   "url": "https://visualcognition.psych.northwestern.edu/publications/AlvarezTracking2007.pdf"
+  },
+  {
+   "dato": "El límite varía según la velocidad y el espacio entre objetos",
+   "url": "https://en.wikipedia.org/wiki/Multiple_object_tracking"
+  }
+ ]
+}
