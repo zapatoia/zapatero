@@ -1,0 +1,705 @@
+{
+ "titulo": "¿Y si cayeras por un agujero que atraviesa la Tierra? (segundo a segundo)",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 2400,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "Imagina un agujero que atraviesa la Tierra entera.",
+   "tts": "[curious] Imagina un agujero que atraviesa la Tierra entera.",
+   "key": "la Tierra entera",
+   "escena": {
+    "tipo": "superficie",
+    "surface": "clay",
+    "modo": "salto",
+    "agujero_word": "agujero",
+    "linea_word": "atraviesa",
+    "cartel": "MADRID"
+   }
+  },
+  {
+   "texto": "Y saltas.",
+   "tts": "Y saltas.",
+   "key": "saltas"
+  },
+  {
+   "texto": "Si saltas desde Madrid, sales por el otro lado del planeta:",
+   "tts": "Si saltas desde Madrid, sales por el otro lado del planeta:",
+   "key": "del planeta",
+   "escena": {
+    "tipo": "globo",
+    "surface": "dark",
+    "madrid_word": "Madrid",
+    "gira_word": "sales",
+    "weber_word": "Zelanda",
+    "madrid_txt": "MADRID",
+    "weber_txt": "WEBER · NUEVA ZELANDA"
+   }
+  },
+  {
+   "texto": "en Nueva Zelanda, al lado de un pueblo llamado Weber.",
+   "tts": "en Nueva Zelanda, al lado de un pueblo llamado Wéber.",
+   "key": "Weber"
+  },
+  {
+   "texto": "Entre medias, un túnel de casi 13.000 kilómetros.",
+   "tts": "Entre medias, un túnel de casi trece mil kilómetros.",
+   "key": "13.000 kilómetros",
+   "escena": {
+    "tipo": "corte",
+    "surface": "noche",
+    "tunel_word": "túnel",
+    "regla_word": "13.000",
+    "regla_txt": "12.742 KM",
+    "crono_word": "tardarías",
+    "aviso_word": "detalle",
+    "aviso_txt": "SPOILER: ALGO FALLA",
+    "arriba_txt": "MADRID",
+    "abajo_txt": "NUEVA ZELANDA"
+   }
+  },
+  {
+   "texto": "¿Cuánto tardarías en cruzarlo?",
+   "tts": "¿Cuánto tardarías en cruzarlo?",
+   "key": "en cruzarlo"
+  },
+  {
+   "texto": "Vamos segundo a segundo.",
+   "tts": "Vamos segundo a segundo.",
+   "key": "segundo a segundo"
+  },
+  {
+   "texto": "Y quédate hasta el final, porque hay un detalle que lo estropea todo.",
+   "tts": "Y quédate hasta el final... porque hay un detalle que lo estropea todo.",
+   "key": "lo estropea todo"
+  },
+  {
+   "texto": "Segundo 10. Ya vas a la velocidad de un Fórmula 1.",
+   "tts": "Segundo diez. Ya vas a la velocidad de un Fórmula Uno.",
+   "key": "un Fórmula 1",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "clay",
+    "capa": "tierra",
+    "vel": 900,
+    "cara": "susto",
+    "hud": {
+     "desde": 0,
+     "hasta": 10,
+     "word": "@0.15",
+     "dur": 0.8,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "f1",
+      "word": "velocidad"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Segundo 28. Ya estás más hondo que la mina más profunda del mundo.",
+   "tts": "Segundo veintiocho. Ya estás más hondo que la mina más profunda del mundo.",
+   "key": "del mundo",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "dark",
+    "capa": "roca",
+    "vel": 1500,
+    "cara": "o",
+    "hud": {
+     "desde": 10,
+     "hasta": 28,
+     "word": "@0.15",
+     "dur": 0.8,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "mina",
+      "word": "mina",
+      "hasta": "Y",
+      "txt": "MINA MÁS HONDA · 4 KM",
+      "sub": "SUDÁFRICA"
+     },
+     {
+      "tipo": "avion",
+      "word": "avión"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y vas tan rápido como un avión.",
+   "tts": "Y vas tan rápido como un avión.",
+   "key": "un avión"
+  },
+  {
+   "texto": "Segundo 50. 12 kilómetros: el agujero más hondo de la historia.",
+   "tts": "Segundo cincuenta. Doce kilómetros: el agujero más hondo de la historia.",
+   "key": "de la historia",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "clay",
+    "capa": "granito",
+    "vel": 1900,
+    "cara": "o",
+    "pj": [
+     520,
+     540,
+     1.0
+    ],
+    "hud": {
+     "desde": 28,
+     "hasta": 50,
+     "word": "@0.15",
+     "dur": 0.8,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "taladro",
+      "word": "agujero",
+      "hasta": "Lo#2",
+      "txt": "POZO DE KOLA · 12 KM"
+     },
+     {
+      "tipo": "calendario",
+      "word": "Rusia",
+      "hasta": "Lo#2",
+      "desde_anio": 1970,
+      "anio": 1989,
+      "anio_word": "tardaron",
+      "txt": "RUSIA"
+     },
+     {
+      "tipo": "termometro",
+      "word": "quemaba",
+      "hasta": "Tú",
+      "valor": 180,
+      "max": 250,
+      "txt": "180 °C"
+     },
+     {
+      "tipo": "crono",
+      "word": "Tú",
+      "valor": "0:50",
+      "txt": "TÚ"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Lo cavaron en Rusia, y tardaron casi 20 años.",
+   "tts": "Lo cavaron en Rusia, y tardaron casi veinte años.",
+   "key": "casi 20 años"
+  },
+  {
+   "texto": "Lo dejaron porque abajo la roca quemaba: 180 grados.",
+   "tts": "Lo dejaron porque abajo la roca quemaba: ciento ochenta grados.",
+   "key": "180 grados"
+  },
+  {
+   "texto": "Tú has tardado 50 segundos.",
+   "tts": "[playful] Tú has tardado cincuenta segundos.",
+   "key": "50 segundos"
+  },
+  {
+   "texto": "Minuto 1 y medio. Se acaba la corteza.",
+   "tts": "Minuto uno y medio. Se acaba la corteza.",
+   "key": "la corteza",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "dark",
+    "capa": "moho",
+    "vel": 2400,
+    "cara": "o",
+    "hud": {
+     "desde": 50,
+     "hasta": 90,
+     "word": "@0.15",
+     "dur": 0.8,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "moho",
+      "word": "acaba",
+      "txt": "FIN DE LA CORTEZA"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Todo lo que conoces, montañas, mares y ciudades, está en esa capa.",
+   "tts": "Todo lo que conoces, montañas, mares y ciudades, está en esa capa.",
+   "key": "en esa capa",
+   "escena": {
+    "tipo": "capa",
+    "surface": "light",
+    "montes_word": "montañas",
+    "mares_word": "mares",
+    "ciudad_word": "ciudades",
+    "capa_word": "capa",
+    "manzana_word": "manzana",
+    "capa_txt": "CORTEZA",
+    "manzana_txt": "PIEL DE MANZANA"
+   }
+  },
+  {
+   "texto": "Y, en proporción, es más fina que la piel de una manzana.",
+   "tts": "Y, en proporción, es más fina que la piel de una manzana.",
+   "key": "*de una manzana"
+  },
+  {
+   "texto": "Minuto 5. El manto: roca a más de 1.000 grados.",
+   "tts": "Minuto cinco. El manto: roca a más de mil grados.",
+   "key": "1.000 grados",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "clay",
+    "capa": "manto",
+    "vel": 2900,
+    "cara": "calor",
+    "hud": {
+     "desde": 90,
+     "hasta": 300,
+     "word": "@0.15",
+     "dur": 1.0,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "termometro",
+      "word": "roca",
+      "hasta": "Pero",
+      "valor": 1000,
+      "max": 1400,
+      "txt": "+1.000 °C"
+     },
+     {
+      "tipo": "caramelo",
+      "word": "fluye",
+      "txt": "SÓLIDA, PERO FLUYE"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Pero no es lava: es roca sólida que fluye como un caramelo muy espeso.",
+   "tts": "Pero no es lava: es roca sólida que fluye como un caramelo muy espeso.",
+   "key": "*muy espeso"
+  },
+  {
+   "texto": "Minuto 13. Llegas al núcleo: un océano de hierro líquido.",
+   "tts": "Minuto trece. Llegas al núcleo: un océano de hierro líquido.",
+   "key": "hierro líquido",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "magma",
+    "capa": "nucleo",
+    "vel": 3600,
+    "cara": "o",
+    "pj": [
+     520,
+     540,
+     1.0
+    ],
+    "hud": {
+     "desde": 300,
+     "hasta": 780,
+     "word": "@0.15",
+     "dur": 1.0,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "campo",
+      "word": "magnético",
+      "hasta": "brújula",
+      "txt": "CAMPO MAGNÉTICO"
+     },
+     {
+      "tipo": "brujula",
+      "word": "brújula",
+      "hasta": "Y"
+     },
+     {
+      "tipo": "gravedad",
+      "word": "gravedad",
+      "txt": "GRAVEDAD +9 %"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Al moverse, fabrica el campo magnético: por eso funciona tu brújula.",
+   "tts": "Al moverse, fabrica el campo magnético: por eso funciona tu brújula.",
+   "key": "tu brújula"
+  },
+  {
+   "texto": "Y justo aquí la gravedad tira más fuerte que en la superficie.",
+   "tts": "Y justo aquí, la gravedad tira más fuerte que en la superficie.",
+   "key": "en la superficie"
+  },
+  {
+   "texto": "Minuto 17. El núcleo interno: una bola de hierro sólido del tamaño de Plutón.",
+   "tts": "Minuto diecisiete. El núcleo interno: una bola de hierro sólido del tamaño de Plutón.",
+   "key": "de Plutón",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "clay",
+    "capa": "interno",
+    "vel": 4200,
+    "cara": "calor",
+    "pj": [
+     520,
+     540,
+     1.0
+    ],
+    "hud": {
+     "desde": 780,
+     "hasta": 1020,
+     "word": "@0.15",
+     "dur": 1.0,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "pluton",
+      "word": "bola",
+      "hasta": "Y",
+      "txt": "NÚCLEO INTERNO",
+      "txt2": "PLUTÓN"
+     },
+     {
+      "tipo": "sol",
+      "word": "caliente",
+      "txt": "≈ 5.500 °C"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y casi tan caliente como la superficie del Sol.",
+   "tts": "Y casi tan caliente como la superficie del Sol.",
+   "key": "*del Sol"
+  },
+  {
+   "texto": "Minuto 19. El centro de la Tierra.",
+   "tts": "Minuto diecinueve. El centro de la Tierra.",
+   "key": "de la Tierra",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "magma",
+    "capa": "centro",
+    "vel": 4800,
+    "cara": "feliz",
+    "hud": {
+     "desde": 1020,
+     "hasta": 1146,
+     "word": "@0.15",
+     "dur": 1.0,
+     "capitulo": true
+    },
+    "extras": [
+     {
+      "tipo": "velocimetro",
+      "word": "36.000",
+      "valor": 35700,
+      "max": 40000,
+      "txt": "KM/H"
+     }
+    ],
+    "pj": [
+     520,
+     540,
+     1.0
+    ]
+   }
+  },
+  {
+   "texto": "Vas a casi 36.000 por hora.",
+   "tts": "Vas a casi treinta y seis mil por hora.",
+   "key": "36.000 por hora"
+  },
+  {
+   "texto": "De Madrid a Barcelona en menos de un minuto.",
+   "tts": "De Madrid a Barcelona... en menos de un minuto.",
+   "key": "menos de un minuto",
+   "escena": {
+    "tipo": "mapa_es",
+    "surface": "blue",
+    "word": "Barcelona",
+    "crono_txt": "0:51",
+    "a_txt": "MADRID",
+    "b_txt": "BARCELONA"
+   }
+  },
+  {
+   "texto": "Y aquí la gravedad es cero: la Tierra tira de ti igual por todos lados.",
+   "tts": "Y aquí, la gravedad es cero: la Tierra tira de ti igual por todos lados.",
+   "key": "por todos lados",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "noche",
+    "capa": "centro",
+    "vel": 4800,
+    "cara": "feliz",
+    "pose": "estrella",
+    "hud": {
+     "desde": 1146,
+     "hasta": 1146
+    },
+    "extras": [
+     {
+      "tipo": "cero",
+      "word": "cero",
+      "txt": "GRAVEDAD 0"
+     },
+     {
+      "tipo": "flechas",
+      "word": "tira"
+     }
+    ],
+    "pj": [
+     520,
+     540,
+     1.0
+    ]
+   }
+  },
+  {
+   "texto": "A partir de aquí, todo al revés: subes, y vas frenando.",
+   "tts": "A partir de aquí, todo al revés: subes... y vas frenando.",
+   "key": "vas frenando",
+   "escena": {
+    "tipo": "corte",
+    "surface": "dark",
+    "arriba_txt": "MADRID",
+    "abajo_txt": "NUEVA ZELANDA",
+    "invertir_word": "revés",
+    "punto": {
+     "desde": 0.5,
+     "hasta": 1.0,
+     "word": "subes",
+     "dur": 2.4
+    },
+    "hud": {
+     "desde": 1146,
+     "hasta": 2240,
+     "word": "subes",
+     "dur": 2.4
+    }
+   }
+  },
+  {
+   "texto": "Minuto 38. Asomas la cabeza en Nueva Zelanda,",
+   "tts": "Minuto treinta y ocho. Asomas la cabeza en Nueva Zelanda,",
+   "key": "Nueva Zelanda",
+   "escena": {
+    "tipo": "superficie",
+    "surface": "clay",
+    "modo": "salida",
+    "asoma_word": "Asomas",
+    "agarra_word": "agarrarte",
+    "oveja_word": "oveja",
+    "oveja_txt": "¡BEEE!",
+    "cartel": "NUEVA ZELANDA",
+    "hud": {
+     "desde": 2240,
+     "hasta": 2300,
+     "word": "@0.15",
+     "dur": 0.9,
+     "capitulo": true
+    }
+   }
+  },
+  {
+   "texto": "justo con velocidad cero.",
+   "tts": "justo con velocidad cero.",
+   "key": "velocidad cero"
+  },
+  {
+   "texto": "Tienes un segundo para agarrarte al borde.",
+   "tts": "Tienes un segundo para agarrarte al borde.",
+   "key": "al borde"
+  },
+  {
+   "texto": "Y te recibe una oveja: allí hay más ovejas que personas.",
+   "tts": "[playful] Y te recibe una oveja: allí hay más ovejas que personas.",
+   "key": "que personas"
+  },
+  {
+   "texto": "Si no te agarras, vuelves a caer.",
+   "tts": "Si no te agarras, vuelves a caer.",
+   "key": "vuelves a caer",
+   "escena": {
+    "tipo": "corte",
+    "surface": "noche",
+    "arriba_txt": "MADRID",
+    "abajo_txt": "NUEVA ZELANDA",
+    "yoyo_word": "caer",
+    "periodo": 3.0,
+    "reloj_word": "cuarto",
+    "reloj_txt": "1 H 16 MIN"
+   }
+  },
+  {
+   "texto": "Y te pasarías la vida yendo y viniendo: ida y vuelta cada hora y cuarto.",
+   "tts": "Y te pasarías la vida yendo y viniendo: ida y vuelta cada hora y cuarto.",
+   "key": "hora y cuarto"
+  },
+  {
+   "texto": "Pero ahora, el detalle que lo estropea todo: el aire.",
+   "tts": "[firm] Pero ahora, el detalle que lo estropea todo: el aire.",
+   "key": "*el aire",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "clay",
+    "capa": "aire",
+    "vel": 900,
+    "cara": "susto",
+    "pose": "paraca",
+    "hud": {
+     "modo": "aire",
+     "desde": 0,
+     "hasta": 0
+    },
+    "extras": [
+     {
+      "tipo": "viento",
+      "word": "aire"
+     },
+     {
+      "tipo": "velocimetro",
+      "word": "200",
+      "valor": 200,
+      "max": 400,
+      "txt": "KM/H",
+      "hasta": "Ya"
+     },
+     {
+      "tipo": "dias",
+      "word": "más",
+      "txt": "MÁS DE UN DÍA"
+     }
+    ],
+    "hud_horas": {
+     "word": "minutos",
+     "hasta": 32,
+     "dur": 3.0
+    },
+    "pj": [
+     520,
+     540,
+     1.0
+    ]
+   }
+  },
+  {
+   "texto": "Con aire, no pasarías de unos 200 por hora, como un paracaidista.",
+   "tts": "Con aire, no pasarías de unos doscientos por hora, como un paracaidista.",
+   "key": "un paracaidista"
+  },
+  {
+   "texto": "Ya no serían minutos: solo llegar al centro te llevaría más de un día.",
+   "tts": "Ya no serían minutos: solo llegar al centro te llevaría más de un día.",
+   "key": "más de un día"
+  },
+  {
+   "texto": "Y nunca saldrías: acabarías parado en el centro, flotando, a 5.000 grados.",
+   "tts": "Y nunca saldrías: acabarías parado en el centro, flotando... a cinco mil grados.",
+   "key": "5.000 grados",
+   "escena": {
+    "tipo": "tunel",
+    "surface": "dark",
+    "capa": "centro",
+    "vel": 0,
+    "cara": "calor",
+    "pose": "estrella",
+    "atrapado": true,
+    "extras": [
+     {
+      "tipo": "atrapado",
+      "word": "parado",
+      "txt": "ATRAPADO EN EL CENTRO"
+     },
+     {
+      "tipo": "termometro",
+      "word": "5.000",
+      "valor": 5000,
+      "max": 6000,
+      "txt": "+5.000 °C"
+     }
+    ],
+    "pj": [
+     520,
+     540,
+     1.0
+    ]
+   }
+  },
+  {
+   "texto": "Así que, si alguien te manda a la otra punta del mundo,",
+   "tts": "Así que, si alguien te manda a la otra punta del mundo,",
+   "key": "del mundo",
+   "escena": {
+    "tipo": "superficie",
+    "surface": "clay",
+    "modo": "cierre",
+    "cartel": "MADRID",
+    "pulgar_word": "vale",
+    "aire_word": "aire",
+    "flecha_word": "punta"
+   }
+  },
+  {
+   "texto": "dile que vale: 38 minutos. Pero sin aire.",
+   "tts": "dile que vale: treinta y ocho minutos. Pero sin aire.",
+   "key": "*sin aire"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien te mandaría a la otra punta del mundo.",
+  "tts": "[playful] Pásaselo a quien te mandaría a la otra punta del mundo.",
+  "key": "del mundo",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El que te manda lejos",
+  "salida": "14-agujero-tierra-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Caída por un túnel a través de la Tierra con densidad real: 38 min 11 s (Klotz 2015, Am. J. Phys.)",
+   "url": "https://arxiv.org/abs/1308.1342"
+  },
+  {
+   "dato": "Antípoda de Madrid junto a Weber (Nueva Zelanda)",
+   "url": "https://en.wikipedia.org/wiki/Weber,_New_Zealand"
+  },
+  {
+   "dato": "Pozo de Kola: 12.262 m, 1970–1989, ~180 °C",
+   "url": "https://en.wikipedia.org/wiki/Kola_Superdeep_Borehole"
+  },
+  {
+   "dato": "Mponeng, la mina más profunda (~4 km, Sudáfrica)",
+   "url": "https://www.guinnessworldrecords.com/world-records/66169-deepest-mine"
+  },
+  {
+   "dato": "Núcleo interno: radio ~1.220 km, ~5.700 K (como la superficie del Sol)",
+   "url": "https://en.wikipedia.org/wiki/Earth%27s_inner_core"
+  },
+  {
+   "dato": "Más ovejas que personas en Nueva Zelanda (Stats NZ 2024)",
+   "url": "https://www.ctvnews.ca/world/article/yes-new-zealand-still-has-more-sheep-than-people-but-humans-are-catching-up/"
+  },
+  {
+   "dato": "Gravity train: periodo de ida y vuelta, caída uniforme ~42 min",
+   "url": "https://en.wikipedia.org/wiki/Gravity_train"
+  }
+ ]
+}

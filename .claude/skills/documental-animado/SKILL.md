@@ -241,6 +241,18 @@ Corrige y vuelve a revisar hasta que todo pase.
   **ningún desenfoque, velo ni oscurecido de fondo si no tiene una transición suave y bien hecha (entrada y salida graduales, con desenfoque real que se va
   enfocando). Si no se puede hacer bien, no se pone.** Para los capítulos: o un desenfoque real animado (blur que baja de N px a 0 con easing), o nada.
 
+**Documental 14 (27 nov 2026, «¿Y si cayeras por un agujero que atraviesa la Tierra?»): pedido «sin prisas, el tiempo que haga falta, con detalles»**
+- Duración libre si el usuario la da (aquí 2 min 30 s, ~400 palabras): el ritmo manda, no el tope de 45 s. Tope de voz del vídeo ≤ 2.400 caracteres.
+- Progresión con el reloj REAL de la física: si el tema es una caída/viaje, se calcula (aquí: integración con la densidad PREM, `escenas_tierra.estado()`)
+  y el HUD enseña tiempo, km y km/h coherentes en cada hito. Si la progresión real no es «hora a hora» (la caída dura 38 min), se dice «segundo a segundo /
+  minuto a minuto» y las horas salen solo donde son reales (con aire: más de un día).
+- Capítulos SIN velo de golpe: el fondo se desenfoca de verdad con una curva suave (sube 0,35 s, baja 0,55 s mientras el contador vuela a su sitio) y el
+  oscurecido sigue la misma curva (`_mundo()` en `escenas_tierra.py`). Es la forma aprobada de hacer `hud.capitulo` a partir de ahora.
+- Protagonista ilustrado grande (≥ 50 % del ancho) que vive el concepto en todas las escenas (cae, flota, asoma, aguanta el aire) y conceptos que aparecen
+  como objetos al decirlos (F1, avión, mina, taladro, calendario, termómetro, caramelo, brújula, Plutón, Sol, velocímetro, oveja), cada uno con su sonido.
+- Franja de texto legible siempre: degradado oscuro suave bajo la tipografía en fondos claros/brillantes (y≈1040–1290).
+- Escenas en `escenas_tierra.py`: `superficie`, `globo`, `corte`, `tunel` (capas y extras), `capa`, `mapa_es`; superficie nueva `magma`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
