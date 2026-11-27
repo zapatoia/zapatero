@@ -196,5 +196,14 @@
   "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
   "palabras_completas": "medido: «roja?» (1,45 s), «gente.» y «nivel.» tienen la misma caída en audio/toma.mp3 (27,5 / 31,8 / 28,8 dB): final seco de la voz. «despacio.» y «¿Acertaste?» caen desde −35 y −39 dB bajo el pico (cola casi inaudible con fundido de 6 ms)",
   "voz_cuadro_0": "medido: la voz arranca a 0,12 s con la «P» suave de «¿Puedes» (el silencio inicial ya está recortado a −45 dB); recortar más se comería la consonante"
+ },
+ "outro": {
+  "texto": "Mándaselo a ese amigo que está ciego.",
+  "tts": "[playful] Mándaselo a ese amigo que está ciego.",
+  "key": "ciego",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "05-sigue-la-pelota-v2.mp4"
  }
 }
