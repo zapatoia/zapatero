@@ -531,6 +531,7 @@ class Vertical(ES.Estilo):
             if not ids or ln.get("cap", True) is False: continue
             s0 = pal[ids[0]]["s"] - .05
             nxt = next((self.idx_linea[m] for m in range(n + 1, len(self.lineas) + 1) if m in self.idx_linea), None); fin = (pal[nxt[0]]["s"] - 3 / FPS - .05) if nxt else self.fin_s + 1
+            if ln.get("cap_dur"): fin = min(fin, s0 + .05 + float(ln["cap_dur"]))      # el texto se va antes (p. ej. durante un juego en silencio)
             if not (s0 <= t < fin): continue
             sc = next((es for es in reversed(self.escenas) if es["t0"] <= max(t, s0)), self.escenas[0])
             S = SUP[sc["spec"].get("surface", "dark")]
@@ -590,7 +591,7 @@ class Vertical(ES.Estilo):
             self.sfx(TI.f_de_t(max(0, t_ancla - d * .5)), nombre, vol * .6)
         for k, e in enumerate(self.escenas):
             s = e["spec"]
-            if k: pon(e["t0"] + .17, "whoosh", .55)
+            if k: pon(e["t0"] + .17, getattr(self, "SFX_TRANS", {}).get(e["trans"], "whoosh") if self.guion.get("sfx_trans", True) else "whoosh", .55)   # sonido según el tipo de transición
             for key in ("pins", "rotulos"):
                 for q in s.get(key, []):
                     w = q.get("word")
@@ -1594,6 +1595,8 @@ from escena_arbol import instalar as _inst_arbol                  # noqa: E402
 _inst_arbol(Vertical, globals())
 from escenas_cotidianas import instalar as _inst_cot          # noqa: E402
 _inst_cot(Vertical, globals())
+from escenas_tiempo import instalar as _inst_tiempo         # noqa: E402
+_inst_tiempo(Vertical, globals())
 
 
 def escenas(e):

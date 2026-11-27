@@ -1,0 +1,368 @@
+{
+ "titulo": "¿Sabes cuándo pasan 30 segundos?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.8,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Sabes cuándo han pasado 30 segundos? Sin contar.",
+   "tts": "¿Sabes cuándo han pasado treinta segundos? Sin contar.",
+   "key": "Sin contar",
+   "escena": {
+    "tipo": "cara",
+    "surface": "dark",
+    "ojos": [
+     {
+      "word": "@0",
+      "v": 1
+     },
+     {
+      "word": "Cierra",
+      "v": 0,
+      "dur": 0.35
+     }
+    ],
+    "pill": {
+     "word": "segundos",
+     "txt": "30 SEGUNDOS",
+     "hasta": "Sin"
+    },
+    "tachado": {
+     "word": "Sin",
+     "txt": "1   2   3…",
+     "hasta": "Cierra"
+    },
+    "bocadillo": {
+     "word": "comenta",
+     "txt": "Abrí los ojos en:",
+     "num": "¿?"
+    }
+   }
+  },
+  {
+   "texto": "Cierra los ojos y ábrelos cuando creas que van 30.",
+   "tts": "Cierra los ojos... y ábrelos cuando creas que van treinta.",
+   "key": "van 30"
+  },
+  {
+   "texto": "Y comenta el número que veas al abrirlos.",
+   "tts": "Y comenta el número que veas al abrirlos.",
+   "key": "al abrirlos"
+  },
+  {
+   "texto": "¿Listo? ¡Ya!",
+   "tts": "¿Listo?... ¡Ya!",
+   "key": "Ya",
+   "silencio": 44.0,
+   "escena": {
+    "tipo": "crono",
+    "surface": "dark",
+    "transicion": "zoom",
+    "inicio_word": "Ya",
+    "inicio_fin": true,
+    "stop_word": "adelantaste",
+    "barra": [
+     0,
+     45
+    ],
+    "zonas": [
+     {
+      "hasta": 20,
+      "txt": "MUY PRONTO",
+      "col": "#3B82F6"
+     },
+     {
+      "hasta": 27,
+      "txt": "PRONTO",
+      "col": "#38BDF8"
+     },
+     {
+      "hasta": 29,
+      "txt": "CERCA",
+      "col": "#22C55E"
+     },
+     {
+      "hasta": 31,
+      "txt": "¡PERFECTO!",
+      "col": "#22C55E"
+     },
+     {
+      "hasta": 35,
+      "txt": "TARDE",
+      "col": "#F59E0B"
+     },
+     {
+      "hasta": 99,
+      "txt": "MUY TARDE",
+      "col": "#EF4444"
+     }
+    ],
+    "stop_txt": "STOP",
+    "rotulos": [
+     {
+      "word": "Ya",
+      "txt": "OJOS CERRADOS…",
+      "sub": "ÁBRELOS CUANDO CREAS QUE VAN 30",
+      "hasta": "adelantaste"
+     }
+    ],
+    "comentario_txt": "Abrí los ojos en:",
+    "comentarios": [
+     {
+      "word": "adelantaste",
+      "n": 27,
+      "d": 0.5
+     },
+     {
+      "word": "pasaste",
+      "n": 34,
+      "d": 0.2
+     }
+    ]
+   },
+   "cap_dur": 2.2
+  },
+  {
+   "texto": "¿Te adelantaste o te pasaste?",
+   "tts": "¿Te adelantaste... o te pasaste?",
+   "key": "te pasaste"
+  },
+  {
+   "texto": "Tu cerebro tiene un reloj interno, y no siempre va igual: se adelanta o se atrasa.",
+   "tts": "Tu cerebro tiene un reloj interno, y no siempre va igual: se adelanta... o se atrasa.",
+   "key": "se atrasa",
+   "escena": {
+    "tipo": "cerebro",
+    "surface": "noche",
+    "transicion": "card",
+    "vel": [
+     {
+      "word": "@0",
+      "v": 1
+     },
+     {
+      "word": "adelanta",
+      "v": 3.2,
+      "dur": 0.4
+     },
+     {
+      "word": "atrasa",
+      "v": 0.25,
+      "dur": 0.5
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Un científico vio que su mujer, con fiebre, contaba un minuto mucho más deprisa.",
+   "tts": "Un científico vio que su mujer, con fiebre, contaba un minuto mucho más deprisa.",
+   "key": "más deprisa",
+   "escena": {
+    "tipo": "cama",
+    "surface": "clay",
+    "transicion": "whip",
+    "fiebre_word": "fiebre",
+    "temp": "39,4 °C",
+    "grito_word": "minuto",
+    "grito": "¡UN MINUTO!",
+    "crono_word": "contaba",
+    "crono_vel": 1.6
+   }
+  },
+  {
+   "texto": "Con calor, tu reloj interno acelera.",
+   "tts": "Con calor, tu reloj interno acelera.",
+   "key": "acelera",
+   "escena": {
+    "tipo": "crono",
+    "surface": "clay",
+    "transicion": "zoom",
+    "modo": "calor",
+    "vel": [
+     {
+      "word": "@0",
+      "v": 0.6
+     },
+     {
+      "word": "acelera",
+      "v": 4.0,
+      "dur": 0.6
+     }
+    ],
+    "etiqueta": {
+     "word": "acelera",
+     "txt": "CALOR → RÁPIDO",
+     "col": "#FF8A3D"
+    }
+   }
+  },
+  {
+   "texto": "Con frío, se frena.",
+   "tts": "Con frío... se frena.",
+   "key": "se frena",
+   "escena": {
+    "tipo": "crono",
+    "surface": "dark",
+    "transicion": "mask",
+    "modo": "frio",
+    "vel": [
+     {
+      "word": "@0",
+      "v": 2.0
+     },
+     {
+      "word": "frena",
+      "v": 0.25,
+      "dur": 0.8
+     }
+    ],
+    "etiqueta": {
+     "word": "frena",
+     "txt": "FRÍO → LENTO",
+     "col": "#7CC4FF"
+    }
+   }
+  },
+  {
+   "texto": "Unos buzos en agua helada contaban más despacio.",
+   "tts": "Unos buzos en agua helada contaban más despacio.",
+   "key": "más despacio",
+   "escena": {
+    "tipo": "buzo",
+    "surface": "blue",
+    "transicion": "whip",
+    "cuenta_word": "contaban",
+    "cuenta": [
+     "1…",
+     "2…",
+     "3…"
+    ]
+   }
+  },
+  {
+   "texto": "Y los nervios también lo aceleran.",
+   "tts": "Y los nervios también lo aceleran.",
+   "key": "lo aceleran",
+   "escena": {
+    "tipo": "crono",
+    "surface": "noche",
+    "transicion": "card",
+    "modo": "latido",
+    "vel": [
+     {
+      "word": "@0",
+      "v": 1.0
+     },
+     {
+      "word": "aceleran",
+      "v": 3.0,
+      "dur": 0.5
+     }
+    ],
+    "latido_word": "nervios"
+   }
+  },
+  {
+   "texto": "Así que, si los abriste antes de 30, tu reloj iba rápido.",
+   "tts": "Así que, si los abriste antes de treinta, tu reloj iba rápido.",
+   "key": "iba rápido",
+   "escena": {
+    "tipo": "crono",
+    "surface": "dark",
+    "transicion": "zoom",
+    "barra": [
+     0,
+     45
+    ],
+    "fijo": 30,
+    "veredictos": [
+     {
+      "word": "rápido",
+      "txt": "RÁPIDO",
+      "col": "#FF6A3D",
+      "rango": [
+       0,
+       30
+      ]
+     },
+     {
+      "word": "lento",
+      "txt": "LENTO",
+      "col": "#5AA9FF",
+      "rango": [
+       30,
+       45
+      ]
+     },
+     {
+      "word": "Comenta",
+      "txt": "",
+      "col": "#22C55E",
+      "rango": [
+       29,
+       31
+      ]
+     }
+    ],
+    "comentario_txt": "Abrí los ojos en:",
+    "comentarios": [
+     {
+      "word": "Comenta",
+      "n": 26
+     },
+     {
+      "word": "número",
+      "n": 33
+     },
+     {
+      "word": "vemos",
+      "n": 29
+     },
+     {
+      "word": "tiene",
+      "n": 41
+     },
+     {
+      "word": "fino",
+      "n": 31
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Si los abriste después, iba lento.",
+   "tts": "Si los abriste después... iba lento.",
+   "key": "iba lento"
+  },
+  {
+   "texto": "Comenta tu número y vemos quién tiene el reloj más fino.",
+   "tts": "Comenta tu número, y vemos quién tiene el reloj más fino.",
+   "key": "más fino"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a ese amigo que siempre llega tarde.",
+  "tts": "[playful] Pásaselo a ese amigo que siempre llega tarde.",
+  "key": "llega tarde",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "10-reloj-interno-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Hoagland y su mujer con 103 °F (39,4 °C) de fiebre: la temperatura acelera el «reloj químico» del cerebro",
+   "url": "https://muse.jhu.edu/article/405786/pdf"
+  },
+  {
+   "dato": "Hoagland (1933), «The Physiological Control of Judgments of Duration: Evidence for a Chemical Clock»",
+   "url": "https://en.wikipedia.org/wiki/Hudson_Hoagland"
+  },
+  {
+   "dato": "Baddeley (1966), «Time estimation at reduced body temperature», American Journal of Psychology 79: buzos en agua fría",
+   "url": "https://www.psychologytoday.com/gb/blog/the-speed-life/202011/not-all-times-are-alike"
+  }
+ ]
+}
