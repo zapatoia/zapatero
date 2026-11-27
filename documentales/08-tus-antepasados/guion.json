@@ -1,0 +1,338 @@
+{
+ "titulo": "Tus antepasados no caben en la historia",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.75,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "Tienes 2 padres.",
+   "tts": "Tienes dos padres.",
+   "key": "2 padres",
+   "escena": {
+    "tipo": "arbol",
+    "surface": "dark",
+    "contador": true,
+    "etq": "GENERACIÓN {g} · HACIA {anio}",
+    "anio_base": 2026,
+    "anios_gen": 30,
+    "gens": [
+     {
+      "word": "padres",
+      "g": 1
+     },
+     {
+      "word": "abuelos",
+      "g": 2
+     },
+     {
+      "word": "bisabuelos",
+      "g": 3
+     },
+     {
+      "word": "subes",
+      "g": 4
+     },
+     {
+      "word": "duplica",
+      "g": 5
+     },
+     {
+      "word": "Diez",
+      "g": 6
+     },
+     {
+      "word": "generaciones",
+      "g": 7
+     },
+     {
+      "word": "atrás",
+      "g": 8
+     },
+     {
+      "word": "son",
+      "g": 9
+     },
+     {
+      "word": "1.024",
+      "g": 10
+     }
+    ],
+    "etiquetas": [
+     {
+      "g": 1,
+      "txt": "PADRES"
+     },
+     {
+      "g": 2,
+      "txt": "ABUELOS"
+     },
+     {
+      "g": 3,
+      "txt": "BISABUELOS"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "4 abuelos.",
+   "tts": "Cuatro abuelos.",
+   "key": "4 abuelos"
+  },
+  {
+   "texto": "Y 8 bisabuelos.",
+   "tts": "Y ocho bisabuelos.",
+   "key": "8 bisabuelos"
+  },
+  {
+   "texto": "Cada vez que subes una generación, el número se duplica.",
+   "tts": "Cada vez que subes una generación, el número se duplica.",
+   "key": "se duplica"
+  },
+  {
+   "texto": "Diez generaciones atrás, ya son 1.024 personas.",
+   "tts": "Diez generaciones atrás, ya son mil veinticuatro personas.",
+   "key": "1.024 personas"
+  },
+  {
+   "texto": "Veinte generaciones: más de un millón.",
+   "tts": "Veinte generaciones: más de un millón.",
+   "key": "un millón",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "blue",
+    "transicion": "zoom",
+    "objeto": null,
+    "pill": "Generación 20 · hacia 1420",
+    "desde": 1024,
+    "valor": 1048576,
+    "unidad": "antepasados",
+    "word": "Veinte",
+    "dur": 1.6,
+    "rodillo": true,
+    "log": true
+   }
+  },
+  {
+   "texto": "Y si sigues contando hacia atrás, hasta los tiempos de Carlomagno…",
+   "tts": "Y si sigues contando hacia atrás, hasta los tiempos de Carlomagno...",
+   "key": "Carlomagno",
+   "escena": {
+    "tipo": "fecha",
+    "surface": "clay",
+    "transicion": "whip",
+    "anio": 800,
+    "desde": 2026,
+    "word": "contando",
+    "dur": 2.2,
+    "pill": "Hace unos 1.200 años",
+    "rodillo": true
+   }
+  },
+  {
+   "texto": "te salen más de un billón de antepasados.",
+   "tts": "te salen más de un billón de antepasados.",
+   "key": "un billón",
+   "cap": false,
+   "escena": {
+    "tipo": "stat",
+    "surface": "dark",
+    "transicion": "mask",
+    "objeto": null,
+    "pill": "Unas 40 generaciones",
+    "desde": 1048576,
+    "valor": 1099511627776,
+    "unidad": "antepasados",
+    "word": "salen",
+    "dur": 1.8,
+    "rodillo": true,
+    "log": true
+   }
+  },
+  {
+   "texto": "Más que todas las personas que han nacido en la historia.",
+   "tts": "Más que todas las personas que han nacido en la historia.",
+   "key": "la historia",
+   "escena": {
+    "tipo": "barras",
+    "surface": "light",
+    "transicion": "card",
+    "pill": "¿Cabe tanta gente?",
+    "pill_word": "@0",
+    "barras": [
+     {
+      "label": "Tus antepasados de hace 1.200 años",
+      "valor": 1100,
+      "txt": "1,1 billones",
+      "word": "@0.1",
+      "col": "#E0A93B"
+     },
+     {
+      "label": "Todas las personas de la historia",
+      "valor": 117,
+      "txt": "117.000 millones",
+      "word": "personas"
+     }
+    ],
+    "nota": "9 veces más",
+    "nota_word": "Nueve"
+   }
+  },
+  {
+   "texto": "Nueve veces más.",
+   "tts": "Nueve veces más.",
+   "key": "9 veces más"
+  },
+  {
+   "texto": "Eso es imposible. Entonces, ¿dónde está el truco?",
+   "tts": "Eso es imposible. Entonces... ¿dónde está el truco?",
+   "key": "el truco",
+   "escena": {
+    "tipo": "arbol",
+    "surface": "dark",
+    "transicion": "zoom",
+    "gens": [
+     {
+      "word": "@0",
+      "g": 8,
+      "ya": true
+     },
+     {
+      "word": "truco",
+      "g": 6
+     }
+    ],
+    "rojo_word": "imposible",
+    "rojo_fin": "truco",
+    "rojo_txt": "NO HABÍA TANTA GENTE",
+    "pareja_word": "parientes",
+    "pareja_txt": "PAREJA",
+    "titulos": [
+     {
+      "word": "parientes",
+      "txt": "Parientes lejanos",
+      "sub": "SIN SABERLO"
+     },
+     {
+      "word": "mismo",
+      "txt": "La misma persona",
+      "sub": "POR MILES DE CAMINOS"
+     },
+     {
+      "word": "cierra",
+      "txt": "Se cierra",
+      "sub": "COMO UNA RED"
+     }
+    ],
+    "caminos_word": "mismo",
+    "red_word": "cierra"
+   }
+  },
+  {
+   "texto": "Durante siglos, mucha gente se casaba con parientes lejanos sin saberlo.",
+   "tts": "Durante siglos, mucha gente se casaba con parientes lejanos sin saberlo.",
+   "key": "sin saberlo"
+  },
+  {
+   "texto": "Así que el mismo antepasado aparece en tu árbol por miles de caminos.",
+   "tts": "Así que el mismo antepasado aparece en tu árbol por miles de caminos.",
+   "key": "miles de caminos"
+  },
+  {
+   "texto": "Tu árbol no se abre sin fin: se cierra, como una red.",
+   "tts": "Tu árbol no se abre sin fin: se cierra, como una red.",
+   "key": "una red"
+  },
+  {
+   "texto": "Por eso, si tu familia es europea, es casi seguro que desciendes de Carlomagno.",
+   "tts": "Por eso, si tu familia es europea, es casi seguro que desciendes de Carlomagno.",
+   "key": "Carlomagno",
+   "escena": {
+    "tipo": "arbol",
+    "surface": "noche",
+    "transicion": "whip",
+    "gens": [
+     {
+      "word": "@0",
+      "g": 6,
+      "ya": true
+     }
+    ],
+    "red_word": "@0",
+    "red_ya": true,
+    "rey_word": "seguro",
+    "rayo_word": "desciendes",
+    "titulos": [
+     {
+      "word": "Carlomagno",
+      "txt": "Carlomagno",
+      "sub": "HACIA EL AÑO 800"
+     }
+    ],
+    "ytop": 600
+   }
+  },
+  {
+   "texto": "Y la persona que tienes al lado, también.",
+   "tts": "Y la persona que tienes al lado... también.",
+   "key": "también",
+   "escena": {
+    "tipo": "arbol",
+    "surface": "dark",
+    "transicion": "card",
+    "gens": [
+     {
+      "word": "@0",
+      "g": 4,
+      "ya": true
+     }
+    ],
+    "vecino_word": "persona",
+    "cruce_word": "también",
+    "chat_word": "primos",
+    "chat_txt": "Hola, primo.",
+    "chat_sub": "visto ✓✓"
+   }
+  },
+  {
+   "texto": "Técnicamente, sois primos.",
+   "tts": "Técnicamente... sois primos.",
+   "key": "primos"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a tu primo lejano.",
+  "tts": "[playful] Pásaselo a tu primo lejano.",
+  "key": "primo lejano",
+  "amigo_word": "primo",
+  "boton": "Compartir",
+  "contacto": "Tu primo",
+  "salida": "08-tus-antepasados-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Unos 117.000 millones de personas nacidas en toda la historia (estimación PRB, 2022)",
+   "url": "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/"
+  },
+  {
+   "dato": "Los europeos que vivían hace ~1.000 años y dejaron descendencia son antepasados de todos los europeos actuales (Ralph y Coop, 2013)",
+   "url": "https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1001555"
+  },
+  {
+   "dato": "Carlomagno y el colapso del árbol genealógico",
+   "url": "https://www.nationalgeographic.com/science/article/charlemagnes-dna-and-our-universal-royalty"
+  },
+  {
+   "dato": "2^10 = 1.024; 2^20 = 1.048.576; 2^40 ≈ 1,1 billones (≈ 9,4 × 117.000 millones); ~30 años por generación",
+   "url": "https://gcbias.org/european-genealogy-faq/"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido: solo salta en 13–16 s (fondo azul del contador) y 23–28 s (fondo claro de las barras): es el color de fondo a pantalla completa, distinto de la mediana oscura; no hay texto ni gráficos en esas zonas",
+  "voz_cuadro_0": "medido: «Tienes» arranca a 85 ms (la T suave sube despacio); la voz suena desde el primer cuarto de segundo",
+  "palabras_completas": "medido: «red.» baja despacio de −16 a −40 dB en 0,2 s (cola natural de la d) y luego cae en silencio; no hay corte",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

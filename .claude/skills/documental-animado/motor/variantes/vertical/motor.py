@@ -69,6 +69,7 @@ SUP = {
     "dark":  dict(a="#0B1530", b="#050A18", txt="#FFFFFF", sub="#AFC3EE", acc="#6EA0FF", tierra="#12244A", borde="#2D5BB8", grid=True),
     "blue":  dict(a="#2453D6", b="#0D2A86", txt="#FFFFFF", sub="#D6E2FF", acc="#FFFFFF", tierra="#1E47B8", borde="#9DB8FF", grid=False),
     "light": dict(a="#F4F7FD", b="#D9E4F7", txt="#0C1630", sub="#3D4C6E", acc="#2F6BFF", tierra="#E4EBF8", borde="#9AAFD6", grid=False),
+    "noche": dict(a="#1A1440", b="#05030E", txt="#FFFFFF", sub="#D9CCFF", acc="#F2C14E", tierra="#231A55", borde="#6A58C8", grid=False),
     "clay":  dict(a="#3A1E14", b="#170A06", txt="#FFFFFF", sub="#F1C9A8", acc="#FFB45C", tierra="#4A2618", borde="#C9774A", grid=True),
 }
 TRANS = ["whip", "zoom", "mask", "card"]
@@ -426,14 +427,16 @@ class Vertical(ES.Estilo):
             a = aparece(dt0 - .05, .15); self.pildora(c, s["pill"], CX, 245 - 20 * (1 - resorte(dt0, 9, 12)), S, a, fnt=self.F["pillb"])
         if s.get("valor") is None: return
         tw = self.ta(s["word"], e); dt = t - tw
-        de = s.get("desde", 0); v = de + (s["valor"] - de) * TI.cubic_out(TI.clamp(dt / .9)) if dt > 0 else de
+        de = s.get("desde", 0); dd = s.get("dur", .9); uu = TI.cubic_out(TI.clamp(dt / dd)) if dt > 0 else 0
+        if s.get("log") and de > 0: v = math.exp(math.log(de) + (math.log(s["valor"]) - math.log(de)) * uu) if uu < 1 else s["valor"]
+        else: v = de + (s["valor"] - de) * uu
         a = aparece(dt + .25, .2) if not s.get("ver_desde") else aparece(dt0 - .1, .2)
         if a > 0:
             dec = s.get("decimales", 0); txt = s.get("prefijo", "") + (f"{v:.{dec}f}".replace(".", ",") if dec else (f"{int(round(v)):,}".replace(",", ".") if s.get("miles", True) else str(int(round(v)))))
             fnt = self.F["big"]; yb = 850 if self.guion.get("stat_alto") else 905
             if ancho(txt, fnt) > 860: fnt = fuente("Inter", 800, int(250 * 860 / ancho(txt, fnt)))
             sc = .9 + .1 * resorte(dt + .25, 8, 11)
-            vel = abs((s["valor"] - s.get("desde", 0)) / .9 * 3 * (1 - TI.clamp(dt / .9)) ** 2) if 0 < dt < .9 else 0
+            vel = (8 if s.get("log") else abs((s["valor"] - s.get("desde", 0)) / dd * 3)) * (1 - TI.clamp(dt / dd)) ** 2 if 0 < dt < dd else 0
             c.save(); c.translate(CX, yb); c.scale(sc, sc)
             with capa(c, alfa=a, blur=min(6, vel * .4)):
                 texto(c, txt, 0, 0, fnt, S["txt"], tnum=True)
@@ -581,7 +584,7 @@ class Vertical(ES.Estilo):
         dur = dict(whoosh=.34, pop=.09, tic=.03, golpe=.32, sello=.22, destello=.7)
         def libre(a, b): return not any(s < b - .01 and e > a + .01 for s, e in spans)
         def pon(t_ancla, nombre, vol):
-            d = dur[nombre]
+            d = dur.get(nombre, .3)
             for t in (t_ancla - d - .02, t_ancla - d - .1, t_ancla - d * .6):
                 if t >= 0 and libre(t, t + d): self.sfx(TI.f_de_t(t), nombre, vol); return
             self.sfx(TI.f_de_t(max(0, t_ancla - d * .5)), nombre, vol * .6)
@@ -592,17 +595,24 @@ class Vertical(ES.Estilo):
                 for q in s.get(key, []):
                     w = q.get("word")
                     if w and not str(w).startswith("@"): pon(self.ta(w, e), "pop", .35)
-            if s.get("tipo") == "stat":
+            if s.get("tipo") == "stat" and not s.get("rodillo"):
                 tw = self.ta(s["word"], e)
                 for j in range(4):
                     tt = tw + .05 + j * .2
                     if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .35)
                 if s.get("nota_word"): pon(self.ta(s["nota_word"], e) + .15, "pop", .3)
-            if s.get("tipo") == "fecha":
+            if s.get("tipo") == "fecha" and not s.get("rodillo"):
                 tw = self.ta(s["word"], e)
                 for j in range(5):
                     tt = tw + .05 + j * .18
                     if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .35)
+            if s.get("rodillo") and s.get("tipo") in ("stat", "fecha"):
+                self.rodillo(self.ta(s["word"], e), s.get("dur", .9 if s["tipo"] == "stat" else 1.0))
+            if s.get("tipo") == "arbol": self.efectos_arbol(e, pon, libre)
+            if s.get("tipo") == "barras":
+                for b in s["barras"]:
+                    tb = self.ta(b["word"], e); self.sfx(TI.f_de_t(max(0, tb)), "subida", .8)
+                if s.get("nota_word"): pon(self.ta(s["nota_word"], e), "sello", .45)
             if s.get("hueco"): pon(self.ta(s["hueco"]["word"], e), "golpe", .55)
             for it in s.get("items", []): pon(self.ta(it["word"], e) + .55, "sello", .3)
             if s.get("tipo") == "penalti":
@@ -759,11 +769,11 @@ class Vertical(ES.Estilo):
     def e_fecha(self, c, e, t, S):
         s = e["spec"]; dt0 = t - e["t0"]; tw = self.ta(s["word"], e); dt = t - tw
         de = s.get("desde", s["anio"] - 100)
-        v = de + (s["anio"] - de) * TI.cubic_out(TI.clamp(dt / 1.0)) if dt > 0 else de
+        dd = s.get("dur", 1.0); v = de + (s["anio"] - de) * TI.cubic_out(TI.clamp(dt / dd)) if dt > 0 else de
         if s.get("pill"): self.pildora(c, s["pill"], CX, 330 - 20 * (1 - resorte(dt0, 9, 12)), S, aparece(dt0, .15), fnt=self.F["pillb"])
         yb = 700; a = aparece(dt0, .2)
         txt = str(int(round(v)))
-        vel = (1 - TI.clamp(dt / 1.0)) ** 2 if 0 < dt < 1 else 0
+        vel = (1 - TI.clamp(dt / dd)) ** 2 if 0 < dt < dd else 0
         c.save(); c.translate(CX, yb); sc = .92 + .08 * resorte(dt0, 8, 10); c.scale(sc, sc)
         with capa(c, alfa=a, blur=min(5, vel * 8)): texto(c, txt, 0, 0, self.F["big"], S["txt"], tnum=True)
         c.restore()
@@ -1128,7 +1138,13 @@ class Vertical(ES.Estilo):
             c.drawRRect(rrc(110 + W_ / 2, y + 10, W_, 70, 35), relleno("#C9D6EE", .5 * a))
             w = max(70, W_ * b["valor"] / mx * u)
             c.drawRRect(skia.RRect.MakeRectXY(skia.Rect(110, y - 25, 110 + w, y + 45), 35, 35), skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(110, 0), (110 + W_, 0)], [color(b.get("col", "#2F6BFF")), color("#6EA0FF")])))
-            texto(c, b["txt"], 110 + w + 24, y + 10, self.F["item"], "#0C1630", alinear="i", alfa=aparece(dt - .5, .2))
+            if 110 + w + 24 + ancho(b["txt"], self.F["item"]) > 940: texto(c, b["txt"], 110 + w - 30, y + 10, self.F["item"], "#FFFFFF", alinear="d", alfa=aparece(dt - .5, .2))
+            else: texto(c, b["txt"], 110 + w + 24, y + 10, self.F["item"], "#0C1630", alinear="i", alfa=aparece(dt - .5, .2))
+        if s.get("nota"):
+            dn = t - self.ta(s.get("nota_word", "@0"), e)
+            if dn > 0:
+                sc = .7 + .3 * resorte(dn, 9, 12); c.save(); c.translate(CX, y0 + len(bs) * hh + 40); c.scale(sc, sc)
+                self.pildora(c, s["nota"], 0, 0, S, aparece(dn, .12), fnt=self.F["etq"], fondo=s.get("nota_fondo", "#E5322D")); c.restore()
 
 
     def vehiculo(self, c, tipo, x, y, h, a):
@@ -1569,6 +1585,11 @@ class Vertical(ES.Estilo):
         tri = skia.Path(); tri.moveTo(px - 13, ye - 46); tri.lineTo(px + 13, ye - 46); tri.lineTo(px, ye - 26); tri.close()
         c.drawPath(tri, relleno("#FFFFFF"))
         c.restore(); c.restore()
+
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from escena_arbol import instalar as _inst_arbol                  # noqa: E402
+_inst_arbol(Vertical, globals())
 
 
 def escenas(e):

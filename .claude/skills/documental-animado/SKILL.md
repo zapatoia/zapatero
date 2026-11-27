@@ -185,6 +185,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Juegos verticales:** escenas `bolas` (sigue la pelota: silueta de neón, niveles, `ciclo` de colores, respuesta fija) y `penalti` (pausa cuando el portero se tire: cronómetro, escala de reacción, rondas con `espera`, `amagos`). En los juegos la cámara no se mueve y las esperas son silencios reales: `lineas[].silencio` (s) en guion.json (voz_eleven.py los inserta; el QA de pausas se acepta con esa razón).
 - Ganchos de juego: retadores y cortos, sin datos científicos si el usuario no los pide.
 
+**Del usuario (27 nov 2026, documental 08)**
+- **Más detalle en los efectos de sonido, sin pasarse:** cada cosa que se mueve suena (rodillo de tics que frenan + «clac» al rodar cifras y años: `"rodillo": true` en stat/fecha; nota por generación en `arbol`; barrido en barras; campana, destello, mensaje). Los tics del rodillo pueden ir bajo la voz (son muy suaves); el resto, en los huecos.
+- **Vídeos a partir del guion de un reel:** se toma solo el texto (gancho y partes) y se anima con el kit vertical; nada del estilo de la referencia. Escena `arbol` (`motor/variantes/vertical/escena_arbol.py`) para árboles genealógicos.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
