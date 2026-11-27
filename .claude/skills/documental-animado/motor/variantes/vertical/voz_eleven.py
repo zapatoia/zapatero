@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+"""Voz de un proyecto vertical en UNA toma corrida con ElevenLabs /with-timestamps (sin Whisper).
+
+  PY voz_eleven.py <proyecto>            genera (solo si no hay toma guardada) y arma voz.wav + palabras.json
+  PY voz_eleven.py <proyecto> armar      vuelve a armar desde la toma guardada (no gasta)
+
+Voz: perfil.json → voz_id. Clave: ELEVENLABS_API_KEY (entorno o .env), nunca se imprime. Modelo: guion.json → voz_modelo.
+Marcas por palabra: alineación por carácter que devuelve ElevenLabs, mapeada a las palabras de `texto` (las cifras de `texto`
+se reparten el tramo de sus palabras habladas en `tts`). Pausas > 0.8 s se acortan a 0.6 s dentro del silencio.
+"""
+import base64, difflib, json, os, subprocess, sys, urllib.request
+from pathlib import Path
+
+import numpy as np
+import soundfile as sf
+
+MOTOR = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(MOTOR))
+from nucleo.rutas import FF, perfil, leer_texto, clave_eleven   # noqa: E402
+from nucleo.tiempo import norm                                   # noqa: E402
+
+SR = 48000
+
+
+def generar(proy, g):
+    au = proy / "audio"; au.mkdir(exist_ok=True); toma = au / "toma.json"
+    if toma.exists(): return json.loads(toma.read_text())
+    texto = " ".join(l["tts"] for l in g["lineas"])
+    tope = g.get("tope_caracteres", 2500)
+    if len(texto) > tope: sys.exit(f"{len(texto)} caracteres > tope {tope}")
+    voz = perfil().get("voz_id"); modelo = g.get("voz_modelo", "eleven_v3")
+    body = dict(text=texto, model_id=modelo, language_code="es", voice_settings=dict(stability=.5, similarity_boost=.85))
+    req = urllib.request.Request(f"https://api.elevenlabs.io/v1/text-to-speech/{voz}/with-timestamps?output_format=mp3_44100_192",
+                                 data=json.dumps(body).encode(), headers={"xi-api-key": clave_eleven(), "Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=300) as r: d = json.loads(r.read())
+    (au / "toma.mp3").write_bytes(base64.b64decode(d["audio_base64"]))
+    t = dict(texto=texto, modelo=modelo, voz=voz, caracteres=len(texto), al=d.get("alignment") or d.get("normalized_alignment"))
+    toma.write_text(json.dumps(t, ensure_ascii=False))
+    (au / "eleven_gasto.json").write_text(json.dumps(dict(caracteres=len(texto), modelo=modelo), ensure_ascii=False))
+    return t
+
+
+def armar(proy, g, t):
+    au = proy / "audio"
+    x = np.frombuffer(subprocess.run([FF, "-v", "error", "-i", str(au / "toma.mp3"), "-f", "f32le", "-ac", "1", "-ar", str(SR), "-"],
+                                     capture_output=True, check=True).stdout, np.float32).copy()
+    al = t["al"]; ch = al["characters"]; cs = al["character_start_times_seconds"]; ce = al["character_end_times_seconds"]
+    full = "".join(ch)
+    # palabras habladas (tts) con su tramo
+    hab = []; i = 0
+    while i < len(full):
+        if full[i].isspace(): i += 1; continue
+        j = i
+        while j < len(full) and not full[i:j + 1][-1].isspace(): j += 1
+        w = full[i:j]
+        if norm(w): hab.append(dict(w=w, s=cs[i], e=ce[j - 1]))
+        i = j
+    # palabras visibles (texto) por línea
+    vis = []
+    for n, l in enumerate(g["lineas"], 1):
+        for w in l["texto"].split(): vis.append(dict(w=w, linea=n))
+    A = [norm(w["w"]) for w in vis]; B = [norm(w["w"]) for w in hab]
+    sm = difflib.SequenceMatcher(None, A, B, autojunk=False)
+    for op, a0, a1, b0, b1 in sm.get_opcodes():
+        if op == "equal":
+            for k in range(a1 - a0): vis[a0 + k].update(s=hab[b0 + k]["s"], e=hab[b0 + k]["e"])
+        elif a1 > a0:
+            if b1 > b0: s0, e0 = hab[b0]["s"], hab[b1 - 1]["e"]
+            else: s0 = hab[b0 - 1]["e"] if b0 else 0; e0 = s0 + .05
+            n = a1 - a0
+            for k in range(n): vis[a0 + k].update(s=s0 + (e0 - s0) * k / n, e=s0 + (e0 - s0) * (k + 1) / n)
+    # recorte de silencio inicial y pausas largas
+    hop0 = int(.005 * SR); e0 = np.array([np.sqrt(np.mean(x[i:i + hop0] ** 2) + 1e-12) for i in range(0, int(3 * SR), hop0)])
+    ini = max(0.0, next(i for i, v in enumerate(20 * np.log10(e0)) if v > -40) * .005 - .02)
+    cortes = [(0.0, ini)]                      # (t original, quitar)
+    # silencios reales (envolvente < -42 dB durante ≥ 0.25 s): se dejan en g.pausa (0.28 s) quitando el centro
+    hop = int(.01 * SR); env = np.array([np.sqrt(np.mean(x[i:i + hop] ** 2) + 1e-12) for i in range(0, len(x) - hop, hop)])
+    sil = 20 * np.log10(env) < -42; s0 = None; deja = g.get("pausa", .28)
+    for i, v in enumerate(list(sil) + [False]):
+        if v and s0 is None: s0 = i
+        if not v and s0 is not None:
+            a, d = s0 / 100, (i - s0) / 100; s0 = None
+            if a > ini + .05 and d > deja + .02 and a + d < vis[-1]["e"]: cortes.append((a + deja / 2, d - deja))
+    def mapa(tt):
+        q = 0.0
+        for c0, d in cortes:
+            if tt > c0: q += min(d, tt - c0)
+        return tt - q
+    keep = np.ones(len(x), bool)
+    for c0, d in cortes:
+        keep[int(c0 * SR):int((c0 + d) * SR)] = False
+    y = x[keep]
+    fin = mapa(vis[-1]["e"]) + .35
+    y = y[:int(fin * SR)]
+    tempo = g.get("tempo", 1.0)
+    if tempo != 1.0:
+        y = np.frombuffer(subprocess.run([FF, "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", "-af", f"atempo={tempo}", "-f", "f32le", "-"],
+                                         input=y.astype(np.float32).tobytes(), capture_output=True, check=True).stdout, np.float32).copy()
+    m0 = mapa; mapa = lambda tt: m0(tt) / tempo
+    k = int(.008 * SR); y[-k:] *= np.linspace(1, 0, k)
+    sf.write(str(proy / "voz.wav"), y, SR, subtype="FLOAT")
+    pal = [dict(w=v["w"], s=round(mapa(v["s"]), 3), e=round(mapa(v["e"]), 3), linea=v["linea"]) for v in vis]
+    # arranques: si la marca cae en silencio, se mueve al primer borde de voz real (la palabra entra cuando se dice)
+    hop = int(.005 * SR); ev = 20 * np.log10(np.array([np.sqrt(np.mean(y[i:i + hop] ** 2) + 1e-12) for i in range(0, len(y) - hop, hop)]))
+    for k, w in enumerate(pal):
+        i0 = int(w["s"] / .005); lim = int((pal[k + 1]["e"] if k + 1 < len(pal) else w["e"]) / .005)
+        if k and ev[i0:i0 + 6].max() < -40:
+            j = next((i for i in range(i0, max(lim, i0 + 1)) if ev[i] > -40), None)
+            if j is not None:
+                w["s"] = round(max(j * .005 - .01, w["s"]), 3); w["e"] = max(w["e"], round(w["s"] + .08, 3))
+                if k + 1 < len(pal) and pal[k + 1]["s"] < w["e"]: pal[k + 1]["s"] = w["e"]
+    (proy / "palabras.json").write_text(json.dumps(pal, ensure_ascii=False, indent=0), encoding="utf-8")
+    print(f"voz.wav {len(y) / SR:.2f} s · {len(pal)} palabras · pausas recortadas {len(cortes) - 1} · {t['caracteres']} caracteres ({t['modelo']})")
+
+
+if __name__ == "__main__":
+    proy = Path(sys.argv[1]).resolve(); g = json.loads(leer_texto(proy / "guion.json"))
+    t = generar(proy, g) if (len(sys.argv) < 3 or sys.argv[2] != "armar") else json.loads((proy / "audio/toma.json").read_text())
+    armar(proy, g, t)

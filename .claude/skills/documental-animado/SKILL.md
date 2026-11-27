@@ -165,6 +165,14 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Voz: SIEMPRE su voz favorita de ElevenLabs, voice_id `851ejYcv2BoNPjrkw93G` (ya en `perfil.json → voz_id`). No cambiarla por cuenta propia.
 - Clave: la de su cuenta, en la variable de entorno `ELEVENLABS_API_KEY` de este servidor. No guardarla en archivos ni mostrarla. Es una clave restringida (sin permiso de leer voces, modelos ni saldo): `voz_ia.py` y `voz.py … saldo` dan 401; se ignora y se genera directamente; el coste se estima ≈1 crédito por carácter.
 
+**Vertical 9:16 (TikTok / Reels / Shorts), pedido del usuario 27 nov 2026**
+- Si pide «9:16», «vertical» o «formato TikTok», usa `motor/variantes/vertical/motor.py` (skia sobre el núcleo, 1080×1920, 60 fps) con los mismos comandos (`escenas`, `prueba`, `secuencia`, `render`, `qa`). Escenas: `map` (mapa en metros con cámara, anillos de radio, bola de fuego, pines), `radio` (suelo 2.5D con personas a escala), `stat` (cifra con odómetro + objeto), `artico` (globo + año). Ejemplo completo: `documentales/01-bombas-madrid/guion.json` del repo.
+- Voz para el vertical: `motor/variantes/vertical/voz_eleven.py <proyecto>` (una toma, marcas de ElevenLabs, pausas reales dejadas en 0,28 s, `tempo` opcional en guion.json). `armar` rehace sin gastar.
+- Zonas seguras de TikTok: nada abajo de y=1536 ni a la derecha de x=950; tipografía en y 1268–1460, centro de gráficos x=520.
+- Duración 30–45 s: si la toma sale larga, primero recorta pausas (`pausa`) y luego `tempo` ≤ 1,05; nunca regeneres la voz por eso.
+- La clave grande va al FINAL de la frase (si va en medio, el contexto chico se lee raro: «Bola de de 180»). Reordena la frase antes de generar la voz.
+- Mapas de Madrid sin internet: npm `madrid-atlas` (secciones censales) + `es-atlas` (municipios/provincias), pasados a UTM 30N con pyproj (ver `documentales/01-bombas-madrid/datos/`).
+
 **Del formato**
 1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
    de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
