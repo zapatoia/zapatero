@@ -1601,6 +1601,8 @@ from escenas_politica import instalar as _inst_pol           # noqa: E402
 _inst_pol(Vertical, globals())
 from escenas_mosquito import instalar as _inst_mosq          # noqa: E402
 _inst_mosq(Vertical, globals())
+from escenas_sueno import instalar as _inst_sueno          # noqa: E402
+_inst_sueno(Vertical, globals())
 
 
 def escenas(e):

@@ -224,6 +224,12 @@ Corrige y vuelve a revisar hasta que todo pase.
 - `outro.py` saca el último cuadro con `-sseof -0.3` (el audio puede durar unos ms más que el vídeo).
 - Escenas en `escenas_mosquito.py`: `mosquito`, `ranking`, `contagio`, `zumbido`, `estanque`, `tundra`, `orquidea`, `red`, `especies`, `selectivo`.
 
+**Documental 13 (27 nov 2026, «¿Qué pasaría si dejases de dormir a propósito?»): mejoras que quedan como recurso**
+- **Hilo conductor visible**: un HUD fijo que avanza escena a escena (aquí «HORAS DESPIERTO») une el vídeo; campo `hud` {desde, hasta, word, dur}.
+- **Que el propio vídeo viva el concepto**: párpados que cierran la pantalla con el cansancio y microsueño = pantalla en negro con glitch. Busca en cada tema un efecto así.
+- Gancho con acción física de cómic en la palabra clave (palillos ¡CLAC! en «a propósito») y cierre que lo deshace (se caen y se duerme).
+- Escenas en `escenas_sueno.py`: `insomne`, `calendario`, `conducir`, `neuronas`, `limpieza`, `alucina`, `recuerdos`, `dormir`, `capitulo`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
