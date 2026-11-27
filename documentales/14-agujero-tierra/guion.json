@@ -701,5 +701,11 @@
    "dato": "Gravity train: periodo de ida y vuelta, caída uniforme ~42 min",
    "url": "https://en.wikipedia.org/wiki/Gravity_train"
   }
- ]
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (cielo, paredes del túnel, globo con estrellas); ningún texto ni pastilla entra en la columna de botones ni por debajo de y=1536",
+  "voz_cuadro_0": "medido: la voz arranca a 0,037 s; «Imagina» entra suave por la etiqueta [curious] (misma toma pagada)",
+  "palabras_completas": "medido por correlación (coincidencia 1,0) contra toma.mp3: las colas de «17.», «hora.» y «vale:» son idénticas a la toma original de ElevenLabs: final natural, no hay corte",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
 }
