@@ -213,12 +213,19 @@ def instalar(V, G):
                    skia.Paint(AntiAlias=True, StrokeWidth=7, Color=color(col), StrokeCap=skia.Paint.kRound_Cap))
         c.drawCircle(cx, cy, 20, relleno(col)); c.drawCircle(cx, cy, 8, relleno("#FFFFFF"))
 
-    def _digitos(self, c, cx, cy, val, col="#FFFFFF", dec_col="#5AA9FF", esc=1.0, a=1.0):
+    def _digitos(self, c, cx, cy, val, col="#FFFFFF", dec_col="#5AA9FF", esc=1.0, a=1.0, maxw=None):
+        """Cifra «SS,d» centrada como grupo; si no cabe en maxw (ancho útil de la esfera) se encoge entera.
+        El ancho se mide con «88,8» para que el tamaño no salte al pasar de 9 a 10 s."""
         ent = int(val); dec = int((val - ent) * 10)
         f1, f2 = fuente("Inter", 900, int(220 * esc)), fuente("Inter", 900, int(110 * esc))
-        w1 = ancho(str(ent), f1)
-        texto(c, str(ent), cx - 30 * esc, cy, f1, col, alinear="d", alfa=a, tnum=True, sombra=(4, 16, .5))
-        texto(c, f",{dec}", cx - 24 * esc, cy + 40 * esc, f2, dec_col, alinear="i", alfa=a, tnum=True)
+        ref = ancho("88", f1) + ancho(",8", f2) + 6 * esc
+        k = min(1.0, (maxw or ref) / ref)
+        w1, w2 = ancho(str(ent), f1), ancho(f",{dec}", f2); x0 = -(w1 + w2 + 6 * esc) / 2
+        c.save(); c.translate(cx, cy); c.scale(k, k)
+        with capa(c, alfa=.55 * a, blur=26): texto(c, str(ent), x0, 0, f1, "#000000", alinear="i", tnum=True)
+        texto(c, str(ent), x0, 0, f1, col, alinear="i", alfa=a, tnum=True, sombra=(4, 16, .5))
+        texto(c, f",{dec}", x0 + w1 + 6 * esc, 40 * esc, f2, dec_col, alinear="i", alfa=a, tnum=True)
+        c.restore()
 
     def e_crono(self, c, e, t, S):
         s = e["spec"]; dt0 = t - e["t0"]; modo = s.get("modo")
@@ -276,9 +283,11 @@ def instalar(V, G):
             c.drawPath(co, trazo("#3A0610", 5, .8)); c.drawOval(skia.Rect(-130, -120, -60, -80), relleno("#FFFFFF", .55)); c.restore()
         _aguja(c, cx, cy, R, ang, estela)
         if val is not None and s.get("inicio_word"):
-            _digitos(self, c, cx, cy + 10, val, dec_col=col)
+            _digitos(self, c, cx, cy - 10, val, dec_col=col, maxw=1.25 * R)
             lab_txt = s.get("stop_txt", "STOP") if parado else lab
-            if t >= self.ta(s["inicio_word"], e): texto(c, lab_txt, cx, cy + 175, fuente("Inter", 900, 70), col, alfa=1, sombra=(2, 10, .4))
+            if t >= self.ta(s["inicio_word"], e):
+                fl = fuente("Inter", 900, 64); kl = min(1.0, 1.2 * R / max(1, ancho(lab_txt, fl)))
+                c.save(); c.translate(cx, cy + 150); c.scale(kl, kl); texto(c, lab_txt, 0, 0, fl, col, alfa=1, sombra=(2, 10, .4)); c.restore()
         if s.get("fijo") is not None:
             vs = [q for q in s.get("veredictos", []) if t >= self.ta(q["word"], e)]
             if vs and vs[-1].get("txt"):
@@ -302,7 +311,7 @@ def instalar(V, G):
             c.drawRect(skia.Rect(x0, yb - 12, x1, yb + 12), trazo("#FFFFFF", 2, .5))
             for v_ in range(int(b0), int(b1) + 1, 10):
                 c.drawLine(X(v_), yb - 22, X(v_), yb + 22, trazo("#FFFFFF", 3, .9))
-                texto(c, str(v_), X(v_), yb + 58, fuente("Inter", 800, 40), "#FFFFFF", alfa=.85)
+                if v_ != 30: texto(c, str(v_), X(v_), yb + 58, fuente("Inter", 800, 40), "#FFFFFF", alfa=.85)   # el 30 va solo en verde
             c.drawLine(X(30), yb - 36, X(30), yb + 26, skia.Paint(AntiAlias=True, StrokeWidth=7, Color=color("#22C55E")))
             texto(c, "30", X(30), yb + 62, fuente("Inter", 900, 56), "#4ADE80")
             if val is not None and s.get("inicio_word") and t >= self.ta(s["inicio_word"], e):
@@ -319,7 +328,7 @@ def instalar(V, G):
         cs = [q for q in s.get("comentarios", []) if t - self.ta(q["word"], e) - q.get("d", 0) > 0]
         for k, q in enumerate(cs):
             d = t - self.ta(q["word"], e) - q.get("d", 0); n_ = len(s.get("comentarios", []))
-            y = 470 + k * (520 / max(1, n_ - 1) if n_ > 2 else 150); x = CX + (-110 if k % 2 == 0 else 110)
+            y = 430 + k * (min(130, 470 / max(1, n_ - 1)) if n_ > 2 else 150); x = CX + (-110 if k % 2 == 0 else 110)   # bocadillos por encima de la barra
             _bocadillo(self, c, x, y, s.get("comentario_txt", ""), str(q["n"]), aparece(d, .1), .6 + .4 * resorte(d, 10, 13), cola=-1 if k % 2 == 0 else 1, fs=44)
         # rótulos de arriba y etiqueta
         for q in s.get("rotulos", []):
@@ -457,7 +466,7 @@ def instalar(V, G):
                     texto(c, txt, CX + 60 + k * 90, y, fuente("Inter", 900, 70), "#FFFFFF", alfa=a, sombra=(2, 10, .5))
         cxm, cym = CX + 255, 860; val = max(0, t - e["t0"]) * .45
         _dial(self, c, cxm, cym, 150, (val % 60) / 60, "#9ED3FF"); _aguja(c, cxm, cym, 150, -90 + val * 6, .6, "#FF4A3A")
-        _digitos(self, c, cxm, cym + 10, val, dec_col="#9ED3FF", esc=.42)
+        _digitos(self, c, cxm, cym - 4, val, dec_col="#9ED3FF", esc=.42, maxw=1.2 * 150)
 
     # ---------------------------------------------------------------- efectos
     def efectos_tiempo(self, e, pon, libre):

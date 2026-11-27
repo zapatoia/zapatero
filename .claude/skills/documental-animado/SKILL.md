@@ -203,6 +203,11 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Cronómetros de juego cuentan en tiempo real desde el final de la palabra (`inicio_fin`), para que el reto sea justo.
 - Nada de cifras no verificadas aunque salgan en la referencia: se cuenta sin el número.
 
+**Corrección del usuario sobre el documental 10 (cifra que se salía del cronómetro y «30» duplicado en la barra)**
+- La hoja de cuadros es demasiado pequeña para ver fallos finos. Antes de entregar, revisa a tamaño real (recorte a 50 %, `ffmpeg -ss T -i final.mp4 -vf crop=…`) un cuadro de CADA tipo de escena en su peor momento: la cifra más larga, la etiqueta más ancha, todos los bocadillos a la vez.
+- Ningún texto puede salirse de su contenedor: las cifras se ajustan al ancho útil (`maxw`) midiendo el caso más ancho («88,8»), no el actual.
+- Nunca dibujes dos veces la misma etiqueta: si una marca se resalta (el 30 en verde), se quita de la serie normal.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
