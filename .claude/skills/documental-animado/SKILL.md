@@ -1,0 +1,216 @@
+---
+name: documental-animado
+description: Hace videos HORIZONTALES de YouTube (1920×1080) 100 % animados por código en el formato «Documental animado» — mapas con vuelo de cámara, fechas que ruedan, cifras con odómetro, barras, listas, flujos y fotos 2.5D — con la voz del usuario (ElevenLabs) sincronizada palabra por palabra y tipografía cinética. Usar cuando el usuario pida «documental animado», «video de historia/geografía con mapas», «video horizontal animado con mapas y cifras», «estilo documental».
+---
+
+# Documental animado · video horizontal animado por código
+
+Haces el video COMPLETO y lo entregas: guion → voz → animación → render → QA → video final abierto. No entregues planes ni partes.
+Un video a la vez, con el tema y la voz del usuario. Nada de producción masiva ni de automatizar canales: el usuario crea su propio contenido.
+
+Este formato se construyó con correcciones reales sobre videos terminados. **Cada regla de abajo es obligatoria**: existe porque algo salió
+mal antes. Si el usuario te corrige algo nuevo, agrégalo a la sección 7 en el mismo turno.
+
+**Regla de oro: una vez que empiezas, no le preguntas nada al usuario** ni le pides que confirme o elija: tú decides todo
+(variante, guion, escenas, música, reintentos, gasto de voz) y sigues hasta entregar el video. La única pregunta es la de la voz (§ 0), una sola vez.
+
+## Mapa de la skill
+```
+SKILL.md · INSTALAR.md · requirements.txt · perfil.ejemplo.json · env.ejemplo
+motor/nucleo/                    voz (ElevenLabs + Whisper), mezcla, master, QA, fuentes libres (no lo cambies salvo para arreglar un error)
+motor/herramientas/              ElevenLabs, verificación con Whisper, master de audio
+motor/variantes/documental/      el motor: motor.py (línea de comandos) + motor.html y lib/*.js (el dibujo) + vendor/ (mapa del mundo, d3)
+motor/variantes/documental/ESCENAS.md   todos los tipos de escena con sus campos
+motor/marca/                     aquí van los PNG oficiales de logos y el logo propio del usuario, si los da (el kit no trae ninguno)
+ejemplos/canal-de-panama/        guion.json de ejemplo (fecha → mapa → cifra → flujo), con fuentes
+```
+Llama `<SKILL>` a la carpeta de este archivo, `PY` al Python del entorno (ver INSTALAR.md: Mac `~/.venvs/documental-animado/bin/python` o donde el
+usuario prefiera, anotado en perfil.json → `python`; Windows `"$HOME/.venvs/documental-animado/Scripts/python.exe"`, porque Claude Code usa Git Bash) y `<motor>` a
+`<SKILL>/motor/variantes/documental/motor.py`. Si copias el motor fuera de la skill y no la instalaste en `~/.claude/skills/documental-animado`, define `KIT_MOTOR=<SKILL>/motor`.
+
+## 0 · Primera vez (una sola vez por computadora)
+> **Servidor Linux de Claude Code en la nube (repo zapatero):** el contenedor se borra entre sesiones. Si falta `~/.venvs/documental-animado`, corre `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min). La clave de ElevenLabs ya está en la variable de entorno `ELEVENLABS_API_KEY`. Huggingface está bloqueado: el modelo de Whisper no se puede bajar; para las marcas por palabra usar los timestamps/forced-alignment de ElevenLabs.
+
+1. **Instala** con un solo comando (córrelo en segundo plano: la primera vez tarda 10–30 min; se puede repetir y sigue donde se quedó):
+   Mac `bash "<SKILL>/instalar/instalar.sh"` · Windows `powershell -NoProfile -ExecutionPolicy Bypass -File "<SKILL>\instalar\instalar.ps1"`.
+   Instala Python 3.12 y las librerías (con uv: sin contraseña ni administrador), el navegador sin ventana de Playwright, el modelo de Whisper, deja `perfil.json`
+   con valores por defecto y hace una prueba sin voz. Al final dice «LISTO», la ruta de `PY` y la de la prueba: mírala.
+   Si falla, lee el error y el registro que indica, arréglalo tú y vuelve a correrlo. `INSTALAR.md` explica lo mismo a mano, solo por si hace falta.
+   **Nunca le pidas al usuario que instale, copie, edite archivos o escriba comandos: todo lo haces tú.**
+2. **Perfil:** no preguntes nada. `perfil.json` ya queda con valores por defecto (sin firma, sin avatar, sin música, es-MX).
+   Si el usuario te da su @, su foto o su música, guárdalos ahí.
+3. **Voz — la única pregunta, una sola vez** (si `PY "<SKILL>/instalar/voz_ia.py" --estado` ya dice qué eligió, no preguntes):
+   «¿Quieres que tus videos lleven voz con IA de ElevenLabs?»
+   - **Sí:** pídele su API key (elevenlabs.io → Developers → API Keys → crear) y, cuando la pegue, `PY "<SKILL>/instalar/voz_ia.py" --clave <la clave>`.
+     La valida, la guarda solo en su computadora (en todas sus skills de video), elige su voz (la suya clonada si tiene; si no, una de
+     ElevenLabs) y dice su saldo. **Nunca repitas la clave ni la copies a otro lado.** Otra voz: `--voz "<nombre>"` (`--voces` las lista).
+   - **No:** `PY "<SKILL>/instalar/voz_ia.py" --sin-ia`. Cada video lleva **su voz grabada**: con el guion listo, dáselo para que lo lea de
+     corrido en una nota de voz del celular y pídele el archivo; luego `PY "<SKILL>/instalar/voz_propia.py" <proyecto> <archivo>`
+     deja `voz.wav` y `palabras.json` (no gasta). Si dijo algo distinto, cambia el `texto` de esa línea a lo que dijo y vuelve a correrlo.
+
+No vuelvas a preguntar lo que ya está en `perfil.json`.
+
+## 1 · Flujo por cada video (en orden, sin saltarte nada)
+1. **Proyecto:** crea una carpeta para el video (p. ej. `videos/<tema-corto>/`) FUERA de la skill y copia ahí `ejemplos/canal-de-panama/` como punto de partida.
+2. **Guion** (fórmula en § 3). **Investiga y verifica cada dato, fecha, cifra y lugar** en fuentes reales y guarda las URL en `descripcion.md`
+   y en `guion.json → fuentes`. Si un dato no tiene fuente, quítalo. Enséñale el guion en pocas líneas y sigue sin esperar su aprobación (decide tú).
+3. **Escenas** (§ 4): en `guion.json`, cada línea es una frase corta (2–6 palabras) y la que abre escena lleva `"escena"`. `PY <motor> <proyecto> escenas`
+   lista cada escena con su segundo de entrada.
+4. **Prueba visual sin voz (gratis):** sin `palabras.json` el motor inventa tiempos de palabra, así que ya ves la animación:
+   `PY <motor> <proyecto> prueba 0.5 2 4 6 …` → `revision/prueba.jpg` (3 por fila). Corrige lo que se vea mal ANTES de pagar la voz.
+5. **Voz:** `PY <SKILL>/motor/nucleo/voz.py <proyecto> saldo` → que quepa en su saldo; genera sin pedir permiso y al entregar di cuánto costó.
+   **Con su voz grabada** (eligió no usar IA, § 0): en lugar de esto, `PY <SKILL>/instalar/voz_propia.py <proyecto> <archivo>` (no gasta).
+   Luego `PY <SKILL>/motor/nucleo/voz.py <proyecto>` (una sola toma corrida, verificación literal, marcas por palabra → `voz.wav`, `palabras.json`).
+   Si algo falla, lee POR QUÉ (`audio/corrida/verificacion.json`, `voz-verificacion.json`) antes de pagar otro intento (§ 5).
+6. **Revisa con la voz real:** `prueba` en los momentos clave y `secuencia <t> 12` en cada transición (12 cuadros seguidos). Revisa tú cada imagen (§ 6).
+7. **Render:** `PY <motor> <proyecto> render` (2 procesos por defecto, cada uno con su navegador; con 8 GB de RAM usa `--procesos 1`; `--fps 30`
+   para una versión rápida). Hace mezcla, master a −14 LUFS y ≤ −1 dBTP, hoja de cuadros y QA. El video queda en `<proyecto>/final/<proyecto>.mp4`.
+8. **QA:** `qa.json` debe decir `ok: true`. Abre `final/<proyecto>-hoja.jpg` y míralo completo con tus ojos.
+9. **Entrega:** abre el video (`open` en Mac, `start` en Windows) y di en pocas líneas qué hiciste, qué revisar y la descripción con fuentes.
+
+Comandos del motor:
+```
+PY <motor> <proyecto> prueba 0.5 3.2 8.1      → revision/prueba.jpg (cuadros sueltos)
+PY <motor> <proyecto> secuencia 7.9 12        → revision/seq-7.9.jpg (12 cuadros seguidos: para revisar movimiento y transiciones)
+PY <motor> <proyecto> escenas                 → escenas con su segundo, transición y superficie
+PY <motor> <proyecto> render [--procesos 2] [--fps 60]  → final/<proyecto>.mp4 + -hoja.jpg + qa.json
+PY <motor> <proyecto> audio | qa              → solo remezcla | solo QA
+PY <motor> <proyecto> demo 0 8 [salida.mp4]   → clip mudo de 8 s con loop (para mostrar el estilo)
+```
+
+## 2 · El estilo (especificación medida)
+**Formato:** 1920×1080 **horizontal**, 60 fps (30 con `--fps 30`), H.264. Voz desde el cuadro 0. Duración típica 45–90 s; una prueba corta
+(≤ 20 s) = 35–55 palabras y 4–6 escenas. Termina ≤ 0.4 s después de la última palabra: sin outro, sin fundido a negro.
+**Look «editorial»** (por defecto, `guion.json → "tema": "editorial"`): limpio y premium; acento `#2F6BFF` sobre claro y `#5C96FF` sobre oscuro.
+Tema `"club"` opcional: negro / carbón / dorado `#E2B34D`.
+**Superficies por escena, nunca dos iguales seguidas** (`"surface"` en la escena, o las elige el motor): `light` (blanco → azul suave), `blue`
+(azul intenso), `dark` (azul noche con rejilla en perspectiva y partículas), `clay` (terracota/dorado, para lo antiguo o cálido). Las fotos a sangre no cuentan.
+**Fuentes** (libres, vienen en el kit): Inter (contexto Semibold, cifras y claves Bold) + Instrument Serif cursiva para claves emotivas (`"*palabra"`).
+Vidrio esmerilado en píldoras, rótulos y tarjetas; sombras suaves en dos capas; halos sin quemar; destello que solo toca lo pintado; dither contra bandas.
+
+**Tipografía cinética (la voz manda):** en la franja baja, contexto **46 px** + UNA clave **124 px** (serif cursiva 133) centrados en x=960, base de
+la clave en y=958. Los gráficos viven entre y≈100 y 790. Cada palabra entra cuando se dice (opacidad en 4 cuadros + subida con resorte); la clave
+con resorte pesado, escala 0.94 → 1 y halo de acento en superficies oscuras. Por línea: `"key": "Panamá"` o `"keys": ["mayas", "*estrellas"]`;
+`"cap": false` cuando la escena ya muestra ese texto (date, stat, title). El texto sale 3 cuadros antes del siguiente y antes de la transición: nunca se enciman.
+
+**Curvas y tiempos:** resortes de forma cerrada (snappy/default/heavy) y `easeOutBack` 1.2–1.4 en barras y filas; escalonado 35–120 ms; opacidad
+en ≤ 4 cuadros (el movimiento hace la entrada). Cámara: `easeInOutExpo` en vuelos de mapa (zoom en escala logarítmica) y transiciones;
+deriva lenta + empuje con resorte en cada frase (nada quieto > 3 s). Contadores: odómetro mecánico con desenfoque vertical según la velocidad.
+**Ritmo:** primeros 5 s con un cambio cada ~1.5 s; después cada 1.5–3 s.
+
+**Transiciones (todas con desenfoque de movimiento):** `whip` (barrido) · `card` (la escena nueva sube como tarjeta) · `zoom` (pasa de largo hacia la
+cámara) · `mask` (revelado circular con anillo) · `swipe` (panel diagonal, cambio de bloque) · `cut`. Por defecto rotan sin repetirse.
+Mapas: desenfoque real por acumulación de subcuadros cuando la cámara vuela rápido.
+
+**Escenas** (campos completos en `ESCENAS.md`): map (vuelo entre encuadres, país que se dibuja y se enciende, `areas`, rutas con cometa, puntos con
+pulso, `lights`) · date (regla de años que corre, año que rueda) · timeline · stat (odómetro, anillo) · bars · chart (línea con cometa) · donut ·
+photo / image (Ken Burns con paralaje 2.5D, `full` o `card`, `hud`) · people · gallery · quote / title · list (✓/✕ que se trazan) · flow (nodos y
+conectores con partículas) · doc (hoja con marcador) · compare · motion (animaciones hechas; dales siempre sus textos).
+Cualquier elemento puede pegarse a una palabra: `"word": "cayó"`. Cualquier escena acepta `"counter": {...}` y `"bg": "fotos/x.jpg"`.
+
+**Audio:** voz al frente; whooshes solo en transiciones que caen en huecos de voz (≤ 1 cada 3.5 s; los coloca el motor; `"sfx": false` los apaga);
+música opcional muy baja (`guion.json → "musica"`, del usuario y con derechos). Master −14 LUFS / ≤ −1 dBTP (lo hace el núcleo).
+
+## 3 · Guion (fórmula)
+45–90 s (o lo que pida el usuario). Narrador de documental: frases cortas, concretas, con fecha, lugar o cifra en cada una.
+1. **Gancho 0–5 s:** la fecha o la cifra que sorprende, con un cambio de escena cada ~1.5 s.
+2. **Contexto:** dónde (mapa) y cuándo (date / timeline).
+3. **Desarrollo:** un dato por escena (stat, bars, chart, compare, list, flow); cada sustantivo importante aparece cuando se nombra.
+4. **Cierre:** el dato que lo resume o la consecuencia; sin pedir suscripción ni outro.
+Cada línea de `guion.json` lleva `texto` (lo que se ve y lo que la voz dice, con ortografía real) y `tts` (§ 5). Las líneas juntas forman
+UNA toma corrida: el texto de todas las líneas, en orden, es exactamente lo que dice la voz.
+
+## 4 · Cómo se hace un tema nuevo
+1. Copia el ejemplo al proyecto y reescribe `guion.json` (aquí todo es datos, no código).
+2. Haz la tabla frase → escena → clave. Una escena por concepto; la que abre escena lleva `"escena"`, las siguientes la continúan (y avanzan un `step`).
+3. Mapas: `bounds` = [[lon oeste, lat sur], [lon este, lat norte]] del encuadre final y `from` del inicial; `highlight` con el nombre del país en
+   inglés de Natural Earth ("Panama", "Mexico", "Spain"); verifica las coordenadas de cada punto.
+4. Fotos (opcionales): solo libres o propias, en `<proyecto>/fotos/`, con crédito en `fotos/creditos.json`. El motor avisa si falta una.
+5. Alterna superficies y transiciones; revisa con `escenas`, `prueba` y `secuencia` antes de la voz.
+6. Si necesitas un tipo de escena que no existe, cópialo de uno parecido en `lib/v2.js` (objeto `SC`) dentro de tu copia del motor; nunca dibujes logos.
+
+## 5 · Voz (ElevenLabs)
+- Modelo `eleven_v4`, `language_code: "es"`, stability 0.5, similarity 0.85 (lo fija `motor/nucleo/voz.py`). La voz es la del usuario (`perfil.json → voz_id`).
+- **Una sola voz = TOMA CORRIDA:** todo el guion en una sola petición (`voz.py` lo hace por defecto). Nunca pegues líneas sueltas ni uses `next_text`.
+- `tts` por línea: base natural y etiquetas solo en momentos clave: `[curious]`, `[warm]`, `[playful]`, `[firm]`, `[short pause]`. **Una emoción por frase.**
+  Pausas: o `[short pause]` o puntos suspensivos en todo el guion, **nunca las dos** (`voz.py` corta antes de gastar si las mezclas).
+- En `tts` las cifras van en palabras y las marcas como se pronuncian («Yutub», «Clod»…); `texto` conserva la ortografía real.
+- **Tope: 2,500 caracteres por video**, reintentos incluidos. Antes de generar, `saldo` (que quepa). No pidas permiso: al entregar, di cuánto costó.
+- **Una sola toma por defecto:** `voz.py` genera UNA vez (`--intentos 1`). Solo tras leer por qué falló, `--intentos 2` (decídelo tú; una vez por video). Tope propio del video en `guion.json → "tope_caracteres"` (p. ej. 350 para una prueba).
+- El saldo de ElevenLabs tarda unos minutos en actualizarse; el gasto real queda en `audio/eleven_gasto.json`.
+- **Antes de pagar un reintento, lee por qué falló.** Lo que no cuesta: `armar`, `verificar`, `recorte_ini` (quita un silencio o un «Eh» real
+  antes de la primera palabra) y `toma` (elige una toma ya pagada). Whisper duda con cifras: si la pasada literal coincide y solo fallan
+  numerales, la línea PASA.
+- **No regeneres una voz que el usuario ya aprobó.** Si cambias el guion después, avisa cuánto cuesta rehacerla.
+- **Nunca recortes la voz a mano.** `recortar()` solo acorta pausas > 0.8 s dentro del silencio real; el final conserva toda la cola natural.
+
+## 6 · QA y revisión con tus ojos
+El QA del motor (`qa.json`) exige: voz en el cuadro 0 · pausas ≤ 0.8 s · cierre ≤ 0.6 s tras el final COMPLETO de la última palabra ·
+ninguna palabra cortada (`palabras_completas`) · pasada literal del `voz.wav` final contra el guion (`literal_final`; lee `aceptadas`) ·
+zona segura · −14 LUFS / ≤ −1 dBTP · vetos de texto. Si algo falla: arréglalo, no lo ignores. Si decides aceptar una alerta (p. ej. Whisper
+oye mal una palabra que sí está bien dicha), mídela, escríbelo y díselo al usuario.
+
+**Revisión visual obligatoria** (hoja de cuadros completa + `prueba` en cada momento clave). Pregúntate en cada cuadro:
+- ¿Lo que se ve representa LITERALMENTE lo que se dice en ese momento? ¿Se entiende sin sonido?
+- ¿Hay una sola idea en pantalla? ¿Algo de la escena anterior sigue estorbando?
+- ¿Algo se encima (texto sobre texto, objeto sobre subtítulo, píldora sobre el protagonista)?
+- ¿El protagonista llena la franja de gráficos (y≈100–790) y está al centro? ¿La tipografía cinética (y≈850–990) se lee y no choca con el gráfico?
+- ¿Se ve con volumen y textura, o plano como clip-art?
+Corrige y vuelve a revisar hasta que todo pase.
+
+- **Falso positivo:** si mides que una falla no es real (p. ej. un final carrasposo que baja poco a poco), anótalo en `guion.json → "qa_aceptadas": {"palabras_completas": "medido: cola baja a −60 dB antes de la siguiente palabra"}` y dile al usuario cuál aceptaste y por qué. Nunca lo uses para tapar un corte real.
+
+## 7 · Reglas que salieron de correcciones reales (obligatorias)
+**Del formato**
+1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
+   de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
+2. Una escena cada 1.5–3 s; en los primeros 5 s, cada ~1.5 s. Nada quieto más de 3 s.
+3. Nunca dos superficies iguales seguidas ni la misma transición dos veces seguidas.
+4. Tipografía cinética debajo de los gráficos (franja y≈850–990): contexto chico + UNA clave; `"cap": false` cuando la escena ya muestra ese texto.
+5. Sin outro ni fundido a negro: corta ≤ 0.4 s después de la última palabra.
+6. Fotos con licencia y crédito; nada de fotos de marcas ajenas ni de personas privadas. Sin fotos, las escenas de datos y mapas bastan.
+7. Mapas y fechas verificados: país, coordenadas y año salen de una fuente con URL.
+8. Decimales en la voz: si se puede, dilos sin «punto» («veintisiete metros y medio»). Whisper escribe «27.5» en cifra y la pasada literal
+   marca «falta punto» (prueba real); si la toma está bien dicha, mídelo y anótalo en `qa_aceptadas` con la razón, no pagues otra toma.
+9. «se abrió», «la hora»: la sinalefa junta dos palabras en un tramo de voz continua y el QA puede marcar «se dura 0.9 s». Mide la voz continua
+   (`voz-verificacion.json`): si no hay corte ni vocal estirada, es falso positivo medido (prueba real: 0.48 s en «se‿abrió»).
+
+**Generales**
+**Escenas y encuadre**
+1. **Una escena por concepto.** Las escenas no se mezclan: deja en pantalla SOLO lo que se está explicando; lo de la escena anterior sale antes de que entre lo nuevo.
+2. **El mundo es el del tema.** No metas objetos o lugares que no aporten a la explicación (un decorado bonito que no se explica distrae).
+3. **Lo que se ve representa lo que se dice**, al cuadro: cada sustantivo importante aparece cuando se nombra (0–6 cuadros después).
+4. **Encuadre:** el protagonista ocupa 60–75 % del ancho de la franja de gráficos; lo importante al centro; nada pegado a los bordes ni abajo de y=1020 (barra de YouTube).
+5. **Nada encimado y espacios parejos:** zonas fijas por elemento; titulares y subtítulos sin huecos de palabras que aún no salen.
+6. **Entradas suaves** con desenfoque de movimiento; sin rebotes duros ni sacudidas largas.
+7. **Formas con forma:** nada distorsionado ni piezas que se meten unas en otras; si un objeto atraviesa a otro, corrígelo.
+8. **Logos:** nunca dibujados con código. Si hace falta uno, PNG oficial que dé el usuario; si no, no se pone.
+9. **Cero texto escrito dentro del código** que dependa del tema: todo va en `guion.json`.
+
+19. **Nivel del ejemplo, no menos (prueba real: un tema nuevo salió más plano que el original).** Cada objeto protagonista se arma con
+    VARIAS piezas (cuerpo, borde, tapa, asa, detalle), cada pieza con degradado de dos tonos, reflejo especular suave, sombra de contacto
+    en el piso y una textura sutil del material (grano, poros, vetas). El fondo nunca es liso: degradado + viñeta + bokeh o partículas lentas.
+20. Antes de la voz, compara tu `prueba` lado a lado con el mismo momento del ejemplo de la variante (`ejemplos/<variante>`): si el tuyo
+    se ve más plano, más chico o más vacío, agrega piezas y textura hasta igualarlo.
+
+**Voz y audio**
+10. Toma corrida, emoción con etiquetas, pausas naturales ≤ 0.8 s, sin silencios muertos, sin ecos ni palabras incompletas.
+11. Ninguna palabra se corta, ni al inicio ni al final; el video termina ≤ 0.6 s después del final real de la última palabra. Sin outro.
+12. Sin música por defecto; SFX mínimos y nunca sobre palabras: colócalos en el hueco ANTES de la palabra ancla o en una pausa, nunca en `F[palabra]`. Nada de ruidos constantes de fondo.
+
+**Contenido**
+13. Datos verificados con fuente (URL en `descripcion.md`); sin cifras inventadas.
+14. Guion propio del usuario: nunca copies textos, personajes, marcas ni nombres de cuentas de videos de referencia; se toma solo la técnica.
+15. Un video a la vez. Nada de producción masiva ni de canales automatizados.
+
+**Proceso**
+16. Mira tú cada imagen de prueba antes de seguir; nunca entregues sin revisar la hoja completa.
+17. Antes de gastar voz: guion revisado por ti + que quepa en el saldo; al entregar, di cuánto costó (sin pedir permiso antes).
+18. Si el usuario corrige algo, aplícalo y agrégalo aquí como regla nueva, para que no se repita.
+
+## 8 · Trampas que lo abaratan
+1. Escenas de solo texto (title/quote) seguidas: cada frase debe VERSE (mapa, cifra, objeto), no leerse.
+2. Escenas largas sin cambio (> 3 s) o la misma superficie dos veces seguidas → se siente presentación de diapositivas.
+3. Claves que no son la palabra importante, o contexto de más de 4 palabras → la tipografía se vuelve subtítulo.
+4. Datos redondeados o inventados para que «se vean bien» → pierde credibilidad; usa el dato exacto de la fuente.
+5. Música alta o whooshes encima de palabras → tapa la voz.

@@ -1,0 +1,25 @@
+{
+ "slug": "documental-animado",
+ "nombre": "Documental animado",
+ "version": "2026-11-26b",
+ "python": "3.12",
+ "blender": false,
+ "playwright": true,
+ "voz": "eleven",
+ "voces": 1,
+ "whisper": true,
+ "prueba": {
+  "copia": "ejemplos/canal-de-panama",
+  "comandos": [
+   [
+    "motor/variantes/documental/motor.py",
+    "{P}",
+    "prueba",
+    "1",
+    "4",
+    "8"
+   ]
+  ],
+  "sale": "revision/prueba.jpg"
+ }
+}

@@ -1,0 +1,131 @@
+{
+ "titulo": "El atajo entre dos océanos",
+ "tema": "editorial",
+ "tope_caracteres": 350,
+ "pausa_s": 0.2,
+ "lineas": [
+  {
+   "texto": "El 15 de agosto de 1914",
+   "tts": "[curious] El quince de agosto de mil novecientos catorce",
+   "cap": false,
+   "escena": {
+    "type": "date",
+    "year": 1914,
+    "from": 1990,
+    "travel": 1.2,
+    "chip": "15 de agosto",
+    "surface": "blue",
+    "transition": "cut"
+   }
+  },
+  {
+   "texto": "se abrió el Canal de Panamá,",
+   "tts": "se abrió el Canal de Panamá,",
+   "key": "Panamá",
+   "escena": {
+    "type": "map",
+    "bounds": [
+     [
+      -81.6,
+      7.5
+     ],
+     [
+      -77.9,
+      10.1
+     ]
+    ],
+    "from": [
+     [
+      -100,
+      -2
+     ],
+     [
+      -62,
+      24
+     ]
+    ],
+    "flyAt": 0,
+    "flyDur": 1.3,
+    "highlight": [
+     "Panama"
+    ],
+    "highlightAt": 0.2,
+    "points": [
+     {
+      "name": "Colón",
+      "label": "Colón · Caribe",
+      "lon": -79.9,
+      "lat": 9.36,
+      "at": 1.1,
+      "pos": "r",
+      "size": 30
+     },
+     {
+      "name": "Balboa",
+      "label": "Balboa · Pacífico",
+      "lon": -79.57,
+      "lat": 8.95,
+      "at": 1.35,
+      "pos": "r",
+      "size": 30
+     }
+    ],
+    "surface": "dark",
+    "transition": "whip"
+   }
+  },
+  {
+   "texto": "entre dos océanos.",
+   "tts": "entre dos océanos.",
+   "key": "océanos"
+  },
+  {
+   "texto": "Mide 82 kilómetros.",
+   "tts": "[short pause] Mide ochenta y dos kilómetros.",
+   "cap": false,
+   "escena": {
+    "type": "stat",
+    "value": 82,
+    "suffix": " km",
+    "label": "del Caribe al Pacífico",
+    "ring": true,
+    "surface": "light",
+    "transition": "card"
+   }
+  },
+  {
+   "texto": "Sus esclusas suben cada barco",
+   "tts": "Sus esclusas suben cada barco",
+   "key": "esclusas",
+   "escena": {
+    "type": "flow",
+    "title": "Cómo cruza un barco",
+    "nodes": [
+     {
+      "label": "Caribe",
+      "sub": "nivel del mar"
+     },
+     {
+      "label": "Lago Gatún",
+      "sub": "27.5 m",
+      "highlight": true
+     },
+     {
+      "label": "Pacífico",
+      "sub": "nivel del mar"
+     }
+    ],
+    "surface": "dark",
+    "transition": "zoom"
+   }
+  },
+  {
+   "texto": "a 27.5 metros sobre el mar.",
+   "tts": "a veintisiete punto cinco metros sobre el mar.",
+   "key": "27.5 metros"
+  }
+ ],
+ "fuentes": [
+  "https://es.wikipedia.org/wiki/Canal_de_Panam%C3%A1 (fecha, longitud 82 km, esclusas y lago Gatún a 27.5 m)"
+ ]
+}

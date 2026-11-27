@@ -1,0 +1,9 @@
+{
+ "usuario": "@tu_cuenta",
+ "avatar": "/ruta/a/tu-foto-de-perfil.png",
+ "voz_id": "ID_DE_TU_VOZ_EN_ELEVENLABS",
+ "musica_carpeta": "",
+ "vetos_texto": [],
+ "idioma": "es-MX",
+ "logo": ""
+}
