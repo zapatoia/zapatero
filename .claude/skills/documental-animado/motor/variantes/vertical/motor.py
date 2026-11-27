@@ -608,7 +608,7 @@ class Vertical(ES.Estilo):
                     if libre(tt, tt + .03): self.sfx(TI.f_de_t(tt), "tic", .35)
             if s.get("rodillo") and s.get("tipo") in ("stat", "fecha"):
                 self.rodillo(self.ta(s["word"], e), s.get("dur", .9 if s["tipo"] == "stat" else 1.0))
-            if s.get("tipo") == "arbol": self.efectos_arbol(e, pon, libre)
+            if hasattr(self, "efectos_" + s.get("tipo", "")): getattr(self, "efectos_" + s["tipo"])(e, pon, libre)   # escenas de módulos aparte
             if s.get("tipo") == "barras":
                 for b in s["barras"]:
                     tb = self.ta(b["word"], e); self.sfx(TI.f_de_t(max(0, tb)), "subida", .8)
@@ -1590,6 +1590,8 @@ class Vertical(ES.Estilo):
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from escena_arbol import instalar as _inst_arbol                  # noqa: E402
 _inst_arbol(Vertical, globals())
+from escenas_cotidianas import instalar as _inst_cot          # noqa: E402
+_inst_cot(Vertical, globals())
 
 
 def escenas(e):

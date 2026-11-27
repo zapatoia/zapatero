@@ -189,6 +189,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Más detalle en los efectos de sonido, sin pasarse:** cada cosa que se mueve suena (rodillo de tics que frenan + «clac» al rodar cifras y años: `"rodillo": true` en stat/fecha; nota por generación en `arbol`; barrido en barras; campana, destello, mensaje). Los tics del rodillo pueden ir bajo la voz (son muy suaves); el resto, en los huecos.
 - **Vídeos a partir del guion de un reel:** se toma solo el texto (gancho y partes) y se anima con el kit vertical; nada del estilo de la referencia. Escena `arbol` (`motor/variantes/vertical/escena_arbol.py`) para árboles genealógicos.
 
+**Del usuario (27 nov 2026, documental 09): «con cada generación, mejoremos»**
+- Cada vídeo nuevo debe superar al anterior en algo visual y en algo de audio, y decirlo al entregar. Escenas de objetos cotidianos en `escenas_cotidianas.py`: `ojo`, `reloj` (24 h), `bateria`, `digital` (despertador de 7 segmentos, `tachar_word`). Las escenas nuevas van en módulos aparte con su `efectos_<tipo>` y se enganchan solas.
+- Nada quieto: cada escena lleva micro-movimiento propio (parpadeo, estrellas que titilan, ola y burbujas, pantalla que se desplaza, chispas).
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
