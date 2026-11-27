@@ -585,6 +585,8 @@ class Vertical(ES.Estilo):
                 for r in self._pen_rondas(e):
                     pon(r["t0"], "pop", .3)
                     if libre(r["td"] + .45, r["td"] + .8): self.sfx(TI.f_de_t(r["td"] + .45), "golpe", .35)   # cae el portero (después: el sonido no avisa)
+                    if libre(r["td"] + .73, r["td"] + 1.07): self.sfx(TI.f_de_t(r["td"] + .73), "whoosh", .5)   # chut
+                    if libre(r["td"] + 1.09, r["td"] + 1.2): self.sfx(TI.f_de_t(r["td"] + 1.09), "pop", .4)       # red
             if s.get("tipo") == "bolas":
                 for nv in s.get("niveles", [])[1:]: pon(self.ta(nv["word"], e), "pop", .35)
                 pon(self.ta(s["blanco_word"], e), "destello", .6)
@@ -1437,11 +1439,24 @@ class Vertical(ES.Estilo):
                 sh = 1 - .5 * math.sin(math.pi * v)
         c.drawOval(skia.Rect.MakeXYWH(x0 - 70 * sh, GY + 4, 140 * sh, 22), skia.Paint(AntiAlias=True, Color=color("#000000", .45), MaskFilter=skia.MaskFilter.MakeBlur(skia.kNormal_BlurStyle, 6)))
         self.portero(c, x0, y0, lean, rot, brz)
+        # balón: tras la estirada sale disparado a la escuadra contraria (después del momento de pausar: no avisa)
+        bx, by, br, en_red, ur = CX, 800.0, 36.0, False, 0.0
+        if act and t >= act["td"] + .75:
+            u = min(1.0, (t - act["td"] - .75) / .34); ue = 1 - (1 - u) ** 2; tx_, ty_ = CX - act["lado"] * 300, TY + 78
+            bx = CX + (tx_ - CX) * ue; by = 800 + (ty_ - 800) * ue - 90 * math.sin(math.pi * u); br = 36 - 17 * ue; en_red = u >= 1
+            ur = (t - act["td"] - 1.09) / .5
+            for k in range(1, 6):                                                # estela
+                uk = max(0.0, u - k * .05); uke = 1 - (1 - uk) ** 2
+                c.drawCircle(CX + (tx_ - CX) * uke, 800 + (ty_ - 800) * uke - 90 * math.sin(math.pi * uk), br * (1 - k * .12), relleno("#FFFFFF", .12 * (1 - k / 6) * (u < 1)))
+        if en_red:
+            if 0 < ur < 1:                                                       # la red se hincha
+                for q in range(3): c.drawCircle(bx, by, 30 + 70 * ur + q * 18, trazo("#FFFFFF", 2, .35 * (1 - ur)))
+            self.balon(c, bx, by, br)
         # postes y larguero encima del portero
         for p in (skia.Rect.MakeLTRB(PL - 9, TY - 9, PL + 9, GY), skia.Rect.MakeLTRB(PR_ - 9, TY - 9, PR_ + 9, GY), skia.Rect.MakeLTRB(PL - 9, TY - 9, PR_ + 9, TY + 9)):
             c.drawRect(p.makeOffset(4, 6), relleno("#000000", .3))
             c.drawRect(p, skia.Paint(AntiAlias=True, Shader=skia.GradientShader.MakeLinear([(p.left(), p.top()), (p.right(), p.bottom())], [color("#FFFFFF"), color("#C9D3EA")])))
-        self.balon(c, CX, 800, 36)
+        if not en_red: self.balon(c, bx, by, br)
         # rótulos arriba
         dt0 = t - e["t0"]
         rot_ = [r for r in s.get("rotulos", []) if t >= ta(r["word"]) - .05]
