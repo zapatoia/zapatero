@@ -71,7 +71,7 @@ def armar(proy, g, t):
             for k in range(n): vis[a0 + k].update(s=s0 + (e0 - s0) * k / n, e=s0 + (e0 - s0) * (k + 1) / n)
     # recorte de silencio inicial y pausas largas
     hop0 = int(.005 * SR); e0 = np.array([np.sqrt(np.mean(x[i:i + hop0] ** 2) + 1e-12) for i in range(0, int(3 * SR), hop0)])
-    ini = max(0.0, next(i for i, v in enumerate(20 * np.log10(e0)) if v > -40) * .005 - .02)
+    ini = max(0.0, next(i for i, v in enumerate(20 * np.log10(e0)) if v > -45) * .005 - .003)
     cortes = [(0.0, ini)]                      # (t original, quitar)
     # silencios reales (envolvente < -42 dB durante ≥ 0.25 s): se dejan en g.pausa (0.28 s) quitando el centro
     hop = int(.01 * SR); env = np.array([np.sqrt(np.mean(x[i:i + hop] ** 2) + 1e-12) for i in range(0, len(x) - hop, hop)])
@@ -90,14 +90,17 @@ def armar(proy, g, t):
     for c0, d in cortes:
         keep[int(c0 * SR):int((c0 + d) * SR)] = False
     y = x[keep]
-    fin = mapa(vis[-1]["e"]) + .35
+    # final: la cola real de la voz (último tramo > −50 dB) + 0.12 s, nunca antes de la marca de la última palabra
+    hop2 = int(.005 * SR); e2 = 20 * np.log10(np.array([np.sqrt(np.mean(y[i:i + hop2] ** 2) + 1e-12) for i in range(0, len(y) - hop2, hop2)]))
+    vivo = np.where(e2 > -50)[0]; fin = max(mapa(vis[-1]["e"]) + .05, (vivo[-1] * .005 + .12) if len(vivo) else 0)
     y = y[:int(fin * SR)]
     tempo = g.get("tempo", 1.0)
     if tempo != 1.0:
         y = np.frombuffer(subprocess.run([FF, "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", "-af", f"atempo={tempo}", "-f", "f32le", "-"],
                                          input=y.astype(np.float32).tobytes(), capture_output=True, check=True).stdout, np.float32).copy()
     m0 = mapa; mapa = lambda tt: m0(tt) / tempo
-    k = int(.008 * SR); y[-k:] *= np.linspace(1, 0, k)
+    cola = 20 * np.log10(np.sqrt(np.mean(y[-int(.05 * SR):] ** 2)) + 1e-12)
+    k = int((.22 if cola > -45 else .03) * SR); y[-k:] *= np.linspace(1, 0, k) ** 1.5   # si la toma acaba con aire (sigue sonando), fundido natural
     sf.write(str(proy / "voz.wav"), y, SR, subtype="FLOAT")
     pal = [dict(w=v["w"], s=round(mapa(v["s"]), 3), e=round(mapa(v["e"]), 3), linea=v["linea"]) for v in vis]
     # arranques: si la marca cae en silencio, se mueve al primer borde de voz real (la palabra entra cuando se dice)

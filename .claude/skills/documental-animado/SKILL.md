@@ -173,6 +173,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - La clave grande va al FINAL de la frase (si va en medio, el contexto chico se lee raro: «Bola de de 180»). Reordena la frase antes de generar la voz.
 - Mapas de Madrid sin internet: npm `madrid-atlas` (secciones censales) + `es-atlas` (municipios/provincias), pasados a UTM 30N con pyproj (ver `documentales/01-bombas-madrid/datos/`).
 
+**Correcciones del usuario sobre el vídeo 01 (27 nov 2026)**
+- **Ritmo sin prisas:** el 01 se sintió apresurado. Escribe unas 2,1–2,3 palabras por segundo de duración pedida (60 s ≈ 125–135 palabras), deja las pausas naturales (`pausa` ≈ 0,45 s, sin `tempo`) y escenas de 2,5–4 s con su respiro.
+- **Efectos de sonido suaves siempre:** whoosh leve en las transiciones y detallitos (pop al aparecer un pin o una etiqueta, tic en los contadores, golpe sordo en los momentos fuertes), bajos (−26 a −32 dB aprox.) y colocados en el hueco justo antes de la palabra, nunca encima.
+
 **Del formato**
 1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
    de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
