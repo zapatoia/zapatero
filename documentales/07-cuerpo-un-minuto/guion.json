@@ -1,0 +1,144 @@
+{
+ "titulo": "Lo que hace tu cuerpo en un minuto",
+ "estilo": "premium",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 900,
+ "pausa": 0.7,
+ "lineas": [
+  {
+   "texto": "En el minuto que dura este vídeo, tu cuerpo no va a parar ni un segundo.",
+   "tts": "En el minuto que dura este vídeo, tu cuerpo no va a parar ni un segundo.",
+   "escena": {
+    "tipo": "titulo",
+    "texto": "1 MINUTO",
+    "icono": "reloj",
+    "sub": "lo que hace tu cuerpo"
+   }
+  },
+  {
+   "texto": "Tu corazón latirá unas 70 veces…",
+   "tts": "Tu corazón latirá unas setenta veces...",
+   "escena": {
+    "tipo": "tarjeta",
+    "titulo": "CORAZÓN",
+    "icono": "corazon",
+    "valor": 70,
+    "unidad": "latidos por minuto",
+    "extra": "ecg",
+    "word": "70"
+   }
+  },
+  {
+   "texto": "y moverá unos 5 litros de sangre.",
+   "tts": "y moverá unos cinco litros de sangre.",
+   "escena": {
+    "tipo": "tarjeta",
+    "titulo": "SANGRE",
+    "icono": "gota",
+    "valor": 5,
+    "sufijo": " L",
+    "unidad": "de sangre por minuto",
+    "word": "5"
+   }
+  },
+  {
+   "texto": "Respirarás unas 15 veces…",
+   "tts": "Respirarás unas quince veces...",
+   "escena": {
+    "tipo": "comparar",
+    "tarjetas": [
+     {
+      "titulo": "PULMONES",
+      "icono": "pulmones",
+      "valor": 15,
+      "unidad": "respiraciones",
+      "word": "15"
+     },
+     {
+      "titulo": "AIRE",
+      "icono": "aire",
+      "valor": 6,
+      "sufijo": " L",
+      "unidad": "de aire",
+      "word": "6"
+     }
+    ],
+    "sep": 470
+   }
+  },
+  {
+   "texto": "y meterás unos 6 litros de aire.",
+   "tts": "y meterás unos seis litros de aire."
+  },
+  {
+   "texto": "Parpadearás otras 15 veces sin darte cuenta.",
+   "tts": "Parpadearás otras quince veces sin darte cuenta.",
+   "escena": {
+    "tipo": "tarjeta",
+    "titulo": "OJOS",
+    "icono": "ojo",
+    "valor": 15,
+    "unidad": "parpadeos por minuto",
+    "word": "15"
+   }
+  },
+  {
+   "texto": "Y tu médula fabricará unos 120 millones de glóbulos rojos.",
+   "tts": "Y tu médula fabricará unos ciento veinte millones de glóbulos rojos.",
+   "escena": {
+    "tipo": "contador",
+    "titulo": "MÉDULA ÓSEA",
+    "icono": "globulo",
+    "valor": 120000000,
+    "unidad": "glóbulos rojos nuevos",
+    "word": "120",
+    "enjambre": true,
+    "dur": 2.0
+   }
+  },
+  {
+   "texto": "Todo eso, mientras tú solo mirabas el móvil.",
+   "tts": "Todo eso, mientras tú solo mirabas el móvil.",
+   "escena": {
+    "tipo": "apilado",
+    "sep_capas": 250
+   }
+  },
+  {
+   "texto": "Y lo hace cada minuto de tu vida.",
+   "tts": "Y lo hace cada minuto de tu vida."
+  }
+ ],
+ "fuentes": [
+  {
+   "dato": "Gasto cardíaco en reposo ≈ 5 L/min",
+   "url": "https://britannica.com/science/cardiac-output"
+  },
+  {
+   "dato": "Frecuencia respiratoria 12–20 por minuto",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK537306/"
+  },
+  {
+   "dato": "Ventilación en reposo ≈ 6 L/min (frecuencia × volumen corriente)",
+   "url": "https://www.respiratorytherapyzone.com/?p=331836"
+  },
+  {
+   "dato": "Parpadeo ≈ 16 por minuto (media)",
+   "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9899223/"
+  },
+  {
+   "dato": "≈ 2 millones de glóbulos rojos por segundo",
+   "url": "https://books.byui.edu/bio_265_anatomy_phy_II/216___erythropoiesis"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a ese amigo que dice que no hace nada en todo el día.",
+  "tts": "[playful] Pásaselo a ese amigo que dice que no hace nada en todo el día.",
+  "key": "todo el día",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "07-cuerpo-un-minuto-v2.mp4"
+ }
+}

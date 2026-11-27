@@ -1,5 +1,7 @@
 # ESTILO PREMIUM (catalogado a petición del usuario, 27 nov 2026)
 
+> **La carpeta del estilo es `motor/variantes/premium/` y su guía es `motor/variantes/premium/LEEME.md` (catálogo de escenas, cámaras, iconos, reglas). Léela primero.** Este archivo es el resumen de la estética.
+
 Cuando el usuario diga **«quiero el estilo premium»** (o «estilo premium», «como la prueba premium»), el vídeo se hace con ESTE estilo.
 No tiene por qué salir un móvil: lo que define el estilo es la estética, el 2.5D/3D y la cámara.
 

@@ -186,7 +186,7 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Ganchos de juego: retadores y cortos, sin datos científicos si el usuario no los pide.
 
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
-- Si el usuario pide **«estilo premium»**, sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
+- Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
 
 **Del formato**
