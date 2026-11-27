@@ -1597,6 +1597,8 @@ from escenas_cotidianas import instalar as _inst_cot          # noqa: E402
 _inst_cot(Vertical, globals())
 from escenas_tiempo import instalar as _inst_tiempo         # noqa: E402
 _inst_tiempo(Vertical, globals())
+from escenas_politica import instalar as _inst_pol           # noqa: E402
+_inst_pol(Vertical, globals())
 
 
 def escenas(e):

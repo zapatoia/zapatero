@@ -1,0 +1,438 @@
+{
+ "titulo": "¿Qué te pasa si vuelve a ganar el PSOE?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1450,
+ "pausa": 0.6,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Qué te pasa a ti si el domingo vuelve a ganar el PSOE?",
+   "tts": "¿Qué te pasa a ti si el domingo vuelve a ganar el Pesoe?",
+   "key": "el PSOE",
+   "escena": {
+    "tipo": "urna",
+    "surface": "rojo",
+    "papeleta": {
+     "word": "vuelve",
+     "txt": "PSOE"
+    },
+    "pill": {
+     "txt": "ELECCIONES · DOMINGO 29",
+     "word": "domingo"
+    }
+   }
+  },
+  {
+   "texto": "Me he leído sus dos programas:",
+   "tts": "Me he leído sus dos programas:",
+   "key": "dos programas",
+   "escena": {
+    "tipo": "programa",
+    "surface": "light",
+    "libros": [
+     {
+      "word": "2019",
+      "anio": "2019",
+      "sub": "300 PÁGINAS",
+      "col": "#D42A2A"
+     },
+     {
+      "word": "ahora",
+      "anio": "2026",
+      "sub": "114 PÁGINAS",
+      "col": "#B0101A"
+     }
+    ],
+    "extra": {
+     "word": "realidad",
+     "txt": "LO QUE HA PASADO"
+    }
+   }
+  },
+  {
+   "texto": "el de 2019 y el de ahora,",
+   "tts": "el de dos mil diecinueve... y el de ahora,",
+   "key": "el de ahora"
+  },
+  {
+   "texto": "y los he comparado con la realidad.",
+   "tts": "y los he comparado con la realidad.",
+   "key": "la realidad"
+  },
+  {
+   "texto": "En 2019 prometían",
+   "tts": "En dos mil diecinueve prometían",
+   "key": "prometían",
+   "escena": {
+    "tipo": "cita",
+    "surface": "dark",
+    "anio": "2019",
+    "pag": "pág. 53 · punto 1.47",
+    "col": "#D42A2A",
+    "txt": "…el derecho irrenunciable a una vivienda digna, asequible y sostenible.",
+    "marca_word": "digna",
+    "hoy": {
+     "word": "Hoy",
+     "valor": 45,
+     "prefijo": "+",
+     "sufijo": " %",
+     "label": "PRECIO DEL ALQUILER DESDE 2018",
+     "dur": 1.0
+    }
+   }
+  },
+  {
+   "texto": "una vivienda digna, asequible y sostenible.",
+   "tts": "una vivienda digna, asequible y sostenible.",
+   "key": "*asequible y sostenible",
+   "cap": false
+  },
+  {
+   "texto": "Hoy el alquiler cuesta un 45 % más que en 2018.",
+   "tts": "Hoy, el alquiler cuesta un cuarenta y cinco por ciento más que en dos mil dieciocho.",
+   "key": "que en 2018"
+  },
+  {
+   "texto": "Un joven cobra al mes unos 1.200 euros.",
+   "tts": "Un joven cobra al mes unos mil doscientos euros.",
+   "key": "1.200 euros",
+   "escena": {
+    "tipo": "barras",
+    "surface": "light",
+    "pill": "JÓVENES DE 16 A 29 AÑOS",
+    "max": 1250,
+    "barras": [
+     {
+      "word": "joven",
+      "label": "Sueldo medio",
+      "valor": 1191,
+      "txt": "1.191 €",
+      "col": "#2F6BFF"
+     },
+     {
+      "word": "piso",
+      "label": "Alquiler de un piso para uno",
+      "valor": 1176,
+      "txt": "1.176 €",
+      "col": "#E5322D"
+     }
+    ],
+    "nota": "98,7 % DEL SUELDO",
+    "nota_word": "mismo"
+   }
+  },
+  {
+   "texto": "Y un piso para él solo cuesta casi lo mismo.",
+   "tts": "Y un piso para él solo cuesta casi lo mismo.",
+   "key": "casi lo mismo"
+  },
+  {
+   "texto": "En 2019 ya se quejaban de que los jóvenes se van de casa tarde.",
+   "tts": "En dos mil diecinueve ya se quejaban de que los jóvenes se van de casa tarde.",
+   "key": "de casa tarde",
+   "escena": {
+    "tipo": "cita",
+    "surface": "clay",
+    "anio": "2019",
+    "pag": "pág. 111 · punto 3.25",
+    "col": "#D42A2A",
+    "txt": "…el alto coste de la vivienda, lo que lleva a una emancipación tardía involuntaria.",
+    "marca_word": "tarde",
+    "hoy": {
+     "word": "Hoy",
+     "valor": 30.2,
+     "desde": 18,
+     "decimales": 1,
+     "sufijo": " años",
+     "label": "EDAD MEDIA PARA IRSE DE CASA",
+     "nota": "Media europea: 26,3 años",
+     "nota_word": "años",
+     "dur": 1.0
+    }
+   }
+  },
+  {
+   "texto": "Hoy nos vamos con 30 años.",
+   "tts": "Hoy nos vamos con treinta años.",
+   "key": "con 30 años"
+  },
+  {
+   "texto": "Y no han ajustado el IRPF a los precios.",
+   "tts": "Y no han ajustado el i erre pe efe a los precios.",
+   "key": "a los precios",
+   "escena": {
+    "tipo": "nomina",
+    "surface": "dark",
+    "transicion": "zoom",
+    "sube_word": "sueldo",
+    "precios_word": "inflación",
+    "irpf_word": "impuestos",
+    "final_word": "rico"
+   }
+  },
+  {
+   "texto": "Si te suben el sueldo para seguir la inflación,",
+   "tts": "Si te suben el sueldo para seguir la inflación,",
+   "key": "la inflación"
+  },
+  {
+   "texto": "pagas más impuestos sin ser más rico.",
+   "tts": "pagas más impuestos sin ser más rico.",
+   "key": "sin ser más rico"
+  },
+  {
+   "texto": "En 2019 contaban que llegaron al Gobierno",
+   "tts": "En dos mil diecinueve contaban que llegaron al Gobierno",
+   "key": "al Gobierno",
+   "escena": {
+    "tipo": "cita",
+    "surface": "noche",
+    "anio": "2019",
+    "pag": "pág. 163",
+    "col": "#D42A2A",
+    "txt": "La aprobación en mayo de la moción de censura a Rajoy por los casos de corrupción…",
+    "marca_word": "corrupción"
+   }
+  },
+  {
+   "texto": "por la corrupción del PP.",
+   "tts": "por la corrupción del Pepé.",
+   "key": "corrupción del PP"
+  },
+  {
+   "texto": "Hoy Ábalos, su exministro, está condenado por corrupción.",
+   "tts": "Hoy Ábalos, su exministro, está condenado por corrupción.",
+   "key": "por corrupción",
+   "escena": {
+    "tipo": "expedientes",
+    "surface": "dark",
+    "fichas": [
+     {
+      "word": "Ábalos",
+      "nombre": "José Luis Ábalos",
+      "rol": "EXMINISTRO DE TRANSPORTES",
+      "nota": "Tribunal Supremo · junio de 2026",
+      "estado": "CONDENADO",
+      "estado_word": "condenado",
+      "col": "#E5322D"
+     },
+     {
+      "word": "mujer",
+      "nombre": "Su mujer",
+      "rol": "CAUSA ABIERTA",
+      "nota": "La Fiscalía pide absolverla",
+      "estado": "PENDIENTE\nDE JUICIO",
+      "estado_word": "pendiente",
+      "col": "#E08A00"
+     },
+     {
+      "word": "hermano",
+      "nombre": "Su hermano",
+      "rol": "PREVARICACIÓN",
+      "nota": "Audiencia de Badajoz · julio de 2026",
+      "estado": "CONDENADO\n1.ª INSTANCIA",
+      "estado_word": "instancia",
+      "col": "#E5322D"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Y en su entorno hay causas abiertas:",
+   "tts": "Y en su entorno hay causas abiertas:",
+   "key": "causas abiertas"
+  },
+  {
+   "texto": "su mujer, pendiente de juicio, y su hermano, condenado en primera instancia.",
+   "tts": "su mujer, pendiente de juicio, y su hermano, condenado en primera instancia.",
+   "key": "primera instancia"
+  },
+  {
+   "texto": "¿Y qué prometen ahora?",
+   "tts": "¿Y qué prometen ahora?",
+   "key": "prometen ahora",
+   "escena": {
+    "tipo": "programa",
+    "surface": "blue",
+    "libros": [
+     {
+      "anio": "2026",
+      "sub": "29 DE NOVIEMBRE",
+      "col": "#B0101A"
+     }
+    ],
+    "contador": {
+     "word": "114",
+     "hasta": 114,
+     "label": "PÁGINAS",
+     "dur": 1.3
+    }
+   }
+  },
+  {
+   "texto": "114 páginas. Te lo resumo.",
+   "tts": "Ciento catorce páginas... Te lo resumo.",
+   "key": "Te lo resumo",
+   "cap": false
+  },
+  {
+   "texto": "Si alquilas: 100.000 pisos públicos",
+   "tts": "Si alquilas: cien mil pisos públicos",
+   "key": "pisos públicos",
+   "escena": {
+    "tipo": "promesas",
+    "surface": "light",
+    "pill": "PROGRAMA 2026",
+    "filas": [
+     {
+      "word": "alquilas",
+      "icono": "casa",
+      "perfil": "SI ALQUILAS",
+      "txt": "100.000 pisos públicos",
+      "marca": "ok"
+     },
+     {
+      "word": "congelar",
+      "icono": "casa",
+      "perfil": "SI ALQUILAS",
+      "txt": "Congelar alquileres abusivos",
+      "marca": "ok"
+     },
+     {
+      "word": "trabajas",
+      "icono": "maletin",
+      "perfil": "SI TRABAJAS",
+      "txt": "Jornada de 37,5 horas",
+      "marca": "ok"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "y congelar los alquileres abusivos.",
+   "tts": "y congelar los alquileres abusivos.",
+   "key": "abusivos"
+  },
+  {
+   "texto": "Si trabajas: jornada de 37,5 horas.",
+   "tts": "Si trabajas: jornada de treinta y siete horas y media.",
+   "key": "37,5 horas"
+  },
+  {
+   "texto": "Si tienes hijos: una ayuda por crianza para todos.",
+   "tts": "Si tienes hijos: una ayuda por crianza para todos.",
+   "key": "para todos",
+   "escena": {
+    "tipo": "promesas",
+    "surface": "blue",
+    "pill": "PROGRAMA 2026",
+    "filas": [
+     {
+      "word": "hijos",
+      "icono": "familia",
+      "perfil": "SI TIENES HIJOS",
+      "txt": "Ayuda por crianza para todos",
+      "marca": "ok"
+     },
+     {
+      "word": "ahorras",
+      "icono": "hucha",
+      "perfil": "SI AHORRAS MUCHO",
+      "txt": "Más impuestos desde 50.000 €",
+      "marca": "ok"
+     },
+     {
+      "word": "IRPF",
+      "icono": "irpf",
+      "perfil": "SI COBRAS UNA NÓMINA",
+      "txt": "Sin ajustar tramos del IRPF",
+      "marca": "aviso"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Si ahorras mucho: más impuestos a las ganancias de más de 50.000 euros.",
+   "tts": "Si ahorras mucho: más impuestos a las ganancias de más de cincuenta mil euros.",
+   "key": "50.000 euros"
+  },
+  {
+   "texto": "¿Y tu IRPF? No ajustan los tramos: prometen una deducción solo cuando suban los precios.",
+   "tts": "¿Y tu i erre pe efe? No ajustan los tramos... prometen una deducción solo cuando suban los precios.",
+   "key": "suban los precios"
+  },
+  {
+   "texto": "Ya sabes lo que prometieron y lo que pasó.",
+   "tts": "Ya sabes lo que prometieron y lo que pasó.",
+   "key": "lo que pasó",
+   "escena": {
+    "tipo": "urna",
+    "surface": "rojo",
+    "papeleta": {
+     "word": "decides",
+     "txt": "TU VOTO",
+     "col": "#FFFFFF",
+     "col2": "#E4E9F3",
+     "txt_col": "#14182A"
+    },
+    "pill": {
+     "txt": "DOMINGO 29 DE NOVIEMBRE"
+    },
+    "campana": true
+   }
+  },
+  {
+   "texto": "El domingo, decides tú.",
+   "tts": "El domingo... decides tú.",
+   "key": "*decides tú"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien vaya a votar el domingo.",
+  "tts": "Pásaselo a quien vaya a votar el domingo.",
+  "key": "el domingo",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "Quien vota",
+  "salida": "11-si-gana-el-psoe-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Programa PSOE generales 2019 (PDF facilitado por el usuario): vivienda digna y asequible (pág. 53, 1.47), emancipación tardía involuntaria (pág. 111, 3.25), moción de censura por la corrupción (pág. 163)",
+   "url": "programa PSOE 28-A 2019 (PDF)"
+  },
+  {
+   "dato": "Programa PSOE 29N 2026 (PDF facilitado por el usuario, 114 págs.): 100.000 viviendas (42), congelar rentas por encima del índice (62), deducción IRPF condicionada a precios (88), jornada 37,5 h (108), capital: 19 % hasta 6.000 y 21 % hasta 50.000 intactos y subida a partir de ahí hasta 35 % (130), prestación por crianza para todos los hogares con menores (192)",
+   "url": "https://www.psoe.es/media-content/2026/11/PROGRAMAPSOE29N26.pdf"
+  },
+  {
+   "dato": "Elecciones adelantadas al 29 de noviembre de 2026",
+   "url": "https://www.infobae.com/espana/2026/10/05/pedro-sanchez-adelanta-las-elecciones-generales-al-29-de-noviembre-debemos-movilizarnos-y-que-el-parlamento-nos-dote-con-una-mayoria/"
+  },
+  {
+   "dato": "Alquiler +45-46 % desde 2018 (10,40 → 15,20 €/m²; la web del propio PSOE da +45,2 %)",
+   "url": "https://www.elindependiente.com/economia/2026/10/06/3000-dias-sanchez-moncloa-52-mas-deuda-177000-millones-recaudacion/"
+  },
+  {
+   "dato": "Observatorio de Emancipación (CJE) 2025: salario joven 1.191 €, alquiler 1.176 €, 98,7 % del sueldo; emancipación 30,2 años (UE 26,3)",
+   "url": "https://es.euronews.com/2026/05/22/el-alquiler-consume-el-987-del-salario-juvenil-en-pisos-individuales-y-mas-del-33-en-compa"
+  },
+  {
+   "dato": "Progresividad en frío: IRPF sin deflactar (Banco de España; Funcas)",
+   "url": "https://www.bde.es/wbe/es/publicaciones/analisis-economico-investigacion/documentos-ocasionales/progresividad-en-frio--el-impacto-heterogeneo-de-la-inflacion-sobre-la-recaudacion-por-irpf.html"
+  },
+  {
+   "dato": "Ábalos condenado por el Supremo (sentencia notificada el 22 de junio de 2026)",
+   "url": "https://noticiasdenavarra.com/politica/2026/11/26/abalos-saldra-prision-mayo-2042-koldo-11799150.html"
+  },
+  {
+   "dato": "David Sánchez condenado por la Audiencia de Badajoz (14 de julio de 2026) por prevaricación",
+   "url": "https://es.wikipedia.org/wiki/Caso_David_S%C3%A1nchez"
+  },
+  {
+   "dato": "Begoña Gómez pendiente de juicio con jurado; la Fiscalía pide su absolución",
+   "url": "https://www.vozpopuli.com/tribunales/por-que-begona-gomez-sera-juzgada-por-un-jurado-y-david-sanchez-no-un-lioso-enjambre-juridico-tiene-la-culpa.html"
+  }
+ ]
+}

@@ -208,6 +208,13 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Ningún texto puede salirse de su contenedor: las cifras se ajustan al ancho útil (`maxw`) midiendo el caso más ancho («88,8»), no el actual.
 - Nunca dibujes dos veces la misma etiqueta: si una marca se resalta (el 30 en verde), se quita de la serie normal.
 
+**Del usuario (27 nov 2026, documental 11 «¿Qué te pasa si vuelve a ganar el PSOE?»)**
+- **Vídeos de opinión / política con idea del usuario:** el gancho es una pregunta que te toca a ti; la estructura que funciona es «lo que prometieron (cita literal del documento, con página) → lo que pasó (dato de hoy que rueda)» y luego «qué te toca a ti» por perfiles (si alquilas, si trabajas, si tienes hijos…). Cierre neutro y útil («decides tú»), sin pedir el voto.
+- **Nombre de un partido o marca:** escribir su nombre con nuestra tipografía sobre su color SÍ se puede (p. ej. «PSOE» en blanco sobre rojo); lo prohibido es redibujar su logo con código.
+- **Programas y documentos:** se citan del PDF original (el usuario lo pasa si la red no llega); lo que dice la prensa y no está en el documento se descarta. «Me he leído…» solo si de verdad se ha leído (el PDF de otro año no vale para el de ahora: avisar).
+- **Causas judiciales de terceros:** se pueden mencionar con su estado procesal exacto y verificado (condenado / condenado en primera instancia / pendiente de juicio) y, si existe, el dato que equilibra (p. ej. «la Fiscalía pide absolverla»). Nada en instrucción presentado como hecho.
+- Escenas en `escenas_politica.py`: `urna`, `programa`, `cita`, `nomina`, `expedientes`, `promesas`; superficie nueva `rojo`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
