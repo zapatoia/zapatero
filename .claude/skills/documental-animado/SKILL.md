@@ -185,6 +185,10 @@ Corrige y vuelve a revisar hasta que todo pase.
 - **Juegos verticales:** escenas `bolas` (sigue la pelota: silueta de neón, niveles, `ciclo` de colores, respuesta fija) y `penalti` (pausa cuando el portero se tire: cronómetro, escala de reacción, rondas con `espera`, `amagos`). En los juegos la cámara no se mueve y las esperas son silencios reales: `lineas[].silencio` (s) en guion.json (voz_eleven.py los inserta; el QA de pausas se acepta con esa razón).
 - Ganchos de juego: retadores y cortos, sin datos científicos si el usuario no los pide.
 
+**Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
+- Si el usuario pide **«estilo premium»**, sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
+  reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
+
 **Del formato**
 1. Sincronía palabra por palabra: el texto de las líneas debe ser IDÉNTICO a lo que dice la voz y en el mismo orden; nunca muevas una palabra
    de lugar después de generar la voz (rompe la sincronía de las escenas siguientes).
