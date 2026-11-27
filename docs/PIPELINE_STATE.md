@@ -1,7 +1,7 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
-> Última actualización: 2026-11-27 (sesión `docs/sessions/2026-11-27-01.md`).
-> Rama de trabajo de la sesión 2026-11-27-01: `claude/gallant-curie-6ab9x5` (sin fusionar en `main`; pedir PR al usuario si la quiere). Ramas anteriores: `claude/hopeful-einstein-ix8p37` (sesión 26-02, fusionada en `main` por la PR #3), `claude/3d-mmo-retro-video-pipeline-3ify9e` (26-01, PR #2). `main` es la rama por defecto.
+> Última actualización: 2026-11-27 (sesión `docs/sessions/2026-11-27-02.md`).
+> Rama de trabajo de la sesión 2026-11-27-02: `claude/confident-bell-gpw8hf` (sin fusionar en `main`; el usuario debe abrir/aceptar la PR y hacer merge). La rama de la sesión 27-01 (`claude/gallant-curie-6ab9x5`) se fusionó en `main` por la PR #4. Ramas anteriores: `claude/hopeful-einstein-ix8p37` (sesión 26-02, fusionada en `main` por la PR #3), `claude/3d-mmo-retro-video-pipeline-3ify9e` (26-01, PR #2). `main` es la rama por defecto.
 > **El proyecto tiene ahora DOS formatos**: (A) vídeos 3D «MMO retro low-poly» con narrador (`make_video.py`, `retro3d/`, `videos/`) y (B) **documentales animados verticales 9:16** con mapas, cifras y la voz del usuario (`.claude/skills/documental-animado/`, `documentales/`). Para el formato B lee también `.claude/skills/documental-animado/SKILL.md` (§0 Linux y §7 reglas del usuario).
 
 ## 1. Cómo usar este documento
@@ -18,6 +18,7 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
+- **Sesión 2026-11-27-02 — lo último**: juegos verticales 05 (sigue la pelota roja, **«PERFECTÍSIMO»**) y 06 (penalti de reflejos, 3 rondas, iterado 4 veces); **outro de compartir obligatoria en todos los vídeos** (`outro.py`); **ESTILO PREMIUM** creado y catalogado (carpeta `.claude/skills/documental-animado/motor/variantes/premium/`, guía `LEEME.md`): su primer vídeo completo (07, «tu cuerpo en un minuto») fue **descartado** por el usuario con correcciones apuntadas en `LEEME.md`. **Siguiente paso exacto:** en la próxima sesión el usuario hará «otra prueba» del estilo premium: leer `premium/LEEME.md` (sobre todo «Reglas aprendidas») ANTES de empezar y aplicar: tarjetas solo como un recurso más, nada importante desenfocado, sin cortes de audio, sonido de rodillo al rodar cifras.
 - **Formato B (documentales 9:16) — lo último que se ha hecho**: 4 documentales entregados (01 bombas en Madrid, 02 Europa sin Francia, 03 ¿el centro del mundo?, 04 mitad de la humanidad, con versión larga 04-v2 de 66 s). Al usuario le gustan; los pide por chat («hazme un documental animado sobre…»). **Siguiente paso exacto:** esperar el tema del siguiente documental (o ideas para alargar el 04-v2 hasta ~90 s, que quedó ofrecido). Antes de nada en un contenedor nuevo: `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min).
 - **Formato A (3D)**: vídeo 01 aprobado en su v5 (`videos/01-perro-lame-v5.mp4`, tag `v5`). El usuario avisó de que querrá cambiar muchas cosas de la animación; no ha dicho cuáles. Sin cambios en esta sesión.
 
@@ -72,6 +73,13 @@
   - Opciones globales del guion (las antiguas siguen igual sin ellas): `sfx: true` (efectos suaves automáticos), `clave_en_linea: true` (si la clave va en medio de la frase, se resalta en la línea), `stat_alto: true`, `pausa`, `tempo`, `voz_modelo`, `tope_caracteres`, `qa_aceptadas`.
   - Voz: `.claude/skills/documental-animado/motor/variantes/vertical/voz_eleven.py <proy>` (una toma con `/with-timestamps`, caché en `<proy>/audio/toma.mp3` + `toma.json`; `armar` rehace `voz.wav`/`palabras.json` sin gastar: recorta silencio inicial, deja pausas reales en `pausa` s con fundidos de 6 ms, fundido final si la toma acaba con aire).
   - Proyectos: `documentales/NN-tema/` con `guion.json` (líneas `texto`/`tts`/`key`/`escena` + `fuentes` con URL), `descripcion.md`, `final/NN-tema.mp4` + `-hoja.jpg`, `qa.json`. `voz.wav`, `.render/` y `revision/` están ignorados.
+- **Añadido en la sesión 2026-11-27-02** (variante vertical):
+  - Escena `bolas` (juego «sigue la pelota roja»: silueta de neón de un país con `silueta.ids`, pelotas que rebotan en el borde y entre sí con simulación determinista a 120 Hz, `niveles` de velocidad, `extra` (pelota nueva), `blanco_word` + `ciclo` (todas cambian de color cada `ciclo_s`), `parar_word`, `numeros_word`, `revelar_word`, `respuesta` (se busca la semilla para que la roja acabe en ese número)).
+  - Escena `penalti` (juego de reflejos: portería, estadio, portero quieto hasta que se tira, `rondas` con `espera`/`amagos`/`lado`/`vel`, cronómetro que arranca con el movimiento, escala Te adelantaste/Golazo/Gol/Al palo/Parada, chut a la escuadra, marcador solo en la demo y en cada ronda; `portero_word`, `demo_tiro`, `demo_word`, `ver_s`, `chut_s`).
+  - `lineas[].silencio` (s): silencio real tras la línea (esperas de juego, respiros). `lineas[].omitir`: quita del audio una línea ya pagada sin regenerar la voz. `camara_fija` (y tipos bolas/penalti): sin empuje de cámara.
+  - SFX nuevos registrados en motor.py: `silbato`, `latido`, `estadio`.
+  - **`outro.py <proyecto>`**: outro de compartir (último cuadro desenfocado, botón Compartir que se pulsa, avión de papel hasta el avatar «Tu amigo» con gafas de sol, check) con su propia toma de voz (`guion.json → outro`), pegada SIN re-renderizar → `final/<proyecto>-v2.mp4`.
+- **Estilo premium** (`motor/variantes/premium/`, guía `LEEME.md`, resumen `ESTILO-PREMIUM.md`): mundo 3D continuo oscuro + dorado con estaciones por escena, cámara que vuela con desenfoque de movimiento, cristal, profundidad de campo, reflejo, partículas, rótulo-karaoke arriba, posproceso. `motor.py` (mismos comandos que el vertical; recomprime a crf 23 porque el grano dispara el peso), núcleo `escena3d.py`, piezas `piezas/iconos.py` (7 iconos), `piezas/tarjetas.py`, `piezas/camaras.py` (6 movimientos). Escenas: titulo, tarjeta, comparar, contador, apilado. **Es un estilo vivo**: cada corrección del usuario va a «Reglas aprendidas» de `LEEME.md`.
 - **Sin internet general**: WebFetch y Wikipedia bloqueados; WebSearch sí funciona (verificación de datos). Mapas offline de npm (`es-atlas`, `madrid-atlas`) y `vendor/countries-50m.json` del kit. HuggingFace bloqueado → **sin Whisper**: el QA `literal_final` se acepta siempre con razón escrita y el usuario revisa la voz de oído.
 
 ## 8. Voz (ElevenLabs) — `config/voice.json`
@@ -124,6 +132,11 @@
 15. **Documental 03 «¿el centro del mundo?»** (35 s): gancho engañoso «si los españoles estamos literalmente aquí» y desmentido (China, mapa australiano al revés 1979, Greenwich 1884 por Castellón, una bola no tiene centro). Escenas `mundo` y `globo`; arreglado un fallo de franjas horizontales (anillos que cruzan los 180°: `np.unwrap`).
 16. **Documental 04 «si desapareciera la mitad de la humanidad»** (32 s). Usuario: «me he quedado con ganas de más, hazlo de ~1,5 min, construye a partir de lo que hay» → **04-v2** (66 s, voz nueva 1.176 caracteres): coches/aviones (4 casos de 2 pilotos), apagones, 16 combinaciones de abuelos, comida que no llega, Chernóbil, hijos por mujer 1974 vs hoy. Quedó en 66 s porque la toma dura eso; se ofreció añadir 2–3 ideas para llegar a 90 s.
 17. El usuario pidió guardar la sesión para seguir en un chat nuevo → esta entrada.
+18. **Sesión 2026-11-27-02** — confirma que los documentales se hacen con el kit.
+19. **Documental 05 «¿Puedes seguir la pelota roja?»** (referencia de un reel con silueta de persona; pidió otra silueta, estilo documental, más velocidad con el tiempo, cambio de color a los 5–10 s, «comenta la respuesta» antes de decirla). Silueta de neón de España. El usuario quitó el dato científico del guion y pidió que, al memorizar, **todas cambien al mismo color cada ~1,5 s**. Fallos corregidos: el empuje de cámara por frase agrandaba el mapa hasta cortarlo (cámara fija en juegos), ancla «tres» repetida. Usuario: «**PERFECTÍSIMO, no cambies nada**» → solo una outro («Mándale ese amigo que está ciego», dicha como «Mándaselo a ese amigo que está ciego») con animación de compartir, sin re-renderizar → `outro.py`. **Regla: outro en todos los vídeos.**
+20. **Documental 06 «Pausa el vídeo para marcar el penalti»** (referencia: reel de F1 con contador y escala). Iteraciones: (a) el balón debía moverse → chut a la escuadra tras la estirada; (b) silencios abruptos → sonido; portero que se movía todo el rato → **quieto hasta que se tira** y contador desde el primer movimiento; **gancho que se construye** (portería → portero → ejemplo → marcador) y marcador solo en rondas; (c) «muy apresurado» → de 5 a **3 rondas** (líneas omitidas del audio sin pagar) con esperas y respiros más largos; (d) **silbato** al empezar cada ronda, **latido audible** (antes −36 dB, inaudible) y efectos en el gancho. Fallos propios: «decisivo» cortado al insertar silencio (ahora se inserta en un punto < −60 dB con fundido de 60 ms); escala 6 px dentro de la zona de botones.
+21. **Estilo «premium»**: el usuario enseña un reel oscuro con capas de cristal, contador «5,8 M», línea de tiempo y teclado 3D. Prueba 1 (planos inclinados): «más cutre que la referencia pero me gusta» → catalogar como «estilo premium»; prueba 2 con cámara 3D real («Tu cuerpo en un minuto», 8 s). Pide **una carpeta del estilo con todo, versátil y que crezca** y un vídeo completo para iterar → motor premium + `LEEME.md` + vídeo 07. Fallos propios: render atascado (blur de iconos multiplicado por la escala ≈ 4.000 px y capas a pantalla completa → ~5× más rápido); MP4 de 195 MB por el grano (GitHub < 100 MB) → recompresión a crf 23 (18,6 MB).
+22. **Opinión del usuario sobre el 07**: «errores, desenfoques innecesarios, cortes de audio y un largo etcétera»; quiere **sonido de rodillo** («tictictic») al rodar cifras; las **tarjetas 3D en capas deben ser un recurso más, no todo el vídeo**; ser flexible. «Olvida este vídeo». Reglas apuntadas en `premium/LEEME.md`. Pidió guardar la sesión → esta entrada.
 
 ## 11. Vídeos producidos
 | Vídeo | Ruta / commit | Contenido | Duración | Render (solo imagen) | Estado |
@@ -145,6 +158,10 @@
 | 03 ¿el centro del mundo? | `documentales/03-centro-del-mundo/final/03-centro-del-mundo.mp4` | `0102ba0` | 34,7 s | 547 | entregado |
 | 04 mitad de la humanidad | `documentales/04-mitad-humanidad/final/04-mitad-humanidad.mp4` | `17f3f73` | 32,3 s | 504 | entregado; le encantó el tema |
 | **04-v2 (versión larga)** | `documentales/04-mitad-humanidad-v2/final/04-mitad-humanidad-v2.mp4` | `518a871` | 66,4 s | 1.176 | entregado; pendiente de su opinión |
+| 05 sigue la pelota roja | `documentales/05-sigue-la-pelota/final/05-sigue-la-pelota-v2.mp4` (con outro) | `2f6c0ec` | 55,5 s | 716 + 47 | **«PERFECTÍSIMO»** |
+| 06 penalti de reflejos | `documentales/06-penalti-reflejos/final/06-penalti-reflejos-v2.mp4` (con outro) | `e2845e6` | 50,9 s | 517 + 62 | entregado tras 4 iteraciones (último: silbato, latido, SFX del gancho) |
+| 07 tu cuerpo en un minuto (premium) | `documentales/07-cuerpo-un-minuto/final/07-cuerpo-un-minuto-v2.mp4` | `43fbd02` | 37,0 s | 415 + 72 | **descartado** («olvida este vídeo») |
+| pruebas premium | `documentales/_pruebas/premium/prueba-premium.mp4`, `prueba-premium-2.mp4` | `6bed099`, `0bc51b8` | 8 s cada una | — | mudas; la 2 marcó la dirección |
 - Render ≈ 2,5–5 min por vídeo (4 procesos). QA del kit OK en todos con `qa_aceptadas` medidas (zona_segura por fondos a sangre; literal_final sin Whisper; caídas de final de palabra idénticas en la toma original).
 
 ## 12. Versiones aprobadas (tags de git)
@@ -166,10 +183,14 @@
 - `tools/preview_characters.py` muestra acciones antiguas (la hoja oficial del narrador es `tools/narrator_sheet.py`).
 - `CLAUDE.md` conserva notas antiguas de distancias de cámara y del aventurero en secciones de formato; las reglas vigentes son las de este documento.
 
+- **Estilo premium**: aún «muchas cosas mal» según el usuario (desenfoques innecesarios, cortes de audio, todo a base de tarjetas); falta el sonido de rodillo; render ≈ 0,2–0,4 s/cuadro (×4 en los vuelos).
+- **Juegos**: a 60 fps el cronómetro avanza ~17 ms por cuadro y TikTok puede congelar 1–2 cuadros tarde al pausar.
 - **Formato B**: sin Whisper no se verifica la voz palabra por palabra (revisión de oído del usuario); la clave de ElevenLabs no lee saldo; el push de tags lo bloquea el proxy (403); los mapas de Madrid están georreferenciados por ajuste al contorno municipal (error ±150 m); el globo deja ver pines viejos en el borde mientras gira.
 
 ## 14. Pendiente y siguiente paso exacto
-0. **Formato B (lo activo)**: esperar el tema del próximo documental o la respuesta sobre alargar el 04-v2 hasta ~90 s (requiere añadir frases y **regenerar toda la voz**, ~1.600 caracteres). Flujo: `documentales/NN-tema/guion.json` (copiar el del 04-v2 como plantilla) → verificar datos con WebSearch → `$M escenas` + `prueba` y revisar fotogramas → `voz_eleven.py` (una toma) → `prueba` con tiempos reales → `render --procesos 4` → leer `qa.json` y la `-hoja.jpg` → `descripcion.md` → commit + push → enviar el MP4 al usuario con resumen corto.
+0a. **Estilo premium (lo siguiente)**: el usuario hará «otra prueba». Antes: instalar el kit (`bash .claude/skills/documental-animado/instalar/instalar_linux.sh`), leer `.claude/skills/documental-animado/motor/variantes/premium/LEEME.md` completo y aplicar sus «Reglas aprendidas». Pendiente de implementar en el motor: SFX de rodillo continuo al rodar cifras; escenas variadas además de las tarjetas (objetos/ilustraciones 3D, mapas, líneas de tiempo, tipografía grande en el espacio, escenarios); profundidad de campo y desenfoque de movimiento solo donde aporten; empalmes de voz sin cortes. Pedir OK de créditos antes de generar la voz (el clasificador de permisos bloquea la llamada sin OK explícito).
+0b. Todos los vídeos: **outro de compartir** con `outro.py` (frase «Pásaselo a…» ligada al vídeo).
+0. **Formato B (documentales)**: esperar el tema del próximo documental o la respuesta sobre alargar el 04-v2 hasta ~90 s (requiere añadir frases y **regenerar toda la voz**, ~1.600 caracteres). Flujo: `documentales/NN-tema/guion.json` (copiar el del 04-v2 como plantilla) → verificar datos con WebSearch → `$M escenas` + `prueba` y revisar fotogramas → `voz_eleven.py` (una toma) → `prueba` con tiempos reales → `render --procesos 4` → leer `qa.json` y la `-hoja.jpg` → `descripcion.md` → commit + push → enviar el MP4 al usuario con resumen corto.
 1. **Esperar al usuario**: tema del vídeo 02 y/o lista de cambios de animación. No tocar nada antes.
 2. Vídeo nuevo: copiar `scripts/01-perro-lame-v5.json` (trae `master: clean2`, `lufs: -16`, `music`, `icon_style: world`, `cam_smooth`) → guion `scripts/02-…json` → `--dry` + `tools/shot_frames.py --dry` → enseñar guion + storyboard + coste → esperar OK → `--tts` → `tools/shot_frames.py` (0 avisos) + `tools/check_physics.py` (0) → `--contact` → QA.
 3. Cambios de animación que toquen el narrador, el estilo o el pipeline base: solo con permiso explícito y sin romper lo anterior (opciones nuevas en el guion).
@@ -185,9 +206,13 @@
 - Narrador: ¿número del jersey («00»)?, ¿ropa alternativa (`outfit`)?
 - Si los vídeos crecen: ¿Git LFS o guardarlos fuera del repo? (5 MP4 de ~25–30 MB en `videos/`).
 
+- Estilo premium: tema de la próxima prueba y lista concreta de lo que estaba mal en el 07.
+- ¿Unir `claude/confident-bell-gpw8hf` a `main`? (abrir/aceptar la PR y hacer merge en GitHub).
+- Penalti 06: ¿quitar los amagos para que el portero esté siempre quieto? (voz nueva, ~517 créditos).
 - Formato B: ¿alargar el 04-v2 a ~90 s (voz nueva)? ¿Tema del documental 05? ¿Música de fondo propia para los documentales (ahora sin música)? ¿Unir `claude/gallant-curie-6ab9x5` a `main` (PR)?
 
 ## 16. Índice de sesiones
 - [2026-11-26-01](sessions/2026-11-26-01.md) — creación del pipeline, vídeo 01 (v1 detallada, v1 minimalista, v2), narrador fijo, sistema de sesiones.
 - [2026-11-26-02](sessions/2026-11-26-02.md) — vídeo 01 v3 (audio, iconos con brillo, cámara, encuadres), v4 (guion del usuario, iconos integrados), v5 (voz sin ruido, −16 LUFS, música original); **v5 aprobada (tag `v5`)**.
 - [2026-11-27-01](sessions/2026-11-27-01.md) — **formato B**: kit «documental-animado» instalado y motor vertical 9:16 propio; documentales 01 (bombas en Madrid), 02 (Europa sin Francia), 03 (¿el centro del mundo?), 04 (mitad de la humanidad) y 04-v2 (66 s).
+- [2026-11-27-02](sessions/2026-11-27-02.md) — juegos 05 (sigue la pelota roja, «perfectísimo») y 06 (penalti de reflejos); outro obligatoria (`outro.py`); **estilo premium** creado (carpeta + `LEEME.md`), vídeo 07 descartado con correcciones apuntadas.
