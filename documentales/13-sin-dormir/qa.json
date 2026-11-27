@@ -1,0 +1,188 @@
+{
+ "video": "/home/user/zapatero/documentales/13-sin-dormir/final/13-sin-dormir.mp4",
+ "duracion_s": 49.63,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 76.4,
+   "abajo": 39.2,
+   "derecha": 100.0
+  },
+  "tramo_s": {
+   "arriba": 11.5,
+   "abajo": 8.25,
+   "derecha": 49.75
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: lo que salta son fondos a sangre (carretera, habitación, pared que respira) y los PÁRPADOS de cansancio que cierran la pantalla a propósito; ningún texto entra en la columna de botones"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0276,
+  "pico_cuadro0_db": -37.5,
+  "primera_palabra_s": 0.014,
+  "video_cuadro0_rms_db": -36.7,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,028 s (2 cuadros); «¿Qué» empieza suave por la etiqueta [curious]"
+ },
+ "pausas": {
+  "pausa_max_s": 0.585,
+  "hueco_entre_marcas_s": 0.632,
+  "fin_voz_s": 49.238,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 19,
+  "peor": {
+   "w": "peor:",
+   "t": 25.374,
+   "caida_db": 26.3,
+   "desde_db": -37.8
+  },
+  "malas": [
+   {
+    "w": "peor:",
+    "t": 25.374,
+    "caida_db": 26.3,
+    "desde_db": -37.8
+   }
+  ],
+  "detalle": [
+   {
+    "w": "propósito?",
+    "t": 3.247,
+    "caida_db": 14.5,
+    "desde_db": -26.2
+   },
+   {
+    "w": "hizo:",
+    "t": 6.657,
+    "caida_db": 0.0,
+    "desde_db": -57.9
+   },
+   {
+    "w": "dormir.",
+    "t": 8.067,
+    "caida_db": 11.4,
+    "desde_db": -30.8
+   },
+   {
+    "w": "hora.",
+    "t": 12.181,
+    "caida_db": 19.6,
+    "desde_db": -39.2
+   },
+   {
+    "w": "conducir.",
+    "t": 16.534,
+    "caida_db": 18.4,
+    "desde_db": -33.7
+   },
+   {
+    "w": "trozos,",
+    "t": 18.323,
+    "caida_db": 8.2,
+    "desde_db": -17.8
+   },
+   {
+    "w": "abiertos.",
+    "t": 19.828,
+    "caida_db": 0.0,
+    "desde_db": -51.5
+   },
+   {
+    "w": "microsueños:",
+    "t": 21.747,
+    "caida_db": 0.0,
+    "desde_db": -51.2
+   },
+   {
+    "w": "estás.",
+    "t": 23.609,
+    "caida_db": 18.5,
+    "desde_db": -39.6
+   },
+   {
+    "w": "peor:",
+    "t": 25.374,
+    "caida_db": 26.3,
+    "desde_db": -37.8
+   },
+   {
+    "w": "basura.",
+    "t": 27.878,
+    "caida_db": 17.2,
+    "desde_db": -29.2
+   },
+   {
+    "w": "dentro.",
+    "t": 30.312,
+    "caida_db": 16.0,
+    "desde_db": -32.8
+   },
+   {
+    "w": "están.",
+    "t": 33.806,
+    "caida_db": 15.6,
+    "desde_db": -38.4
+   },
+   {
+    "w": "todo.",
+    "t": 37.175,
+    "caida_db": 19.6,
+    "desde_db": -37.1
+   },
+   {
+    "w": "arregló?",
+    "t": 38.527,
+    "caida_db": 21.5,
+    "desde_db": -27.4
+   },
+   {
+    "w": "seguidas.",
+    "t": 41.273,
+    "caida_db": 19.7,
+    "desde_db": -39.8
+   },
+   {
+    "w": "más»…",
+    "t": 45.775,
+    "caida_db": 16.8,
+    "desde_db": -24.8
+   },
+   {
+    "w": "acuérdate:",
+    "t": 46.264,
+    "caida_db": 17.1,
+    "desde_db": -20.9
+   },
+   {
+    "w": "puerta.",
+    "t": 49.16,
+    "caida_db": 13.6,
+    "desde_db": -33.2
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido: «peor:» se dice entre 24,57 y 24,92 s y cae de −15 a −52 dB en 150 ms (natural); su marca se alarga dentro de la pausa y el QA mide en el silencio"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

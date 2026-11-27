@@ -1,0 +1,253 @@
+{
+ "titulo": "¿Qué pasaría si dejases de dormir?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.6,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Qué pasaría si dejases de dormir a propósito?",
+   "tts": "[curious] ¿Qué pasaría si dejases de dormir... a propósito?",
+   "key": "a propósito",
+   "escena": {
+    "tipo": "insomne",
+    "surface": "noche",
+    "ojos": [
+     {
+      "word": "@0",
+      "v": 0.55
+     },
+     {
+      "word": "dormir",
+      "v": 0.25,
+      "dur": 0.5
+     }
+    ],
+    "palillos_word": "propósito",
+    "ojeras": 0.5,
+    "cabecea": true,
+    "hud": {
+     "desde": 0,
+     "hasta": 0
+    }
+   }
+  },
+  {
+   "texto": "En 1964, un estudiante lo hizo: once días sin dormir.",
+   "tts": "En mil novecientos sesenta y cuatro, un estudiante lo hizo... once días sin dormir.",
+   "key": "sin dormir",
+   "escena": {
+    "tipo": "calendario",
+    "surface": "light",
+    "anio": "1964",
+    "word": "once",
+    "dias": 11,
+    "dur": 1.8,
+    "sello_txt": "RÉCORD",
+    "hud": {
+     "desde": 0,
+     "hasta": 264,
+     "word": "once",
+     "dur": 1.8
+    }
+   }
+  },
+  {
+   "texto": "Así se rompe tu cuerpo, hora a hora.",
+   "tts": "Así se rompe tu cuerpo, hora a hora.",
+   "key": "hora a hora"
+  },
+  {
+   "texto": "Con 17 horas despierto, rindes como con el límite de alcohol para conducir.",
+   "tts": "Con diecisiete horas despierto, rindes como con el límite de alcohol para conducir.",
+   "key": "para conducir",
+   "escena": {
+    "tipo": "conducir",
+    "surface": "clay",
+    "eses_word": "alcohol",
+    "medidor": {
+     "word": "límite",
+     "valor": 0.5,
+     "label": "LÍMITE PARA CONDUCIR"
+    },
+    "hud": {
+     "desde": 0,
+     "hasta": 17,
+     "word": "17",
+     "dur": 0.8
+    }
+   }
+  },
+  {
+   "texto": "Tu cerebro empieza a apagarse a trozos,",
+   "tts": "Tu cerebro empieza a apagarse a trozos,",
+   "key": "a trozos",
+   "escena": {
+    "tipo": "neuronas",
+    "surface": "dark",
+    "apaga_word": "apagarse",
+    "micro_word": "no",
+    "hud": {
+     "desde": 17,
+     "hasta": 24,
+     "word": "cerebro",
+     "dur": 0.8
+    }
+   }
+  },
+  {
+   "texto": "aunque tengas los ojos abiertos.",
+   "tts": "aunque tengas los ojos abiertos.",
+   "key": "los ojos abiertos"
+  },
+  {
+   "texto": "Son microsueños: segundos en los que no estás.",
+   "tts": "Son microsueños: segundos en los que no estás.",
+   "key": "no estás"
+  },
+  {
+   "texto": "Y hay algo peor: mientras duermes, tu cerebro saca la basura.",
+   "tts": "Y hay algo peor: mientras duermes, tu cerebro saca la basura.",
+   "key": "saca la basura",
+   "escena": {
+    "tipo": "limpieza",
+    "surface": "light",
+    "duerme_word": "duermes",
+    "acumula_word": "Sin",
+    "hud": {
+     "desde": 24,
+     "hasta": 36,
+     "word": "peor",
+     "dur": 0.8
+    }
+   }
+  },
+  {
+   "texto": "Sin dormir, se queda dentro.",
+   "tts": "Sin dormir, se queda dentro.",
+   "key": "se queda dentro"
+  },
+  {
+   "texto": "Al segundo o tercer día, empiezas a ver cosas que no están.",
+   "tts": "Al segundo o tercer día, empiezas a ver cosas que no están.",
+   "key": "que no están",
+   "escena": {
+    "tipo": "alucina",
+    "surface": "noche",
+    "sombra_word": "ver",
+    "ojos_word": "cosas",
+    "pill": "ALUCINACIONES",
+    "hud": {
+     "desde": 36,
+     "hasta": 72,
+     "word": "tercer",
+     "dur": 0.8
+    }
+   }
+  },
+  {
+   "texto": "Al estudiante le fallaba la memoria y se enfadaba por todo.",
+   "tts": "Al estudiante le fallaba la memoria y se enfadaba por todo.",
+   "key": "por todo",
+   "escena": {
+    "tipo": "recuerdos",
+    "surface": "blue",
+    "memoria_word": "memoria",
+    "enfado_word": "enfadaba",
+    "hud": {
+     "desde": 72,
+     "hasta": 264,
+     "word": "estudiante",
+     "dur": 1.4
+    }
+   }
+  },
+  {
+   "texto": "¿Y cómo lo arregló? Durmiendo casi quince horas seguidas.",
+   "tts": "¿Y cómo lo arregló? Durmiendo casi quince horas seguidas.",
+   "key": "quince horas seguidas",
+   "escena": {
+    "tipo": "dormir",
+    "surface": "dark",
+    "word": "Durmiendo",
+    "valor_h": 14,
+    "valor_m": 46,
+    "label": "DURMIENDO SEGUIDO"
+   }
+  },
+  {
+   "texto": "Así que esta noche, cuando pienses «un capítulo más»…",
+   "tts": "Así que esta noche, cuando pienses... «un capítulo más»...",
+   "key": "un capítulo más",
+   "escena": {
+    "tipo": "capitulo",
+    "surface": "light",
+    "pulsa_word": "más",
+    "titulo": "Episodio 7"
+   }
+  },
+  {
+   "texto": "acuérdate: tu cerebro tiene la basura esperando en la puerta.",
+   "tts": "[playful] acuérdate: tu cerebro tiene la basura esperando en la puerta.",
+   "key": "*en la puerta",
+   "escena": {
+    "tipo": "insomne",
+    "surface": "noche",
+    "ojos": [
+     {
+      "word": "@0",
+      "v": 0.9
+     }
+    ],
+    "palillos_word": "@-2",
+    "caen_word": "cerebro",
+    "bolsa_word": "basura",
+    "bolsa_txt": "LA BASURA ESPERA",
+    "ojeras": 0.8,
+    "venas": 0.6
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien siempre dice «un capítulo más».",
+  "tts": "[playful] Pásaselo a quien siempre dice... «un capítulo más».",
+  "key": "un capítulo más",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El trasnochador",
+  "salida": "13-sin-dormir-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Randy Gardner, estudiante, 1964: unas 264 horas (11 días) sin dormir; memoria e irritabilidad; después durmió 14 h 46 min",
+   "url": "https://en.wikipedia.org/wiki/Randy_Gardner_sleep_deprivation_experiment"
+  },
+  {
+   "dato": "Gardner: problemas de memoria y cada vez más irritable (NPR, 60.º aniversario)",
+   "url": "https://www.npr.org/2024/01/28/1227217274/sleep-deprivation-record"
+  },
+  {
+   "dato": "17–19 h despierto ≈ rendimiento con 0,05 % de alcohol en sangre (= 0,5 g/l, límite general en España) (Williamson y Feyer 2000)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC1739867"
+  },
+  {
+   "dato": "Neuronas que se «apagan» a trozos en cerebros despiertos con sueño (Vyazovskiy et al., Nature 2011)",
+   "url": "https://www.nimh.nih.gov/news/science-news/2011/tired-neurons-caught-nodding-off-in-sleep-deprived-rats"
+  },
+  {
+   "dato": "El cerebro limpia residuos durante el sueño, unas 10 veces más activo (Xie et al., Science 2013, en ratones)",
+   "url": "https://www.nih.gov/news-events/news-releases/brain-may-flush-out-toxins-during-sleep"
+  },
+  {
+   "dato": "Alucinaciones entre las 48 y las 90 h sin dormir (Waters et al., Frontiers in Psychiatry 2018)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/30042701/"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: lo que salta son fondos a sangre (carretera, habitación, pared que respira) y los PÁRPADOS de cansancio que cierran la pantalla a propósito; ningún texto entra en la columna de botones",
+  "voz_cuadro_0": "medido: la voz arranca a 0,028 s (2 cuadros); «¿Qué» empieza suave por la etiqueta [curious]",
+  "palabras_completas": "medido: «peor:» se dice entre 24,57 y 24,92 s y cae de −15 a −52 dB en 150 ms (natural); su marca se alarga dentro de la pausa y el QA mide en el silencio",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

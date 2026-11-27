@@ -1,0 +1,285 @@
+{
+ "video": "/home/user/zapatero/documentales/11-si-gana-el-psoe/final/11-si-gana-el-psoe.mp4",
+ "duracion_s": 90.68,
+ "nivel": {
+  "lufs": -14.3,
+  "dbtp": -1.1,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 68.3,
+   "abajo": 24.0,
+   "derecha": 100.0
+  },
+  "tramo_s": {
+   "arriba": 53.25,
+   "abajo": 8.5,
+   "derecha": 90.75
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja y a tamaño real: lo que salta son fondos a pantalla completa (rojo, claro, azul) y partículas; ningún texto, cifra ni sello entra en la columna de botones"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0787,
+  "pico_cuadro0_db": -37.0,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -33.3,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,079 s (menos de 5 cuadros) por el ataque natural de «¿Qué»"
+ },
+ "pausas": {
+  "pausa_max_s": 0.62,
+  "hueco_entre_marcas_s": 1.167,
+  "fin_voz_s": 90.283,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 36,
+  "peor": {
+   "w": "precios.",
+   "t": 34.729,
+   "caida_db": 24.9,
+   "desde_db": -38.2
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "PSOE?",
+    "t": 2.899,
+    "caida_db": 19.5,
+    "desde_db": -27.0
+   },
+   {
+    "w": "programas:",
+    "t": 5.313,
+    "caida_db": 0.0,
+    "desde_db": -51.9
+   },
+   {
+    "w": "ahora,",
+    "t": 7.67,
+    "caida_db": 12.1,
+    "desde_db": -39.0
+   },
+   {
+    "w": "realidad.",
+    "t": 9.654,
+    "caida_db": 18.1,
+    "desde_db": -37.0
+   },
+   {
+    "w": "prometían",
+    "t": 11.496,
+    "caida_db": 6.0,
+    "desde_db": -11.0
+   },
+   {
+    "w": "sostenible.",
+    "t": 13.769,
+    "caida_db": 18.1,
+    "desde_db": -37.4
+   },
+   {
+    "w": "2018.",
+    "t": 18.301,
+    "caida_db": 21.8,
+    "desde_db": -35.3
+   },
+   {
+    "w": "euros.",
+    "t": 22.011,
+    "caida_db": 15.3,
+    "desde_db": -39.9
+   },
+   {
+    "w": "mismo.",
+    "t": 24.378,
+    "caida_db": 12.7,
+    "desde_db": -32.8
+   },
+   {
+    "w": "tarde.",
+    "t": 29.368,
+    "caida_db": 22.5,
+    "desde_db": -37.9
+   },
+   {
+    "w": "años.",
+    "t": 31.103,
+    "caida_db": 16.9,
+    "desde_db": -22.3
+   },
+   {
+    "w": "precios.",
+    "t": 34.729,
+    "caida_db": 24.9,
+    "desde_db": -38.2
+   },
+   {
+    "w": "inflación,",
+    "t": 37.654,
+    "caida_db": 15.9,
+    "desde_db": -38.4
+   },
+   {
+    "w": "rico.",
+    "t": 40.035,
+    "caida_db": 12.9,
+    "desde_db": -35.9
+   },
+   {
+    "w": "Gobierno",
+    "t": 42.897,
+    "caida_db": 17.4,
+    "desde_db": -11.4
+   },
+   {
+    "w": "PP.",
+    "t": 44.44,
+    "caida_db": 18.4,
+    "desde_db": -38.8
+   },
+   {
+    "w": "corrupción.",
+    "t": 48.516,
+    "caida_db": 22.4,
+    "desde_db": -34.9
+   },
+   {
+    "w": "abiertas:",
+    "t": 51.333,
+    "caida_db": 0.0,
+    "desde_db": -61.8
+   },
+   {
+    "w": "instancia.",
+    "t": 55.994,
+    "caida_db": 14.6,
+    "desde_db": -32.9
+   },
+   {
+    "w": "ahora?",
+    "t": 57.631,
+    "caida_db": 17.6,
+    "desde_db": -38.9
+   },
+   {
+    "w": "páginas.",
+    "t": 60.013,
+    "caida_db": 0.0,
+    "desde_db": -64.2
+   },
+   {
+    "w": "resumo.",
+    "t": 60.887,
+    "caida_db": 17.5,
+    "desde_db": -31.3
+   },
+   {
+    "w": "alquilas:",
+    "t": 62.143,
+    "caida_db": 13.1,
+    "desde_db": -31.2
+   },
+   {
+    "w": "públicos",
+    "t": 63.668,
+    "caida_db": 18.7,
+    "desde_db": -31.3
+   },
+   {
+    "w": "abusivos.",
+    "t": 65.573,
+    "caida_db": 21.5,
+    "desde_db": -37.0
+   },
+   {
+    "w": "trabajas:",
+    "t": 66.889,
+    "caida_db": 19.6,
+    "desde_db": -38.2
+   },
+   {
+    "w": "horas.",
+    "t": 69.3,
+    "caida_db": 23.4,
+    "desde_db": -31.5
+   },
+   {
+    "w": "hijos:",
+    "t": 71.089,
+    "caida_db": 16.0,
+    "desde_db": -39.5
+   },
+   {
+    "w": "todos.",
+    "t": 73.023,
+    "caida_db": 0.0,
+    "desde_db": -64.0
+   },
+   {
+    "w": "mucho:",
+    "t": 74.512,
+    "caida_db": 0.0,
+    "desde_db": -58.9
+   },
+   {
+    "w": "euros.",
+    "t": 77.832,
+    "caida_db": 22.7,
+    "desde_db": -39.6
+   },
+   {
+    "w": "IRPF?",
+    "t": 79.988,
+    "caida_db": 18.8,
+    "desde_db": -35.4
+   },
+   {
+    "w": "tramos:",
+    "t": 82.052,
+    "caida_db": 12.6,
+    "desde_db": -37.0
+   },
+   {
+    "w": "precios.",
+    "t": 84.777,
+    "caida_db": 17.9,
+    "desde_db": -31.1
+   },
+   {
+    "w": "pasó.",
+    "t": 87.837,
+    "caida_db": 8.5,
+    "desde_db": -32.5
+   },
+   {
+    "w": "tú.",
+    "t": 90.194,
+    "caida_db": 8.5,
+    "desde_db": -37.2
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 1,
+  "t": [
+   25.74
+  ],
+  "ok": false,
+  "aceptada": "medido: 25,66–25,85 s es voz continua (final de «diecinueve»), la marca de «2019» acaba antes; no es un clic"
+ },
+ "ok": true
+}

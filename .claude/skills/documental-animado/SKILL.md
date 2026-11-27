@@ -208,6 +208,39 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Ningún texto puede salirse de su contenedor: las cifras se ajustan al ancho útil (`maxw`) midiendo el caso más ancho («88,8»), no el actual.
 - Nunca dibujes dos veces la misma etiqueta: si una marca se resalta (el 30 en verde), se quita de la serie normal.
 
+**Del usuario (27 nov 2026, documental 11 «¿Qué te pasa si vuelve a ganar el PSOE?»)**
+- **Vídeos de opinión / política con idea del usuario:** el gancho es una pregunta que te toca a ti; la estructura que funciona es «lo que prometieron (cita literal del documento, con página) → lo que pasó (dato de hoy que rueda)» y luego «qué te toca a ti» por perfiles (si alquilas, si trabajas, si tienes hijos…). Cierre neutro y útil («decides tú»), sin pedir el voto.
+- **Nombre de un partido o marca:** escribir su nombre con nuestra tipografía sobre su color SÍ se puede (p. ej. «PSOE» en blanco sobre rojo); lo prohibido es redibujar su logo con código.
+- **Programas y documentos:** se citan del PDF original (el usuario lo pasa si la red no llega); lo que dice la prensa y no está en el documento se descarta. «Me he leído…» solo si de verdad se ha leído (el PDF de otro año no vale para el de ahora: avisar).
+- **Causas judiciales de terceros:** se pueden mencionar con su estado procesal exacto y verificado (condenado / condenado en primera instancia / pendiente de juicio) y, si existe, el dato que equilibra (p. ej. «la Fiscalía pide absolverla»). Nada en instrucción presentado como hecho.
+- Escenas en `escenas_politica.py`: `urna`, `programa`, `cita`, `nomina`, `expedientes`, `promesas`; superficie nueva `rojo`.
+
+**Del usuario (27 nov 2026, tras el 11 y para el 12 «¿Y si desaparecieran los mosquitos?»)**
+- **El tono habitual NO es el político:** el 11 tenía demasiados datos y era muy serio. Lo normal: pocas cifras (2–3 por vídeo) y que los CONCEPTOS que dice el narrador se animen literalmente (si dice «se los comen», un pez se las come; si dice «cambian de ruta», los renos se dan la vuelta; si dice «desaparecieran», una mano lo estampa).
+- **Gancho visual con acción en la palabra clave** (la mano que estampa al mosquito justo en «desaparecieran») y **cierre que vuelve al gancho** con un remate de humor.
+- Personaje protagonista ilustrado y GRANDE (≥ 50 % del ancho), reutilizado en todas las escenas; nada pequeño arriba con media franja vacía.
+- Al dibujar un golpe: polvo y estrella DETRÁS de la mano, rótulo de cómic («¡PLAF!») ENCIMA y sin pisar otros elementos.
+- Anclas: `"él"` se normaliza a `"el"` y casa con el artículo; usa `"palabra#n"` cuando una palabra corta se repite.
+- `outro.py` saca el último cuadro con `-sseof -0.3` (el audio puede durar unos ms más que el vídeo).
+- Escenas en `escenas_mosquito.py`: `mosquito`, `ranking`, `contagio`, `zumbido`, `estanque`, `tundra`, `orquidea`, `red`, `especies`, `selectivo`.
+
+**Documental 13 (27 nov 2026, «¿Qué pasaría si dejases de dormir a propósito?»): mejoras que quedan como recurso**
+- **Hilo conductor visible**: un HUD fijo que avanza escena a escena (aquí «HORAS DESPIERTO») une el vídeo; campo `hud` {desde, hasta, word, dur}.
+- **Que el propio vídeo viva el concepto** (microsueño = pantalla en negro con glitch). **PÁRPADOS EN PANTALLA: DESCARTADOS por el usuario** (no le gustan; `capa_hud` ya no los dibuja).
+- Gancho con acción física de cómic en la palabra clave (palillos ¡CLAC! en «a propósito») y cierre que lo deshace (se caen y se duerme).
+- Escenas en `escenas_sueno.py`: `insomne`, `calendario`, `conducir`, `neuronas`, `limpieza`, `alucina`, `recuerdos`, `dormir`, `capitulo`.
+
+**Corrección del usuario sobre el 13 (v2): «más centrado en el hora a hora»**
+- Si el tema es una progresión (horas, días, años, grados…), el NARRADOR dice cada hito en voz («Hora 16…», «Hora 24…») y cada hito es una escena que abre
+  como capítulo: el contador sale grande en el centro sobre un velo, rueda hasta el nuevo valor y vuela a su sitio (`hud.capitulo`). Más hitos y más concretos
+  (qué pasa exactamente en cada uno), no un resumen.
+- Siempre más detalle visual y de sonido que la versión anterior (el 13 v2 pasó de 108 a 156 efectos): cada cosa que aparece o cambia, suena.
+
+**Corrección del usuario sobre el 13 v2: el velo oscuro de la entrada de capítulo**
+- El velo/borrón que tapa la escena mientras el contador sale grande NO le gusta: entra y sale de golpe, sin transición de desenfocado a enfocado. Regla general:
+  **ningún desenfoque, velo ni oscurecido de fondo si no tiene una transición suave y bien hecha (entrada y salida graduales, con desenfoque real que se va
+  enfocando). Si no se puede hacer bien, no se pone.** Para los capítulos: o un desenfoque real animado (blur que baja de N px a 0 con easing), o nada.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
