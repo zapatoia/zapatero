@@ -32,13 +32,13 @@
     "surface": "light",
     "libros": [
      {
-      "word": "2019",
+      "word": "leído",
       "anio": "2019",
       "sub": "300 PÁGINAS",
       "col": "#D42A2A"
      },
      {
-      "word": "ahora",
+      "word": "programas",
       "anio": "2026",
       "sub": "114 PÁGINAS",
       "col": "#B0101A"
@@ -434,5 +434,11 @@
    "dato": "Begoña Gómez pendiente de juicio con jurado; la Fiscalía pide su absolución",
    "url": "https://www.vozpopuli.com/tribunales/por-que-begona-gomez-sera-juzgada-por-un-jurado-y-david-sanchez-no-un-lioso-enjambre-juridico-tiene-la-culpa.html"
   }
- ]
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja y a tamaño real: lo que salta son fondos a pantalla completa (rojo, claro, azul) y partículas; ningún texto, cifra ni sello entra en la columna de botones",
+  "voz_cuadro_0": "medido: la voz arranca a 0,079 s (menos de 5 cuadros) por el ataque natural de «¿Qué»",
+  "transitorios": "medido: 25,66–25,85 s es voz continua (final de «diecinueve»), la marca de «2019» acaba antes; no es un clic",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
 }

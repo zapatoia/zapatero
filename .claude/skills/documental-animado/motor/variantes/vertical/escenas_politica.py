@@ -306,26 +306,28 @@ def instalar(V, G):
 
     # ================================================================ EXPEDIENTES (causas)
     def e_expedientes(self, c, e, t, S):
-        s = e["spec"]; fs = s["fichas"]; n = len(fs); hh = 270; y0 = 660 - (n - 1) * hh / 2
+        s = e["spec"]; fs = s["fichas"]; hh = 270
+        nv = sum(_io(TI.clamp((t - self.ta(f["word"], e) + .1) / .45)) for f in fs)     # las fichas se recentran según van entrando
+        y0 = 660 - (max(1.0, nv) - 1) * hh / 2
         for i, f in enumerate(fs):
             dt = t - self.ta(f["word"], e)
             if dt < -.1: continue
             a = aparece(dt + .1, .15); x = CX + 80 * (1 - resorte(dt + .1, 8, 11)); y = y0 + i * hh
             # pestaña de carpeta
-            c.drawRRect(rrc(x - 330, y - 118, 180, 40, 10), relleno("#D9B36A", a))
-            r = rrc(x, y, 860, 230, 20); _papel(c, r, a, "#F6E7C4")
+            c.drawRRect(rrc(x - 310, y - 118, 180, 40, 10), relleno("#D9B36A", a))
+            r = rrc(x, y, 820, 230, 20); _papel(c, r, a, "#F6E7C4")
             col = f.get("col", "#E5322D")
-            c.drawRect(skia.Rect(x - 430, y - 115, x - 418, y + 115), relleno(col, a))
-            texto(c, f["nombre"], x - 395, y - 42, _ajusta(f["nombre"], "Inter", 800, 60, 470), TINTA, alinear="i", alfa=a)
-            if f.get("rol"): texto(c, f["rol"], x - 395, y + 14, fuente("Inter", 700, 28), GRIS, alinear="i", alfa=a)
-            if f.get("nota"): texto(c, f["nota"], x - 395, y + 62, _ajusta(f["nota"], "Inter", 600, 28, 470), "#4A5068", alinear="i", alfa=a)
+            c.drawRect(skia.Rect(x - 410, y - 115, x - 398, y + 115), relleno(col, a))
+            texto(c, f["nombre"], x - 375, y - 42, _ajusta(f["nombre"], "Inter", 800, 60, 440), TINTA, alinear="i", alfa=a)
+            if f.get("rol"): texto(c, f["rol"], x - 375, y + 14, fuente("Inter", 700, 28), GRIS, alinear="i", alfa=a)
+            if f.get("nota"): texto(c, f["nota"], x - 375, y + 62, _ajusta(f["nota"], "Inter", 600, 28, 440), "#4A5068", alinear="i", alfa=a)
             ds = t - self.ta(f.get("estado_word", f["word"]), e) - .05
             if ds > 0:
                 sc = 1.7 - .7 * TI.clamp(resorte(ds, 10, 14)); al = aparece(ds, .07)
                 lineas = f["estado"].split("\n")
                 fnt = fuente("Inter", 800, 38); wmax = max(ancho(l, fnt) for l in lineas)
-                k = min(1.0, 270 / wmax)
-                c.save(); c.translate(x + 270, y); c.rotate(-9); c.scale(sc * k, sc * k)
+                k = min(1.0, 225 / wmax)
+                c.save(); c.translate(x + 225, y); c.rotate(-9); c.scale(sc * k, sc * k)
                 bh = 60 + 46 * len(lineas); bw = wmax + 50
                 c.drawRRect(rrc(0, 0, bw, bh, 14), trazo(col, 7, .92 * al)); c.drawRRect(rrc(0, 0, bw - 20, bh - 20, 8), trazo(col, 2.5, .7 * al))
                 for j, l in enumerate(lineas): texto(c, l, 0, (j - (len(lineas) - 1) / 2) * 46, fnt, col, alfa=.92 * al)
