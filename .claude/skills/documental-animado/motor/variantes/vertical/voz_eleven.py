@@ -106,7 +106,6 @@ def armar(proy, g, t):
     m0 = mapa; mapa = lambda tt: m0(tt) / tempo
     cola = 20 * np.log10(np.sqrt(np.mean(y[-int(.05 * SR):] ** 2)) + 1e-12)
     k = int((.22 if cola > -45 else .03) * SR); y[-k:] *= np.linspace(1, 0, k) ** 1.5   # si la toma acaba con aire (sigue sonando), fundido natural
-    sf.write(str(proy / "voz.wav"), y, SR, subtype="FLOAT")
     pal = [dict(w=v["w"], s=round(mapa(v["s"]), 3), e=round(mapa(v["e"]), 3), linea=v["linea"]) for v in vis]
     # arranques: si la marca cae en silencio, se mueve al primer borde de voz real (la palabra entra cuando se dice)
     hop = int(.005 * SR); ev = 20 * np.log10(np.array([np.sqrt(np.mean(y[i:i + hop] ** 2) + 1e-12) for i in range(0, len(y) - hop, hop)]))
@@ -117,6 +116,16 @@ def armar(proy, g, t):
             if j is not None:
                 w["s"] = round(max(j * .005 - .01, w["s"]), 3); w["e"] = max(w["e"], round(w["s"] + .08, 3))
                 if k + 1 < len(pal) and pal[k + 1]["s"] < w["e"]: pal[k + 1]["s"] = w["e"]
+    # silencios pedidos (guion.json → lineas[].silencio, en s): se insertan tras la última palabra de la línea (juegos con espera)
+    for n, l in reversed(list(enumerate(g["lineas"], 1))):
+        sil_s = float(l.get("silencio", 0) or 0)
+        if sil_s <= 0: continue
+        ult = max(k for k, w in enumerate(pal) if w["linea"] == n)
+        sig = pal[ult + 1]["s"] if ult + 1 < len(pal) else len(y) / SR
+        p0 = min(sig, pal[ult]["e"] + .12); i0 = int(p0 * SR)
+        y = np.concatenate([y[:i0], np.zeros(int(sil_s * SR), y.dtype), y[i0:]])
+        for w in pal[ult + 1:]: w["s"] = round(w["s"] + sil_s, 3); w["e"] = round(w["e"] + sil_s, 3)
+    sf.write(str(proy / "voz.wav"), y, SR, subtype="FLOAT")
     (proy / "palabras.json").write_text(json.dumps(pal, ensure_ascii=False, indent=0), encoding="utf-8")
     print(f"voz.wav {len(y) / SR:.2f} s · {len(pal)} palabras · pausas recortadas {len(cortes) - 1} · {t['caracteres']} caracteres ({t['modelo']})")
 

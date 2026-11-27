@@ -1,0 +1,155 @@
+{
+ "titulo": "Pausa para marcar el penalti",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1000,
+ "pausa": 0.6,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "Este penalti solo entra si pausas el vídeo a tiempo.",
+   "tts": "Este penalti solo entra si pausas el vídeo a tiempo.",
+   "key": "a tiempo",
+   "escena": {
+    "tipo": "penalti",
+    "surface": "dark",
+    "demo_word": "Abajo",
+    "fin_word": "Comenta",
+    "rondas": [
+     {
+      "word": "uno>",
+      "espera": 2.0,
+      "lado": 1
+     },
+     {
+      "word": "amaga>",
+      "espera": 2.8,
+      "amagos": [
+       1.1
+      ],
+      "lado": -1
+     },
+     {
+      "word": "rápida>",
+      "espera": 0.8,
+      "lado": 1,
+      "vel": 1.25
+     },
+     {
+      "word": "veces>",
+      "espera": 3.2,
+      "amagos": [
+       0.9,
+       2.0
+      ],
+      "lado": -1
+     },
+     {
+      "word": "decisivo>",
+      "espera": 3.8,
+      "amagos": [
+       2.6
+      ],
+      "lado": 1,
+      "vel": 1.2
+     }
+    ],
+    "rotulos": [
+     {
+      "word": "@0",
+      "txt": "PAUSA CUANDO EL PORTERO SE TIRE"
+     },
+     {
+      "word": "Comenta",
+      "txt": "COMENTA TU MEJOR TIEMPO"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "¿A que no bajas de 0,2 segundos?",
+   "tts": "¿A que no bajas de cero coma dos segundos?",
+   "key": "0,2 segundos"
+  },
+  {
+   "texto": "Pausa justo cuando el portero se tire.",
+   "tts": "Pausa justo cuando el portero se tire.",
+   "key": "se tire"
+  },
+  {
+   "texto": "Abajo verás si es gol… o parada.",
+   "tts": "Abajo verás si es gol... o parada.",
+   "key": "parada"
+  },
+  {
+   "texto": "Ronda uno.",
+   "tts": "Ronda uno.",
+   "key": "uno",
+   "silencio": 3.6
+  },
+  {
+   "texto": "¿Qué te ha salido? Vamos a complicarlo.",
+   "tts": "¿Qué te ha salido? Vamos a complicarlo.",
+   "key": "complicarlo"
+  },
+  {
+   "texto": "Ronda dos. Ojo, que amaga.",
+   "tts": "Ronda dos. Ojo, que amaga.",
+   "key": "amaga",
+   "silencio": 4.4
+  },
+  {
+   "texto": "Si pausaste en el amago, te ha engañado.",
+   "tts": "Si pausaste en el amago, te ha engañado.",
+   "key": "engañado"
+  },
+  {
+   "texto": "Ronda tres. Esta va rápida.",
+   "tts": "Ronda tres. Esta va rápida.",
+   "key": "rápida",
+   "silencio": 2.4
+  },
+  {
+   "texto": "¿Te ha pillado? Normal.",
+   "tts": "¿Te ha pillado? Normal.",
+   "key": "Normal"
+  },
+  {
+   "texto": "Ronda cuatro. Ahora amaga dos veces.",
+   "tts": "Ronda cuatro. Ahora amaga dos veces.",
+   "key": "dos veces",
+   "silencio": 4.8
+  },
+  {
+   "texto": "Ya casi está.",
+   "tts": "Ya casi está.",
+   "key": "casi está"
+  },
+  {
+   "texto": "Última ronda. El penalti decisivo.",
+   "tts": "[firm] Última ronda. El penalti decisivo.",
+   "key": "decisivo",
+   "silencio": 5.4
+  },
+  {
+   "texto": "Comenta tu mejor tiempo.",
+   "tts": "Comenta tu mejor tiempo.",
+   "key": "mejor tiempo"
+  },
+  {
+   "texto": "Y si bajaste de 0,2… a la selección.",
+   "tts": "[playful] Y si bajaste de cero coma dos... a la selección.",
+   "key": "selección"
+  }
+ ],
+ "fuentes": [],
+ "outro": {
+  "texto": "Pásaselo a ese amigo que siempre falla los penaltis.",
+  "tts": "[playful] Pásaselo a ese amigo que siempre falla los penaltis.",
+  "key": "penaltis",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Tu amigo",
+  "salida": "06-penalti-reflejos-v2.mp4"
+ }
+}
