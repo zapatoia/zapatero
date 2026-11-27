@@ -122,7 +122,11 @@ def armar(proy, g, t):
         if sil_s <= 0: continue
         ult = max(k for k, w in enumerate(pal) if w["linea"] == n)
         sig = pal[ult + 1]["s"] if ult + 1 < len(pal) else len(y) / SR
-        p0 = min(sig, pal[ult]["e"] + .12); i0 = int(p0 * SR)
+        # punto de inserción: el primer tramo de 30 ms en silencio (< −48 dB) tras la palabra, para no cortar su cola
+        i0 = int(pal[ult]["e"] * SR); fin_b = int(sig * SR) if ult + 1 < len(pal) else len(y); v30 = int(.03 * SR); ref = np.abs(y).max() + 1e-9
+        while i0 + v30 < fin_b and 20 * np.log10(np.sqrt(np.mean(y[i0:i0 + v30] ** 2)) / ref + 1e-12) > -60: i0 += int(.005 * SR)
+        i0 = min(i0 + v30 // 2, fin_b); f6 = int(.06 * SR)
+        y = y.copy(); y[max(0, i0 - f6):i0] *= np.linspace(1, 0, min(f6, i0))
         y = np.concatenate([y[:i0], np.zeros(int(sil_s * SR), y.dtype), y[i0:]])
         for w in pal[ult + 1:]: w["s"] = round(w["s"] + sil_s, 3); w["e"] = round(w["e"] + sil_s, 3)
     sf.write(str(proy / "voz.wav"), y, SR, subtype="FLOAT")

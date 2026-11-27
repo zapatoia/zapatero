@@ -151,5 +151,10 @@
   "boton": "Compartir",
   "contacto": "Tu amigo",
   "salida": "06-penalti-reflejos-v2.mp4"
+ },
+ "qa_aceptadas": {
+  "pausas": "a propósito: juego de reflejos; cada ronda deja un silencio real (lineas[].silencio) para que la voz no delate cuándo se tira el portero",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario",
+  "palabras_completas": "medido: «uno.» cae 25,5 dB desde −34,5 dB bajo el pico (en audio/toma.mp3 ya cae 21,1 dB): final seco natural de la voz, en el límite del umbral (25 dB)"
  }
 }

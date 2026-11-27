@@ -1486,7 +1486,7 @@ class Vertical(ES.Estilo):
         rq = rrc(CX, 1042, wq, 76, 22); c.drawRRect(rq, relleno(colp, .95)); c.drawRRect(rq, trazo("#FFFFFF", 2, .25))
         texto(c, etq, CX, 1042, fp, "#0B1020" if estado != "espera" else "#FFFFFF")
         # escala
-        x0e, wt = 84, 872; ws = wt / 5; ye = 1122
+        x0e, wt = 82, 860; ws = wt / 5; ye = 1122
         for i, (a_, b_, col, nom, _) in enumerate(self.ESCALA_PEN):
             xx = x0e + i * ws; on = seg is self.ESCALA_PEN[i] and estado != "espera"
             c.drawRRect(rrc(xx + ws / 2, ye, ws - 6, 40, 8), relleno(col, .95 if on else .45))
