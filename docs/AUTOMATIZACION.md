@@ -35,7 +35,8 @@
 5. **Guardar:** `/save-session` breve (sesión `docs/sessions/AAAA-MM-DD-NN.md`) + log del día `docs/automatizacion/AAAA-MM-DD.md` (ideas elegidas y por
    qué, duración, créditos gastados y restantes, posts con fecha/hora y enlace del planner, avisos de Whisper y cómo se resolvieron, errores).
    Commit y **push a `main`**.
-6. **Mensaje final** (llega al usuario como notificación): 5–8 líneas: los 2 títulos, cuándo sale cada uno por red, créditos restantes estimados,
+6. Incluir en el log y en el mensaje, si es lunes, las conclusiones semanales de `ideas/aprendizaje.json`.
+7. **Mensaje final** (llega al usuario como notificación): 5–8 líneas: los 2 títulos, cuándo sale cada uno por red, créditos restantes estimados,
    y cualquier vídeo que no se programó y por qué.
 
 ## Si algo falla
