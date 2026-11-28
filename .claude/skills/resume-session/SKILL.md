@@ -16,6 +16,9 @@ description: Retoma el proyecto en un chat nuevo. Lee CLAUDE.md, docs/PIPELINE_S
 2. Ejecutar (solo lectura): `git branch --show-current`, `git status --short`, `git log --oneline -15`, `git tag -n`.
 3. Formato activo = documentales 9:16 (ver `CLAUDE.md`): comprobar en silencio `[ -x ~/.venvs/documental-animado/bin/python ] && echo kit-listo`; si no está, decir en el resumen que antes del próximo vídeo hay que correr `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min) y leer `.claude/skills/documental-animado/SKILL.md`. Solo si el usuario pide el formato 3D archivado:
    comprobar en silencio que el entorno está listo (sin instalar nada todavía): `python3 -c "import moderngl, numpy, PIL, scipy, soundfile, pyloudnorm"` y `[ -n "$ELEVENLABS_API_KEY" ] && echo clave-presente` (no imprimir la clave). Si falta algo, mencionarlo en el resumen con el comando de instalación de CLAUDE.md, pero no ejecutarlo.
+3b. **Automatización diaria:** leer `docs/AUTOMATIZACION.md` → «Estado». Si la tarea `trig_01LnEdK2H5uTmnoDDv9AAi9z` sigue pausada o
+   pendiente de activar, comprobarlo con `get_trigger` (solo lectura) y **recordárselo al usuario en el resumen, lo primero**: «la tarea diaria
+   está pausada; ¿la activo? (antes: el conector de Metricool añadido en claude.ai y la PR fusionada)». No activarla sin que el usuario lo diga.
 4. Responder en español, breve (máx. ~15 líneas):
    - **Dónde estamos**: versión actual, último vídeo, rama y si hay cambios sin commit.
    - **Pendiente**: lo que quedó abierto, incluidas las decisiones que tocan al usuario.
