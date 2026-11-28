@@ -1,0 +1,29 @@
+{
+  "_doc": "Base fija de la distribución (docs/DISTRIBUCION.md §5). Lo lee el skill /distribuir y se usa al escribir cada publicacion.json.",
+  "metricool": {"blogId": 8415557, "timezone": "Europe/Madrid"},
+  "huecos": ["15:30", "20:30"],
+  "margen_min_minutos": 60,
+  "url_video": "https://raw.githubusercontent.com/zapatoia/zapatero/{commit}/{ruta}",
+  "declarar_ia": {"instagram": true, "youtube": true, "tiktok": true},
+  "instagram": {
+    "hashtags_base": ["#parati", "#fyp"],
+    "hashtags_tema": 3,
+    "max_hashtags": 5,
+    "info": {"type": "REEL", "showReelOnFeed": true}
+  },
+  "youtube": {
+    "hashtags_base": ["#shorts", "#parati"],
+    "hashtags_tema": 2,
+    "titulo_max": 100,
+    "titulo_ideal": 60,
+    "tags": "5-8 palabras clave",
+    "info": {"type": "short", "privacy": "public", "madeForKids": false, "category": "EDUCATION"}
+  },
+  "tiktok": {
+    "hashtags_base": ["#parati", "#fyp", "#foryou", "#foryoupage"],
+    "hashtags_tema": 3,
+    "una_linea": true,
+    "info": {"privacyOption": "PUBLIC_TO_EVERYONE", "autoAddMusic": false}
+  },
+  "titulo_reglas": "Ligado al contenido, curiosidad sin clickbait falso, tono de colega del canal; variar la fórmula entre vídeos (pregunta / afirmación sorprendente / «qué pasaría si» / cifra); nada de «descubre», «increíble» ni emojis en cadena."
+}

@@ -1,6 +1,6 @@
 # DISTRIBUCIÓN — publicación automática de los vídeos (Metricool)
 
-> Creado en la sesión 2026-11-28-03. **Estado: investigado, decidido y conectado; aún no implementado ni probado.**
+> Creado en la sesión 2026-11-28-03. **Estado (sesión 2026-11-28-04): §5 APLICADO** (`config/redes.json`, `publicaciones/calendario.json`, skill `/distribuir`, líneas en `documental-animado` y `lote`). Primera distribución real: documental 21.
 > Nada de esto toca el motor de vídeo, el estilo ni los comandos de producción: es una capa nueva encima.
 
 ## 1. Objetivo del usuario
@@ -37,8 +37,8 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
 | YouTube | 2-dic-2026 15:30 | **2-dic-2026 20:30** |
 | TikTok | 2-dic-2026 20:30 | **3-dic-2026 15:30** (el usuario escribió «a las 3 del día 3» = turno de tarde, 15:30) |
 - Al crear `publicaciones/calendario.json`, sembrarlo con estos «ocupado_manual» para que nunca se programe antes.
-- Cada red lleva su propio cursor de huecos (TikTok va un turno por detrás de IG/YouTube). Confirmar con el usuario si le vale así
-  (mismo vídeo en distinto hueco según la red) o prefiere alinear las tres redes desde el 3-dic 15:30.
+- Cada red lleva su propio cursor de huecos (TikTok va un turno por detrás de IG/YouTube). **Confirmado por el usuario (28-11-04): no hace falta alinearlas**;
+  cada red avanza por su cursor en `publicaciones/calendario.json → redes.<red>.siguiente_libre`.
 - Antes de distribuir, preguntar siempre si ha programado algo más a mano desde la última vez.
 
 ## 4. Qué permite el conector (leído de sus definiciones)
@@ -89,10 +89,11 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
    5. Verificar con `getScheduledPosts` que están todos (red, hora, texto, medio) → informe: tabla del calendario + errores + enlaces.
    - Vídeos ya distribuidos (en `calendario.json`) no se repiten salvo petición expresa.
 
-## 6. Decisiones pendientes del usuario
-- **Declaración de IA** (`isAiGenerated` / `isAiGeneratedContent` / `isAigc`): las plataformas lo piden para contenido realista generado
-  o alterado con IA. Los vídeos son animación por código con la voz del usuario clonada en ElevenLabs. Propuesta: declararlo en TikTok
-  (más estricto con voz sintética) y decidir con el usuario en IG/YouTube.
+## 6. Decisiones del usuario
+- **Declaración de IA: SÍ en las tres redes** (decidido 2026-11-28-04): `isAiGenerated`, `isAiGeneratedContent`, `isAigc` = true.
+- **Redes no alineadas**: cada una en su siguiente hueco libre (decidido 2026-11-28-04).
+
+Pendientes:
 - TikTok automático o manual tras la prueba.
 - ¿Qué vídeos ya hechos (01–20) se publican primero? ¿Alguno ya está subido a mano en alguna red (para no duplicar)?
 - ¿Avisar a los suscriptores de YouTube en cada Short? (por defecto sí).
@@ -100,7 +101,7 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
 ## 7. Plan paso a paso (uno cada vez, verificando)
 1. ✅ Investigar y elegir plataforma → Metricool Starter.
 2. ✅ Conectar Metricool a Claude (usuario) y comprobar marca/redes (solo lectura).
-3. ⏭ **Siguiente**: aplicar los cambios del §5 (config, plantilla `publicacion.json`, líneas en SKILL.md, skill `distribuir`) con el OK del usuario,
+3. ✅ (28-11-04) Aplicar los cambios del §5 (config, plantilla `publicacion.json`, líneas en SKILL.md, skill `distribuir`) con el OK del usuario,
    y generar el `publicacion.json` de un vídeo ya hecho para que el usuario revise título y hashtags.
 4. **Prueba real controlada** con ese vídeo: un post de YouTube con `privacy: "private"` (o el que elija el usuario) en un hueco cercano →
    comprobar en `getScheduledPosts` y en la app de Metricool que el vídeo se ha descargado bien desde la URL raw y que el tipo es Short/Reel.

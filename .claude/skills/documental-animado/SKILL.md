@@ -67,6 +67,7 @@ No vuelvas a preguntar lo que ya está en `perfil.json`.
    para una versión rápida). Hace mezcla, master a −14 LUFS y ≤ −1 dBTP, hoja de cuadros y QA. El video queda en `<proyecto>/final/<proyecto>.mp4`.
 8. **QA:** `qa.json` debe decir `ok: true`. Abre `final/<proyecto>-hoja.jpg` y míralo completo con tus ojos.
 9. **Entrega:** abre el video (`open` en Mac, `start` en Windows) y di en pocas líneas qué hiciste, qué revisar y la descripción con fuentes.
+10. **Publicación:** junto a `descripcion.md`, genera `publicacion.json` (título, textos y hashtags por red; formato y reglas en `docs/DISTRIBUCION.md` §5 y `config/redes.json`). Para programarlo en redes: `/distribuir` (`.claude/skills/distribuir/SKILL.md`).
 
 Comandos del motor:
 ```
