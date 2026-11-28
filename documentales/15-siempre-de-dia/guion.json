@@ -6,53 +6,219 @@
  "pausa": 0.45,
  "sfx": true,
  "lineas": [
-  {"texto": "¿Qué pasaría si se apagara la noche para siempre?", "tts": "[curious] ¿Qué pasaría si se apagara la noche... para siempre?", "key": "para siempre",
-   "escena": {"tipo": "interruptor", "surface": "noche", "modo": "apaga", "flip_word": "apagara", "reloj_word": "24", "txt": "NOCHE", "reloj_txt": "24 H DE SOL"}},
-  {"texto": "El sol, ahí arriba, las 24 horas.", "tts": "El sol, ahí arriba... las veinticuatro horas.", "key": "las 24 horas"},
-
-  {"texto": "Lo primero que se rompería serías tú.", "tts": "Lo primero que se rompería... serías tú.", "key": "serías tú",
-   "escena": {"tipo": "cama", "surface": "clay", "modo": "normal", "cara": "o", "hora": "03:00", "hora_txt": "LAS 3 DE LA MADRUGADA"}},
-
-  {"texto": "Cuando oscurece, tu cerebro fabrica la hormona del sueño: la melatonina.", "tts": "Cuando oscurece, tu cerebro fabrica la hormona del sueño: la melatonina.", "key": "la melatonina",
-   "escena": {"tipo": "fabrica", "surface": "dark", "melatonina_word": "melatonina", "luz_word": "luz", "melatonina_txt": "MELATONINA"}},
-  {"texto": "Con luz todo el día, esa fábrica casi no arranca.", "tts": "Con luz todo el día, esa fábrica casi no arranca.", "key": "no arranca"},
-
-  {"texto": "Dormirías a trozos, y tu reloj interno iría a su aire.", "tts": "Dormirías a trozos... y tu reloj interno iría a su aire.", "key": "a su aire",
-   "escena": {"tipo": "cama", "surface": "clay", "modo": "trozos", "cara": "cansado", "reloj_word": "reloj", "reloj_txt": "RELOJ INTERNO"}},
-
-  {"texto": "Y no solo tú: murciélagos, búhos, polillas… un montón de animales viven de noche.", "tts": "Y no solo tú: murciélagos, búhos, polillas... un montón de animales viven de noche.", "key": "viven de noche",
-   "escena": {"tipo": "animales", "surface": "noche", "murcielago_word": "murciélagos", "buho_word": "búhos", "polilla_word": "polillas", "pill_word": "viven", "pill": "VIDA NOCTURNA"}},
-
-  {"texto": "Las luciérnagas se buscan con destellos. Con sol, ni se verían.", "tts": "Las luciérnagas se buscan con destellos. Con sol... ni se verían.", "key": "ni se verían",
-   "escena": {"tipo": "luciernagas", "surface": "dark", "sol_word": "sol", "pill": "CON SOL, NO SE VEN"}},
-
-  {"texto": "Muchos corales sueltan sus huevos a la vez, guiándose por la luna.", "tts": "Muchos corales sueltan sus huevos a la vez, guiándose por la luna.", "key": "por la luna",
-   "escena": {"tipo": "corales", "surface": "blue", "huevos_word": "huevos", "sin_word": "Sin", "pill": "TODOS A LA VEZ", "pill2": "SIN LUNA, SIN CITA"}},
-  {"texto": "Sin noche, perderían la cita.", "tts": "Sin noche, perderían la cita.", "key": "la cita"},
-
-  {"texto": "Hasta las plantas necesitan su noche: una tomatera con luz sin parar acaba con las hojas amarillas.", "tts": "Hasta las plantas necesitan su noche: una tomatera con luz sin parar... acaba con las hojas amarillas.", "key": "las hojas amarillas",
-   "escena": {"tipo": "tomatera", "surface": "dark", "noche_word": "luz", "hojas_word": "hojas", "pill": "LUZ SIN PARAR", "hojas_txt": "HOJAS DAÑADAS"}},
-
-  {"texto": "Y el calor: cada noche, la Tierra se refresca.", "tts": "Y el calor: cada noche, la Tierra se refresca.", "key": "se refresca",
-   "escena": {"tipo": "calor", "surface": "magma", "sin_word": "Sin", "eje_txt": "TEMPERATURA", "pill": "SIN NOCHE, NO SE ENFRÍA"}},
-  {"texto": "Sin noche, el calor se iría sumando, día tras día.", "tts": "Sin noche, el calor se iría sumando... día tras día.", "key": "día tras día"},
-
-  {"texto": "En el norte de Noruega ya lo viven: de mayo a julio, el sol no se pone.", "tts": "En el norte de Noruega ya lo viven: de mayo a julio, el sol no se pone.", "key": "no se pone",
-   "escena": {"tipo": "noruega", "surface": "blue", "norte_word": "Noruega", "sol_word": "mayo", "ciudad_txt": "TROMSØ", "sol_txt": "MAYO → JULIO: EL SOL NO SE PONE"}},
-
-  {"texto": "Y la gente duerme con cortinas que no dejan pasar ni un rayo.", "tts": "Y la gente duerme con cortinas que no dejan pasar ni un rayo.", "key": "ni un rayo",
-   "escena": {"tipo": "cama", "surface": "clay", "modo": "cortinas", "cara": "cansado", "cortina_word": "cortinas", "hora": "00:30", "cortina_txt": "CORTINAS OPACAS"}},
-
-  {"texto": "Pero para que fuera siempre de día, la Tierra tendría que enseñarle al Sol siempre la misma cara.", "tts": "Pero para que fuera siempre de día, la Tierra tendría que enseñarle al Sol... siempre la misma cara.", "key": "la misma cara",
-   "escena": {"tipo": "planeta", "surface": "dark", "cara_word": "misma", "luna_word": "Luna", "eterna_word": "eterna", "lados_word": "abrasado", "franja_word": "franja",
-              "cara_txt": "SIEMPRE LA MISMA CARA AL SOL", "eterna_txt": "NOCHE ETERNA", "abrasado_txt": "ABRASADO", "helado_txt": "HELADO", "franja_txt": "¿AQUÍ, LA VIDA?"}},
-  {"texto": "Igual que nos hace la Luna.", "tts": "Igual que nos hace la Luna.", "key": "la Luna"},
-  {"texto": "Y la otra mitad viviría en una noche eterna.", "tts": "Y la otra mitad... viviría en una noche eterna.", "key": "una noche eterna"},
-  {"texto": "Un lado abrasado, el otro helado, y la vida, se cree, solo cabría en la franja del atardecer.", "tts": "Un lado abrasado, el otro helado... y la vida, se cree, solo cabría en la franja del atardecer.", "key": "del atardecer"},
-
-  {"texto": "Así que, la próxima vez que te quejes de que anochece pronto…", "tts": "Así que, la próxima vez que te quejes de que anochece pronto...", "key": "anochece pronto",
-   "escena": {"tipo": "interruptor", "surface": "noche", "modo": "enciende", "flip_word": "acuérdate", "txt": "NOCHE"}},
-  {"texto": "acuérdate: la noche es el botón de apagar del planeta.", "tts": "[warm] acuérdate: la noche es el botón de apagar del planeta.", "key": "*del planeta"}
+  {
+   "texto": "¿Qué pasaría si se apagara la noche para siempre?",
+   "tts": "[curious] ¿Qué pasaría si se apagara la noche... para siempre?",
+   "key": "para siempre",
+   "escena": {
+    "tipo": "interruptor",
+    "surface": "noche",
+    "modo": "apaga",
+    "flip_word": "apagara",
+    "reloj_word": "24",
+    "txt": "NOCHE",
+    "reloj_txt": "24 H DE SOL"
+   }
+  },
+  {
+   "texto": "El sol, ahí arriba, las 24 horas.",
+   "tts": "El sol, ahí arriba... las veinticuatro horas.",
+   "key": "las 24 horas"
+  },
+  {
+   "texto": "Lo primero que se rompería serías tú.",
+   "tts": "Lo primero que se rompería... serías tú.",
+   "key": "serías tú",
+   "escena": {
+    "tipo": "cama",
+    "surface": "clay",
+    "modo": "normal",
+    "cara": "o",
+    "hora": "03:00",
+    "hora_txt": "LAS 3 DE LA MADRUGADA"
+   }
+  },
+  {
+   "texto": "Cuando oscurece, tu cerebro fabrica la hormona del sueño: la melatonina.",
+   "tts": "Cuando oscurece, tu cerebro fabrica la hormona del sueño: la melatonina.",
+   "key": "la melatonina",
+   "escena": {
+    "tipo": "fabrica",
+    "surface": "dark",
+    "melatonina_word": "melatonina",
+    "luz_word": "luz",
+    "melatonina_txt": "MELATONINA"
+   }
+  },
+  {
+   "texto": "Con luz todo el día, esa fábrica casi no arranca.",
+   "tts": "Con luz todo el día, esa fábrica casi no arranca.",
+   "key": "no arranca"
+  },
+  {
+   "texto": "Dormirías a trozos, y tu reloj interno iría a su aire.",
+   "tts": "Dormirías a trozos... y tu reloj interno iría a su aire.",
+   "key": "a su aire",
+   "escena": {
+    "tipo": "cama",
+    "surface": "clay",
+    "modo": "trozos",
+    "cara": "cansado",
+    "reloj_word": "reloj",
+    "reloj_txt": "RELOJ INTERNO"
+   }
+  },
+  {
+   "texto": "Y no solo tú: murciélagos, búhos, polillas… un montón de animales viven de noche.",
+   "tts": "Y no solo tú: murciélagos, búhos, polillas... un montón de animales viven de noche.",
+   "key": "viven de noche",
+   "escena": {
+    "tipo": "animales",
+    "surface": "noche",
+    "murcielago_word": "murciélagos",
+    "buho_word": "búhos",
+    "polilla_word": "polillas",
+    "pill_word": "viven",
+    "pill": "VIDA NOCTURNA"
+   }
+  },
+  {
+   "texto": "Las luciérnagas se buscan con destellos. Con sol, ni se verían.",
+   "tts": "Las luciérnagas se buscan con destellos. Con sol... ni se verían.",
+   "key": "ni se verían",
+   "escena": {
+    "tipo": "luciernagas",
+    "surface": "dark",
+    "sol_word": "sol",
+    "pill": "CON SOL, NO SE VEN"
+   }
+  },
+  {
+   "texto": "Muchos corales sueltan sus huevos a la vez, guiándose por la luna.",
+   "tts": "Muchos corales sueltan sus huevos a la vez, guiándose por la luna.",
+   "key": "por la luna",
+   "escena": {
+    "tipo": "corales",
+    "surface": "blue",
+    "huevos_word": "huevos",
+    "sin_word": "Sin",
+    "pill": "TODOS A LA VEZ",
+    "pill2": "SIN LUNA, SIN CITA"
+   }
+  },
+  {
+   "texto": "Sin noche, perderían la cita.",
+   "tts": "Sin noche, perderían la cita.",
+   "key": "la cita"
+  },
+  {
+   "texto": "Hasta las plantas necesitan su noche: una tomatera con luz sin parar acaba con las hojas amarillas.",
+   "tts": "Hasta las plantas necesitan su noche: una tomatera con luz sin parar... acaba con las hojas amarillas.",
+   "key": "las hojas amarillas",
+   "escena": {
+    "tipo": "tomatera",
+    "surface": "dark",
+    "noche_word": "luz",
+    "hojas_word": "hojas",
+    "pill": "LUZ SIN PARAR",
+    "hojas_txt": "HOJAS DAÑADAS"
+   }
+  },
+  {
+   "texto": "Y el calor: cada noche, la Tierra se refresca.",
+   "tts": "Y el calor: cada noche, la Tierra se refresca.",
+   "key": "se refresca",
+   "escena": {
+    "tipo": "calor",
+    "surface": "magma",
+    "sin_word": "Sin",
+    "eje_txt": "TEMPERATURA",
+    "pill": "SIN NOCHE, NO SE ENFRÍA"
+   }
+  },
+  {
+   "texto": "Sin noche, el calor se iría sumando, día tras día.",
+   "tts": "Sin noche, el calor se iría sumando... día tras día.",
+   "key": "día tras día"
+  },
+  {
+   "texto": "En el norte de Noruega ya lo viven: de mayo a julio, el sol no se pone.",
+   "tts": "En el norte de Noruega ya lo viven: de mayo a julio, el sol no se pone.",
+   "key": "no se pone",
+   "escena": {
+    "tipo": "noruega",
+    "surface": "blue",
+    "norte_word": "Noruega",
+    "sol_word": "mayo",
+    "ciudad_txt": "TROMSØ",
+    "sol_txt": "MAYO → JULIO: EL SOL NO SE PONE"
+   }
+  },
+  {
+   "texto": "Y la gente duerme con cortinas que no dejan pasar ni un rayo.",
+   "tts": "Y la gente duerme con cortinas que no dejan pasar ni un rayo.",
+   "key": "ni un rayo",
+   "escena": {
+    "tipo": "cama",
+    "surface": "clay",
+    "modo": "cortinas",
+    "cara": "cansado",
+    "cortina_word": "cortinas",
+    "hora": "00:30",
+    "cortina_txt": "CORTINAS OPACAS"
+   }
+  },
+  {
+   "texto": "Pero para que fuera siempre de día, la Tierra tendría que enseñarle al Sol siempre la misma cara.",
+   "tts": "Pero para que fuera siempre de día, la Tierra tendría que enseñarle al Sol... siempre la misma cara.",
+   "key": "la misma cara",
+   "escena": {
+    "tipo": "planeta",
+    "surface": "dark",
+    "cara_word": "misma",
+    "luna_word": "Luna",
+    "eterna_word": "eterna",
+    "lados_word": "abrasado",
+    "franja_word": "franja",
+    "cara_txt": "SIEMPRE LA MISMA CARA AL SOL",
+    "eterna_txt": "NOCHE ETERNA",
+    "abrasado_txt": "ABRASADO",
+    "helado_txt": "HELADO",
+    "franja_txt": "¿AQUÍ, LA VIDA?"
+   }
+  },
+  {
+   "texto": "Igual que nos hace la Luna.",
+   "tts": "Igual que nos hace la Luna.",
+   "key": "la Luna"
+  },
+  {
+   "texto": "Y la otra mitad viviría en una noche eterna.",
+   "tts": "Y la otra mitad... viviría en una noche eterna.",
+   "key": "una noche eterna"
+  },
+  {
+   "texto": "Un lado abrasado, el otro helado, y la vida, se cree, solo cabría en la franja del atardecer.",
+   "tts": "Un lado abrasado, el otro helado... y la vida, se cree, solo cabría en la franja del atardecer.",
+   "key": "del atardecer"
+  },
+  {
+   "texto": "Así que, la próxima vez que te quejes de que anochece pronto…",
+   "tts": "Así que, la próxima vez que te quejes de que anochece pronto...",
+   "key": "anochece pronto",
+   "escena": {
+    "tipo": "interruptor",
+    "surface": "noche",
+    "modo": "enciende",
+    "flip_word": "acuérdate",
+    "txt": "NOCHE"
+   }
+  },
+  {
+   "texto": "acuérdate: la noche es el botón de apagar del planeta.",
+   "tts": "[warm] acuérdate: la noche es el botón de apagar del planeta.",
+   "key": "*del planeta"
+  }
  ],
  "outro": {
   "texto": "Pásaselo a quien se queja de que anochece muy pronto.",
@@ -62,5 +228,29 @@
   "boton": "Compartir",
   "contacto": "El que odia el invierno",
   "salida": "15-siempre-de-dia-v2.mp4"
- }
+ },
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (cielo, dormitorio, mar, mapa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536",
+  "voz_cuadro_0": "medido: la voz arranca a 0,10 s con «¿Qué» suave por la etiqueta [curious] (misma toma pagada)",
+  "palabras_completas": "medido por correlación contra toma.mp3: la cola de «melatonina.» es idéntica a la toma original de ElevenLabs: final natural",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "fuentes": [
+  {
+   "dato": "Desove de corales guiado por la luna",
+   "url": "https://elifesciences.org/articles/09991"
+  },
+  {
+   "dato": "Sol de medianoche en Tromsø (20 may–22 jul)",
+   "url": "https://www.visittromso.no/midnight-sun"
+  },
+  {
+   "dato": "Tomate con luz continua: hojas dañadas",
+   "url": "https://edepot.wur.nl/312846"
+  },
+  {
+   "dato": "Franja del terminador habitable (Lobo et al. 2023)",
+   "url": "https://earthsky.org/space/terminator-zone-life-on-exoplanets/"
+  }
+ ]
 }
