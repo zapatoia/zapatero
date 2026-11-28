@@ -1,0 +1,223 @@
+{
+ "titulo": "La partida que nadie ha jugado jamás",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1300,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "La próxima partida de ajedrez que juegues…",
+   "tts": "[curious] La próxima partida de ajedrez que juegues...",
+   "key": "que juegues",
+   "escena": {
+    "tipo": "partida",
+    "surface": "dark",
+    "modo": "mueve",
+    "mueve_word": "juegues",
+    "cara": "feliz"
+   }
+  },
+  {
+   "texto": "seguramente no la ha jugado nadie. Jamás.",
+   "tts": "seguramente no la ha jugado nadie. Jamás.",
+   "key": "Jamás",
+   "escena": {
+    "tipo": "rejilla",
+    "surface": "noche",
+    "word": "@0.1",
+    "dur": 2.2,
+    "desde": 1.2,
+    "hasta": 26,
+    "label": "NADIE LA HA JUGADO",
+    "label_word": "nadie"
+   }
+  },
+  {
+   "texto": "Mira: en la primera jugada, las blancas tienen 20 opciones.",
+   "tts": "Mira: en la primera jugada, las blancas tienen veinte opciones.",
+   "key": "20 opciones",
+   "escena": {
+    "tipo": "tablero",
+    "surface": "dark",
+    "blancas_word": "20",
+    "negras_word": "negras"
+   }
+  },
+  {
+   "texto": "Las negras, otras 20.",
+   "tts": "Las negras, otras veinte.",
+   "key": "otras 20"
+  },
+  {
+   "texto": "Tras un solo turno, las partidas distintas ya son 400.",
+   "tts": "Tras un solo turno, las partidas distintas ya son cuatrocientas.",
+   "key": "ya son 400",
+   "escena": {
+    "tipo": "rejilla",
+    "surface": "noche",
+    "word": "Tras",
+    "dur": 1.6,
+    "desde": 2,
+    "hasta": 20,
+    "valor_word": "400",
+    "valor_desde": 20,
+    "valor": 400,
+    "dur_valor": 0.9
+   }
+  },
+  {
+   "texto": "Con cuatro jugadas cada uno, unos 85.000 millones.",
+   "tts": "Con cuatro jugadas cada uno... unos ochenta y cinco mil millones.",
+   "key": "85.000 millones",
+   "escena": {
+    "tipo": "rejilla",
+    "surface": "dark",
+    "word": "@0",
+    "dur": 3.0,
+    "desde": 20,
+    "hasta": 260,
+    "valor_word": "85.000",
+    "valor_desde": 400,
+    "valor": 84998978956,
+    "dur_valor": 1.6
+   }
+  },
+  {
+   "texto": "Hoy se juegan unos 20 millones de partidas al día en internet.",
+   "tts": "Hoy se juegan unos veinte millones de partidas al día en internet.",
+   "key": "en internet",
+   "escena": {
+    "tipo": "ritmo",
+    "surface": "blue",
+    "anios_word": "ritmo",
+    "anios": 12,
+    "dia_txt": "≈ 20 MILLONES DE PARTIDAS AL DÍA",
+    "anios_txt": "CASI 12 AÑOS SIN PARAR"
+   }
+  },
+  {
+   "texto": "A ese ritmo, probarlas todas llevaría casi 12 años.",
+   "tts": "A ese ritmo, probarlas todas llevaría casi doce años.",
+   "key": "casi 12 años"
+  },
+  {
+   "texto": "Y con cinco jugadas cada uno, 9.500 años.",
+   "tts": "Y con cinco jugadas cada uno... nueve mil quinientos años.",
+   "key": "9.500 años",
+   "escena": {
+    "tipo": "piramide",
+    "surface": "clay",
+    "piramide_word": "doble",
+    "ajedrez_txt": "9.500 AÑOS PROBANDO PARTIDAS",
+    "piramide_txt": "PIRÁMIDES: ≈ 4.500 AÑOS"
+   }
+  },
+  {
+   "texto": "Más del doble de lo que llevan en pie las pirámides.",
+   "tts": "Más del doble de lo que llevan en pie las pirámides.",
+   "key": "las pirámides"
+  },
+  {
+   "texto": "Y una partida normal dura unas 40 jugadas.",
+   "tts": "Y una partida normal dura unas cuarenta jugadas.",
+   "key": "40 jugadas",
+   "escena": {
+    "tipo": "tablero",
+    "surface": "dark",
+    "modo": "medio",
+    "jugadas_word": "40",
+    "jugadas": 40
+   }
+  },
+  {
+   "texto": "Las partidas posibles se calculan en un 1 con 120 ceros.",
+   "tts": "Las partidas posibles se calculan en un uno con ciento veinte ceros.",
+   "key": "120 ceros",
+   "escena": {
+    "tipo": "ceros",
+    "surface": "noche",
+    "partidas_word": "1",
+    "atomos_word": "átomos",
+    "mas_word": "muchísimas",
+    "partidas_txt": "PARTIDAS POSIBLES",
+    "atomos_txt": "ÁTOMOS DEL UNIVERSO",
+    "mas_txt": "MUCHAS MÁS PARTIDAS QUE ÁTOMOS"
+   }
+  },
+  {
+   "texto": "Los átomos de todo el universo: un 1 con 80.",
+   "tts": "Los átomos de todo el universo: un uno con ochenta.",
+   "key": "un 1 con 80"
+  },
+  {
+   "texto": "Hay muchísimas más partidas que átomos.",
+   "tts": "Hay muchísimas más partidas... que átomos.",
+   "key": "que átomos"
+  },
+  {
+   "texto": "Así que, pasada la jugada 20, lo más seguro es que estés jugando una partida que no ha visto nadie.",
+   "tts": "Así que, pasada la jugada veinte, lo más seguro es que estés jugando una partida que no ha visto nadie.",
+   "key": "no ha visto nadie",
+   "escena": {
+    "tipo": "rejilla",
+    "surface": "dark",
+    "word": "@0",
+    "dur": 3.5,
+    "desde": 60,
+    "hasta": 1.3,
+    "destaca": true,
+    "destaca_word": "partida"
+   }
+  },
+  {
+   "texto": "Una obra de arte única… que vas a perder igual.",
+   "tts": "[playful] Una obra de arte única... que vas a perder igual.",
+   "key": "*perder igual",
+   "escena": {
+    "tipo": "partida",
+    "surface": "noche",
+    "modo": "pierde",
+    "mate_word": "perder",
+    "mate_txt": "JAQUE MATE"
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a ese amigo que siempre te gana al ajedrez.",
+  "tts": "[playful] Pásaselo a ese amigo que siempre te gana al ajedrez.",
+  "key": "al ajedrez",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "El que siempre gana",
+  "salida": "16-partida-unica-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Partidas distintas tras 2, 8 y 10 medias jugadas: 400; 84.998.978.956; 69.352.859.712.417 (perft)",
+   "url": "https://www.chessprogramming.org/Perft_Results"
+  },
+  {
+   "dato": "Chess.com: entre 15 y 20 millones de partidas en un día normal",
+   "url": "https://www.chess.com/terms/chess-stats"
+  },
+  {
+   "dato": "Número de Shannon: unas 10^120 partidas posibles (partida típica de 40 jugadas)",
+   "url": "https://en.wikipedia.org/wiki/Shannon_number"
+  },
+  {
+   "dato": "Átomos del universo observable: ~10^80",
+   "url": "https://en.wikipedia.org/wiki/Observable_universe#Matter_content"
+  },
+  {
+   "dato": "Gran Pirámide de Guiza: ~2560 a. C. (≈ 4.500 años)",
+   "url": "https://en.wikipedia.org/wiki/Great_Pyramid_of_Giza"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (mosaico de tableros, mesa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536",
+  "voz_cuadro_0": "medido: la voz de la frase regrabada arranca a 0,018 s (1 ms después del primer cuadro), con la marca de «La» en 0",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "parche_voz": "Línea 1 regrabada a petición del usuario (en la toma corrida «juegues» sonaba raro; la 1.ª regrabación, con [curious] y «...», salió muy lenta: audio/parche_l1_v1.*). Versión buena: audio/parche_l1.mp3, texto «La próxima partida de ajedrez que juegues...» sin etiqueta, encajada con audio/parche_l1.py en la pausa tras «juegues…». Toma original: audio/voz_original.wav + audio/palabras_original.json. No correr voz_eleven.py armar (desharía el parche)."
+}

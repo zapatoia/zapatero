@@ -1,0 +1,248 @@
+{
+ "video": "/home/user/zapatero/documentales/15-siempre-de-dia/final/15-siempre-de-dia.mp4",
+ "duracion_s": 83.08,
+ "nivel": {
+  "lufs": -14.2,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 75.9,
+   "abajo": 23.5,
+   "derecha": 51.5
+  },
+  "tramo_s": {
+   "arriba": 21.0,
+   "abajo": 8.75,
+   "derecha": 13.0
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (cielo, dormitorio, mar, mapa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.1031,
+  "pico_cuadro0_db": -33.1,
+  "primera_palabra_s": 0.112,
+  "video_cuadro0_rms_db": -33.4,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,10 s con «¿Qué» suave por la etiqueta [curious] (misma toma pagada)"
+ },
+ "pausas": {
+  "pausa_max_s": 0.445,
+  "hueco_entre_marcas_s": 0.545,
+  "fin_voz_s": 82.69,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 29,
+  "peor": {
+   "w": "melatonina.",
+   "t": 14.381,
+   "caida_db": 25.9,
+   "desde_db": -35.6
+  },
+  "malas": [
+   {
+    "w": "melatonina.",
+    "t": 14.381,
+    "caida_db": 25.9,
+    "desde_db": -35.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "siempre?",
+    "t": 3.06,
+    "caida_db": 14.3,
+    "desde_db": -22.7
+   },
+   {
+    "w": "horas.",
+    "t": 6.713,
+    "caida_db": 11.5,
+    "desde_db": -30.8
+   },
+   {
+    "w": "tú.",
+    "t": 9.735,
+    "caida_db": 16.5,
+    "desde_db": -36.9
+   },
+   {
+    "w": "sueño:",
+    "t": 13.175,
+    "caida_db": 0.4,
+    "desde_db": -16.9
+   },
+   {
+    "w": "melatonina.",
+    "t": 14.381,
+    "caida_db": 25.9,
+    "desde_db": -35.6
+   },
+   {
+    "w": "arranca.",
+    "t": 17.064,
+    "caida_db": 17.1,
+    "desde_db": -29.6
+   },
+   {
+    "w": "aire.",
+    "t": 20.574,
+    "caida_db": 21.1,
+    "desde_db": -28.3
+   },
+   {
+    "w": "tú:",
+    "t": 21.959,
+    "caida_db": 0.0,
+    "desde_db": -58.2
+   },
+   {
+    "w": "polillas…",
+    "t": 24.659,
+    "caida_db": 17.9,
+    "desde_db": -37.9
+   },
+   {
+    "w": "noche.",
+    "t": 26.446,
+    "caida_db": 14.9,
+    "desde_db": -29.6
+   },
+   {
+    "w": "destellos.",
+    "t": 29.028,
+    "caida_db": 19.0,
+    "desde_db": -39.7
+   },
+   {
+    "w": "verían.",
+    "t": 30.915,
+    "caida_db": 23.2,
+    "desde_db": -32.0
+   },
+   {
+    "w": "luna.",
+    "t": 34.795,
+    "caida_db": 22.0,
+    "desde_db": -39.5
+   },
+   {
+    "w": "cita.",
+    "t": 37.105,
+    "caida_db": 0.0,
+    "desde_db": -50.5
+   },
+   {
+    "w": "noche:",
+    "t": 39.35,
+    "caida_db": 0.0,
+    "desde_db": -65.1
+   },
+   {
+    "w": "amarillas.",
+    "t": 43.092,
+    "caida_db": 13.4,
+    "desde_db": -35.5
+   },
+   {
+    "w": "calor:",
+    "t": 44.506,
+    "caida_db": 20.4,
+    "desde_db": -39.4
+   },
+   {
+    "w": "refresca.",
+    "t": 46.504,
+    "caida_db": 20.3,
+    "desde_db": -28.4
+   },
+   {
+    "w": "día.",
+    "t": 50.337,
+    "caida_db": 11.4,
+    "desde_db": -31.1
+   },
+   {
+    "w": "viven:",
+    "t": 52.55,
+    "caida_db": 0.0,
+    "desde_db": -48.6
+   },
+   {
+    "w": "pone.",
+    "t": 54.614,
+    "caida_db": 19.6,
+    "desde_db": -34.7
+   },
+   {
+    "w": "rayo.",
+    "t": 58.057,
+    "caida_db": 19.1,
+    "desde_db": -38.3
+   },
+   {
+    "w": "cara.",
+    "t": 64.131,
+    "caida_db": 18.3,
+    "desde_db": -30.9
+   },
+   {
+    "w": "Luna.",
+    "t": 65.811,
+    "caida_db": 14.9,
+    "desde_db": -36.7
+   },
+   {
+    "w": "eterna.",
+    "t": 68.89,
+    "caida_db": 16.1,
+    "desde_db": -25.3
+   },
+   {
+    "w": "atardecer.",
+    "t": 74.93,
+    "caida_db": 18.4,
+    "desde_db": -16.4
+   },
+   {
+    "w": "pronto…",
+    "t": 79.021,
+    "caida_db": 9.0,
+    "desde_db": -11.1
+   },
+   {
+    "w": "acuérdate:",
+    "t": 79.971,
+    "caida_db": 19.1,
+    "desde_db": -38.5
+   },
+   {
+    "w": "planeta.",
+    "t": 82.614,
+    "caida_db": 9.6,
+    "desde_db": -34.1
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido por correlación contra toma.mp3: la cola de «melatonina.» es idéntica a la toma original de ElevenLabs: final natural"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

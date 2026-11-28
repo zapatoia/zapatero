@@ -1,0 +1,488 @@
+{
+ "video": "/home/user/zapatero/documentales/14-agujero-tierra/final/14-agujero-tierra.mp4",
+ "duracion_s": 149.08,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 100.0,
+   "abajo": 35.2,
+   "derecha": 99.8
+  },
+  "tramo_s": {
+   "arriba": 149.0,
+   "abajo": 12.25,
+   "derecha": 115.5
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (cielo, paredes del túnel, globo con estrellas); ningún texto ni pastilla entra en la columna de botones ni por debajo de y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0369,
+  "pico_cuadro0_db": -42.2,
+  "primera_palabra_s": 0.169,
+  "video_cuadro0_rms_db": -38.3,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,037 s; «Imagina» entra suave por la etiqueta [curious] (misma toma pagada)"
+ },
+ "pausas": {
+  "pausa_max_s": 0.46,
+  "hueco_entre_marcas_s": 0.562,
+  "fin_voz_s": 148.683,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 67,
+  "peor": {
+   "w": "hora.",
+   "t": 94.002,
+   "caida_db": 30.0,
+   "desde_db": -30.4
+  },
+  "malas": [
+   {
+    "w": "17.",
+    "t": 81.094,
+    "caida_db": 25.4,
+    "desde_db": -39.2
+   },
+   {
+    "w": "hora.",
+    "t": 94.002,
+    "caida_db": 30.0,
+    "desde_db": -30.4
+   },
+   {
+    "w": "vale:",
+    "t": 146.205,
+    "caida_db": 25.7,
+    "desde_db": -37.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "entera.",
+    "t": 2.73,
+    "caida_db": 12.1,
+    "desde_db": -35.6
+   },
+   {
+    "w": "saltas.",
+    "t": 3.674,
+    "caida_db": 22.9,
+    "desde_db": -35.9
+   },
+   {
+    "w": "planeta:",
+    "t": 7.032,
+    "caida_db": 0.0,
+    "desde_db": -56.5
+   },
+   {
+    "w": "Weber.",
+    "t": 10.412,
+    "caida_db": 14.0,
+    "desde_db": -34.4
+   },
+   {
+    "w": "kilómetros.",
+    "t": 14.048,
+    "caida_db": 0.0,
+    "desde_db": -44.6
+   },
+   {
+    "w": "cruzarlo?",
+    "t": 15.651,
+    "caida_db": 21.6,
+    "desde_db": -27.6
+   },
+   {
+    "w": "segundo.",
+    "t": 17.788,
+    "caida_db": 0.0,
+    "desde_db": -54.1
+   },
+   {
+    "w": "todo.",
+    "t": 22.098,
+    "caida_db": 0.0,
+    "desde_db": -65.6
+   },
+   {
+    "w": "10.",
+    "t": 23.069,
+    "caida_db": 15.1,
+    "desde_db": -17.2
+   },
+   {
+    "w": "1.",
+    "t": 25.558,
+    "caida_db": 0.0,
+    "desde_db": -54.1
+   },
+   {
+    "w": "28.",
+    "t": 26.966,
+    "caida_db": 21.0,
+    "desde_db": -38.2
+   },
+   {
+    "w": "mundo.",
+    "t": 30.714,
+    "caida_db": 6.6,
+    "desde_db": -37.9
+   },
+   {
+    "w": "avión.",
+    "t": 32.633,
+    "caida_db": 0.0,
+    "desde_db": -57.7
+   },
+   {
+    "w": "50.",
+    "t": 34.018,
+    "caida_db": 13.5,
+    "desde_db": -26.6
+   },
+   {
+    "w": "kilómetros:",
+    "t": 35.643,
+    "caida_db": 0.0,
+    "desde_db": -50.5
+   },
+   {
+    "w": "historia.",
+    "t": 37.723,
+    "caida_db": 0.0,
+    "desde_db": -53.0
+   },
+   {
+    "w": "años.",
+    "t": 40.848,
+    "caida_db": 0.0,
+    "desde_db": -46.2
+   },
+   {
+    "w": "quemaba:",
+    "t": 43.762,
+    "caida_db": 0.1,
+    "desde_db": -25.3
+   },
+   {
+    "w": "grados.",
+    "t": 45.228,
+    "caida_db": 0.0,
+    "desde_db": -56.6
+   },
+   {
+    "w": "segundos.",
+    "t": 47.089,
+    "caida_db": 17.0,
+    "desde_db": -37.1
+   },
+   {
+    "w": "medio.",
+    "t": 48.611,
+    "caida_db": 10.2,
+    "desde_db": -33.2
+   },
+   {
+    "w": "corteza.",
+    "t": 50.275,
+    "caida_db": 19.0,
+    "desde_db": -39.5
+   },
+   {
+    "w": "capa.",
+    "t": 54.289,
+    "caida_db": 21.5,
+    "desde_db": -39.0
+   },
+   {
+    "w": "manzana.",
+    "t": 57.838,
+    "caida_db": 0.0,
+    "desde_db": -59.9
+   },
+   {
+    "w": "5.",
+    "t": 58.968,
+    "caida_db": 16.9,
+    "desde_db": -25.2
+   },
+   {
+    "w": "manto:",
+    "t": 60.019,
+    "caida_db": 16.8,
+    "desde_db": -33.4
+   },
+   {
+    "w": "grados.",
+    "t": 62.078,
+    "caida_db": 0.0,
+    "desde_db": -54.3
+   },
+   {
+    "w": "lava:",
+    "t": 63.373,
+    "caida_db": 0.0,
+    "desde_db": -61.5
+   },
+   {
+    "w": "espeso.",
+    "t": 66.893,
+    "caida_db": 0.0,
+    "desde_db": -50.9
+   },
+   {
+    "w": "13.",
+    "t": 68.152,
+    "caida_db": 0.0,
+    "desde_db": -56.0
+   },
+   {
+    "w": "núcleo:",
+    "t": 69.473,
+    "caida_db": 0.0,
+    "desde_db": -62.5
+   },
+   {
+    "w": "líquido.",
+    "t": 71.314,
+    "caida_db": 22.4,
+    "desde_db": -36.4
+   },
+   {
+    "w": "magnético:",
+    "t": 74.174,
+    "caida_db": 17.5,
+    "desde_db": -40.0
+   },
+   {
+    "w": "brújula.",
+    "t": 75.773,
+    "caida_db": 0.0,
+    "desde_db": -53.6
+   },
+   {
+    "w": "superficie.",
+    "t": 79.622,
+    "caida_db": 0.0,
+    "desde_db": -59.6
+   },
+   {
+    "w": "17.",
+    "t": 81.094,
+    "caida_db": 25.4,
+    "desde_db": -39.2
+   },
+   {
+    "w": "interno:",
+    "t": 82.813,
+    "caida_db": 0.0,
+    "desde_db": -57.4
+   },
+   {
+    "w": "Plutón.",
+    "t": 85.693,
+    "caida_db": 0.0,
+    "desde_db": -57.9
+   },
+   {
+    "w": "Sol.",
+    "t": 88.482,
+    "caida_db": 0.0,
+    "desde_db": -53.2
+   },
+   {
+    "w": "19.",
+    "t": 89.887,
+    "caida_db": 19.2,
+    "desde_db": -32.6
+   },
+   {
+    "w": "Tierra.",
+    "t": 91.541,
+    "caida_db": 14.9,
+    "desde_db": -35.2
+   },
+   {
+    "w": "hora.",
+    "t": 94.002,
+    "caida_db": 30.0,
+    "desde_db": -30.4
+   },
+   {
+    "w": "minuto.",
+    "t": 96.932,
+    "caida_db": 0.0,
+    "desde_db": -47.8
+   },
+   {
+    "w": "cero:",
+    "t": 98.923,
+    "caida_db": 0.0,
+    "desde_db": -52.7
+   },
+   {
+    "w": "lados.",
+    "t": 102.157,
+    "caida_db": 18.7,
+    "desde_db": -34.6
+   },
+   {
+    "w": "revés:",
+    "t": 104.156,
+    "caida_db": 1.4,
+    "desde_db": -27.6
+   },
+   {
+    "w": "frenando.",
+    "t": 105.826,
+    "caida_db": 12.6,
+    "desde_db": -39.9
+   },
+   {
+    "w": "38.",
+    "t": 107.458,
+    "caida_db": 21.5,
+    "desde_db": -37.5
+   },
+   {
+    "w": "Zelanda,",
+    "t": 109.623,
+    "caida_db": 15.9,
+    "desde_db": -22.4
+   },
+   {
+    "w": "cero.",
+    "t": 111.273,
+    "caida_db": 0.0,
+    "desde_db": -46.1
+   },
+   {
+    "w": "borde.",
+    "t": 113.813,
+    "caida_db": 0.0,
+    "desde_db": -63.1
+   },
+   {
+    "w": "oveja:",
+    "t": 115.383,
+    "caida_db": 0.0,
+    "desde_db": -64.6
+   },
+   {
+    "w": "personas.",
+    "t": 117.283,
+    "caida_db": 17.6,
+    "desde_db": -25.0
+   },
+   {
+    "w": "caer.",
+    "t": 119.492,
+    "caida_db": 19.4,
+    "desde_db": -31.6
+   },
+   {
+    "w": "viniendo:",
+    "t": 122.242,
+    "caida_db": 0.0,
+    "desde_db": -60.0
+   },
+   {
+    "w": "cuarto.",
+    "t": 124.802,
+    "caida_db": 1.4,
+    "desde_db": -4.6
+   },
+   {
+    "w": "todo:",
+    "t": 127.152,
+    "caida_db": 0.0,
+    "desde_db": -53.2
+   },
+   {
+    "w": "aire.",
+    "t": 127.813,
+    "caida_db": 17.4,
+    "desde_db": -29.2
+   },
+   {
+    "w": "paracaidista.",
+    "t": 131.972,
+    "caida_db": 0.0,
+    "desde_db": -54.7
+   },
+   {
+    "w": "minutos:",
+    "t": 133.673,
+    "caida_db": 0.0,
+    "desde_db": -54.5
+   },
+   {
+    "w": "día.",
+    "t": 136.632,
+    "caida_db": 0.0,
+    "desde_db": -62.8
+   },
+   {
+    "w": "saldrías:",
+    "t": 137.923,
+    "caida_db": 0.0,
+    "desde_db": -55.4
+   },
+   {
+    "w": "grados.",
+    "t": 142.083,
+    "caida_db": 0.0,
+    "desde_db": -48.0
+   },
+   {
+    "w": "mundo,",
+    "t": 145.044,
+    "caida_db": 12.5,
+    "desde_db": -35.2
+   },
+   {
+    "w": "vale:",
+    "t": 146.205,
+    "caida_db": 25.7,
+    "desde_db": -37.6
+   },
+   {
+    "w": "minutos.",
+    "t": 147.41,
+    "caida_db": 20.2,
+    "desde_db": -37.1
+   },
+   {
+    "w": "aire.",
+    "t": 148.562,
+    "caida_db": 0.0,
+    "desde_db": -59.1
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido por correlación (coincidencia 1,0) contra toma.mp3: las colas de «17.», «hora.» y «vale:» son idénticas a la toma original de ElevenLabs: final natural, no hay corte"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}
