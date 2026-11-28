@@ -1607,6 +1607,8 @@ from escenas_tierra import instalar as _inst_tierra          # noqa: E402
 _inst_tierra(Vertical, globals())
 from escenas_dia import instalar as _inst_dia          # noqa: E402
 _inst_dia(Vertical, globals())
+from escenas_ajedrez import instalar as _inst_ajedrez          # noqa: E402
+_inst_ajedrez(Vertical, globals())
 
 
 def escenas(e):

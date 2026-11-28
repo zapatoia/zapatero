@@ -1,0 +1,186 @@
+{
+ "video": "/home/user/zapatero/documentales/16-partida-unica/final/16-partida-unica.mp4",
+ "duracion_s": 59.69,
+ "nivel": {
+  "lufs": -14.0,
+  "dbtp": -1.1,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 37.7,
+   "abajo": 23.0,
+   "derecha": 89.5
+  },
+  "tramo_s": {
+   "arriba": 13.0,
+   "abajo": 5.0,
+   "derecha": 30.5
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (mosaico de tableros, mesa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0084,
+  "pico_cuadro0_db": -19.4,
+  "primera_palabra_s": 0.085,
+  "video_cuadro0_rms_db": -24.1,
+  "ok": false,
+  "aceptada": "medido: la voz suena desde el cuadro 0 (arranque a 0,008 s, −19 dB en el primer cuadro); solo la marca de «La» cae a 0,085 s por la alineación de ElevenLabs"
+ },
+ "pausas": {
+  "pausa_max_s": 0.445,
+  "hueco_entre_marcas_s": 0.497,
+  "fin_voz_s": 59.293,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 20,
+  "peor": {
+   "w": "nadie.",
+   "t": 4.774,
+   "caida_db": 23.0,
+   "desde_db": -22.2
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "juegues…",
+    "t": 2.801,
+    "caida_db": 5.5,
+    "desde_db": -26.2
+   },
+   {
+    "w": "nadie.",
+    "t": 4.774,
+    "caida_db": 23.0,
+    "desde_db": -22.2
+   },
+   {
+    "w": "Jamás.",
+    "t": 6.033,
+    "caida_db": 7.7,
+    "desde_db": -27.2
+   },
+   {
+    "w": "Mira:",
+    "t": 6.645,
+    "caida_db": 17.3,
+    "desde_db": -10.0
+   },
+   {
+    "w": "opciones.",
+    "t": 10.518,
+    "caida_db": 15.4,
+    "desde_db": -34.5
+   },
+   {
+    "w": "20.",
+    "t": 12.53,
+    "caida_db": 17.7,
+    "desde_db": -29.4
+   },
+   {
+    "w": "400.",
+    "t": 17.308,
+    "caida_db": 13.9,
+    "desde_db": -32.0
+   },
+   {
+    "w": "millones.",
+    "t": 21.917,
+    "caida_db": 15.3,
+    "desde_db": -32.0
+   },
+   {
+    "w": "internet.",
+    "t": 25.276,
+    "caida_db": 18.3,
+    "desde_db": -18.8
+   },
+   {
+    "w": "años.",
+    "t": 28.835,
+    "caida_db": 12.6,
+    "desde_db": -28.4
+   },
+   {
+    "w": "años.",
+    "t": 33.181,
+    "caida_db": 19.8,
+    "desde_db": -31.7
+   },
+   {
+    "w": "pirámides.",
+    "t": 35.997,
+    "caida_db": 11.7,
+    "desde_db": -34.7
+   },
+   {
+    "w": "jugadas.",
+    "t": 38.912,
+    "caida_db": 10.4,
+    "desde_db": -32.5
+   },
+   {
+    "w": "ceros.",
+    "t": 43.477,
+    "caida_db": 16.1,
+    "desde_db": -24.3
+   },
+   {
+    "w": "universo:",
+    "t": 45.773,
+    "caida_db": 0.0,
+    "desde_db": -58.7
+   },
+   {
+    "w": "80.",
+    "t": 47.478,
+    "caida_db": 21.1,
+    "desde_db": -39.4
+   },
+   {
+    "w": "átomos.",
+    "t": 50.547,
+    "caida_db": 16.2,
+    "desde_db": -39.7
+   },
+   {
+    "w": "nadie.",
+    "t": 56.093,
+    "caida_db": 18.3,
+    "desde_db": -39.1
+   },
+   {
+    "w": "única…",
+    "t": 57.973,
+    "caida_db": 0.0,
+    "desde_db": -64.7
+   },
+   {
+    "w": "igual.",
+    "t": 59.228,
+    "caida_db": 14.1,
+    "desde_db": -39.4
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}
