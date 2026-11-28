@@ -1,0 +1,6 @@
+{
+ "_doc": "Cuenta de créditos de ElevenLabs para la automatización diaria (la clave no deja leer el saldo). El usuario puede corregir 'restantes_estimados' cuando quiera.",
+ "plan": "Creator", "mensual": 100000,
+ "restantes_estimados": 62000, "fecha_dato": "2026-11-28", "renovacion": null,
+ "gastos": []
+}
