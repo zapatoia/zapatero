@@ -165,58 +165,67 @@
  ],
  "reserva": [
   {
-   "titulo": "¿Por qué se pegan los bostezos?",
+   "titulo": "¿Por qué hay atascos sin ningún accidente?",
+   "puntos": 84,
+   "categoria": "física cotidiana",
+   "formula": "por qué",
+   "senal": "ahora_lo_pillo 868.993 (~870×)",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "¿Cuántas veces más vas a ver a tus padres?",
+   "puntos": 82,
+   "categoria": "tiempo/emocional",
+   "formula": "cuenta con tu tiempo",
+   "senal": "elporquepasaesto 539.215 (~1.300×)",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Parálisis del sueño: te despiertas y no puedes moverte",
+   "puntos": 80,
+   "categoria": "sueño",
+   "formula": "por qué",
+   "senal": "dorzzen.sleep 124.379 (~80×) + encaje canal",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Cuenta hasta 99 con los dedos",
    "puntos": 77,
-   "categoria": "cuerpo/psicología",
-   "formula": "por qué",
-   "senal": "Google «por qué» 2025",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
+   "categoria": "reto/manos",
+   "formula": "reto",
+   "senal": "haceclick.oficial 1.069.672 (~5.000×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
   },
   {
-   "titulo": "¿Por qué das un respingo justo al quedarte dormido?",
-   "puntos": 75,
-   "categoria": "sueño/cuerpo",
-   "formula": "por qué",
-   "senal": "encaje canal (insomnio)",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
+   "titulo": "Si te sangra la nariz, no eches la cabeza atrás",
+   "puntos": 76,
+   "categoria": "primeros auxilios",
+   "formula": "mito al revés",
+   "senal": "patrón duocare/lanerdipedia (~300×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
   },
   {
-   "titulo": "¿Por qué el espacio es negro si hay billones de estrellas?",
-   "puntos": 69,
-   "categoria": "espacio",
-   "formula": "por qué",
-   "senal": "Google «por qué» 2025",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
-  },
-  {
-   "titulo": "¿Por qué te suenan las tripas?",
-   "puntos": 75,
+   "titulo": "¿Por qué el café te da ganas de ir al baño?",
+   "puntos": 74,
    "categoria": "cuerpo",
    "formula": "por qué",
-   "senal": "Google «por qué» 2025",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
+   "senal": "inframundo3d 105.633 (~260×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
   },
   {
-   "titulo": "¿Por qué hace frío en invierno si estamos más cerca del Sol?",
+   "titulo": "Te caes de un avión sin paracaídas: ¿qué haces?",
    "puntos": 72,
-   "categoria": "planeta",
-   "formula": "por qué",
-   "senal": "temporada dic",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
-  },
-  {
-   "titulo": "Respiras el mismo aire que Julio César",
-   "puntos": 71,
-   "categoria": "física/historia",
-   "formula": "afirmación sorprendente",
-   "senal": "favorita del usuario",
-   "estado": "preelegida",
-   "ronda": "2026-11-28-prueba"
+   "categoria": "qué pasaría si",
+   "formula": "qué pasaría si",
+   "senal": "ahora_lo_pillo 80.362 (~80×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
   },
   {
    "titulo": "Gemínidas: las estrellas fugaces son polvo de un asteroide",
@@ -307,6 +316,60 @@
    "senal": "propia",
    "estado": "reserva",
    "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué se pegan los bostezos?",
+   "puntos": 77,
+   "categoria": "cuerpo/psicología",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué das un respingo justo al quedarte dormido?",
+   "puntos": 75,
+   "categoria": "sueño/cuerpo",
+   "formula": "por qué",
+   "senal": "encaje canal (insomnio)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué el espacio es negro si hay billones de estrellas?",
+   "puntos": 69,
+   "categoria": "espacio",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué te suenan las tripas?",
+   "puntos": 75,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué hace frío en invierno si estamos más cerca del Sol?",
+   "puntos": 72,
+   "categoria": "planeta",
+   "formula": "por qué",
+   "senal": "temporada dic",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "Respiras el mismo aire que Julio César",
+   "puntos": 71,
+   "categoria": "física/historia",
+   "formula": "afirmación sorprendente",
+   "senal": "favorita del usuario",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
   }
  ],
  "descartadas": [
@@ -350,7 +413,8 @@
     "compartidos": 3
    }
   },
-  "_actualizado": "2026-11-28"
+  "_actualizado": "2026-11-28 (tarde)",
+  "_nota": "Instagram aún sin consolidar; YouTube 9 Shorts subidos el 28-nov sin vistas"
  },
  "rondas": [
   {
@@ -364,17 +428,29 @@
     "youtube_shorts": "descartado por el usuario (lo cubren los competidores de Metricool)",
     "web": "sí"
    }
+  },
+  {
+   "fecha": "2026-11-28",
+   "n": 3,
+   "tipo": "prueba solo ideas",
+   "archivo": "ideas/rondas/2026-11-28-3ideas.md",
+   "fuentes": {
+    "competidores_instagram": "10 cuentas, mes completo",
+    "canal": "casi sin datos",
+    "web": "verificación de finalistas"
+   }
   }
  ],
  "competidores_instagram": [
-  "duocare.es",
-  "proyecto_atom",
-  "haceclick.oficial",
-  "resultaaquee",
+  "ahora_lo_pillo",
   "curiosfer",
   "dorzzen.sleep",
-  "ahora_lo_pillo",
+  "duocare.es",
+  "elporquepasaesto",
+  "haceclick.oficial",
+  "inframundo3d",
   "lanerdipedia",
-  "inframundo3d"
+  "proyecto_atom",
+  "resultaaquee"
  ]
 }
