@@ -1,0 +1,305 @@
+{
+ "video": "/home/user/zapatero/documentales/17-afeitarse-barba/final/17-afeitarse-barba.mp4",
+ "duracion_s": 84.03,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.1,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 84.8,
+   "abajo": 1.2,
+   "derecha": 100.0
+  },
+  "tramo_s": {
+   "arriba": 55.5,
+   "abajo": 0.5,
+   "derecha": 84.0
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (baño, piel, laboratorio, piernas, ADN); ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536 (las pastillas se ajustan a 950)"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.1001,
+  "pico_cuadro0_db": -38.3,
+  "primera_palabra_s": 0.044,
+  "video_cuadro0_rms_db": -34.0,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,10 s con «¿Tú» suave por la etiqueta [curious] (misma toma pagada)"
+ },
+ "pausas": {
+  "pausa_max_s": 0.45,
+  "hueco_entre_marcas_s": 0.615,
+  "fin_voz_s": 83.638,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 35,
+  "peor": {
+   "w": "DHT.",
+   "t": 59.428,
+   "caida_db": 30.2,
+   "desde_db": -38.7
+  },
+  "malas": [
+   {
+    "w": "Resultado:",
+    "t": 24.536,
+    "caida_db": 28.6,
+    "desde_db": -29.9
+   },
+   {
+    "w": "romo.",
+    "t": 46.063,
+    "caida_db": 26.8,
+    "desde_db": -39.3
+   },
+   {
+    "w": "DHT.",
+    "t": 59.428,
+    "caida_db": 30.2,
+    "desde_db": -38.7
+   },
+   {
+    "w": "noticia?",
+    "t": 68.125,
+    "caida_db": 30.2,
+    "desde_db": -37.6
+   }
+  ],
+  "detalle": [
+   {
+    "w": "barba?",
+    "t": 2.983,
+    "caida_db": 21.5,
+    "desde_db": -34.7
+   },
+   {
+    "w": "decírtelo:",
+    "t": 4.347,
+    "caida_db": 9.8,
+    "desde_db": -38.4
+   },
+   {
+    "w": "funciona.",
+    "t": 5.152,
+    "caida_db": 18.3,
+    "desde_db": -24.0
+   },
+   {
+    "w": "piel.",
+    "t": 7.055,
+    "caida_db": 17.1,
+    "desde_db": -21.2
+   },
+   {
+    "w": "piel:",
+    "t": 9.888,
+    "caida_db": 0.0,
+    "desde_db": -52.2
+   },
+   {
+    "w": "folículo.",
+    "t": 11.237,
+    "caida_db": 20.9,
+    "desde_db": -39.2
+   },
+   {
+    "w": "fuera.",
+    "t": 13.356,
+    "caida_db": 18.7,
+    "desde_db": -25.1
+   },
+   {
+    "w": "entera.",
+    "t": 15.733,
+    "caida_db": 16.1,
+    "desde_db": -37.4
+   },
+   {
+    "w": "1928.",
+    "t": 18.161,
+    "caida_db": 18.5,
+    "desde_db": -34.0
+   },
+   {
+    "w": "afeitar.",
+    "t": 23.454,
+    "caida_db": 21.1,
+    "desde_db": -26.5
+   },
+   {
+    "w": "Resultado:",
+    "t": 24.536,
+    "caida_db": 28.6,
+    "desde_db": -29.9
+   },
+   {
+    "w": "velocidad.",
+    "t": 28.182,
+    "caida_db": 21.8,
+    "desde_db": -24.0
+   },
+   {
+    "w": "piernas:",
+    "t": 31.34,
+    "caida_db": 5.8,
+    "desde_db": -33.3
+   },
+   {
+    "w": "no.",
+    "t": 33.082,
+    "caida_db": 21.7,
+    "desde_db": -22.4
+   },
+   {
+    "w": "diferencia.",
+    "t": 34.988,
+    "caida_db": 14.2,
+    "desde_db": -29.6
+   },
+   {
+    "w": "fuerte?",
+    "t": 37.774,
+    "caida_db": 13.1,
+    "desde_db": -30.1
+   },
+   {
+    "w": "punta.",
+    "t": 39.008,
+    "caida_db": 0.0,
+    "desde_db": -55.9
+   },
+   {
+    "w": "afilado.",
+    "t": 42.288,
+    "caida_db": 0.0,
+    "desde_db": -60.3
+   },
+   {
+    "w": "romo.",
+    "t": 46.063,
+    "caida_db": 26.8,
+    "desde_db": -39.3
+   },
+   {
+    "w": "oscuro.",
+    "t": 48.089,
+    "caida_db": 16.4,
+    "desde_db": -24.4
+   },
+   {
+    "w": "aclarado.",
+    "t": 51.578,
+    "caida_db": 0.0,
+    "desde_db": -77.2
+   },
+   {
+    "w": "genes.",
+    "t": 53.894,
+    "caida_db": 22.2,
+    "desde_db": -34.8
+   },
+   {
+    "w": "potente:",
+    "t": 58.338,
+    "caida_db": 0.0,
+    "desde_db": -67.1
+   },
+   {
+    "w": "DHT.",
+    "t": 59.428,
+    "caida_db": 30.2,
+    "desde_db": -38.7
+   },
+   {
+    "w": "folículo.",
+    "t": 63.037,
+    "caida_db": 9.5,
+    "desde_db": -39.7
+   },
+   {
+    "w": "parches:",
+    "t": 64.637,
+    "caida_db": 0.3,
+    "desde_db": -35.0
+   },
+   {
+    "w": "pasan.",
+    "t": 66.872,
+    "caida_db": 15.8,
+    "desde_db": -25.5
+   },
+   {
+    "w": "noticia?",
+    "t": 68.125,
+    "caida_db": 30.2,
+    "desde_db": -37.6
+   },
+   {
+    "w": "30.",
+    "t": 71.508,
+    "caida_db": 20.5,
+    "desde_db": -37.4
+   },
+   {
+    "w": "mes.",
+    "t": 74.306,
+    "caida_db": 21.7,
+    "desde_db": -35.0
+   },
+   {
+    "w": "cuchilla.",
+    "t": 76.402,
+    "caida_db": 19.7,
+    "desde_db": -30.6
+   },
+   {
+    "w": "crecer…",
+    "t": 78.254,
+    "caida_db": 1.5,
+    "desde_db": -12.1
+   },
+   {
+    "w": "paciencia.",
+    "t": 79.179,
+    "caida_db": 17.5,
+    "desde_db": -34.1
+   },
+   {
+    "w": "culpa:",
+    "t": 82.268,
+    "caida_db": 0.0,
+    "desde_db": -62.8
+   },
+   {
+    "w": "abuelo.",
+    "t": 83.518,
+    "caida_db": 0.0,
+    "desde_db": -78.7
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido en voz.wav: las colas de «Resultado:», «romo.», «DHT.» y «noticia?» bajan de forma continua de −38 a −68 dB dentro de la pausa natural (sin corte): final natural"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 1,
+  "t": [
+   13.742
+  ],
+  "ok": false,
+  "aceptada": "medido: a 13,74 s el nivel es −48 dB (respiración antes de «La raíz», 60 ms antes de la palabra); no hay clic"
+ },
+ "ok": true
+}

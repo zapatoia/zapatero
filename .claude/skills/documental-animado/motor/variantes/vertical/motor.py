@@ -1609,6 +1609,14 @@ from escenas_dia import instalar as _inst_dia          # noqa: E402
 _inst_dia(Vertical, globals())
 from escenas_ajedrez import instalar as _inst_ajedrez          # noqa: E402
 _inst_ajedrez(Vertical, globals())
+from escenas_barba import instalar as _inst_barba          # noqa: E402
+_inst_barba(Vertical, globals())
+from escenas_auris import instalar as _inst_auris          # noqa: E402
+_inst_auris(Vertical, globals())
+from escenas_vida import instalar as _inst_vida          # noqa: E402
+_inst_vida(Vertical, globals())
+from escenas_zurdo import instalar as _inst_zurdo          # noqa: E402
+_inst_zurdo(Vertical, globals())
 
 
 def escenas(e):

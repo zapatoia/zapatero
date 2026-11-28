@@ -1,0 +1,289 @@
+{
+ "titulo": "Si tienes 20 años, ya has vivido la mitad de tu vida",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1700,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "Si tienes 20 años, ya has vivido la mitad de tu vida.",
+   "tts": "Si tienes veinte años... ya has vivido la mitad de tu vida.",
+   "key": "la mitad de tu vida",
+   "escena": {
+    "tipo": "reloj_arena",
+    "surface": "noche",
+    "modo": "gancho",
+    "edad_word": "20",
+    "mitad_word": "mitad",
+    "sientes_word": "sientes",
+    "edad_txt": "20 AÑOS",
+    "quedan_txt": "LOS AÑOS QUE TE QUEDAN",
+    "sientes_txt": "CÓMO LOS SIENTES"
+   }
+  },
+  {
+   "texto": "Tranquilo: no hablo de los años que te quedan, sino de cómo los sientes.",
+   "tts": "Tranquilo: no hablo de los años que te quedan... sino de cómo los sientes.",
+   "key": "cómo los sientes"
+  },
+  {
+   "texto": "¿Te acuerdas de lo eterno que era un verano de pequeño?",
+   "tts": "[warm] ¿Te acuerdas de lo eterno que era un verano de pequeño?",
+   "key": "un verano de pequeño",
+   "escena": {
+    "tipo": "verano",
+    "surface": "blue",
+    "volando_word": "ahora",
+    "verano_txt": "UN VERANO",
+    "anio_txt": "UN AÑO"
+   }
+  },
+  {
+   "texto": "Y ahora, un año se te pasa volando.",
+   "tts": "Y ahora... un año se te pasa volando.",
+   "key": "se te pasa volando"
+  },
+  {
+   "texto": "En 1877, un filósofo francés, Paul Janet, propuso por qué.",
+   "tts": "En mil ochocientos setenta y siete, un filósofo francés, Paul Janet, propuso por qué.",
+   "key": "propuso por qué",
+   "escena": {
+    "tipo": "janet",
+    "surface": "clay",
+    "anio_word": "1877",
+    "nombre_word": "Janet",
+    "compara_word": "comparándolo",
+    "anio_txt": "1877",
+    "nombre_txt": "PAUL JANET",
+    "nuevo_txt": "ESTE AÑO",
+    "vivido_txt": "TODO LO VIVIDO"
+   }
+  },
+  {
+   "texto": "Cada año lo mides comparándolo con todo lo que ya has vivido.",
+   "tts": "Cada año lo mides comparándolo... con todo lo que ya has vivido.",
+   "key": "lo que ya has vivido"
+  },
+  {
+   "texto": "Con 5 años, un año es la quinta parte de tu vida.",
+   "tts": "Con cinco años, un año es la quinta parte de tu vida.",
+   "key": "la quinta parte",
+   "escena": {
+    "tipo": "tarta",
+    "surface": "dark",
+    "pasos": [
+     {
+      "word": "5",
+      "edad": 5,
+      "txt": "1/5"
+     },
+     {
+      "word": "20",
+      "edad": 20,
+      "txt": "1/20"
+     },
+     {
+      "word": "50",
+      "edad": 50,
+      "txt": "2 %"
+     }
+    ],
+    "corto_word": "corto",
+    "edad_txt": "AÑOS"
+   }
+  },
+  {
+   "texto": "Con 20, uno de veinte.",
+   "tts": "Con veinte... uno de veinte.",
+   "key": "uno de veinte"
+  },
+  {
+   "texto": "Y con 50, apenas un trocito: el 2 %.",
+   "tts": "Y con cincuenta, apenas un trocito: el dos por ciento.",
+   "key": "el 2 %"
+  },
+  {
+   "texto": "Por eso cada año te parece más corto que el anterior.",
+   "tts": "Por eso cada año te parece más corto que el anterior.",
+   "key": "más corto"
+  },
+  {
+   "texto": "Si dibujas tu vida así, los años se van estrechando.",
+   "tts": "Si dibujas tu vida así... los años se van estrechando.",
+   "key": "se van estrechando",
+   "escena": {
+    "tipo": "cinta",
+    "surface": "blue",
+    "estrecha_word": "estrechando",
+    "recuerdos_word": "recuerdos",
+    "mitad_word": "mitad",
+    "a0": 4.5,
+    "vida": 80,
+    "recuerdos_txt": "PRIMEROS RECUERDOS",
+    "mitad_txt": "LA MITAD",
+    "igual_txt": "CADA AÑO, IGUAL",
+    "sentido_txt": "COMO LOS SIENTES"
+   }
+  },
+  {
+   "texto": "Y si empiezas a contar en tus primeros recuerdos, hacia los 4 o 5 años,",
+   "tts": "Y si empiezas a contar en tus primeros recuerdos, hacia los cuatro o cinco años,",
+   "key": "los 4 o 5 años"
+  },
+  {
+   "texto": "la mitad de una vida de 80 años, tal y como la sientes, cae entre los 18 y los 20.",
+   "tts": "la mitad de una vida de ochenta años, tal y como la sientes... cae entre los dieciocho y los veinte.",
+   "key": "entre los 18 y los 20"
+  },
+  {
+   "texto": "Es una teoría, no una ley exacta. Pero hay otra pista: tu memoria.",
+   "tts": "Es una teoría, no una ley exacta. Pero hay otra pista... tu memoria.",
+   "key": "tu memoria",
+   "escena": {
+    "tipo": "memoria",
+    "surface": "noche",
+    "memoria_word": "memoria",
+    "fotos": [
+     {
+      "word": "cole",
+      "txt": "PRIMER DÍA DE COLE",
+      "icono": "cole"
+     },
+     {
+      "word": "viaje",
+      "txt": "PRIMER VIAJE",
+      "icono": "viaje"
+     },
+     {
+      "word": "beso",
+      "txt": "PRIMER BESO",
+      "icono": "beso"
+     }
+    ],
+    "repetido_word": "repetido",
+    "rutina_word": "rutina",
+    "encoge_word": "encoge",
+    "rutina_txt": "SEMANA DE RUTINA"
+   }
+  },
+  {
+   "texto": "De pequeño, casi todo era nuevo: el primer día de cole, el primer viaje, el primer beso.",
+   "tts": "De pequeño, casi todo era nuevo: el primer día de cole, el primer viaje... el primer beso.",
+   "key": "el primer beso"
+  },
+  {
+   "texto": "Y tu cerebro guarda mucho más de lo nuevo que de lo repetido.",
+   "tts": "Y tu cerebro guarda mucho más de lo nuevo... que de lo repetido.",
+   "key": "de lo repetido"
+  },
+  {
+   "texto": "Cuando miras atrás, una semana de rutina casi no deja recuerdos, y se encoge.",
+   "tts": "Cuando miras atrás, una semana de rutina casi no deja recuerdos... y se encoge.",
+   "key": "y se encoge"
+  },
+  {
+   "texto": "Por eso unas vacaciones se pasan rápido, pero al recordarlas parecen larguísimas.",
+   "tts": "Por eso unas vacaciones se pasan rápido... pero al recordarlas parecen larguísimas.",
+   "key": "parecen larguísimas",
+   "escena": {
+    "tipo": "vacaciones",
+    "surface": "blue",
+    "rapido_word": "rápido",
+    "largas_word": "larguísimas",
+    "vivir_txt": "AL VIVIRLAS",
+    "recordar_txt": "AL RECORDARLAS"
+   }
+  },
+  {
+   "texto": "¿El truco para que tu vida no vuele? Haz cosas nuevas.",
+   "tts": "¿El truco para que tu vida no vuele? Haz cosas nuevas.",
+   "key": "cosas nuevas",
+   "escena": {
+    "tipo": "nuevo",
+    "surface": "dark",
+    "items": [
+     {
+      "word": "sitio",
+      "txt": "UN SITIO NUEVO",
+      "icono": "pin"
+     },
+     {
+      "word": "ruta",
+      "txt": "OTRA RUTA",
+      "icono": "ruta"
+     },
+     {
+      "word": "aprender",
+      "txt": "APRENDER ALGO",
+      "icono": "guitarra"
+     }
+    ],
+    "estira_word": "estira"
+   }
+  },
+  {
+   "texto": "Un sitio nuevo, otra ruta, aprender algo.",
+   "tts": "Un sitio nuevo, otra ruta... aprender algo.",
+   "key": "aprender algo"
+  },
+  {
+   "texto": "Cada primera vez estira tu tiempo.",
+   "tts": "Cada primera vez... estira tu tiempo.",
+   "key": "*estira tu tiempo"
+  },
+  {
+   "texto": "Porque la mitad ya se ha ido… pero la otra mitad la decides tú.",
+   "tts": "[warm] Porque la mitad ya se ha ido... pero la otra mitad la decides tú.",
+   "key": "la decides tú",
+   "escena": {
+    "tipo": "reloj_arena",
+    "surface": "noche",
+    "modo": "cierre",
+    "ido_word": "ido",
+    "otra_word": "otra",
+    "decides_word": "decides",
+    "ido_txt": "YA SE HA IDO",
+    "decides_txt": "LA DECIDES TÚ"
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien dice que este año se le ha pasado volando.",
+  "tts": "[playful] Pásaselo a quien dice que este año se le ha pasado volando.",
+  "key": "pasado volando",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El que dice «ya es diciembre»",
+  "salida": "19-mitad-de-tu-vida-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Paul Janet (1877, «Une illusion d'optique interne», Revue philosophique): la duración sentida de un periodo es proporcional a la edad; con ella, la mitad de la vida sentida cae muy pronto",
+   "url": "https://qz.com/464511/this-is-exactly-how-time-flies-in-one-fascinating-interactive"
+  },
+  {
+   "dato": "Ley de Janet explicada en español",
+   "url": "https://www.xataka.com.mx/investigacion/que-tiempo-pase-rapido-anos-no-percepcion-ciencia-se-llama-ley-janet"
+  },
+  {
+   "dato": "Primeros recuerdos: de media hacia los 3–4 años",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC4025992"
+  },
+  {
+   "dato": "Novedad y memoria; paradoja de las vacaciones (Claudia Hammond, Time Warped)",
+   "url": "https://www.themarginalian.org/2013/07/15/time-warped-claudia-hammond/"
+  },
+  {
+   "dato": "Por qué el tiempo parece acelerarse con la edad",
+   "url": "https://www.scientificamerican.com/article/why-does-time-seem-to-speed-up-with-age/"
+  }
+ ],
+ "calculo": "Regla de Janet: el tiempo sentido entre las edades a y b es ∝ ln(b/a). Desde a0 (primeros recuerdos) hasta 80 años, la mitad cae en √(a0·80): a0 = 4 → 17,9; a0 = 4,5 → 19,0; a0 = 5 → 20,0.",
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (cielo, playa, cinta clara, corcho); ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536",
+  "voz_cuadro_0": "medido: la voz arranca a 0,018 s (1,1 cuadros, la «S» de «Si»); marca de la 1.ª palabra en 0,0 s",
+  "palabras_completas": "medido en voz.wav: las colas de «vida.» y «algo.» bajan dentro de la pausa natural (−29 → −65 dB en 0,3 s), sin corte: la caída rápida es el final de la sílaba",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

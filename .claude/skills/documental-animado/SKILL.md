@@ -260,6 +260,37 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Sonido ambiental de cada escena como evento corto y bajo (grillos, pájaros, burbujas), nunca en bucle; cada animal y objeto suena al aparecer.
 - Escenas en `escenas_dia.py`: `interruptor`, `cama` (normal / trozos / cortinas), `fabrica`, `animales`, `luciernagas`, `corales`, `tomatera`, `calor`, `noruega`, `planeta`.
 
+**Documental 17 (28 nov 2026, «¿Te afeitas para que te salga más barba? No funciona»): lote de 4 vídeos, cada uno con su pipeline entero**
+- Protagonista nuevo en PRIMER PLANO (`self.cara_b`, busto grande con la misma sudadera naranja): barba paramétrica (cobertura, largo, parches,
+  canas), espuma que la cuchilla limpia, zonas que «escuchan»/«pasan». Sirve para cualquier tema de cara/pelo/piel.
+- Mito → prueba → explicación → qué manda de verdad → cierre que vuelve al espejo con remate (el retrato del abuelo con la misma barba a parches).
+- Ojo con `c.save()` dentro de expresiones condicionales: cada save necesita su restore SIEMPRE (un save sin pareja dejó el recorte del espejo
+  activo y se comía el lavabo). Texto de la franja nunca sobre una superficie clara: lo de debajo de y≈1190 va oscuro (mueble, músculo, piel en sombra).
+- Escenas en `escenas_barba.py`: `espejo` (gancho / cierre), `piel`, `laboratorio`, `piernas`, `punta`, `genes`, `edad`; superficie nueva `bano`.
+
+**Documental 18 (28 nov 2026, «¿Cómo llega la música a tus auriculares si no hay ningún cable?»): explicar tecnología paso a paso**
+- Cadena completa en orden (móvil → bits → compresión → ondas → aire lleno → saltos → auricular por dentro → relevo) con UN objeto por paso
+  que el narrador nombra; las etiquetas de cada pieza salen en su palabra y se quedan (al final el corte del auricular está entero rotulado).
+- Una cifra grande que rueda por escena como mucho (2.400.000.000, 1.600/s); cifras con `maxw` medido sobre el caso más ancho.
+- El nombre de una marca se puede contar (origen de «Bluetooth»), pero su logo NO se dibuja: se cuenta con el rey, el mapa y los aparatos.
+- Escenas en `escenas_auris.py`: `oreja` (gancho / cierre), `bits`, `ondas`, `lleno`, `saltos`, `auricular`, `relevo`, `rey`.
+
+**Documental 19 (28 nov 2026, «Si tienes 20 años, ya has vivido la mitad de tu vida»: ley de Paul Janet)**
+- Cifras que salen de un modelo (no de una medida): se dice que es una teoría («es una teoría, no una ley exacta»), se enseña la cuenta en
+  `descripcion.md` y `guion.json → calculo` (aquí √(a0·80) con a0 = primeros recuerdos) y se da un rango honesto («entre los 18 y los 20»).
+- Escena clara (fondo blanco) con texto de franja: la superficie del guion debe tener `txt` blanco (p. ej. `blue`) y se pinta una banda oscura
+  bajo y≈1150; con `light` el texto sale oscuro y no se lee sobre la banda.
+- Ningún tramo de 2–3 s con el decorado vacío: si la frase todavía no nombra el objeto, entra algo que la represente (teoría ✓ / ley ✕,
+  la insignia «¡NUEVO!», el cerebro) y se va cuando llega lo siguiente.
+- Escenas en `escenas_vida.py`: `reloj_arena` (gancho / cierre), `verano`, `janet`, `tarta`, `cinta`, `memoria`, `vacaciones`, `nuevo`.
+
+**Documental 20 (28 nov 2026, «¿Por qué hay tan pocos zurdos?»)**
+- Gancho que vive el concepto: el decorado entero se da la vuelta como un espejo en «al revés» (escala X con coseno + destello, ¡FLIP!).
+- Datos históricos sensibles con rótulo prudente y fuente («ESPAÑA, FRANQUISMO», no fechas exactas que la fuente no da).
+- Anclas con palabras repetidas en la misma escena: «pocos» salía antes de tiempo → `"Pocos#2"`. Revisa siempre las anclas con `palabras.json`.
+- Mano ilustrada reutilizable (`_mano`, izquierda; en espejo es la derecha) con poses abierta / puño / lapiz / tijeras.
+- Escenas en `escenas_zurdo.py`: `reves` (gancho / cierre), `objetos`, `diez`, `cerebro_z`, `escuela`, `pelea`, `equilibrio`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

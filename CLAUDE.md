@@ -3,6 +3,7 @@
 > **AL EMPEZAR CUALQUIER SESIÓN:** lee `docs/PIPELINE_STATE.md` (estado, historial y siguiente paso) y la última sesión de `docs/sessions/`, o usa `/resume-session`. No cambies nada hasta que el usuario lo pida. Al terminar o si se acaba el contexto: `/save-session`.
 
 > **FORMATO ACTIVO (desde 2026-11-27, decisión del usuario): DOCUMENTALES ANIMADOS VERTICALES 9:16** con mapas, cifras y la voz del usuario. Se piden con «hazme un documental animado sobre…». Todo está en `.claude/skills/documental-animado/SKILL.md` (§0 instalación en Linux con `instalar/instalar_linux.sh`, §7 reglas del usuario: obligatorias) y en `docs/PIPELINE_STATE.md` §7b; los proyectos van en `documentales/NN-tema/`.
+> **COMANDO /loteN (desde 2026-11-28, decisión del usuario):** si el usuario escribe `/lote5 (título/hook 1) … (título/hook 5)` (o `/lote N …`, cualquier N), ejecuta TAL CUAL `.claude/skills/lote/SKILL.md`: su prompt original completo (N vídeos estrictamente uno a uno, pipeline entero y QA propio en cada uno, mismo esfuerzo que un vídeo suelto, informe final). Hay atajos `/lote2` … `/lote10`; para N > 10, usa el mismo skill con ese N. Sin preguntar nada.
 > **«Estilo premium»** (2.5D/3D oscuro + dorado, cámara que vuela): ver `.claude/skills/documental-animado/ESTILO-PREMIUM.md`.
 > **El pipeline 3D de este documento (narrador, perro, `make_video.py`, `retro3d/`, `videos/`) queda ARCHIVADO**: no se usa ni se modifica salvo que el usuario lo pida expresamente. Todo lo que sigue en este archivo se refiere a ese formato archivado.
 
