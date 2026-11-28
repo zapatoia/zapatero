@@ -1,21 +1,21 @@
 {
  "video": "/home/user/zapatero/documentales/16-partida-unica/final/16-partida-unica.mp4",
- "duracion_s": 61.18,
+ "duracion_s": 59.66,
  "nivel": {
   "lufs": -14.1,
-  "dbtp": -1.1,
+  "dbtp": -1.2,
   "ok": true
  },
  "zona_segura": {
   "pct_muestras": {
-   "arriba": 36.7,
-   "abajo": 22.4,
-   "derecha": 89.4
+   "arriba": 37.0,
+   "abajo": 22.7,
+   "derecha": 72.7
   },
   "tramo_s": {
-   "arriba": 13.0,
+   "arriba": 12.75,
    "abajo": 5.0,
-   "derecha": 30.5
+   "derecha": 20.25
   },
   "ok": false,
   "aceptada": "medido en la hoja: fondos a sangre (mosaico de tableros, mesa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536"
@@ -25,16 +25,17 @@
   "ok": true
  },
  "voz_cuadro_0": {
-  "onset_s": 0.0071,
-  "pico_cuadro0_db": -26.9,
+  "onset_s": 0.0176,
+  "pico_cuadro0_db": -31.2,
   "primera_palabra_s": 0.0,
-  "video_cuadro0_rms_db": -27.8,
-  "ok": true
+  "video_cuadro0_rms_db": -36.6,
+  "ok": false,
+  "aceptada": "medido: la voz de la frase regrabada arranca a 0,018 s (1 ms después del primer cuadro), con la marca de «La» en 0"
  },
  "pausas": {
-  "pausa_max_s": 0.535,
+  "pausa_max_s": 0.57,
   "hueco_entre_marcas_s": 0.593,
-  "fin_voz_s": 60.791,
+  "fin_voz_s": 59.261,
   "cierre_s": 0.4,
   "ok": true
  },
@@ -42,7 +43,7 @@
   "n": 20,
   "peor": {
    "w": "nadie.",
-   "t": 6.272,
+   "t": 4.742,
    "caida_db": 23.0,
    "desde_db": -22.2
   },
@@ -50,121 +51,121 @@
   "detalle": [
    {
     "w": "juegues…",
-    "t": 3.732,
-    "caida_db": 19.9,
-    "desde_db": -39.7
+    "t": 2.167,
+    "caida_db": 15.9,
+    "desde_db": -38.4
    },
    {
     "w": "nadie.",
-    "t": 6.272,
+    "t": 4.742,
     "caida_db": 23.0,
     "desde_db": -22.2
    },
    {
     "w": "Jamás.",
-    "t": 7.531,
+    "t": 6.001,
     "caida_db": 7.7,
     "desde_db": -27.2
    },
    {
     "w": "Mira:",
-    "t": 8.143,
+    "t": 6.613,
     "caida_db": 17.3,
     "desde_db": -10.0
    },
    {
     "w": "opciones.",
-    "t": 12.016,
+    "t": 10.486,
     "caida_db": 15.4,
     "desde_db": -34.5
    },
    {
     "w": "20.",
-    "t": 14.028,
+    "t": 12.498,
     "caida_db": 17.7,
     "desde_db": -29.4
    },
    {
     "w": "400.",
-    "t": 18.806,
+    "t": 17.276,
     "caida_db": 13.9,
     "desde_db": -32.0
    },
    {
     "w": "millones.",
-    "t": 23.415,
+    "t": 21.885,
     "caida_db": 15.3,
     "desde_db": -32.0
    },
    {
     "w": "internet.",
-    "t": 26.774,
+    "t": 25.244,
     "caida_db": 18.3,
     "desde_db": -18.8
    },
    {
     "w": "años.",
-    "t": 30.333,
+    "t": 28.803,
     "caida_db": 12.6,
     "desde_db": -28.4
    },
    {
     "w": "años.",
-    "t": 34.679,
+    "t": 33.149,
     "caida_db": 19.8,
     "desde_db": -31.7
    },
    {
     "w": "pirámides.",
-    "t": 37.495,
+    "t": 35.965,
     "caida_db": 11.7,
     "desde_db": -34.7
    },
    {
     "w": "jugadas.",
-    "t": 40.41,
+    "t": 38.88,
     "caida_db": 10.4,
     "desde_db": -32.5
    },
    {
     "w": "ceros.",
-    "t": 44.975,
+    "t": 43.445,
     "caida_db": 16.1,
     "desde_db": -24.3
    },
    {
     "w": "universo:",
-    "t": 47.271,
+    "t": 45.741,
     "caida_db": 0.0,
     "desde_db": -58.7
    },
    {
     "w": "80.",
-    "t": 48.976,
+    "t": 47.446,
     "caida_db": 21.1,
     "desde_db": -39.4
    },
    {
     "w": "átomos.",
-    "t": 52.045,
+    "t": 50.515,
     "caida_db": 16.2,
     "desde_db": -39.7
    },
    {
     "w": "nadie.",
-    "t": 57.591,
+    "t": 56.061,
     "caida_db": 18.3,
     "desde_db": -39.1
    },
    {
     "w": "única…",
-    "t": 59.471,
+    "t": 57.941,
     "caida_db": 0.0,
     "desde_db": -64.7
    },
    {
     "w": "igual.",
-    "t": 60.726,
+    "t": 59.196,
     "caida_db": 14.1,
     "desde_db": -39.4
    }

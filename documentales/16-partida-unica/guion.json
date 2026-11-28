@@ -216,8 +216,8 @@
  ],
  "qa_aceptadas": {
   "zona_segura": "medido en la hoja: fondos a sangre (mosaico de tableros, mesa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536",
-  "voz_cuadro_0": "medido: la voz suena desde el cuadro 0 (arranque a 0,008 s, −19 dB en el primer cuadro); solo la marca de «La» cae a 0,085 s por la alineación de ElevenLabs",
+  "voz_cuadro_0": "medido: la voz de la frase regrabada arranca a 0,018 s (1 ms después del primer cuadro), con la marca de «La» en 0",
   "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
  },
- "parche_voz": "Línea 1 regrabada a petición del usuario («juegues» sonaba raro): audio/parche_l1.mp3 (55 caracteres) encajado en la pausa tras «juegues…» con audio/parche_l1.py; la toma original y sus marcas quedan en audio/voz_original.wav y audio/palabras_original.json. ¡No correr voz_eleven.py armar (desharía el parche)!"
+ "parche_voz": "Línea 1 regrabada a petición del usuario (en la toma corrida «juegues» sonaba raro; la 1.ª regrabación, con [curious] y «...», salió muy lenta: audio/parche_l1_v1.*). Versión buena: audio/parche_l1.mp3, texto «La próxima partida de ajedrez que juegues...» sin etiqueta, encajada con audio/parche_l1.py en la pausa tras «juegues…». Toma original: audio/voz_original.wav + audio/palabras_original.json. No correr voz_eleven.py armar (desharía el parche)."
 }
