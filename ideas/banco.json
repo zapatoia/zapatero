@@ -1,5 +1,5 @@
 {
- "_doc": "Banco de ideas (skill /ideas). hechas = vídeos ya producidos (no repetir el tema ni un ángulo casi igual); reserva = ideas buenas no elegidas aún (se reutilizan en la siguiente ronda); descartadas = con motivo; rendimiento = métricas reales por vídeo (Metricool) para aprender qué funciona; vetos = temas que no se tocan.",
+ "_doc": "Banco de ideas (skill /ideas). hechas = vídeos ya producidos (no repetir el tema ni un ángulo casi igual); reserva = ideas buenas no elegidas aún (se reutilizan en la siguiente ronda); descartadas = con motivo; rendimiento = métricas reales por vídeo (Metricool) para aprender qué funciona; vetos = temas que no se tocan. Se reconstruye y refresca en cada ronda (/ideas Fase 0–1): nada de aquí se da por actual.",
  "vetos": [
   "política y partidos (el usuario: «lo político no será lo habitual», solo si lo pide)",
   "tragedias recientes, muertes o víctimas concretas",
@@ -265,10 +265,10 @@
   },
   {
    "titulo": "¿Por qué te despiertas justo antes de la alarma?",
-   "puntos": 67,
+   "puntos": 74,
    "categoria": "sueño",
    "formula": "por qué",
-   "senal": "encaje canal",
+   "senal": "competidor duocare.es: 22.867 interacciones (≈8× su media)",
    "estado": "reserva",
    "ronda": "2026-11-28-prueba"
   },
@@ -361,9 +361,20 @@
    "fuentes": {
     "metricool_propio": "sí (3 vídeos con datos)",
     "competidores": "vacío (no añadidos)",
-    "youtube_shorts": "sin clave",
+    "youtube_shorts": "descartado por el usuario (lo cubren los competidores de Metricool)",
     "web": "sí"
    }
   }
+ ],
+ "competidores_instagram": [
+  "duocare.es",
+  "proyecto_atom",
+  "haceclick.oficial",
+  "resultaaquee",
+  "curiosfer",
+  "dorzzen.sleep",
+  "ahora_lo_pillo",
+  "lanerdipedia",
+  "inframundo3d"
  ]
 }
