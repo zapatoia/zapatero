@@ -20,7 +20,8 @@
 1. **Topes de seguridad (antes de gastar nada):**
    - **Metricool:** si las herramientas `mcp__Metricool_Social_Media_Management__*` no están (ToolSearch «metricool»), no producir nada: informe
      «la tarea no tiene el conector de Metricool» y fin (sin él no hay ideas ni distribución).
-   - **ElevenLabs:** `publicaciones/creditos_eleven.json` lleva la cuenta (plan Creator 100.000/mes). Estimar ~1.400 créditos por vídeo (menos si es
+   - **ElevenLabs:** primero `python3 tools/eleven_saldo.py` (saldo REAL si la clave tiene «User: Read»; si sale con código 2, seguir con la
+     estimación). `publicaciones/creditos_eleven.json` lleva la cuenta (plan Creator 100.000/mes). Estimar ~1.400 créditos por vídeo (menos si es
      corto). Si `restantes_estimados` < 3.000 → no generar voz ni programar; informe «sin créditos» y fin. Si en un vídeo la API responde
      «quota_exceeded», parar igual. Tras cada voz, restar los caracteres reales (`audio/eleven_gasto.json`).
    - **Cola llena:** si en `publicaciones/calendario.json` el `siguiente_libre` de las tres redes está a más de 6 días vista, hacer 0 vídeos hoy
