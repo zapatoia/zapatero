@@ -80,7 +80,7 @@ Máximo 90. Ordenar y quedarse con el **top 15**.
 ## Fase 5 · Investigación del top 15
 Por cada una: 1–2 WebSearch para confirmar que el dato central es cierto y tiene fuente (si no, fuera); 3 ganchos alternativos (pregunta,
 afirmación, acción) y elegir el mejor; esqueleto en 5 tiempos (gancho → contexto → 2–3 «razones»/pasos → giro → cierre que vuelve al gancho);
-escena de gancho con acción concreta («la mano estampa…», «el mundo se da la vuelta…»); destinatario del «Pásaselo a…»; riesgos.
+escena de gancho con acción concreta («la mano estampa…», «el mundo se da la vuelta…»); destinatario del «Pásaselo a…»; riesgos; **duración propuesta** (45–60 / 60–75 / 75–90 s según lo que dé la idea, sin rellenar).
 Repuntuar con lo aprendido.
 
 ## Fase 6 · Elegir N con variedad
