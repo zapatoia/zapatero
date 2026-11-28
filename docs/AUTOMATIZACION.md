@@ -6,9 +6,7 @@
 ## Estado
 - Tarea programada `trig_01LnEdK2H5uTmnoDDv9AAi9z` («Vídeos diarios: 2 vídeos + distribución»), cron `CRON_TZ=Europe/Madrid 47 7 * * *`,
   sesión nueva en cada disparo, aviso push. **Creada PAUSADA el 2026-11-28** (el usuario estaba al 89 % de su uso hasta el martes 1-dic 07:00).
-- **Antes de activarla:** (1) fusionar la PR #12 (Whisper, duración variable, este archivo); (2) **añadirle el conector de Metricool** desde
-  claude.ai (sección de tareas programadas/rutinas → esta tarea → conectores): creada desde aquí no se pudo adjuntar y, sin él, no hay ideas
-  ni distribución; (3) activarla (o pedírselo a Claude: `update_trigger enabled=true`) para que la primera ejecución sea el martes 1-dic a las 07:47.
+- **Antes de activarla:** (1) fusionar la PR #12 (Whisper, duración variable, este archivo); (2) ✅ conector de Metricool añadido por el usuario el 28-nov (comprobado con `get_trigger`); (3) activarla (o pedírselo a Claude: `update_trigger enabled=true`) para que la primera ejecución sea el martes 1-dic a las 07:47.
 
 ## Permiso del usuario (2026-11-28)
 - Al terminar, **fusionar el trabajo en `main` y hacer push a `main`** directamente (sin pull request). Si el push se rechaza: `git fetch origin main`,
