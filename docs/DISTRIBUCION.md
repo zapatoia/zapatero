@@ -74,6 +74,9 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
     "tiktok":    {"texto": "una sola línea con #parati #fyp #foryou #foryoupage #…"},
     "hashtags_tema": ["#…"], "portada_ms": 1500}
    ```
+   **ESTILO FIJADO POR EL USUARIO (28-11-04, con capturas de sus TikTok; manda sobre lo de abajo):** texto corto = «🤯 TÍTULO EN MAYÚSCULAS + emoji del tema» y
+   **5 hashtags como máximo en todas las redes** (Instagram no deja más): `#SabiasQue #curiosidades #parati #fyp` + 1 del tema (en YouTube `#shorts` en lugar de `#fyp`).
+   Sin párrafos ni preguntas al público. Ejemplos y plantilla en `config/redes.json → formato_texto`.
    Reglas del título: ligado al contenido, curiosidad sin clickbait falso, estilo de colega del canal, variar la fórmula entre vídeos
    (pregunta / afirmación sorprendente / «qué pasaría si» / cifra), nada de «descubre», «increíble», emojis en cadena. Hashtags temáticos
    elegidos por el contenido de ESE vídeo (historia, ciencia, cuerpo humano, tecnología…), sin rellenos ni repetir el bloque del anterior.
