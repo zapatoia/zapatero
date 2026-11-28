@@ -7,6 +7,8 @@
 > Rama de trabajo de la sesión 2026-11-27-03: `claude/adoring-gauss-6biqu1` (PR abierta hacia `main`; el usuario hace el merge). La de la sesión 27-02 (`claude/confident-bell-gpw8hf`) se fusionó en `main` por la PR #5. La rama de la sesión 27-01 (`claude/gallant-curie-6ab9x5`) se fusionó en `main` por la PR #4. Ramas anteriores: `claude/hopeful-einstein-ix8p37` (sesión 26-02, fusionada en `main` por la PR #3), `claude/3d-mmo-retro-video-pipeline-3ify9e` (26-01, PR #2). `main` es la rama por defecto.
 > **El proyecto tiene ahora DOS formatos**: (A) vídeos 3D «MMO retro low-poly» con narrador (`make_video.py`, `retro3d/`, `videos/`) y (B) **documentales animados verticales 9:16** con mapas, cifras y la voz del usuario (`.claude/skills/documental-animado/`, `documentales/`). Para el formato B lee también `.claude/skills/documental-animado/SKILL.md` (§0 Linux y §7 reglas del usuario).
 
+> **Comando `/loteN` (pedido del usuario el 2026-11-28):** `/lote5 (títulos/hooks)` = producir N vídeos con el prompt de lote original, guardado literal en `.claude/skills/lote/SKILL.md` (atajos `/lote2`…`/lote10`). Referencia de calidad: el lote de los documentales 17–20 (sesión 2026-11-28-02).
+
 ## 1. Cómo usar este documento
 - **Al empezar cualquier sesión**: leer `CLAUDE.md`, este documento y la última sesión de `docs/sessions/` (o usar `/resume-session`). No cambiar nada hasta que el usuario lo pida.
 - **Al terminar o cuando se acabe el contexto**: `/save-session` actualiza este documento, crea el resumen de la sesión y hace commit + push.
@@ -255,6 +257,7 @@
 5. Mejoras opcionales: las de §13.
 
 ## 15. Decisiones que debe tomar el usuario
+- (28-02) Comando `/loteN` creado (skill `lote` + atajos `lote2`…`lote10`): úsalo para el próximo lote.
 - (28-02) Opinión sobre los documentales 17–20 (voz incluida: sin Whisper, solo la ha «oído» la alineación de ElevenLabs). ¿Unir `claude/gifted-cerf-m7f5ev` a `main` (PR)?
 - Qué cambios de animación quiere para los próximos vídeos.
 - Tema del **vídeo 02**.

@@ -20,4 +20,5 @@ description: Retoma el proyecto en un chat nuevo. Lee CLAUDE.md, docs/PIPELINE_S
    - **Dónde estamos**: versión actual, último vídeo, rama y si hay cambios sin commit.
    - **Pendiente**: lo que quedó abierto, incluidas las decisiones que tocan al usuario.
    - **Siguiente paso propuesto**: uno, concreto.
+   - Recordar en una línea que para pedir varios vídeos basta con `/loteN (títulos/hooks)` (skill `.claude/skills/lote/SKILL.md`).
    - Terminar preguntando qué quiere hacer. No empezar ningún trabajo por iniciativa propia.

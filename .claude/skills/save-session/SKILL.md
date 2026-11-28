@@ -36,7 +36,7 @@ Objetivo: que un Claude **sin ningún contexto** pueda continuar el trabajo leye
 
 3. **Crear `docs/sessions/AAAA-MM-DD-NN.md`** (fecha de hoy; NN = siguiente número del día, empezando en 01) con: qué pidió el usuario, qué se hizo, qué falló (y cómo se resolvió o no), qué queda, commits de la sesión.
 
-4. **Comprobar `CLAUDE.md`**: debe decir al principio que al empezar una sesión hay que leer `docs/PIPELINE_STATE.md` y la última sesión, y debe incluir la regla de protección (no modificar narrador, estilo ni pipeline base sin permiso explícito; tags vK al aprobar versiones). Si falta, añadirlo.
+4. **Comprobar `CLAUDE.md`** (y que siga el aviso del comando `/loteN` → `.claude/skills/lote/SKILL.md`): debe decir al principio que al empezar una sesión hay que leer `docs/PIPELINE_STATE.md` y la última sesión, y debe incluir la regla de protección (no modificar narrador, estilo ni pipeline base sin permiso explícito; tags vK al aprobar versiones). Si falta, añadirlo.
 
 5. **Commit y push** en la rama de trabajo actual:
    - `git add -A` (excepto `build/`, que está ignorado) y commit con mensaje `Guardar estado de sesión AAAA-MM-DD-NN` + líneas de atribución que indique el sistema.
