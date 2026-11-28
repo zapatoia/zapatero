@@ -11,6 +11,11 @@ N = el número pegado a «lote». Los títulos/hooks van entre paréntesis, nume
 **Sin títulos («haz N vídeos», «haz N vídeos y distribúyelos»):** primero `/ideas N` (`.claude/skills/ideas/SKILL.md`, sin preguntar nada)
 y usar sus N elegidas (con su ficha) como títulos/hooks de este lote; al acabar cada vídeo, pasar la idea a `ideas/banco.json → hechas`.
 
+**DURACIÓN VARIABLE (decisión del usuario, 2026-11-28; manda sobre el «~1:30» del prompt original del lote):** cada vídeo dura entre **45 s y 1:30**
+según lo que pida la idea: un dato o mito con una sola explicación → 45–60 s (~100–140 palabras); explicación con 2–3 pasos → 60–75 s
+(~140–175); progresión o historia con varios hitos → 75–90 s (~175–215). Se decide en el guion (o en la ficha de `/ideas`) y se dice en el informe.
+Nunca se rellena para llegar a una duración: si la idea da para 50 s, son 50 s.
+
 **Qué hacer:** ejecutar **tal cual** el prompt de abajo (el que el usuario escribió para el primer lote, documentales 17–20, sesión
 2026-11-28-02), sustituyendo «4» por N y la lista de vídeos por los títulos/hooks que ha dado. **No preguntar nada**: el OK de la voz
 y del gasto viene implícito (regla de oro del kit). Formato activo: documentales animados verticales 9:16 (`.claude/skills/documental-animado/SKILL.md`,
@@ -21,7 +26,7 @@ y del gasto viene implícito (regla de oro del kit). Formato activo: documentale
    escenas reciente (p. ej. `escenas_zurdo.py`, `escenas_vida.py`) para el nivel visual. Crear una tarea por vídeo (TaskCreate) y marcarlas en orden.
 2. Por CADA vídeo, en `documentales/NN-tema/` (NN = siguiente número libre):
    datos verificados con WebSearch (fuentes en `guion.json → fuentes` y `descripcion.md`; lo dudoso como «se cree» / «es una teoría») →
-   guion (~2,2–2,8 palabras/s de la duración pedida; ~1:30 por defecto ≈ 210–250 palabras; gancho con acción, cierre que vuelve al gancho con remate) →
+   guion (~2,2–2,5 palabras/s; duración VARIABLE 45 s–1:30 según la idea, ver arriba; gancho con acción, cierre que vuelve al gancho con remate) →
    **módulo de escenas NUEVO** `escenas_<tema>.py` (7–8 tipos de escena dibujados a medida, conceptos animados al decirlos, SFX propios, enganchado
    al final de `motor.py`) → `motor.py <proy> escenas` y `prueba` sin voz, revisar y corregir → `voz_eleven.py <proy>` (una toma) → comprobar anclas con
    `palabras.json` → `prueba` con tiempos reales en todos los momentos clave y corregir (huecos vacíos de 2–3 s, pastillas que se pisan, cosas en

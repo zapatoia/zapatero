@@ -29,7 +29,7 @@ usuario prefiera, anotado en perfil.json → `python`; Windows `"$HOME/.venvs/do
 `<SKILL>/motor/variantes/documental/motor.py`. Si copias el motor fuera de la skill y no la instalaste en `~/.claude/skills/documental-animado`, define `KIT_MOTOR=<SKILL>/motor`.
 
 ## 0 · Primera vez (una sola vez por computadora)
-> **Servidor Linux de Claude Code en la nube (repo zapatero):** el contenedor se borra entre sesiones. Si falta `~/.venvs/documental-animado`, corre `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min). La clave de ElevenLabs ya está en la variable de entorno `ELEVENLABS_API_KEY`. Huggingface está bloqueado: el modelo de Whisper no se puede bajar; para las marcas por palabra usar los timestamps/forced-alignment de ElevenLabs.
+> **Servidor Linux de Claude Code en la nube (repo zapatero):** el contenedor se borra entre sesiones. Si falta `~/.venvs/documental-animado`, corre `bash .claude/skills/documental-animado/instalar/instalar_linux.sh` (2–3 min). La clave de ElevenLabs ya está en la variable de entorno `ELEVENLABS_API_KEY`. **Whisper ya funciona (desde 2026-11-28-04):** el entorno «Default» permite Hugging Face (`huggingface.co`, `us.aws.cdn.hf.co`, `cas-server.xethub.hf.co`…) y el modelo `large-v3-turbo` se baja solo la primera vez (~10 s; transcribe ~80 s de voz en ~20 s en CPU). Tras generar la voz, correr SIEMPRE `PY motor/nucleo/voz.py <proyecto> verificar` (pasada literal contra el guion → `voz-verificacion.json`, la exige el QA): cada falla (palabra cambiada, comida, de baja confianza, vocal estirada) se escucha/mide y, si es real, se regraba SOLO esa frase (como en el 16) antes de renderizar.
 
 1. **Instala** con un solo comando (córrelo en segundo plano: la primera vez tarda 10–30 min; se puede repetir y sigue donde se quedó):
    Mac `bash "<SKILL>/instalar/instalar.sh"` · Windows `powershell -NoProfile -ExecutionPolicy Bypass -File "<SKILL>\instalar\instalar.ps1"`.
@@ -301,6 +301,9 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Huecos de 3 s antes del primer elemento de una lista: siluetas con «?» que se revelan una a una (rueda de reconocimiento con flash).
 - Calendarios: si rueda en días, la etiqueta dice DÍAS siempre (nunca «SEMANAS 28»); la palabra «semanas» va en una pastilla aparte.
 - Escenas en `escenas_parpado.py`: `parpado` (gancho / cierre), `anillo`, `nervio`, `sospechosos`, `vaso`, `magnesio`, `sevasolo`, `medico`; superficie nueva `piel`.
+
+**Duración (decisión del usuario, 28 nov 2026)**
+- cada vídeo dura entre **45 s y 1:30** según lo que pida la idea: un dato o mito con una sola explicación → 45–60 s (~100–140 palabras); explicación con 2–3 pasos → 60–75 s (~140–175); progresión o historia con varios hitos → 75–90 s (~175–215). Se decide en el guion (o en la ficha de `/ideas`) y se dice en el informe. Nunca se rellena para llegar a una duración: si la idea da para 50 s, son 50 s.
 
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
