@@ -15,7 +15,8 @@ if os.name == "nt" and not os.environ.get("HF_HOME") and not os.path.expanduser(
 
 import numpy as np
 
-os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")   # Windows sin modo desarrollador: el aviso de symlinks del caché no es un error
+os.environ.setdefault("HF_HUB_DISABLE_SYMLINKS_WARNING", "1")
+os.environ.setdefault("HF_HUB_DISABLE_XET", "1")   # servidor Linux en la nube: descarga clásica por us.aws.cdn.hf.co (hosts permitidos en el entorno)   # Windows sin modo desarrollador: el aviso de symlinks del caché no es un error
 
 REPO_MLX = "mlx-community/whisper-large-v3-turbo"
 MODELO_FASTER = "large-v3-turbo"
@@ -51,6 +52,10 @@ def transcribe(audio, language=None, temperature=0.0, word_timestamps=False, con
         return mlx_whisper.transcribe(audio, path_or_hf_repo=REPO_MLX, language=language, temperature=temperature, word_timestamps=word_timestamps,
                                       condition_on_previous_text=condition_on_previous_text, initial_prompt=initial_prompt)
     m = _faster()
+    if isinstance(audio, (str, os.PathLike)):                     # algunas versiones de PyAV no aceptan la ruta (metadata_errors): se decodifica con ffmpeg
+        import subprocess
+        audio = np.frombuffer(subprocess.run(["ffmpeg", "-v", "error", "-i", str(audio), "-f", "f32le", "-ac", "1", "-ar", "16000", "-"],
+                                             capture_output=True, check=True).stdout, np.float32)
     if isinstance(audio, np.ndarray): audio = audio.astype(np.float32)
     segs, info = m.transcribe(audio, language=language, temperature=temperature, word_timestamps=word_timestamps, beam_size=5,
                               condition_on_previous_text=condition_on_previous_text, initial_prompt=initial_prompt, vad_filter=False)
