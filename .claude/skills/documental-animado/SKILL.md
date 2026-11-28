@@ -292,6 +292,16 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Mano ilustrada reutilizable (`_mano`, izquierda; en espejo es la derecha) con poses abierta / puño / lapiz / tijeras.
 - Escenas en `escenas_zurdo.py`: `reves` (gancho / cierre), `objetos`, `diez`, `cerebro_z`, `escuela`, `pelea`, `equilibrio`.
 
+**Documental 21 (28 nov 2026, «¿Por qué de repente te tiembla el párpado?»): primer vídeo con `publicacion.json` y distribución**
+- Temas de salud: síntoma benigno → nombre → mecanismo con UNA metáfora visual (el nervio = un cable que da chispazos) → causas como
+  «sospechosos» → cuándo ir al médico (señales de la fuente, literales) y nota «información general» en `descripcion.md`. Mitos sin pruebas
+  (magnesio): se dicen como «se dice mucho, pero no está demostrado», con sello, nunca como dato.
+- Ojo grande ilustrado reutilizable (`_ojo`: abierto 0..1, temblor del párpado de abajo, iris con fibras, rojez) y el músculo orbicular
+  (`_anillo_m`: se dibuja, se encoge, enciende un trocito). Los párpados son aquí el TEMA dibujado, no un velo sobre la pantalla (la regla del 13 sigue).
+- Huecos de 3 s antes del primer elemento de una lista: siluetas con «?» que se revelan una a una (rueda de reconocimiento con flash).
+- Calendarios: si rueda en días, la etiqueta dice DÍAS siempre (nunca «SEMANAS 28»); la palabra «semanas» va en una pastilla aparte.
+- Escenas en `escenas_parpado.py`: `parpado` (gancho / cierre), `anillo`, `nervio`, `sospechosos`, `vaso`, `magnesio`, `sevasolo`, `medico`; superficie nueva `piel`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

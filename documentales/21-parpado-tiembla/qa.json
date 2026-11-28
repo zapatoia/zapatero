@@ -1,0 +1,308 @@
+{
+ "video": "/home/user/zapatero/documentales/21-parpado-tiembla/final/21-parpado-tiembla.mp4",
+ "duracion_s": 77.71,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 99.7,
+   "abajo": 0.6,
+   "derecha": 34.1
+  },
+  "tramo_s": {
+   "arriba": 48.75,
+   "abajo": 0.25,
+   "derecha": 21.75
+  },
+  "ok": false,
+  "aceptada": "medido: fondos a sangre (habitación, piel, paredes); ninguna pastilla, cifra, cartel ni texto pasa de x=950 ni baja de y=1536 (posiciones corregidas tras el primer render)"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0072,
+  "pico_cuadro0_db": -19.0,
+  "primera_palabra_s": 0.035,
+  "video_cuadro0_rms_db": -19.8,
+  "ok": false,
+  "aceptada": "medido en voz.wav: la voz arranca a los 7 ms (dentro del cuadro 0); solo la marca de alineación de la primera palabra va en 35 ms"
+ },
+ "pausas": {
+  "pausa_max_s": 0.46,
+  "hueco_entre_marcas_s": 0.555,
+  "fin_voz_s": 77.313,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 37,
+  "peor": {
+   "w": "siempre.",
+   "t": 33.284,
+   "caida_db": 28.6,
+   "desde_db": -29.4
+  },
+  "malas": [
+   {
+    "w": "siempre.",
+    "t": 33.284,
+    "caida_db": 28.6,
+    "desde_db": -29.4
+   },
+   {
+    "w": "rebosa…",
+    "t": 47.764,
+    "caida_db": 26.9,
+    "desde_db": -36.3
+   },
+   {
+    "w": "dormir.",
+    "t": 74.736,
+    "caida_db": 26.5,
+    "desde_db": -29.9
+   }
+  ],
+  "detalle": [
+   {
+    "w": "párpado?",
+    "t": 1.747,
+    "caida_db": 22.9,
+    "desde_db": -38.4
+   },
+   {
+    "w": "Tranquilo:",
+    "t": 2.968,
+    "caida_db": 0.0,
+    "desde_db": -63.3
+   },
+   {
+    "w": "viendo.",
+    "t": 4.079,
+    "caida_db": 14.3,
+    "desde_db": -35.5
+   },
+   {
+    "w": "terremoto.",
+    "t": 6.458,
+    "caida_db": 20.7,
+    "desde_db": -34.8
+   },
+   {
+    "w": "ve.",
+    "t": 8.504,
+    "caida_db": 8.5,
+    "desde_db": -26.4
+   },
+   {
+    "w": "nombre:",
+    "t": 9.878,
+    "caida_db": 0.0,
+    "desde_db": -60.6
+   },
+   {
+    "w": "palpebral.",
+    "t": 11.366,
+    "caida_db": 23.1,
+    "desde_db": -30.1
+   },
+   {
+    "w": "anillo.",
+    "t": 14.52,
+    "caida_db": 24.1,
+    "desde_db": -29.8
+   },
+   {
+    "w": "parpadeas.",
+    "t": 17.196,
+    "caida_db": 18.9,
+    "desde_db": -37.8
+   },
+   {
+    "w": "cable.",
+    "t": 19.879,
+    "caida_db": 19.7,
+    "desde_db": -34.1
+   },
+   {
+    "w": "cuenta.",
+    "t": 23.556,
+    "caida_db": 14.6,
+    "desde_db": -32.5
+   },
+   {
+    "w": "vez.",
+    "t": 27.221,
+    "caida_db": 17.0,
+    "desde_db": -22.5
+   },
+   {
+    "w": "abajo.",
+    "t": 30.191,
+    "caida_db": 14.4,
+    "desde_db": -25.0
+   },
+   {
+    "w": "provoca?",
+    "t": 31.593,
+    "caida_db": 17.2,
+    "desde_db": -31.7
+   },
+   {
+    "w": "siempre.",
+    "t": 33.284,
+    "caida_db": 28.6,
+    "desde_db": -29.4
+   },
+   {
+    "w": "poco.",
+    "t": 34.666,
+    "caida_db": 19.3,
+    "desde_db": -37.1
+   },
+   {
+    "w": "estrés.",
+    "t": 35.574,
+    "caida_db": 15.9,
+    "desde_db": -30.8
+   },
+   {
+    "w": "café.",
+    "t": 37.06,
+    "caida_db": 19.0,
+    "desde_db": -24.9
+   },
+   {
+    "w": "ojo.",
+    "t": 39.963,
+    "caida_db": 16.5,
+    "desde_db": -36.9
+   },
+   {
+    "w": "tabaco.",
+    "t": 41.766,
+    "caida_db": 13.3,
+    "desde_db": -25.2
+   },
+   {
+    "w": "solo:",
+    "t": 43.653,
+    "caida_db": 0.0,
+    "desde_db": -62.7
+   },
+   {
+    "w": "llena.",
+    "t": 46.31,
+    "caida_db": 21.6,
+    "desde_db": -22.9
+   },
+   {
+    "w": "rebosa…",
+    "t": 47.764,
+    "caida_db": 26.9,
+    "desde_db": -36.3
+   },
+   {
+    "w": "tic.",
+    "t": 48.402,
+    "caida_db": 16.0,
+    "desde_db": -38.2
+   },
+   {
+    "w": "magnesio?",
+    "t": 50.114,
+    "caida_db": 19.8,
+    "desde_db": -37.4
+   },
+   {
+    "w": "demostrado.",
+    "t": 52.428,
+    "caida_db": 15.1,
+    "desde_db": -25.7
+   },
+   {
+    "w": "noticia:",
+    "t": 53.744,
+    "caida_db": 12.9,
+    "desde_db": -34.9
+   },
+   {
+    "w": "solo.",
+    "t": 54.674,
+    "caida_db": 15.5,
+    "desde_db": -31.4
+   },
+   {
+    "w": "semanas.",
+    "t": 57.798,
+    "caida_db": 19.7,
+    "desde_db": -37.2
+   },
+   {
+    "w": "vista.",
+    "t": 61.076,
+    "caida_db": 23.0,
+    "desde_db": -29.9
+   },
+   {
+    "w": "sí:",
+    "t": 61.96,
+    "caida_db": 21.6,
+    "desde_db": -34.6
+   },
+   {
+    "w": "semanas,",
+    "t": 64.592,
+    "caida_db": 0.0,
+    "desde_db": -44.1
+   },
+   {
+    "w": "todo,",
+    "t": 66.353,
+    "caida_db": 8.9,
+    "desde_db": -26.5
+   },
+   {
+    "w": "cara.",
+    "t": 68.425,
+    "caida_db": 13.1,
+    "desde_db": -32.2
+   },
+   {
+    "w": "tranquilo:",
+    "t": 71.912,
+    "caida_db": 18.3,
+    "desde_db": -21.0
+   },
+   {
+    "w": "dormir.",
+    "t": 74.736,
+    "caida_db": 26.5,
+    "desde_db": -29.9
+   },
+   {
+    "w": "cuenta.",
+    "t": 77.245,
+    "caida_db": 6.2,
+    "desde_db": -39.4
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido en voz.wav: «siempre.», «rebosa…» y «dormir.» bajan en una vocal final y siguen con cola natural de −40 a −60 dB más de 200 ms antes de la siguiente palabra: no hay corte"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

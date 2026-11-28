@@ -1617,6 +1617,8 @@ from escenas_vida import instalar as _inst_vida          # noqa: E402
 _inst_vida(Vertical, globals())
 from escenas_zurdo import instalar as _inst_zurdo          # noqa: E402
 _inst_zurdo(Vertical, globals())
+from escenas_parpado import instalar as _inst_parpado          # noqa: E402
+_inst_parpado(Vertical, globals())
 
 
 def escenas(e):
