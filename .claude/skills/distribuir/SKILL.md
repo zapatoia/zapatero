@@ -1,6 +1,6 @@
 ---
 name: distribuir
-description: Programa vídeos ya terminados en Instagram Reels, YouTube Shorts y TikTok con el conector de Metricool, en los siguientes huecos libres (10:30 y 18:30 Europe/Madrid) de cada red. Usar cuando el usuario escriba /distribuir, pida «distribúyelo/distribúyelos», «prográmalo en redes» o un lote «y distribúyelos».
+description: Programa vídeos ya terminados en Instagram Reels, YouTube Shorts y TikTok con el conector de Metricool, en los siguientes huecos libres (14:30 y 19:30 Europe/Madrid) de cada red. Usar cuando el usuario escriba /distribuir, pida «distribúyelo/distribúyelos», «prográmalo en redes» o un lote «y distribúyelos».
 ---
 
 # /distribuir [vídeos] — programar en redes (Metricool)
@@ -24,7 +24,7 @@ Registro de huecos: `publicaciones/calendario.json` (fuente de verdad junto con 
    **falló** → volver a crearlo igual en el siguiente hueco libre de esa red, marcar el viejo `estado: "fallido"` y el nuevo `"reprogramado"`, y
    avisar en el informe (si el viejo sigue en Metricool, pedir al usuario que lo borre: el conector no borra). Si ya no aparece → `estado: "publicado"`.
 1. **Ocupado** = `calendario.json` (cursor `siguiente_libre` por red + `publicaciones`) ∪ `getScheduledPosts(brandId 8415557, hoy → +90 días, Europe/Madrid)`.
-2. **Huecos**: para cada red por separado, desde su `siguiente_libre`, los huecos 10:30 / 18:30 que no estén ocupados y que caigan ≥ 60 min
+2. **Huecos**: para cada red por separado, desde su `siguiente_libre`, los huecos 14:30 / 19:30 que no estén ocupados y que caigan ≥ 60 min
    en el futuro; se asignan en el orden de los vídeos. Las redes NO tienen por qué ir alineadas (cada una con su cursor).
 3. **Medio**: URL `https://raw.githubusercontent.com/zapatoia/zapatero/<hash del commit>/<ruta del mp4>` (hash, nunca rama). Comprobar con
    `curl -sI` que responde 200 y que el `Content-Length` coincide con el fichero local.
