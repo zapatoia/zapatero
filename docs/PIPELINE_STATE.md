@@ -27,6 +27,7 @@
 - Código antiguo **no reutilizable**: `src/` y `zapato_historia_vertical.mp4` (rama `claude/shoe-history-vertical-video-qw2b0t`) son de un intento anterior y no se tocan.
 
 ## 3. Estado en una frase
+- **28-04 (mejoras pequeñas)**: huecos cambiados a **10:30 y 18:30** (datos de Metricool; IG/YT siguiente 3-dic 10:30, TikTok 3-dic 18:30); comprobación diaria de que lo programado se publicó (y reprogramar lo fallido); ángulo propio sin estropear la idea (A/B puntuadas, gana la mejor, empate = original); primer comentario con pregunta en IG y YouTube; enlaces a los MP4 en la notificación; hashtag temático aprendido. Pendiente con el usuario: limpieza de MP4 (borrar de `main` no reduce el historial: hace falta otra solución) y clave de ElevenLabs con lectura de saldo.
 - **28-04 (última mejora)**: `/ideas` analiza los 10 mejores Reels de competidores con **fichas de éxito** (gancho, estructura y formato deducidos, motivo, patrón reutilizable) en `ideas/biblioteca_exito.json` (acumulativa, sembrada con 5 fichas) y cada idea nace como **mini concepto** que se puntúa entero (rúbrica sobre 110: + concepto completo ×2, + patrón de éxito ×2). Pendientes priorizados para el martes: activar y validar la tarea; comprobar que lo programado se publicó; herramienta de regrabar frases; limpieza de MP4; saldo real de ElevenLabs; ángulo distinto al del competidor; competidores españoles; primer comentario; Trial Reels; mejores horas; resumen visual semanal.
 - **28-04 (mejoras)**: aprendizaje de resultados (`ideas/aprendizaje.json`, Fase 1b de `/ideas`, análisis a fondo los lunes), variedad visual vigilada (campo `visual` en cada `guion.json`, §7 del kit) y series (máx. 1 activa, `banco.json → series`). Pendientes propuestas: Trial Reels para probar ganchos, primer comentario automático, horas con `getBestTimeToPostByNetwork`, limpieza de MP4 publicados, herramienta de regrabación de frases, clave de ElevenLabs con lectura de saldo.
 - **28-04 (cierre) — automatización diaria creada PAUSADA**: tarea `trig_01LnEdK2H5uTmnoDDv9AAi9z` (07:47 Madrid, 2 vídeos + distribución + push a main, ver `docs/AUTOMATIZACION.md`). Conector de Metricool ya añadido (28-nov). Falta: fusionar la PR #13 y **activarla el martes 1-dic tras las 07:00** cuando el usuario lo pida en `/resume-session`. Duración de los vídeos: variable 45 s–1:30.
@@ -278,6 +279,12 @@
 5. Mejoras opcionales: las de §13.
 
 ## 15. Decisiones que debe tomar el usuario
+- **Recordar al usuario (lo pidió el 28-nov; `/resume-session` lo menciona):**
+  1. **Limpieza de MP4**: borrar de `main` no reduce el repo (el historial los guarda). Propuesta: los MP4 en una rama aparte (p. ej. `medios`)
+     que se vacía y se recrea cada mes, porque Metricool ya guarda su copia al programar. Requiere su permiso explícito (borrar/recrear esa rama).
+     A ~1,5 GB/mes con 2 vídeos al día, hacerlo antes de ~febrero 2027.
+  2. **Saldo real de ElevenLabs**: que cree una clave con permiso de leer el saldo («User: read») y la guarde en el entorno; entonces la tarea
+     diaria leerá el saldo real en vez de estimarlo (`publicaciones/creditos_eleven.json`).
 - (28-04) Confirmar en la app de Metricool que ve los 3 posts del 21 (marca de `telocuentobro` y la misma cuenta que el conector); si la cuenta del conector no es la suya, reconectarlo y reprogramar. Unir `claude/confident-goodall-spemin` a `main` cuando quiera. Pendientes de `docs/DISTRIBUCION.md` §6: qué vídeos ya hechos (01–20) publicar y si alguno ya está subido a mano.
 - (28-03) Distribución (`docs/DISTRIBUCION.md` §6): declaración de IA por red; TikTok automático o manual tras la prueba; qué vídeos ya hechos (01–20) publicar primero y si alguno ya está subido a mano; aviso a suscriptores de YouTube; OK a los cambios del §5.
 - (28-02) Comando `/loteN` creado (skill `lote` + atajos `lote2`…`lote10`): úsalo para el próximo lote.

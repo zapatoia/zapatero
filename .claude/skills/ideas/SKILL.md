@@ -52,7 +52,7 @@ Cada ronda reconstruye el estado; lo guardado en `banco.json` es solo el histori
 ## Fase 1b · Aprender de TUS resultados (`ideas/aprendizaje.json`)
 - Con la tabla del canal de la Fase 1, para cada vídeo con ≥ 72 h publicado: puntuación de éxito = media normalizada (frente a la mediana de tus
   vídeos) de vistas, (compartidos+guardados)/1.000 vistas, retención IG (`IGRE27`), % vídeo completo TikTok (`TKPO13`) y, en negativo, salto en 3 s
-  (`IGRE30`). Agrupar por categoría, fórmula, tipo de gancho (pregunta / afirmación / acción / reto) y duración (45–60 / 60–75 / 75–90 s).
+  (`IGRE30`). Agrupar por categoría, fórmula, tipo de gancho (pregunta / afirmación / acción / reto) y duración (45–60 / 60–75 / 75–90 s), y por **hashtag temático** usado (`por_hashtag`).
 - Con ≥ 3 vídeos en un grupo: multiplicador = clamp(éxito medio del grupo, 0,6, 1,5); con menos, 1,0. Guardar en `aprendizaje.json` con fecha.
 - **Los lunes** (o si han pasado ≥ 7 días desde `historial_semanal[-1]`): análisis a fondo de la semana → 3–5 conclusiones concretas («los ganchos
   de acción retienen un 20 % más», «lo de cuerpo funciona, lo de mapas no») en `conclusiones` e `historial_semanal`, y un párrafo en el informe.
@@ -80,6 +80,13 @@ si se elige, la parte 1 entra en este lote y las siguientes quedan reservadas co
 salgan en días seguidos); cada parte acaba con «parte 2 mañana» y su título lleva «(1/3)»; cada parte se entiende sola.
 Al menos: 35 de competidores de Instagram (temas y patrones ganadores, adaptados a nuestro estilo y a España), 10 de la web,
 15 inspiradas en lo que mejor ha funcionado en el canal, 20 propias.
+
+## Fase 2b · Ángulo propio SIN estropear la idea (pedido del usuario, 28-nov)
+Para cada idea que viene de un Reel de competidor: escribir **dos versiones del concepto**, (A) la del ángulo/gancho más cercano a lo que
+funcionó y (B) un ángulo propio distinto (otra perspectiva, otro protagonista, otro gancho, otra estructura), y puntuar AMBAS con la rúbrica
+completa de la Fase 4. **Se queda la de más nota; si empatan o B baja aunque sea 1 punto, se queda A.** Nunca se cambia el dato central ni se
+debilita el gancho por diferenciarse. Aun quedándose A, el guion, el texto del gancho y el dibujo se escriben de cero (nunca la frase literal del
+competidor). Apuntar en la ronda qué versión ganó y por qué.
 
 ## Fase 3 · Filtro duro (fuera sin puntuar)
 Fuera si: choca con un **veto** de `banco.json`; repite tema o ángulo de una **hecha** (o de otra idea de la misma ronda); no se puede

@@ -1,6 +1,6 @@
 ---
 name: distribuir
-description: Programa vídeos ya terminados en Instagram Reels, YouTube Shorts y TikTok con el conector de Metricool, en los siguientes huecos libres (15:30 y 20:30 Europe/Madrid) de cada red. Usar cuando el usuario escriba /distribuir, pida «distribúyelo/distribúyelos», «prográmalo en redes» o un lote «y distribúyelos».
+description: Programa vídeos ya terminados en Instagram Reels, YouTube Shorts y TikTok con el conector de Metricool, en los siguientes huecos libres (10:30 y 18:30 Europe/Madrid) de cada red. Usar cuando el usuario escriba /distribuir, pida «distribúyelo/distribúyelos», «prográmalo en redes» o un lote «y distribúyelos».
 ---
 
 # /distribuir [vídeos] — programar en redes (Metricool)
@@ -19,14 +19,21 @@ Registro de huecos: `publicaciones/calendario.json` (fuente de verdad junto con 
 - Las tools son `mcp__Metricool_Social_Media_Management__*` (si no se ven, ToolSearch «metricool»).
 
 ## Pasos
+0. **Comprobar lo de ayer (antes de programar nada nuevo):** para cada post de `calendario.json → publicaciones` con fecha ya pasada y
+   `estado: "programado"`: si `getScheduledPosts` (rango desde 3 días atrás) aún lo devuelve (fecha pasada y sin publicar) o con estado de error,
+   **falló** → volver a crearlo igual en el siguiente hueco libre de esa red, marcar el viejo `estado: "fallido"` y el nuevo `"reprogramado"`, y
+   avisar en el informe (si el viejo sigue en Metricool, pedir al usuario que lo borre: el conector no borra). Si ya no aparece → `estado: "publicado"`.
 1. **Ocupado** = `calendario.json` (cursor `siguiente_libre` por red + `publicaciones`) ∪ `getScheduledPosts(brandId 8415557, hoy → +90 días, Europe/Madrid)`.
-2. **Huecos**: para cada red por separado, desde su `siguiente_libre`, los huecos 15:30 / 20:30 que no estén ocupados y que caigan ≥ 60 min
+2. **Huecos**: para cada red por separado, desde su `siguiente_libre`, los huecos 10:30 / 18:30 que no estén ocupados y que caigan ≥ 60 min
    en el futuro; se asignan en el orden de los vídeos. Las redes NO tienen por qué ir alineadas (cada una con su cursor).
 3. **Medio**: URL `https://raw.githubusercontent.com/zapatoia/zapatero/<hash del commit>/<ruta del mp4>` (hash, nunca rama). Comprobar con
    `curl -sI` que responde 200 y que el `Content-Length` coincide con el fichero local.
 4. **Un post por vídeo y red** con `createScheduledPost(blogId=8415557, date=<ISO con desfase>, info=<JSON>)`:
    - comunes: `providers:[{"network":…}]`, `publicationDate:{"dateTime":"AAAA-MM-DDTHH:MM:00","timezone":"Europe/Madrid"}`, `text`, `media:[url]`,
      `autoPublish:true`, `draft:false`, `videoCoverMilliseconds` = `portada_ms`.
+   - **Primer comentario** (Instagram y YouTube, `firstCommentText`): una pregunta corta del vídeo (estilo en `config/redes.json → primer_comentario`,
+     texto en `publicacion.json → primer_comentario`). En TikTok no.
+   - **Hashtag del tema:** si `ideas/aprendizaje.json → por_hashtag` tiene datos, usar el hashtag temático que mejor ha funcionado entre los que encajen.
    - instagram: `instagramData:{"type":"REEL","showReelOnFeed":true,"isAiGenerated":true}`.
    - youtube: `youtubeData:{"title","type":"short","privacy":"public","madeForKids":false,"category":"EDUCATION","tags":[…],"isAiGeneratedContent":true}`.
    - tiktok: texto en UNA línea (sin saltos), `tiktokData:{"privacyOption":"PUBLIC_TO_EVERYONE","title","autoAddMusic":false,"isAigc":true}`.
