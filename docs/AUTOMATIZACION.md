@@ -3,6 +3,13 @@
 > Creada el 2026-11-28 a petición del usuario. La lanza una **tarea programada de Claude en la nube** cada día a las **07:47 (Europe/Madrid)**,
 > en una sesión nueva. **Nadie supervisa en directo**: sigue esto al pie de la letra y **no preguntes nada**.
 
+## Estado
+- Tarea programada `trig_01LnEdK2H5uTmnoDDv9AAi9z` («Vídeos diarios: 2 vídeos + distribución»), cron `CRON_TZ=Europe/Madrid 47 7 * * *`,
+  sesión nueva en cada disparo, aviso push. **Creada PAUSADA el 2026-11-28** (el usuario estaba al 89 % de su uso hasta el martes 1-dic 07:00).
+- **Antes de activarla:** (1) fusionar la PR #12 (Whisper, duración variable, este archivo); (2) **añadirle el conector de Metricool** desde
+  claude.ai (sección de tareas programadas/rutinas → esta tarea → conectores): creada desde aquí no se pudo adjuntar y, sin él, no hay ideas
+  ni distribución; (3) activarla (o pedírselo a Claude: `update_trigger enabled=true`) para que la primera ejecución sea el martes 1-dic a las 07:47.
+
 ## Permiso del usuario (2026-11-28)
 - Al terminar, **fusionar el trabajo en `main` y hacer push a `main`** directamente (sin pull request). Si el push se rechaza: `git fetch origin main`,
   `git merge --no-edit origin/main`, resolver y volver a empujar. Nunca reescribir historia ni forzar.
@@ -13,6 +20,8 @@
    `distribuir/SKILL.md`, `documental-animado/SKILL.md` (§0, §7) y, de `docs/PIPELINE_STATE.md`, solo §3 (primeras entradas) y §14 (primera).
    No leer el historial antiguo completo (ahorra uso).
 1. **Topes de seguridad (antes de gastar nada):**
+   - **Metricool:** si las herramientas `mcp__Metricool_Social_Media_Management__*` no están (ToolSearch «metricool»), no producir nada: informe
+     «la tarea no tiene el conector de Metricool» y fin (sin él no hay ideas ni distribución).
    - **ElevenLabs:** `publicaciones/creditos_eleven.json` lleva la cuenta (plan Creator 100.000/mes). Estimar ~1.400 créditos por vídeo (menos si es
      corto). Si `restantes_estimados` < 3.000 → no generar voz ni programar; informe «sin créditos» y fin. Si en un vídeo la API responde
      «quota_exceeded», parar igual. Tras cada voz, restar los caracteres reales (`audio/eleven_gasto.json`).
