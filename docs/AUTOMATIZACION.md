@@ -25,6 +25,9 @@
      «quota_exceeded», parar igual. Tras cada voz, restar los caracteres reales (`audio/eleven_gasto.json`).
    - **Cola llena:** si en `publicaciones/calendario.json` el `siguiente_libre` de las tres redes está a más de 6 días vista, hacer 0 vídeos hoy
      (informe «cola llena»); si está a 4–6 días, hacer 1.
+1b. **Lo de ayer:** paso 0 de `/distribuir` (comprobar que lo programado se publicó y reprogramar lo que falló). El día 1 de cada mes, además,
+   consultar `getBestTimeToPostByNetwork` (Instagram, TikTok, YouTube) y, si los huecos de `config/redes.json` dejan de estar entre las mejores
+   horas de TikTok y YouTube, proponerlo en el informe (no cambiarlos sin decirlo).
 2. **Ideas:** `/ideas 2` (competidores de Instagram en Metricool + tu canal + web, datos frescos), duración variable 45 s–1:30 según la idea.
 3. **Producción:** `/lote 2` con esas ideas, pipeline completo. **Control de voz obligatorio:** tras `voz_eleven.py`, `PY motor/nucleo/voz.py <proy> verificar`
    (Whisper). Cada falla real (palabra cambiada/comida, baja confianza confirmada al medir, vocal estirada, pausa rara): regrabar SOLO esa frase y
@@ -36,7 +39,7 @@
    qué, duración, créditos gastados y restantes, posts con fecha/hora y enlace del planner, avisos de Whisper y cómo se resolvieron, errores).
    Commit y **push a `main`**.
 6. Incluir en el log y en el mensaje, si es lunes, las conclusiones semanales de `ideas/aprendizaje.json`.
-7. **Mensaje final** (llega al usuario como notificación): 5–8 líneas: los 2 títulos, cuándo sale cada uno por red, créditos restantes estimados,
+7. **Mensaje final** (llega al usuario como notificación): 5–8 líneas: los 2 títulos con el **enlace directo a cada MP4** (URL raw de GitHub por hash, para verlo en un toque), cuándo sale cada uno por red, créditos restantes estimados,
    y cualquier vídeo que no se programó y por qué.
 
 ## Si algo falla

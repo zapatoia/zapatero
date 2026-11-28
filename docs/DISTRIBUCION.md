@@ -6,7 +6,7 @@
 ## 1. Objetivo del usuario
 - Flujo ideal: «genera un lote de N vídeos de estas ideas/hooks **y distribúyelos**» → cada vídeo sale con título, textos y hashtags →
   se programan en **Instagram Reels, YouTube Shorts y TikTok** (TikTok: el usuario quiere incluirlo «si se puede»; si da problemas,
-  se queda manual) → **2 al día: 15:30 y 20:30, hora de Madrid** → siempre en los **siguientes huecos libres**, sin solapes ni duplicados,
+  se queda manual) → **2 al día: 10:30 y 18:30, hora de Madrid** → siempre en los **siguientes huecos libres**, sin solapes ni duplicados,
   acumulándose en el tiempo (20 vídeos = 10 días de calendario) → Claude comprueba que han quedado programados y da el calendario + errores.
 - Restricciones: todo desde el **iPad** (sin ordenador, sin servidores, sin Docker); nada de pago adicional salvo lo ya decidido.
 
@@ -86,7 +86,7 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
    Evita duplicados aunque se cierre la sesión.
 5. **Skill nuevo `.claude/skills/distribuir/SKILL.md`** (`/distribuir [vídeos]`):
    1. Leer `calendario.json` + `getScheduledPosts` (próximos 90 días) → huecos ocupados.
-   2. Calcular los siguientes huecos libres (15:30 y 20:30 Europe/Madrid; el primero al menos 60 min en el futuro), en el orden del lote.
+   2. Calcular los siguientes huecos libres (10:30 y 18:30 Europe/Madrid; el primero al menos 60 min en el futuro), en el orden del lote.
    3. Comprobar que cada MP4 está commiteado y empujado y que su URL raw responde 200 (desde el contenedor sí hay red a raw.githubusercontent.com: probado 200 el 28-11).
    4. Por vídeo y red: `createScheduledPost` → guardar `id/uuid/plannerUrl` en `calendario.json` (commit + push).
    5. Verificar con `getScheduledPosts` que están todos (red, hora, texto, medio) → informe: tabla del calendario + errores + enlaces.

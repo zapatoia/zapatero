@@ -1,18 +1,18 @@
 {
-  "_doc": "Registro de huecos de publicación (15:30 y 20:30 Europe/Madrid). Cada red lleva su propio cursor. 'ocupado_hasta' = último hueco ya cubierto (también lo programado a mano por el usuario, que Metricool no ve). Lo actualiza /distribuir; no editar a mano salvo para apuntar huecos manuales.",
+  "_doc": "Registro de huecos de publicación (10:30 y 18:30 desde el 2026-12-03; antes 15:30 y 20:30 Europe/Madrid). Cada red lleva su propio cursor. 'ocupado_hasta' = último hueco ya cubierto (también lo programado a mano por el usuario, que Metricool no ve). Lo actualiza /distribuir; no editar a mano salvo para apuntar huecos manuales.",
   "actualizado": "2026-11-28",
   "redes": {
     "instagram": {
       "ocupado_hasta": "2026-12-02T20:30",
-      "siguiente_libre": "2026-12-03T15:30"
+      "siguiente_libre": "2026-12-03T10:30"
     },
     "youtube": {
       "ocupado_hasta": "2026-12-02T20:30",
-      "siguiente_libre": "2026-12-03T15:30"
+      "siguiente_libre": "2026-12-03T10:30"
     },
     "tiktok": {
       "ocupado_hasta": "2026-12-03T15:30",
-      "siguiente_libre": "2026-12-03T20:30"
+      "siguiente_libre": "2026-12-03T18:30"
     }
   },
   "ocupado_manual": [
