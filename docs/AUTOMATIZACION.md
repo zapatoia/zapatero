@@ -26,8 +26,8 @@
    - **Cola llena:** si en `publicaciones/calendario.json` el `siguiente_libre` de las tres redes está a más de 6 días vista, hacer 0 vídeos hoy
      (informe «cola llena»); si está a 4–6 días, hacer 1.
 1b. **Lo de ayer:** paso 0 de `/distribuir` (comprobar que lo programado se publicó y reprogramar lo que falló). El día 1 de cada mes, además,
-   consultar `getBestTimeToPostByNetwork` (Instagram, TikTok, YouTube) y, si los huecos de `config/redes.json` dejan de estar entre las mejores
-   horas de TikTok y YouTube, proponerlo en el informe (no cambiarlos sin decirlo).
+   consultar `getBestTimeToPostByNetwork` (Instagram, TikTok, YouTube) y solo INFORMAR en el informe; los huecos 14:30 y 19:30 los fijó
+   el usuario y **nunca se cambian sin que él lo pida**.
 2. **Ideas:** `/ideas 2` (competidores de Instagram en Metricool + tu canal + web, datos frescos), duración variable 45 s–1:30 según la idea.
 3. **Producción:** `/lote 2` con esas ideas, pipeline completo. **Control de voz obligatorio:** tras `voz_eleven.py`, `PY motor/nucleo/voz.py <proy> verificar`
    (Whisper). Cada falla real (palabra cambiada/comida, baja confianza confirmada al medir, vocal estirada, pausa rara): regrabar SOLO esa frase y

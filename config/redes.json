@@ -5,8 +5,8 @@
     "timezone": "Europe/Madrid"
   },
   "huecos": [
-    "10:30",
-    "18:30"
+    "14:30",
+    "19:30"
   ],
   "margen_min_minutos": 60,
   "url_video": "https://raw.githubusercontent.com/zapatoia/zapatero/{commit}/{ruta}",
@@ -75,7 +75,7 @@
     "titulo": "corto (≤ 40 caracteres), en mayúsculas, 1–2 emojis (🤯 delante + uno del tema)",
     "max_hashtags": 5
   },
-  "huecos_nota": "Cambiado el 2026-11-28 (antes 15:30 y 20:30) con getBestTimeToPostByNetwork: TikTok mejor 10 h y 18 h, YouTube 16 h y 10 h; 20 h flojo en ambas; Instagram aún sin datos. Revisar cada mes (la tarea diaria lo hace el día 1 de cada mes).",
+  "huecos_nota": "FIJADO POR EL USUARIO el 2026-11-28: 14:30 y 19:30 Europe/Madrid. No cambiarlos sin que el usuario lo pida (la revisión mensual de horas solo informa, nunca cambia). Antes: 15:30 y 20:30.",
   "primer_comentario": {
     "redes": [
       "instagram",
