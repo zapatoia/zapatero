@@ -283,8 +283,8 @@
   1. **Limpieza de MP4**: borrar de `main` no reduce el repo (el historial los guarda). Propuesta: los MP4 en una rama aparte (p. ej. `medios`)
      que se vacía y se recrea cada mes, porque Metricool ya guarda su copia al programar. Requiere su permiso explícito (borrar/recrear esa rama).
      A ~1,5 GB/mes con 2 vídeos al día, hacerlo antes de ~febrero 2027.
-  2. **Saldo real de ElevenLabs**: que cree una clave con permiso de leer el saldo («User: read») y la guarde en el entorno; entonces la tarea
-     diaria leerá el saldo real en vez de estimarlo (`publicaciones/creditos_eleven.json`).
+  2. **Saldo real de ElevenLabs**: herramienta `tools/eleven_saldo.py` HECHA (28-nov); falta que el usuario ponga en el entorno una clave con
+     «User: Read» (si `tools/eleven_saldo.py` ya da el saldo, quitar este recordatorio).
 - (28-04) Confirmar en la app de Metricool que ve los 3 posts del 21 (marca de `telocuentobro` y la misma cuenta que el conector); si la cuenta del conector no es la suya, reconectarlo y reprogramar. Unir `claude/confident-goodall-spemin` a `main` cuando quiera. Pendientes de `docs/DISTRIBUCION.md` §6: qué vídeos ya hechos (01–20) publicar y si alguno ya está subido a mano.
 - (28-03) Distribución (`docs/DISTRIBUCION.md` §6): declaración de IA por red; TikTok automático o manual tras la prueba; qué vídeos ya hechos (01–20) publicar primero y si alguno ya está subido a mano; aviso a suscriptores de YouTube; OK a los cambios del §5.
 - (28-02) Comando `/loteN` creado (skill `lote` + atajos `lote2`…`lote10`): úsalo para el próximo lote.
