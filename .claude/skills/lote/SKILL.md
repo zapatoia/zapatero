@@ -27,6 +27,7 @@ y del gasto viene implícito (regla de oro del kit). Formato activo: documentale
 2. Por CADA vídeo, en `documentales/NN-tema/` (NN = siguiente número libre):
    datos verificados con WebSearch (fuentes en `guion.json → fuentes` y `descripcion.md`; lo dudoso como «se cree» / «es una teoría») →
    guion (~2,2–2,5 palabras/s; duración VARIABLE 45 s–1:30 según la idea, ver arriba; gancho con acción, cierre que vuelve al gancho con remate) →
+   **variedad visual vigilada** (leer el campo `visual` de los 5 últimos `guion.json`, ver `documental-animado/SKILL.md` §7) →
    **módulo de escenas NUEVO** `escenas_<tema>.py` (7–8 tipos de escena dibujados a medida, conceptos animados al decirlos, SFX propios, enganchado
    al final de `motor.py`) → `motor.py <proy> escenas` y `prueba` sin voz, revisar y corregir → `voz_eleven.py <proy>` (una toma) → comprobar anclas con
    `palabras.json` → `prueba` con tiempos reales en todos los momentos clave y corregir (huecos vacíos de 2–3 s, pastillas que se pisan, cosas en

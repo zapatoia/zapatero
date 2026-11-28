@@ -302,6 +302,15 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Calendarios: si rueda en días, la etiqueta dice DÍAS siempre (nunca «SEMANAS 28»); la palabra «semanas» va en una pastilla aparte.
 - Escenas en `escenas_parpado.py`: `parpado` (gancho / cierre), `anillo`, `nervio`, `sospechosos`, `vaso`, `magnesio`, `sevasolo`, `medico`; superficie nueva `piel`.
 
+**VARIEDAD VISUAL VIGILADA (pedido del usuario, 28 nov 2026)**
+- Antes de diseñar las escenas, leer el `guion.json` de los **5 últimos documentales** y su campo `visual`. El nuevo vídeo debe cambiar respecto
+  al anterior en al menos 3 de estos 5 y no repetir combinación exacta con ninguno de los 5: **protagonista** (cara_b / persona_t / mano / objeto
+  sin personaje / animal), **paleta y superficie dominante** (noche / clay / blue / dark / light / propia), **tipo de gancho visual** (golpe de
+  cómic / transformación del mundo / reto en pantalla / pregunta con objeto / contador), **estructura** (pasos / sospechosos / mito→prueba /
+  hora a hora / comparación / qué pasaría si) y **set de transiciones** dominante.
+- Guardar en `guion.json → "visual": {"protagonista", "paleta", "gancho", "estructura", "transiciones"}` y decirlo en el informe.
+- Reutilizar módulos de escenas está bien; repetir la misma escena de gancho o el mismo decorado dos vídeos seguidos, no.
+
 **Duración (decisión del usuario, 28 nov 2026)**
 - cada vídeo dura entre **45 s y 1:30** según lo que pida la idea: un dato o mito con una sola explicación → 45–60 s (~100–140 palabras); explicación con 2–3 pasos → 60–75 s (~140–175); progresión o historia con varios hitos → 75–90 s (~175–215). Se decide en el guion (o en la ficha de `/ideas`) y se dice en el informe. Nunca se rellena para llegar a una duración: si la idea da para 50 s, son 50 s.
 

@@ -49,11 +49,24 @@ Cada ronda reconstruye el estado; lo guardado en `banco.json` es solo el histori
 3. **Web (WebSearch, 3–5 búsquedas en paralelo, modo standard):** efemérides y temporada de la semana de publicación, preguntas «por qué» muy
    buscadas, noticias curiosas recientes de ciencia/espacio/naturaleza (no tragedias).
 
+## Fase 1b · Aprender de TUS resultados (`ideas/aprendizaje.json`)
+- Con la tabla del canal de la Fase 1, para cada vídeo con ≥ 72 h publicado: puntuación de éxito = media normalizada (frente a la mediana de tus
+  vídeos) de vistas, (compartidos+guardados)/1.000 vistas, retención IG (`IGRE27`), % vídeo completo TikTok (`TKPO13`) y, en negativo, salto en 3 s
+  (`IGRE30`). Agrupar por categoría, fórmula, tipo de gancho (pregunta / afirmación / acción / reto) y duración (45–60 / 60–75 / 75–90 s).
+- Con ≥ 3 vídeos en un grupo: multiplicador = clamp(éxito medio del grupo, 0,6, 1,5); con menos, 1,0. Guardar en `aprendizaje.json` con fecha.
+- **Los lunes** (o si han pasado ≥ 7 días desde `historial_semanal[-1]`): análisis a fondo de la semana → 3–5 conclusiones concretas («los ganchos
+  de acción retienen un 20 % más», «lo de cuerpo funciona, lo de mapas no») en `conclusiones` e `historial_semanal`, y un párrafo en el informe.
+- En la Fase 4, el criterio «Encaje con tu canal» = nota base × multiplicador de su categoría × el de su fórmula (máx. 5).
+
 ## Fase 2 · Generar MUCHAS ideas (≥ 80)
 Mezclar señales con fórmulas probadas. Cada idea en una línea: `título/gancho · fórmula · categoría · señal que la respalda`.
 Fórmulas: «¿Qué pasaría si…?» · «¿Por qué…?» (cuerpo, cosas cotidianas) · mito → «No funciona» · cifra/afirmación que choca («Si tienes 20 años…»)
 · historia oculta de un objeto cotidiano · escala imposible (comparar tamaños/tiempos) · reto/juego de 30 s · «tu cuerpo hace esto sin que lo sepas»
 · «esto lo haces mal» · origen de una palabra/costumbre · lo que pasa segundo a segundo / hora a hora · «la verdad sobre…».
+**Series (pedido del usuario, 28-nov):** proponer también 3–5 ideas de SERIE (un tema que da para 2–3 partes con gancho propio cada una,
+p. ej. «Tu cuerpo mientras duermes · parte 1/3: los primeros 10 minutos»). Reglas: como mucho UNA serie activa (`banco.json → series`);
+si se elige, la parte 1 entra en este lote y las siguientes quedan reservadas como prioridad de las próximas rondas (una por ronda, para que
+salgan en días seguidos); cada parte acaba con «parte 2 mañana» y su título lleva «(1/3)»; cada parte se entiende sola.
 Al menos: 35 de competidores de Instagram (temas y patrones ganadores, adaptados a nuestro estilo y a España), 10 de la web,
 15 inspiradas en lo que mejor ha funcionado en el canal, 20 propias.
 
