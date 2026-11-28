@@ -2,13 +2,66 @@
   "_doc": "Registro de huecos de publicación (15:30 y 20:30 Europe/Madrid). Cada red lleva su propio cursor. 'ocupado_hasta' = último hueco ya cubierto (también lo programado a mano por el usuario, que Metricool no ve). Lo actualiza /distribuir; no editar a mano salvo para apuntar huecos manuales.",
   "actualizado": "2026-11-28",
   "redes": {
-    "instagram": {"ocupado_hasta": "2026-12-02T15:30", "siguiente_libre": "2026-12-02T20:30"},
-    "youtube":   {"ocupado_hasta": "2026-12-02T15:30", "siguiente_libre": "2026-12-02T20:30"},
-    "tiktok":    {"ocupado_hasta": "2026-12-02T20:30", "siguiente_libre": "2026-12-03T15:30"}
+    "instagram": {
+      "ocupado_hasta": "2026-12-02T20:30",
+      "siguiente_libre": "2026-12-03T15:30"
+    },
+    "youtube": {
+      "ocupado_hasta": "2026-12-02T20:30",
+      "siguiente_libre": "2026-12-03T15:30"
+    },
+    "tiktok": {
+      "ocupado_hasta": "2026-12-03T15:30",
+      "siguiente_libre": "2026-12-03T20:30"
+    }
   },
   "ocupado_manual": [
-    {"redes": ["instagram", "youtube"], "hasta": "2026-12-02T15:30", "nota": "programado a mano por el usuario desde las apps (dato del 2026-11-28)"},
-    {"redes": ["tiktok"], "hasta": "2026-12-02T20:30", "nota": "programado a mano por el usuario desde las apps (dato del 2026-11-28)"}
+    {
+      "redes": [
+        "instagram",
+        "youtube"
+      ],
+      "hasta": "2026-12-02T15:30",
+      "nota": "programado a mano por el usuario desde las apps (dato del 2026-11-28)"
+    },
+    {
+      "redes": [
+        "tiktok"
+      ],
+      "hasta": "2026-12-02T20:30",
+      "nota": "programado a mano por el usuario desde las apps (dato del 2026-11-28)"
+    }
   ],
-  "publicaciones": []
+  "publicaciones": [
+    {
+      "video": "21-parpado-tiembla",
+      "red": "instagram",
+      "fecha": "2026-12-02T20:30",
+      "id": 445209284,
+      "uuid": "-5428310908065264696",
+      "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=8415557&openWithPostUuid=-5428310908065264696",
+      "media": "https://raw.githubusercontent.com/zapatoia/zapatero/17257e583ec1feebb9eb1cbb75fa26e8e9faf590/documentales/21-parpado-tiembla/final/21-parpado-tiembla-v2.mp4",
+      "estado": "programado"
+    },
+    {
+      "video": "21-parpado-tiembla",
+      "red": "youtube",
+      "fecha": "2026-12-02T20:30",
+      "id": 445209325,
+      "uuid": "6248026755745072755",
+      "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=8415557&openWithPostUuid=6248026755745072755",
+      "media": "https://raw.githubusercontent.com/zapatoia/zapatero/17257e583ec1feebb9eb1cbb75fa26e8e9faf590/documentales/21-parpado-tiembla/final/21-parpado-tiembla-v2.mp4",
+      "estado": "programado"
+    },
+    {
+      "video": "21-parpado-tiembla",
+      "red": "tiktok",
+      "fecha": "2026-12-03T15:30",
+      "id": 445209345,
+      "uuid": "-1218774046331616918",
+      "plannerUrl": "https://app.metricool.com/planner/calendar?blogId=8415557&openWithPostUuid=-1218774046331616918",
+      "media": "https://raw.githubusercontent.com/zapatoia/zapatero/17257e583ec1feebb9eb1cbb75fa26e8e9faf590/documentales/21-parpado-tiembla/final/21-parpado-tiembla-v2.mp4",
+      "estado": "programado"
+    }
+  ]
 }

@@ -106,7 +106,8 @@ Pendientes:
 2. ✅ Conectar Metricool a Claude (usuario) y comprobar marca/redes (solo lectura).
 3. ✅ (28-11-04) Aplicar los cambios del §5 (config, plantilla `publicacion.json`, líneas en SKILL.md, skill `distribuir`) con el OK del usuario,
    y generar el `publicacion.json` de un vídeo ya hecho para que el usuario revise título y hashtags.
-4. **Prueba real controlada** con ese vídeo: un post de YouTube con `privacy: "private"` (o el que elija el usuario) en un hueco cercano →
+4. ✅ (28-11-04) Sustituida por la distribución real del documental 21 (el usuario dio el OK a los textos): 3 posts creados y verificados con `getScheduledPosts`; Metricool descarga el MP4 de la URL raw (aunque GitHub lo sirve como `application/octet-stream`) y lo aloja en static.metricool.com. Pendiente: confirmar que se publican solos a su hora. Antes:
+   **Prueba real controlada** con ese vídeo: un post de YouTube con `privacy: "private"` (o el que elija el usuario) en un hueco cercano →
    comprobar en `getScheduledPosts` y en la app de Metricool que el vídeo se ha descargado bien desde la URL raw y que el tipo es Short/Reel.
    Ojo: no se puede borrar por el conector; el usuario lo borra en Metricool si hace falta.
 5. Prueba en las 3 redes con un vídeo real en un hueco de verdad (15:30 o 20:30).
