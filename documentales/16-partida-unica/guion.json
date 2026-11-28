@@ -218,5 +218,6 @@
   "zona_segura": "medido en la hoja: fondos a sangre (mosaico de tableros, mesa); ningún texto ni pastilla entra en la columna de botones ni bajo y=1536",
   "voz_cuadro_0": "medido: la voz suena desde el cuadro 0 (arranque a 0,008 s, −19 dB en el primer cuadro); solo la marca de «La» cae a 0,085 s por la alineación de ElevenLabs",
   "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
- }
+ },
+ "parche_voz": "Línea 1 regrabada a petición del usuario («juegues» sonaba raro): audio/parche_l1.mp3 (55 caracteres) encajado en la pausa tras «juegues…» con audio/parche_l1.py; la toma original y sus marcas quedan en audio/voz_original.wav y audio/palabras_original.json. ¡No correr voz_eleven.py armar (desharía el parche)!"
 }
