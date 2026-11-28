@@ -253,6 +253,13 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Franja de texto legible siempre: degradado oscuro suave bajo la tipografía en fondos claros/brillantes (y≈1040–1290).
 - Escenas en `escenas_tierra.py`: `superficie`, `globo`, `corte`, `tunel` (capas y extras), `capa`, `mapa_es`; superficie nueva `magma`.
 
+**Documental 15 (28 nov 2026, «¿Qué pasaría si siempre fuera de día?»): formato «qué pasaría», 1–1:30 min**
+- Sin reloj ni capítulos: gancho con acción (la mano baja el interruptor de la NOCHE, ¡CLIC!) y cierre que lo deshace (vuelve la noche y la ciudad se duerme).
+- Un concepto por escena, todas con fondo propio dibujado entero: luz volumétrica con polvo en suspensión, estrellas que titilan, cáusticas, vida que se mueve.
+- Protagonista del 14 reutilizado (`self.persona_t`, caras nuevas `cansado` y `dormido`).
+- Sonido ambiental de cada escena como evento corto y bajo (grillos, pájaros, burbujas), nunca en bucle; cada animal y objeto suena al aparecer.
+- Escenas en `escenas_dia.py`: `interruptor`, `cama` (normal / trozos / cortinas), `fabrica`, `animales`, `luciernagas`, `corales`, `tomatera`, `calor`, `noruega`, `planeta`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

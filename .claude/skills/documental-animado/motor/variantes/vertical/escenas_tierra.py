@@ -228,6 +228,10 @@ def instalar(V, G):
         mira = (.15 * math.sin(t * 1.3), -.35 * viento)
         abre = 1.0
         if cara in ("feliz", "sonrisa") and (t % 3.1) < .12: abre = .2
+        if cara == "cansado": abre = .42 + .08 * math.sin(t * 1.7)
+        if cara == "dormido": abre = .06
+        if cara in ("cansado", "dormido"):
+            for sx in (-1, 1): c.drawOval(skia.Rect(sx * 28 - 20, hy + 8, sx * 28 + 20, hy + 24), relleno("#8A4A7A", .35 * a))
         r_ojo = 17 if cara != "susto" else 19
         for sx in (-1, 1): _ojo(c, sx * 28, hy - 4, r_ojo, mira, abre, a)
         ceja = 14 if cara in ("susto", "o") else (6 if cara == "feliz" else 10)
@@ -252,6 +256,10 @@ def instalar(V, G):
         elif cara == "mejillas":
             for sx in (-1, 1): c.drawCircle(sx * 40, hy + 26, 24, _p(_rad(sx * 34, hy + 18, 30, ["#FFC0A8", "#F29A82"], None, a)))
             c.drawLine(-10, my + 2, 10, my + 2, trazo("#5A1E1E", 5, a))
+        elif cara == "cansado":
+            c.drawLine(-16, my + 2, 16, my + 4, trazo("#5A1E1E", 5, a))
+        elif cara == "dormido":
+            c.drawOval(skia.Rect(-7, my - 2, 7, my + 10), relleno("#5A1E1E", a))
         else:
             c.drawArc(skia.Rect(-20, my - 12, 20, my + 10), 20, 140, False, trazo("#5A1E1E", 5, a))
         if sudor > 0:
@@ -1128,5 +1136,6 @@ def instalar(V, G):
         if tp == "mapa_es":
             tw = Tw(s["word"]) - .35; sf(tw, "zum", 1.0); sf(tw + .9, "golpe", .5); self.rodillo(tw, .9)
 
+    V.persona_t = persona; V.comic_t = staticmethod(_comic); V.oveja_t = staticmethod(oveja)
     for k, fn in (("superficie", e_superficie), ("globo", e_globo), ("corte", e_corte), ("tunel", e_tunel), ("capa", e_capa), ("mapa_es", e_mapa_es)):
         setattr(V, "e_" + k, fn); setattr(V, "efectos_" + k, efectos_tierra)

@@ -1605,6 +1605,8 @@ from escenas_sueno import instalar as _inst_sueno          # noqa: E402
 _inst_sueno(Vertical, globals())
 from escenas_tierra import instalar as _inst_tierra          # noqa: E402
 _inst_tierra(Vertical, globals())
+from escenas_dia import instalar as _inst_dia          # noqa: E402
+_inst_dia(Vertical, globals())
 
 
 def escenas(e):
