@@ -1,0 +1,344 @@
+{
+ "titulo": "¿Por qué de repente te tiembla el párpado?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1750,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿De repente te tiembla el párpado?",
+   "tts": "[curious] ¿De repente te tiembla el párpado?",
+   "key": "el párpado",
+   "escena": {
+    "tipo": "parpado",
+    "surface": "noche",
+    "modo": "gancho",
+    "tic_word": "tiembla",
+    "nadie_word": "nadie",
+    "terremoto_word": "terremoto",
+    "fuera_word": "fuera",
+    "notas_txt": "LO QUE NOTAS",
+    "ve_txt": "LO QUE SE VE"
+   }
+  },
+  {
+   "texto": "Tranquilo: nadie lo está viendo.",
+   "tts": "Tranquilo... nadie lo está viendo.",
+   "key": "nadie lo está viendo"
+  },
+  {
+   "texto": "Tú lo notas como un terremoto.",
+   "tts": "Tú lo notas como un terremoto.",
+   "key": "un terremoto"
+  },
+  {
+   "texto": "Pero desde fuera, casi no se ve.",
+   "tts": "Pero desde fuera... casi no se ve.",
+   "key": "casi no se ve"
+  },
+  {
+   "texto": "Tiene nombre: mioquimia palpebral.",
+   "tts": "Tiene nombre... mioquimia palpebral.",
+   "key": "mioquimia palpebral",
+   "escena": {
+    "tipo": "anillo",
+    "surface": "piel",
+    "nombre_word": "mioquimia",
+    "anillo_word": "anillo",
+    "cierra_word": "cierra",
+    "parpadea_word": "parpadeas",
+    "nombre_txt": "MIOQUIMIA PALPEBRAL",
+    "nombre_sub": "= TEMBLOR DEL PÁRPADO",
+    "musculo_txt": "MÚSCULO ORBICULAR"
+   }
+  },
+  {
+   "texto": "Alrededor del ojo tienes un músculo en forma de anillo.",
+   "tts": "Alrededor del ojo tienes un músculo en forma de anillo.",
+   "key": "en forma de anillo"
+  },
+  {
+   "texto": "Es el que cierra el ojo cada vez que parpadeas.",
+   "tts": "Es el que cierra el ojo cada vez que parpadeas.",
+   "key": "parpadeas"
+  },
+  {
+   "texto": "Y lo mueve un nervio, que funciona como un cable.",
+   "tts": "Y lo mueve un nervio, que funciona como un cable.",
+   "key": "como un cable",
+   "escena": {
+    "tipo": "nervio",
+    "surface": "blue",
+    "nervio_word": "nervio",
+    "cable_word": "cable",
+    "chispa_word": "chispazos",
+    "trozo_word": "trocito",
+    "ojo_word": "ojo",
+    "abajo_word": "abajo",
+    "nervio_txt": "NERVIO",
+    "uno_txt": "UN OJO",
+    "abajo_txt": "PÁRPADO DE ABAJO"
+   }
+  },
+  {
+   "texto": "A veces, ese cable da chispazos por su cuenta.",
+   "tts": "A veces, ese cable da chispazos... por su cuenta.",
+   "key": "por su cuenta"
+  },
+  {
+   "texto": "Y solo se encoge un trocito del músculo, una y otra vez.",
+   "tts": "Y solo se encoge un trocito del músculo, una y otra vez.",
+   "key": "una y otra vez"
+  },
+  {
+   "texto": "Casi siempre en un ojo, y en el párpado de abajo.",
+   "tts": "Casi siempre en un ojo, y en el párpado de abajo.",
+   "key": "el párpado de abajo"
+  },
+  {
+   "texto": "¿Y quién lo provoca? Los sospechosos de siempre.",
+   "tts": "¿Y quién lo provoca? [playful] Los sospechosos de siempre.",
+   "key": "los sospechosos de siempre",
+   "escena": {
+    "tipo": "sospechosos",
+    "surface": "clay",
+    "items": [
+     {
+      "word": "Dormir",
+      "tipo": "sueno",
+      "txt": "DORMIR POCO"
+     },
+     {
+      "word": "estrés",
+      "tipo": "estres",
+      "txt": "ESTRÉS"
+     },
+     {
+      "word": "café",
+      "tipo": "cafe",
+      "txt": "CAFÉ DE MÁS"
+     },
+     {
+      "word": "pantalla",
+      "tipo": "movil",
+      "txt": "PANTALLAS"
+     },
+     {
+      "word": "alcohol",
+      "tipo": "vicios",
+      "txt": "ALCOHOL Y TABACO"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Dormir poco.",
+   "tts": "Dormir poco.",
+   "key": "Dormir poco"
+  },
+  {
+   "texto": "El estrés.",
+   "tts": "El estrés.",
+   "key": "El estrés"
+  },
+  {
+   "texto": "Pasarte con el café.",
+   "tts": "Pasarte con el café.",
+   "key": "con el café"
+  },
+  {
+   "texto": "Horas de pantalla, que te secan el ojo.",
+   "tts": "Horas de pantalla, que te secan el ojo.",
+   "key": "te secan el ojo"
+  },
+  {
+   "texto": "Y también el alcohol y el tabaco.",
+   "tts": "Y también el alcohol y el tabaco.",
+   "key": "el tabaco"
+  },
+  {
+   "texto": "Casi nunca es uno solo: se van sumando, como un vaso que se llena.",
+   "tts": "Casi nunca es uno solo: se van sumando... como un vaso que se llena.",
+   "key": "un vaso que se llena",
+   "escena": {
+    "tipo": "vaso",
+    "surface": "dark",
+    "suma_word": "sumando",
+    "vaso_word": "vaso",
+    "rebosa_word": "rebosa",
+    "tic_word": "tic",
+    "gotas": [
+     "sueno",
+     "estres",
+     "cafe",
+     "movil",
+     "vicios"
+    ]
+   }
+  },
+  {
+   "texto": "Y cuando rebosa… tic.",
+   "tts": "Y cuando rebosa... [playful] tic.",
+   "key": "tic"
+  },
+  {
+   "texto": "¿Y lo del magnesio?",
+   "tts": "¿Y lo del magnesio?",
+   "key": "del magnesio",
+   "escena": {
+    "tipo": "magnesio",
+    "surface": "blue",
+    "bote_word": "magnesio",
+    "dice_word": "dice",
+    "demo_word": "demostrado",
+    "bote_txt": "MAGNESIO",
+    "rumores": [
+     "«ES EL MAGNESIO»",
+     "«TE FALTA ALGO»",
+     "«TÓMATE UN PLÁTANO»"
+    ],
+    "sello_txt": "NO DEMOSTRADO"
+   }
+  },
+  {
+   "texto": "Se dice mucho, pero no está demostrado.",
+   "tts": "Se dice mucho... pero no está demostrado.",
+   "key": "no está demostrado"
+  },
+  {
+   "texto": "La buena noticia: se va solo.",
+   "tts": "[warm] La buena noticia: se va solo.",
+   "key": "se va solo",
+   "escena": {
+    "tipo": "sevasolo",
+    "surface": "noche",
+    "solo_word": "solo",
+    "dias_word": "días",
+    "semanas_word": "semanas",
+    "duerme_word": "Duerme",
+    "cafe_word": "café",
+    "vista_word": "vista",
+    "dias_txt": "DÍAS",
+    "semanas_txt": "UNAS SEMANAS",
+    "remedios": [
+     "DORMIR MÁS",
+     "MENOS CAFÉ",
+     "DESCANSAR LA VISTA"
+    ]
+   }
+  },
+  {
+   "texto": "Suele durar unos días, o como mucho unas semanas.",
+   "tts": "Suele durar unos días, o como mucho unas semanas.",
+   "key": "unas semanas"
+  },
+  {
+   "texto": "Duerme más, baja el café y descansa la vista.",
+   "tts": "Duerme más, baja el café y descansa la vista.",
+   "key": "descansa la vista"
+  },
+  {
+   "texto": "Eso sí: ve al médico si no se va en unas semanas,",
+   "tts": "Eso sí: ve al médico si no se va en unas semanas,",
+   "key": "en unas semanas",
+   "escena": {
+    "tipo": "medico",
+    "surface": "clay",
+    "medico_word": "médico",
+    "items": [
+     {
+      "word": "semanas",
+      "tipo": "calendario",
+      "txt": "NO SE VA EN SEMANAS"
+     },
+     {
+      "word": "cierra",
+      "tipo": "cerrado",
+      "txt": "SE CIERRA DEL TODO"
+     },
+     {
+      "word": "cara",
+      "tipo": "cara",
+      "txt": "SE PASA A LA CARA"
+     }
+    ],
+    "titulo_txt": "AL MÉDICO SI…"
+   }
+  },
+  {
+   "texto": "si se te cierra el ojo del todo,",
+   "tts": "si se te cierra el ojo del todo,",
+   "key": "del todo"
+  },
+  {
+   "texto": "o si se pasa a otras partes de la cara.",
+   "tts": "o si se pasa a otras partes de la cara.",
+   "key": "otras partes de la cara"
+  },
+  {
+   "texto": "Así que, si te está temblando ahora mismo, tranquilo:",
+   "tts": "[warm] Así que, si te está temblando ahora mismo... tranquilo:",
+   "key": "tranquilo",
+   "escena": {
+    "tipo": "parpado",
+    "surface": "noche",
+    "modo": "cierre",
+    "tic_word": "temblando",
+    "dormir_word": "dormir",
+    "nadie_word": "nadie",
+    "nadie_txt": "NI SE HA ENTERADO"
+   }
+  },
+  {
+   "texto": "es tu párpado pidiéndote que te vayas a dormir.",
+   "tts": "es tu párpado pidiéndote que te vayas a dormir.",
+   "key": "*a dormir"
+  },
+  {
+   "texto": "Y no, nadie se ha dado cuenta.",
+   "tts": "[playful] Y no... nadie se ha dado cuenta.",
+   "key": "nadie se ha dado cuenta"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a quien va por el tercer café.",
+  "tts": "[playful] Pásaselo a quien va por el tercer café.",
+  "key": "el tercer café",
+  "amigo_word": "quien",
+  "boton": "Compartir",
+  "contacto": "El del tercer café",
+  "salida": "21-parpado-tiembla-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Mioquimia palpebral: benigna, casi siempre un solo ojo y sobre todo el párpado de abajo; se nota más quien la tiene que quien mira; músculo orbicular, inervado por el nervio facial",
+   "url": "https://www.ncbi.nlm.nih.gov/books/NBK560595/"
+  },
+  {
+   "dato": "Desencadenantes: cansancio, estrés, exceso de cafeína, vista cansada, ojo irritado, alcohol, tabaco; suele irse solo en días o semanas; ir al médico si no se va en unas semanas, si el párpado se cierra del todo o si se extiende a otras partes de la cara",
+   "url": "https://www.mayoclinic.org/symptoms/eye-twitching/basics/causes/sym-20050838"
+  },
+  {
+   "dato": "Mioquimia: varios desencadenantes que se suman (estrés, falta de sueño, cafeína); más frecuente en los párpados de abajo",
+   "url": "https://my.clevelandclinic.org/health/symptoms/17663-eyelid-twitching"
+  },
+  {
+   "dato": "Revisión clínica: benigna, se resuelve sola en minutos o semanas",
+   "url": "https://eyewiki.aao.org/Eyelid_Myokymia"
+  },
+  {
+   "dato": "Magnesio: no hay estudios que lo relacionen directamente con este temblor",
+   "url": "https://www.livestrong.com/article/541502-does-a-magnesium-deficiency-cause-eye-twitching/"
+  }
+ ],
+ "correcciones_marcas": {
+  "tic.": "marca de ElevenLabs 80 ms tarde: la palabra suena en 48,21–48,43 s (envolvente medida en voz.wav); corregida a mano en palabras.json. Si se vuelve a «armar», repetir"
+ },
+ "qa_aceptadas": {
+  "zona_segura": "medido: fondos a sangre (habitación, piel, paredes); ninguna pastilla, cifra, cartel ni texto pasa de x=950 ni baja de y=1536 (posiciones corregidas tras el primer render)",
+  "voz_cuadro_0": "medido en voz.wav: la voz arranca a los 7 ms (dentro del cuadro 0); solo la marca de alineación de la primera palabra va en 35 ms",
+  "palabras_completas": "medido en voz.wav: «siempre.», «rebosa…» y «dormir.» bajan en una vocal final y siguen con cola natural de −40 a −60 dB más de 200 ms antes de la siguiente palabra: no hay corte",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

@@ -1,0 +1,78 @@
+{
+  "_doc": "Base fija de la distribución (docs/DISTRIBUCION.md §5). Lo lee el skill /distribuir y se usa al escribir cada publicacion.json.",
+  "metricool": {
+    "blogId": 8415557,
+    "timezone": "Europe/Madrid"
+  },
+  "huecos": [
+    "15:30",
+    "20:30"
+  ],
+  "margen_min_minutos": 60,
+  "url_video": "https://raw.githubusercontent.com/zapatoia/zapatero/{commit}/{ruta}",
+  "declarar_ia": {
+    "instagram": true,
+    "youtube": true,
+    "tiktok": true
+  },
+  "instagram": {
+    "hashtags_base": [
+      "#SabiasQue",
+      "#curiosidades",
+      "#parati",
+      "#fyp"
+    ],
+    "hashtags_tema": 1,
+    "max_hashtags": 5,
+    "info": {
+      "type": "REEL",
+      "showReelOnFeed": true
+    }
+  },
+  "youtube": {
+    "hashtags_base": [
+      "#shorts",
+      "#SabiasQue",
+      "#curiosidades",
+      "#parati"
+    ],
+    "hashtags_tema": 1,
+    "titulo_max": 100,
+    "titulo_ideal": 60,
+    "tags": "5-8 palabras clave",
+    "info": {
+      "type": "short",
+      "privacy": "public",
+      "madeForKids": false,
+      "category": "EDUCATION"
+    },
+    "max_hashtags": 5
+  },
+  "tiktok": {
+    "hashtags_base": [
+      "#SabiasQue",
+      "#curiosidades",
+      "#parati",
+      "#fyp"
+    ],
+    "hashtags_tema": 1,
+    "una_linea": true,
+    "info": {
+      "privacyOption": "PUBLIC_TO_EVERYONE",
+      "autoAddMusic": false
+    },
+    "max_hashtags": 5
+  },
+  "formato_texto": {
+    "_doc": "Estilo del usuario (2026-11-28, capturas de sus TikTok): «🤯 TÍTULO CORTO EN MAYÚSCULAS + emoji del tema» y 5 hashtags. Nada de párrafos.",
+    "plantilla": "🤯 {TITULO_MAYUSCULAS} {emoji_tema} {hashtags}",
+    "ejemplos": [
+      "🤯 LA VERDAD SOBRE LOS ZURDOS ✋ #zurdos #SabiasQue #curiosidades #parati #fyp",
+      "🤯 20 AÑOS = LA MITAD DE TU VIDA ⏳ #SabiasQue #curiosidades #parati #fyp #DatosCuriosos",
+      "🤯 LAS INFINITAS POSIBILIDADES DE AJEDREZ ♟️ #SabiasQue #ajedrez #curiosidades #parati #fyp",
+      "¿AFEITARSE PARA MÁS BARBA? 🪒 #SabiasQue #curiosidades #parati #fyp #afeitar"
+    ],
+    "titulo": "corto (≤ 40 caracteres), en mayúsculas, 1–2 emojis (🤯 delante + uno del tema)",
+    "max_hashtags": 5
+  }
+}
