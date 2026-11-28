@@ -1611,6 +1611,8 @@ from escenas_ajedrez import instalar as _inst_ajedrez          # noqa: E402
 _inst_ajedrez(Vertical, globals())
 from escenas_barba import instalar as _inst_barba          # noqa: E402
 _inst_barba(Vertical, globals())
+from escenas_auris import instalar as _inst_auris          # noqa: E402
+_inst_auris(Vertical, globals())
 
 
 def escenas(e):

@@ -268,6 +268,13 @@ Corrige y vuelve a revisar hasta que todo pase.
   activo y se comía el lavabo). Texto de la franja nunca sobre una superficie clara: lo de debajo de y≈1190 va oscuro (mueble, músculo, piel en sombra).
 - Escenas en `escenas_barba.py`: `espejo` (gancho / cierre), `piel`, `laboratorio`, `piernas`, `punta`, `genes`, `edad`; superficie nueva `bano`.
 
+**Documental 18 (28 nov 2026, «¿Cómo llega la música a tus auriculares si no hay ningún cable?»): explicar tecnología paso a paso**
+- Cadena completa en orden (móvil → bits → compresión → ondas → aire lleno → saltos → auricular por dentro → relevo) con UN objeto por paso
+  que el narrador nombra; las etiquetas de cada pieza salen en su palabra y se quedan (al final el corte del auricular está entero rotulado).
+- Una cifra grande que rueda por escena como mucho (2.400.000.000, 1.600/s); cifras con `maxw` medido sobre el caso más ancho.
+- El nombre de una marca se puede contar (origen de «Bluetooth»), pero su logo NO se dibuja: se cuenta con el rey, el mapa y los aparatos.
+- Escenas en `escenas_auris.py`: `oreja` (gancho / cierre), `bits`, `ondas`, `lleno`, `saltos`, `auricular`, `relevo`, `rey`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.

@@ -1,0 +1,231 @@
+{
+ "video": "/home/user/zapatero/documentales/18-musica-sin-cables/final/18-musica-sin-cables.mp4",
+ "duracion_s": 87.78,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 49.3,
+   "abajo": 0.0,
+   "derecha": 64.1
+  },
+  "tramo_s": {
+   "arriba": 21.5,
+   "abajo": 0.0,
+   "derecha": 18.75
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (salón, canales, auricular, mapa); ninguna pastilla ni cifra pasa de x=950 ni baja de y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.007,
+  "pico_cuadro0_db": -15.6,
+  "primera_palabra_s": 0.078,
+  "video_cuadro0_rms_db": -18.0,
+  "ok": false,
+  "aceptada": "medido: la voz suena desde los 5 ms (−27 dB, la «C» de «¿Cómo»); la marca de ElevenLabs de la 1.ª palabra llega tarde (0,078 s), la voz no"
+ },
+ "pausas": {
+  "pausa_max_s": 0.445,
+  "hueco_entre_marcas_s": 0.512,
+  "fin_voz_s": 87.388,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 27,
+  "peor": {
+   "w": "unos.",
+   "t": 11.351,
+   "caida_db": 22.5,
+   "desde_db": -19.1
+  },
+  "malas": [],
+  "detalle": [
+   {
+    "w": "cable?",
+    "t": 3.817,
+    "caida_db": 11.4,
+    "desde_db": -37.6
+   },
+   {
+    "w": "cara.",
+    "t": 6.68,
+    "caida_db": 12.5,
+    "desde_db": -39.5
+   },
+   {
+    "w": "música:",
+    "t": 9.188,
+    "caida_db": 0.0,
+    "desde_db": -62.4
+   },
+   {
+    "w": "números.",
+    "t": 10.032,
+    "caida_db": 16.0,
+    "desde_db": -36.3
+   },
+   {
+    "w": "unos.",
+    "t": 11.351,
+    "caida_db": 22.5,
+    "desde_db": -19.1
+   },
+   {
+    "w": "aire.",
+    "t": 14.918,
+    "caida_db": 12.8,
+    "desde_db": -17.3
+   },
+   {
+    "w": "segundo.",
+    "t": 20.618,
+    "caida_db": 20.6,
+    "desde_db": -19.5
+   },
+   {
+    "w": "luz:",
+    "t": 22.808,
+    "caida_db": 0.0,
+    "desde_db": -49.8
+   },
+   {
+    "w": "segundo.",
+    "t": 26.101,
+    "caida_db": 16.9,
+    "desde_db": -39.7
+   },
+   {
+    "w": "problema:",
+    "t": 27.558,
+    "caida_db": 0.0,
+    "desde_db": -65.1
+   },
+   {
+    "w": "lleno.",
+    "t": 28.646,
+    "caida_db": 12.4,
+    "desde_db": -29.7
+   },
+   {
+    "w": "ondas.",
+    "t": 33.834,
+    "caida_db": 13.0,
+    "desde_db": -34.5
+   },
+   {
+    "w": "solución?",
+    "t": 35.073,
+    "caida_db": 0.0,
+    "desde_db": -59.9
+   },
+   {
+    "w": "saltando.",
+    "t": 37.184,
+    "caida_db": 15.4,
+    "desde_db": -22.0
+   },
+   {
+    "w": "segundo.",
+    "t": 43.294,
+    "caida_db": 17.5,
+    "desde_db": -20.5
+   },
+   {
+    "w": "otro.",
+    "t": 46.605,
+    "caida_db": 12.5,
+    "desde_db": -32.9
+   },
+   {
+    "w": "emparejaron.",
+    "t": 52.004,
+    "caida_db": 18.0,
+    "desde_db": -37.4
+   },
+   {
+    "w": "descomprime.",
+    "t": 56.703,
+    "caida_db": 15.3,
+    "desde_db": -32.0
+   },
+   {
+    "w": "imán.",
+    "t": 61.943,
+    "caida_db": 0.0,
+    "desde_db": -61.8
+   },
+   {
+    "w": "tímpano.",
+    "t": 66.454,
+    "caida_db": 18.1,
+    "desde_db": -35.7
+   },
+   {
+    "w": "otro.",
+    "t": 70.84,
+    "caida_db": 12.6,
+    "desde_db": -32.6
+   },
+   {
+    "w": "azul»?",
+    "t": 72.437,
+    "caida_db": 14.3,
+    "desde_db": -35.9
+   },
+   {
+    "w": "Azul.",
+    "t": 75.647,
+    "caida_db": 12.0,
+    "desde_db": -35.1
+   },
+   {
+    "w": "nombre:",
+    "t": 80.688,
+    "caida_db": 9.2,
+    "desde_db": -38.9
+   },
+   {
+    "w": "aparatos.",
+    "t": 81.839,
+    "caida_db": 17.7,
+    "desde_db": -39.7
+   },
+   {
+    "w": "segundo…",
+    "t": 85.988,
+    "caida_db": 0.0,
+    "desde_db": -54.2
+   },
+   {
+    "w": "oreja.",
+    "t": 87.284,
+    "caida_db": 10.8,
+    "desde_db": -37.1
+   }
+  ],
+  "ok": true
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 1,
+  "t": [
+   0.006
+  ],
+  "ok": false,
+  "aceptada": "medido: el salto a 0,006 s es el arranque de «¿Cómo» (−54 → −27 dB, sin pico aislado), no un clic"
+ },
+ "ok": true
+}

@@ -1,0 +1,235 @@
+{
+ "titulo": "¿Cómo llega la música a tus auriculares si no hay ningún cable?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1700,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Cómo llega la música a tus auriculares si no hay ningún cable?",
+   "tts": "[curious] ¿Cómo llega la música a tus auriculares... si no hay ningún cable?",
+   "key": "ningún cable",
+   "escena": {
+    "tipo": "oreja",
+    "surface": "dark",
+    "modo": "gancho",
+    "corte_word": "ningún",
+    "aire_word": "volando"
+   }
+  },
+  {
+   "texto": "Va volando por el aire, delante de tu cara.",
+   "tts": "Va volando por el aire... delante de tu cara.",
+   "key": "delante de tu cara"
+  },
+  {
+   "texto": "Dentro del móvil, tu canción no es música: son números. Ceros y unos.",
+   "tts": "Dentro del móvil, tu canción no es música: son números. Ceros y unos.",
+   "key": "Ceros y unos",
+   "escena": {
+    "tipo": "bits",
+    "surface": "noche",
+    "numeros_word": "números",
+    "comprime_word": "comprime",
+    "comprime_txt": "COMPRIMIDA",
+    "cancion_txt": "TU CANCIÓN"
+   }
+  },
+  {
+   "texto": "Primero, el móvil la comprime, para que quepa por el aire.",
+   "tts": "Primero, el móvil la comprime... para que quepa por el aire.",
+   "key": "quepa por el aire"
+  },
+  {
+   "texto": "Luego la convierte en ondas de radio, que vibran 2.400 millones de veces por segundo.",
+   "tts": "Luego la convierte en ondas de radio, que vibran dos mil cuatrocientos millones de veces por segundo.",
+   "key": "por segundo",
+   "escena": {
+    "tipo": "ondas",
+    "surface": "blue",
+    "ondas_word": "ondas",
+    "vibran_word": "vibran",
+    "luz_word": "luz",
+    "llega_word": "milmillonésima",
+    "cifra": 2400000000,
+    "cifra_txt": "VECES POR SEGUNDO",
+    "luz_txt": "300.000 KM/S",
+    "tiempo_txt": "0,000000001 S"
+   }
+  },
+  {
+   "texto": "Y viajan a la velocidad de la luz: llegan a tu oreja en una milmillonésima de segundo.",
+   "tts": "Y viajan a la velocidad de la luz: llegan a tu oreja en una milmillonésima de segundo.",
+   "key": "una milmillonésima de segundo"
+  },
+  {
+   "texto": "Pero hay un problema: el aire está lleno.",
+   "tts": "Pero hay un problema... el aire está lleno.",
+   "key": "está lleno",
+   "escena": {
+    "tipo": "lleno",
+    "surface": "clay",
+    "wifi_word": "wifi",
+    "moviles_word": "móviles",
+    "micro_word": "microondas",
+    "banda_txt": "2,4 GHz",
+    "wifi_txt": "WIFI",
+    "moviles_txt": "OTROS MÓVILES",
+    "micro_txt": "MICROONDAS"
+   }
+  },
+  {
+   "texto": "El wifi, los móviles de los demás, y hasta el microondas usan esas mismas ondas.",
+   "tts": "El wifi, los móviles de los demás... y hasta el microondas usan esas mismas ondas.",
+   "key": "el microondas"
+  },
+  {
+   "texto": "¿La solución? El Bluetooth va saltando.",
+   "tts": "¿La solución? El Bluetooth... va saltando.",
+   "key": "va saltando",
+   "escena": {
+    "tipo": "saltos",
+    "surface": "dark",
+    "salta_word": "saltando",
+    "canales_word": "79",
+    "veces_word": "1.600",
+    "ocupado_word": "ocupado",
+    "pareja_word": "emparejaron",
+    "canales_txt": "79 CANALES",
+    "veces_txt": "1.600 SALTOS POR SEGUNDO",
+    "pareja_txt": "MISMO BAILE"
+   }
+  },
+  {
+   "texto": "Reparte la música en 79 canales y cambia de canal 1.600 veces por segundo.",
+   "tts": "Reparte la música en setenta y nueve canales... y cambia de canal mil seiscientas veces por segundo.",
+   "key": "1.600 veces por segundo"
+  },
+  {
+   "texto": "Si uno está ocupado, en nada ya está en otro.",
+   "tts": "Si uno está ocupado, en nada ya está en otro.",
+   "key": "ya está en otro"
+  },
+  {
+   "texto": "Y tu móvil y tus auriculares se saben el mismo baile de saltos, porque se emparejaron.",
+   "tts": "Y tu móvil y tus auriculares se saben el mismo baile de saltos... porque se emparejaron.",
+   "key": "se emparejaron"
+  },
+  {
+   "texto": "Al llegar, la antena del auricular atrapa la señal y un chip la descomprime.",
+   "tts": "Al llegar, la antena del auricular atrapa la señal... y un chip la descomprime.",
+   "key": "la descomprime",
+   "escena": {
+    "tipo": "auricular",
+    "surface": "noche",
+    "antena_word": "antena",
+    "chip_word": "chip",
+    "conversor_word": "conversor",
+    "bobina_word": "bobina",
+    "iman_word": "imán",
+    "vibra_word": "vibra",
+    "timpano_word": "tímpano",
+    "antena_txt": "ANTENA",
+    "chip_txt": "CHIP",
+    "conversor_txt": "CONVERSOR",
+    "bobina_txt": "BOBINA",
+    "iman_txt": "IMÁN",
+    "membrana_txt": "MEMBRANA",
+    "timpano_txt": "TÍMPANO"
+   }
+  },
+  {
+   "texto": "Un conversor la vuelve electricidad, que pasa por una bobina junto a un imán.",
+   "tts": "Un conversor la vuelve electricidad, que pasa por una bobina... junto a un imán.",
+   "key": "junto a un imán"
+  },
+  {
+   "texto": "El imán la empuja, la membrana vibra, y mueve el aire hasta tu tímpano.",
+   "tts": "El imán la empuja, la membrana vibra... y mueve el aire hasta tu tímpano.",
+   "key": "hasta tu tímpano"
+  },
+  {
+   "texto": "Y en muchos modelos, un auricular recibe la música y se la pasa al otro.",
+   "tts": "Y en muchos modelos, un auricular recibe la música... y se la pasa al otro.",
+   "key": "se la pasa al otro",
+   "escena": {
+    "tipo": "relevo",
+    "surface": "blue",
+    "recibe_word": "recibe",
+    "pasa_word": "pasa",
+    "principal_txt": "PRINCIPAL",
+    "otro_txt": "EL OTRO"
+   }
+  },
+  {
+   "texto": "¿Y lo de «diente azul»? Viene de un rey vikingo, Harald Diente Azul.",
+   "tts": "¿Y lo de diente azul? Viene de un rey vikingo... Harald, Diente Azul.",
+   "key": "Harald Diente Azul",
+   "escena": {
+    "tipo": "rey",
+    "surface": "clay",
+    "rey_word": "@0.05",
+    "diente_word": "Harald",
+    "unio_word": "unió",
+    "une_word": "juntar",
+    "dk": "208",
+    "no": "578",
+    "dk_txt": "DINAMARCA",
+    "no_txt": "NORUEGA",
+    "anio_txt": "AÑO 958",
+    "une_txt": "UNIR APARATOS"
+   }
+  },
+  {
+   "texto": "Unió Dinamarca y Noruega hace más de mil años, y por eso le pusieron su nombre: para juntar aparatos.",
+   "tts": "Unió Dinamarca y Noruega hace más de mil años... y por eso le pusieron su nombre: para juntar aparatos.",
+   "key": "para juntar aparatos"
+  },
+  {
+   "texto": "Así que esa canción da 1.600 saltos por segundo… solo para llegar a tu oreja.",
+   "tts": "[warm] Así que esa canción da mil seiscientos saltos por segundo... solo para llegar a tu oreja.",
+   "key": "*a tu oreja",
+   "escena": {
+    "tipo": "oreja",
+    "surface": "dark",
+    "modo": "cierre",
+    "saltos_word": "saltos",
+    "oreja_word": "oreja"
+   }
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo al que pierde un auricular cada semana.",
+  "tts": "[playful] Pásaselo al que pierde un auricular cada semana.",
+  "key": "cada semana",
+  "amigo_word": "que",
+  "boton": "Compartir",
+  "contacto": "El de los cascos",
+  "salida": "18-musica-sin-cables-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Bluetooth: 79 canales de 1 MHz entre 2,402 y 2,480 GHz, 1.600 saltos por segundo; el microondas emite en la misma banda",
+   "url": "https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/6704346"
+  },
+  {
+   "dato": "Origen del nombre: Harald «Diente Azul» Gormsson unió Dinamarca y Noruega (958); el nombre se eligió por unir estándares",
+   "url": "https://bluetooth.com/about-us/bluetooth-origin/"
+  },
+  {
+   "dato": "Auriculares true wireless: el principal recibe del móvil y reenvía al secundario (o este escucha la conexión)",
+   "url": "https://assets.qualcomm.com/rs/385-TWS-803/images/whitepaper-the-evolution-of-true-wireless-technology-2020.pdf"
+  },
+  {
+   "dato": "Cómo funcionan los auriculares true wireless",
+   "url": "https://www.logitech.com/blog/2023/11/08/how-do-true-wireless-earbuds-work/"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (salón, canales, auricular, mapa); ninguna pastilla ni cifra pasa de x=950 ni baja de y=1536",
+  "voz_cuadro_0": "medido: la voz suena desde los 5 ms (−27 dB, la «C» de «¿Cómo»); la marca de ElevenLabs de la 1.ª palabra llega tarde (0,078 s), la voz no",
+  "transitorios": "medido: el salto a 0,006 s es el arranque de «¿Cómo» (−54 → −27 dB, sin pico aislado), no un clic",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}
