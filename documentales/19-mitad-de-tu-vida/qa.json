@@ -1,0 +1,254 @@
+{
+ "video": "/home/user/zapatero/documentales/19-mitad-de-tu-vida/final/19-mitad-de-tu-vida.mp4",
+ "duracion_s": 85.22,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 53.4,
+   "abajo": 6.2,
+   "derecha": 93.0
+  },
+  "tramo_s": {
+   "arriba": 14.75,
+   "abajo": 5.25,
+   "derecha": 65.75
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (cielo, playa, cinta clara, corcho); ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0183,
+  "pico_cuadro0_db": -34.7,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -35.5,
+  "ok": false,
+  "aceptada": "medido: la voz arranca a 0,018 s (1,1 cuadros, la «S» de «Si»); marca de la 1.ª palabra en 0,0 s"
+ },
+ "pausas": {
+  "pausa_max_s": 0.45,
+  "hueco_entre_marcas_s": 0.552,
+  "fin_voz_s": 84.82,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 29,
+  "peor": {
+   "w": "vida.",
+   "t": 3.671,
+   "caida_db": 31.4,
+   "desde_db": -38.9
+  },
+  "malas": [
+   {
+    "w": "vida.",
+    "t": 3.671,
+    "caida_db": 31.4,
+    "desde_db": -38.9
+   },
+   {
+    "w": "algo.",
+    "t": 78.018,
+    "caida_db": 29.5,
+    "desde_db": -38.8
+   }
+  ],
+  "detalle": [
+   {
+    "w": "vida.",
+    "t": 3.671,
+    "caida_db": 31.4,
+    "desde_db": -38.9
+   },
+   {
+    "w": "Tranquilo:",
+    "t": 4.213,
+    "caida_db": 16.1,
+    "desde_db": -37.2
+   },
+   {
+    "w": "sientes.",
+    "t": 7.926,
+    "caida_db": 14.8,
+    "desde_db": -34.5
+   },
+   {
+    "w": "pequeño?",
+    "t": 10.531,
+    "caida_db": 20.4,
+    "desde_db": -38.5
+   },
+   {
+    "w": "volando.",
+    "t": 13.311,
+    "caida_db": 11.5,
+    "desde_db": -37.4
+   },
+   {
+    "w": "qué.",
+    "t": 18.158,
+    "caida_db": 16.3,
+    "desde_db": -37.9
+   },
+   {
+    "w": "vivido.",
+    "t": 21.721,
+    "caida_db": 21.7,
+    "desde_db": -34.7
+   },
+   {
+    "w": "vida.",
+    "t": 24.912,
+    "caida_db": 16.8,
+    "desde_db": -35.4
+   },
+   {
+    "w": "veinte.",
+    "t": 27.127,
+    "caida_db": 17.3,
+    "desde_db": -34.5
+   },
+   {
+    "w": "trocito:",
+    "t": 29.64,
+    "caida_db": 17.6,
+    "desde_db": -30.1
+   },
+   {
+    "w": "%.",
+    "t": 30.936,
+    "caida_db": 21.6,
+    "desde_db": -20.4
+   },
+   {
+    "w": "anterior.",
+    "t": 33.772,
+    "caida_db": 21.0,
+    "desde_db": -22.1
+   },
+   {
+    "w": "estrechando.",
+    "t": 37.595,
+    "caida_db": 23.0,
+    "desde_db": -39.3
+   },
+   {
+    "w": "años,",
+    "t": 42.4,
+    "caida_db": 13.0,
+    "desde_db": -34.7
+   },
+   {
+    "w": "20.",
+    "t": 47.888,
+    "caida_db": 20.3,
+    "desde_db": -39.5
+   },
+   {
+    "w": "exacta.",
+    "t": 50.373,
+    "caida_db": 18.6,
+    "desde_db": -26.0
+   },
+   {
+    "w": "pista:",
+    "t": 51.753,
+    "caida_db": 23.3,
+    "desde_db": -20.6
+   },
+   {
+    "w": "memoria.",
+    "t": 52.791,
+    "caida_db": 17.8,
+    "desde_db": -19.5
+   },
+   {
+    "w": "nuevo:",
+    "t": 54.998,
+    "caida_db": 0.0,
+    "desde_db": -52.4
+   },
+   {
+    "w": "beso.",
+    "t": 58.542,
+    "caida_db": 14.9,
+    "desde_db": -25.5
+   },
+   {
+    "w": "repetido.",
+    "t": 62.122,
+    "caida_db": 15.4,
+    "desde_db": -37.6
+   },
+   {
+    "w": "encoge.",
+    "t": 66.761,
+    "caida_db": 17.7,
+    "desde_db": -30.0
+   },
+   {
+    "w": "larguísimas.",
+    "t": 71.468,
+    "caida_db": 22.0,
+    "desde_db": -39.3
+   },
+   {
+    "w": "vuele?",
+    "t": 73.513,
+    "caida_db": 24.9,
+    "desde_db": -36.0
+   },
+   {
+    "w": "nuevas.",
+    "t": 74.788,
+    "caida_db": 21.9,
+    "desde_db": -36.6
+   },
+   {
+    "w": "algo.",
+    "t": 78.018,
+    "caida_db": 29.5,
+    "desde_db": -38.8
+   },
+   {
+    "w": "tiempo.",
+    "t": 80.48,
+    "caida_db": 15.3,
+    "desde_db": -28.8
+   },
+   {
+    "w": "ido…",
+    "t": 82.459,
+    "caida_db": 0.0,
+    "desde_db": -66.3
+   },
+   {
+    "w": "tú.",
+    "t": 84.73,
+    "caida_db": 11.2,
+    "desde_db": -33.3
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido en voz.wav: las colas de «vida.» y «algo.» bajan dentro de la pausa natural (−29 → −65 dB en 0,3 s), sin corte: la caída rápida es el final de la sílaba"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

@@ -275,6 +275,15 @@ Corrige y vuelve a revisar hasta que todo pase.
 - El nombre de una marca se puede contar (origen de «Bluetooth»), pero su logo NO se dibuja: se cuenta con el rey, el mapa y los aparatos.
 - Escenas en `escenas_auris.py`: `oreja` (gancho / cierre), `bits`, `ondas`, `lleno`, `saltos`, `auricular`, `relevo`, `rey`.
 
+**Documental 19 (28 nov 2026, «Si tienes 20 años, ya has vivido la mitad de tu vida»: ley de Paul Janet)**
+- Cifras que salen de un modelo (no de una medida): se dice que es una teoría («es una teoría, no una ley exacta»), se enseña la cuenta en
+  `descripcion.md` y `guion.json → calculo` (aquí √(a0·80) con a0 = primeros recuerdos) y se da un rango honesto («entre los 18 y los 20»).
+- Escena clara (fondo blanco) con texto de franja: la superficie del guion debe tener `txt` blanco (p. ej. `blue`) y se pinta una banda oscura
+  bajo y≈1150; con `light` el texto sale oscuro y no se lee sobre la banda.
+- Ningún tramo de 2–3 s con el decorado vacío: si la frase todavía no nombra el objeto, entra algo que la represente (teoría ✓ / ley ✕,
+  la insignia «¡NUEVO!», el cerebro) y se va cuando llega lo siguiente.
+- Escenas en `escenas_vida.py`: `reloj_arena` (gancho / cierre), `verano`, `janet`, `tarta`, `cinta`, `memoria`, `vacaciones`, `nuevo`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
