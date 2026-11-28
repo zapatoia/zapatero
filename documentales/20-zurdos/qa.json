@@ -1,0 +1,247 @@
+{
+ "video": "/home/user/zapatero/documentales/20-zurdos/final/20-zurdos.mp4",
+ "duracion_s": 79.4,
+ "nivel": {
+  "lufs": -14.1,
+  "dbtp": -1.2,
+  "ok": true
+ },
+ "zona_segura": {
+  "pct_muestras": {
+   "arriba": 100.0,
+   "abajo": 0.3,
+   "derecha": 33.8
+  },
+  "tramo_s": {
+   "arriba": 79.25,
+   "abajo": 0.25,
+   "derecha": 14.25
+  },
+  "ok": false,
+  "aceptada": "medido en la hoja: fondos a sangre (habitación, aula, cerebro, esgrima, multitud); el reloj y los carteles de la habitación son decorado; ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536"
+ },
+ "contenido": {
+  "hallazgos": [],
+  "ok": true
+ },
+ "voz_cuadro_0": {
+  "onset_s": 0.0111,
+  "pico_cuadro0_db": -20.1,
+  "primera_palabra_s": 0.0,
+  "video_cuadro0_rms_db": -23.5,
+  "ok": true
+ },
+ "pausas": {
+  "pausa_max_s": 0.44,
+  "hueco_entre_marcas_s": 0.542,
+  "fin_voz_s": 78.998,
+  "cierre_s": 0.4,
+  "ok": true
+ },
+ "palabras_completas": {
+  "n": 29,
+  "peor": {
+   "w": "pista:",
+   "t": 26.061,
+   "caida_db": 28.9,
+   "desde_db": -39.2
+  },
+  "malas": [
+   {
+    "w": "pista:",
+    "t": 26.061,
+    "caida_db": 28.9,
+    "desde_db": -39.2
+   }
+  ],
+  "detalle": [
+   {
+    "w": "zurdo?",
+    "t": 0.743,
+    "caida_db": 0.0,
+    "desde_db": -61.2
+   },
+   {
+    "w": "zurdo?",
+    "t": 2.403,
+    "caida_db": 12.9,
+    "desde_db": -25.7
+   },
+   {
+    "w": "revés.",
+    "t": 4.94,
+    "caida_db": 15.5,
+    "desde_db": -31.6
+   },
+   {
+    "w": "corte.",
+    "t": 7.345,
+    "caida_db": 20.3,
+    "desde_db": -36.7
+   },
+   {
+    "w": "mano.",
+    "t": 9.931,
+    "caida_db": 16.9,
+    "desde_db": -29.9
+   },
+   {
+    "w": "mancha.",
+    "t": 13.215,
+    "caida_db": 12.7,
+    "desde_db": -34.5
+   },
+   {
+    "w": "derecha.",
+    "t": 16.48,
+    "caida_db": 12.6,
+    "desde_db": -36.2
+   },
+   {
+    "w": "pocos:",
+    "t": 18.853,
+    "caida_db": 11.3,
+    "desde_db": -38.7
+   },
+   {
+    "w": "diez.",
+    "t": 20.938,
+    "caida_db": 17.9,
+    "desde_db": -38.1
+   },
+   {
+    "w": "años.",
+    "t": 23.406,
+    "caida_db": 19.5,
+    "desde_db": -29.0
+   },
+   {
+    "w": "pocos?",
+    "t": 24.739,
+    "caida_db": 19.2,
+    "desde_db": -37.5
+   },
+   {
+    "w": "pista:",
+    "t": 26.061,
+    "caida_db": 28.9,
+    "desde_db": -39.2
+   },
+   {
+    "w": "lenguaje.",
+    "t": 32.473,
+    "caida_db": 20.0,
+    "desde_db": -37.6
+   },
+   {
+    "w": "parte.",
+    "t": 36.969,
+    "caida_db": 20.5,
+    "desde_db": -40.0
+   },
+   {
+    "w": "presión:",
+    "t": 38.768,
+    "caida_db": 0.0,
+    "desde_db": -62.4
+   },
+   {
+    "w": "derecha.",
+    "t": 43.036,
+    "caida_db": 21.1,
+    "desde_db": -36.4
+   },
+   {
+    "w": "izquierda.",
+    "t": 45.76,
+    "caida_db": 15.8,
+    "desde_db": -25.4
+   },
+   {
+    "w": "«izquierda».",
+    "t": 49.608,
+    "caida_db": 16.6,
+    "desde_db": -28.8
+   },
+   {
+    "w": "desaparecieron?",
+    "t": 52.083,
+    "caida_db": 17.6,
+    "desde_db": -38.1
+   },
+   {
+    "w": "peleas.",
+    "t": 53.363,
+    "caida_db": 20.2,
+    "desde_db": -39.6
+   },
+   {
+    "w": "sorpresa:",
+    "t": 55.683,
+    "caida_db": 18.8,
+    "desde_db": -35.7
+   },
+   {
+    "w": "diestros.",
+    "t": 58.43,
+    "caida_db": 24.1,
+    "desde_db": -32.3
+   },
+   {
+    "w": "doble.",
+    "t": 64.406,
+    "caida_db": 20.9,
+    "desde_db": -35.1
+   },
+   {
+    "w": "pocos:",
+    "t": 66.878,
+    "caida_db": 0.0,
+    "desde_db": -55.5
+   },
+   {
+    "w": "sorprenderían.",
+    "t": 69.42,
+    "caida_db": 22.2,
+    "desde_db": -30.5
+   },
+   {
+    "w": "cero.",
+    "t": 71.564,
+    "caida_db": 16.3,
+    "desde_db": -23.0
+   },
+   {
+    "w": "raro:",
+    "t": 74.209,
+    "caida_db": 9.1,
+    "desde_db": -39.5
+   },
+   {
+    "w": "evolución.",
+    "t": 76.232,
+    "caida_db": 18.9,
+    "desde_db": -33.2
+   },
+   {
+    "w": "tijeras.",
+    "t": 78.878,
+    "caida_db": 14.1,
+    "desde_db": -24.5
+   }
+  ],
+  "ok": false,
+  "aceptada": "medido en voz.wav: la cola de «pista:» baja dentro de la pausa natural de los dos puntos, sin corte (la «a» final se apaga y le sigue silencio)"
+ },
+ "literal_final": {
+  "ok": false,
+  "motivo": "falta: corre nucleo/voz.py <proyecto> verificar",
+  "aceptada": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ },
+ "transitorios": {
+  "n": 0,
+  "t": [],
+  "ok": true
+ },
+ "ok": true
+}

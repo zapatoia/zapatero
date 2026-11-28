@@ -1,0 +1,250 @@
+{
+ "titulo": "¿Por qué hay tan pocos zurdos?",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1750,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Eres zurdo? ¿O tienes un amigo zurdo?",
+   "tts": "[curious] ¿Eres zurdo? ¿O tienes un amigo zurdo?",
+   "key": "un amigo zurdo",
+   "escena": {
+    "tipo": "reves",
+    "surface": "noche",
+    "modo": "gancho",
+    "mano_word": "zurdo",
+    "flip_word": "revés",
+    "cartel": "HOLA"
+   }
+  },
+  {
+   "texto": "Su mundo está al revés.",
+   "tts": "Su mundo... está al revés.",
+   "key": "al revés"
+  },
+  {
+   "texto": "Las tijeras le tapan la línea de corte.",
+   "tts": "Las tijeras le tapan la línea de corte.",
+   "key": "la línea de corte",
+   "escena": {
+    "tipo": "objetos",
+    "surface": "clay",
+    "items": [
+     {
+      "word": "tijeras",
+      "tipo": "tijeras",
+      "txt": "TIJERAS"
+     },
+     {
+      "word": "espiral",
+      "tipo": "espiral",
+      "txt": "ESPIRAL"
+     },
+     {
+      "word": "tinta",
+      "tipo": "tinta",
+      "txt": "TINTA"
+     },
+     {
+      "word": "pupitre",
+      "tipo": "pupitre",
+      "txt": "PUPITRE"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "El cuaderno de espiral se le clava en la mano.",
+   "tts": "El cuaderno de espiral se le clava en la mano.",
+   "key": "en la mano"
+  },
+  {
+   "texto": "Al escribir, arrastra la tinta y se mancha.",
+   "tts": "Al escribir, arrastra la tinta... y se mancha.",
+   "key": "se mancha"
+  },
+  {
+   "texto": "Y el pupitre del cole tenía la mesita a la derecha.",
+   "tts": "Y el pupitre del cole tenía la mesita... a la derecha.",
+   "key": "a la derecha"
+  },
+  {
+   "texto": "Y no es casualidad que sean pocos: más o menos, uno de cada diez.",
+   "tts": "Y no es casualidad que sean pocos: más o menos, uno de cada diez.",
+   "key": "uno de cada diez",
+   "escena": {
+    "tipo": "diez",
+    "surface": "dark",
+    "uno_word": "uno",
+    "anios_word": "años",
+    "pct_txt": "10,6 %",
+    "anios_txt": "MÁS DE 10.000 AÑOS",
+    "uno_txt": "1 DE CADA 10"
+   }
+  },
+  {
+   "texto": "Y así llevan más de diez mil años.",
+   "tts": "Y así llevan... más de diez mil años.",
+   "key": "más de diez mil años"
+  },
+  {
+   "texto": "¿Por qué tan pocos?",
+   "tts": "¿Por qué tan pocos?",
+   "key": "tan pocos",
+   "escena": {
+    "tipo": "cerebro_z",
+    "surface": "noche",
+    "lado_word": "izquierdo",
+    "lenguaje_word": "lenguaje",
+    "genes_word": "genes",
+    "cuarta_word": "cuarta",
+    "lenguaje_txt": "LENGUAJE",
+    "mano_txt": "MANO DERECHA",
+    "genes_txt": "GENES ≈ 1/4"
+   }
+  },
+  {
+   "texto": "Una pista: tu mano derecha la mueve el lado izquierdo del cerebro, el mismo que en casi todos lleva el lenguaje.",
+   "tts": "Una pista: tu mano derecha la mueve el lado izquierdo del cerebro... el mismo que, en casi todos, lleva el lenguaje.",
+   "key": "lleva el lenguaje"
+  },
+  {
+   "texto": "Los genes influyen, pero solo explican más o menos la cuarta parte.",
+   "tts": "Los genes influyen, pero solo explican, más o menos, la cuarta parte.",
+   "key": "la cuarta parte"
+  },
+  {
+   "texto": "Y luego está la presión: en la España de Franco, a muchos zurdos les obligaban a escribir con la derecha.",
+   "tts": "Y luego está la presión: en la España de Franco, a muchos zurdos les obligaban a escribir con la derecha.",
+   "key": "con la derecha",
+   "escena": {
+    "tipo": "escuela",
+    "surface": "clay",
+    "obliga_word": "obligaban",
+    "ata_word": "ataban",
+    "siniestro_word": "siniestro",
+    "lema": "CON LA DERECHA",
+    "latin_txt": "SINISTER",
+    "latin_sig": "IZQUIERDA",
+    "es_txt": "SINIESTRO"
+   }
+  },
+  {
+   "texto": "A algunos, hasta les ataban la mano izquierda.",
+   "tts": "A algunos, hasta les ataban la mano izquierda.",
+   "key": "la mano izquierda"
+  },
+  {
+   "texto": "Por algo «siniestro» viene de la palabra latina para «izquierda».",
+   "tts": "Por algo, siniestro viene de la palabra latina para izquierda.",
+   "key": "para «izquierda»"
+  },
+  {
+   "texto": "Entonces, ¿por qué no desaparecieron? Por las peleas.",
+   "tts": "[curious] Entonces... ¿por qué no desaparecieron? Por las peleas.",
+   "key": "Por las peleas",
+   "escena": {
+    "tipo": "pelea",
+    "surface": "blue",
+    "golpe_word": "sorpresa",
+    "estudios_word": "estudios",
+    "esgrima_word": "esgrima",
+    "calle_txt": "GENTE",
+    "esgrima_txt": "ESGRIMA (ÉLITE)",
+    "calle_pct": 10,
+    "esgrima_pct": 22,
+    "mas_txt": "MÁS PELEAS → MÁS ZURDOS"
+   }
+  },
+  {
+   "texto": "Un zurdo pilla por sorpresa: todo el mundo está acostumbrado a pelear contra diestros.",
+   "tts": "Un zurdo pilla por sorpresa: todo el mundo está acostumbrado a pelear contra diestros.",
+   "key": "contra diestros"
+  },
+  {
+   "texto": "Hay estudios que ven más zurdos donde hay más peleas, y en la élite de la esgrima hay el doble.",
+   "tts": "Hay estudios que ven más zurdos donde hay más peleas... y en la élite de la esgrima hay el doble.",
+   "key": "hay el doble"
+  },
+  {
+   "texto": "Pero esa ventaja solo funciona si son pocos: si fueran la mitad, ya no sorprenderían.",
+   "tts": "Pero esa ventaja solo funciona si son pocos: si fueran la mitad... ya no sorprenderían.",
+   "key": "ya no sorprenderían",
+   "escena": {
+    "tipo": "equilibrio",
+    "surface": "dark",
+    "mitad_word": "mitad",
+    "pocos_word": "Pocos#2",
+    "cero_word": "cero",
+    "sorpresa_txt": "SORPRESA",
+    "zurdos_txt": "ZURDOS",
+    "cero_txt": "POCOS, PERO NUNCA CERO"
+   }
+  },
+  {
+   "texto": "Pocos, pero nunca cero.",
+   "tts": "Pocos... pero nunca cero.",
+   "key": "nunca cero"
+  },
+  {
+   "texto": "Así que tu amigo zurdo no es raro: es el arma secreta de la evolución.",
+   "tts": "[warm] Así que tu amigo zurdo no es raro: es el arma secreta de la evolución.",
+   "key": "*de la evolución",
+   "escena": {
+    "tipo": "reves",
+    "surface": "noche",
+    "modo": "cierre",
+    "arma_word": "arma",
+    "tijeras_word": "tijeras",
+    "arma_txt": "ARMA SECRETA"
+   }
+  },
+  {
+   "texto": "Aunque siga perdiendo contra las tijeras.",
+   "tts": "[playful] Aunque siga perdiendo... contra las tijeras.",
+   "key": "contra las tijeras"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo a tu amigo zurdo, que lo entienda de una vez.",
+  "tts": "[playful] Pásaselo a tu amigo zurdo... que lo entienda de una vez.",
+  "key": "de una vez",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "Mi amigo zurdo",
+  "salida": "20-zurdos-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Zurdos: 10,6 % (metaanálisis de 2020); los hombres, algo más (razón 1,23)",
+   "url": "https://research-repository.st-andrews.ac.uk/handle/10023/19889"
+  },
+  {
+   "dato": "Proporción de zurdos estable durante más de diez mil años (Faurie y Raymond 2004) e hipótesis de la pelea (más zurdos con más homicidios, 2005)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/15875566/"
+  },
+  {
+   "dato": "Zurdos en la élite de la esgrima: 17–26 % (top-200 mundial)",
+   "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12457039"
+  },
+  {
+   "dato": "Heredabilidad de la lateralidad ≈ 25 % (gemelos)",
+   "url": "https://pubmed.ncbi.nlm.nih.gov/16611467/"
+  },
+  {
+   "dato": "En la España de Franco se obligaba a los zurdos a escribir con la derecha (a veces atándoles la mano)",
+   "url": "https://theobjective.com/further/espana/2018-08-13/como-ser-zurdo/"
+  },
+  {
+   "dato": "«Siniestro» del latín sinister, izquierdo",
+   "url": "https://www.etymonline.com/es/word/sinistral"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (habitación, aula, cerebro, esgrima, multitud); el reloj y los carteles de la habitación son decorado; ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536",
+  "palabras_completas": "medido en voz.wav: la cola de «pista:» baja dentro de la pausa natural de los dos puntos, sin corte (la «a» final se apaga y le sigue silencio)",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

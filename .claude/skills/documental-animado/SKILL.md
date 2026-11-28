@@ -284,6 +284,13 @@ Corrige y vuelve a revisar hasta que todo pase.
   la insignia «¡NUEVO!», el cerebro) y se va cuando llega lo siguiente.
 - Escenas en `escenas_vida.py`: `reloj_arena` (gancho / cierre), `verano`, `janet`, `tarta`, `cinta`, `memoria`, `vacaciones`, `nuevo`.
 
+**Documental 20 (28 nov 2026, «¿Por qué hay tan pocos zurdos?»)**
+- Gancho que vive el concepto: el decorado entero se da la vuelta como un espejo en «al revés» (escala X con coseno + destello, ¡FLIP!).
+- Datos históricos sensibles con rótulo prudente y fuente («ESPAÑA, FRANQUISMO», no fechas exactas que la fuente no da).
+- Anclas con palabras repetidas en la misma escena: «pocos» salía antes de tiempo → `"Pocos#2"`. Revisa siempre las anclas con `palabras.json`.
+- Mano ilustrada reutilizable (`_mano`, izquierda; en espejo es la derecha) con poses abierta / puño / lapiz / tijeras.
+- Escenas en `escenas_zurdo.py`: `reves` (gancho / cierre), `objetos`, `diez`, `cerebro_z`, `escuela`, `pelea`, `equilibrio`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
