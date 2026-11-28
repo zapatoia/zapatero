@@ -1,0 +1,456 @@
+{
+ "_doc": "Banco de ideas (skill /ideas). hechas = vídeos ya producidos (no repetir el tema ni un ángulo casi igual); reserva = ideas buenas no elegidas aún (se reutilizan en la siguiente ronda); descartadas = con motivo; rendimiento = métricas reales por vídeo (Metricool) para aprender qué funciona; vetos = temas que no se tocan. Se reconstruye y refresca en cada ronda (/ideas Fase 0–1): nada de aquí se da por actual.",
+ "vetos": [
+  "política y partidos (el usuario: «lo político no será lo habitual», solo si lo pide)",
+  "tragedias recientes, muertes o víctimas concretas",
+  "salud alarmista o consejos médicos más allá de lo general (siempre «al médico si…»)",
+  "marcas, logos o personas reales privadas",
+  "religión como polémica",
+  "cifras sin fuente verificable",
+  "nada copiado de un vídeo ajeno: de lo viral se toma solo el TEMA/ángulo, con guion, datos y dibujo propios"
+ ],
+ "hechas": [
+  {
+   "n": "01",
+   "titulo": "Bombas sobre la Puerta del Sol",
+   "categoria": "historia/mapas",
+   "formula": "dato visual",
+   "ruta": null
+  },
+  {
+   "n": "02",
+   "titulo": "Europa sin Francia",
+   "categoria": "geografía/mapas",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "03",
+   "titulo": "¿El centro del mundo?",
+   "categoria": "geografía/mapas",
+   "formula": "pregunta",
+   "ruta": null
+  },
+  {
+   "n": "04",
+   "titulo": "Si desapareciera la mitad de la humanidad",
+   "categoria": "qué pasaría si",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "05",
+   "titulo": "¿Puedes seguir la pelota roja?",
+   "categoria": "juego/reto",
+   "formula": "reto",
+   "ruta": null
+  },
+  {
+   "n": "06",
+   "titulo": "Pausa para marcar el penalti",
+   "categoria": "juego/reto",
+   "formula": "reto",
+   "ruta": null
+  },
+  {
+   "n": "07",
+   "titulo": "Lo que hace tu cuerpo en un minuto",
+   "categoria": "cuerpo humano",
+   "formula": "cifra",
+   "ruta": null
+  },
+  {
+   "n": "08",
+   "titulo": "Tus antepasados no caben en la historia",
+   "categoria": "matemáticas/historia",
+   "formula": "afirmación sorprendente",
+   "ruta": null
+  },
+  {
+   "n": "09",
+   "titulo": "No es insomnio: es venganza",
+   "categoria": "psicología/hábitos",
+   "formula": "mito/nombre",
+   "ruta": null
+  },
+  {
+   "n": "10",
+   "titulo": "¿Sabes cuándo pasan 30 segundos?",
+   "categoria": "juego/reto",
+   "formula": "reto",
+   "ruta": null
+  },
+  {
+   "n": "11",
+   "titulo": "¿Qué te pasa si vuelve a ganar el PSOE?",
+   "categoria": "política",
+   "formula": "pregunta",
+   "ruta": null
+  },
+  {
+   "n": "12",
+   "titulo": "¿Y si desaparecieran los mosquitos?",
+   "categoria": "naturaleza",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "13",
+   "titulo": "¿Qué pasaría si dejases de dormir? (hora a hora)",
+   "categoria": "cuerpo humano",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "14",
+   "titulo": "¿Y si cayeras por un agujero que atraviesa la Tierra?",
+   "categoria": "física/planeta",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "15",
+   "titulo": "¿Qué pasaría si siempre fuera de día?",
+   "categoria": "planeta/naturaleza",
+   "formula": "qué pasaría si",
+   "ruta": null
+  },
+  {
+   "n": "16",
+   "titulo": "La partida que nadie ha jugado jamás",
+   "categoria": "matemáticas/juegos",
+   "formula": "afirmación sorprendente",
+   "ruta": null
+  },
+  {
+   "n": "17",
+   "titulo": "¿Te afeitas para que te salga más barba? No funciona",
+   "categoria": "cuerpo humano",
+   "formula": "mito",
+   "ruta": null
+  },
+  {
+   "n": "18",
+   "titulo": "¿Cómo llega la música a tus auriculares si no hay ningún cable?",
+   "categoria": "tecnología",
+   "formula": "por qué/cómo",
+   "ruta": null
+  },
+  {
+   "n": "19",
+   "titulo": "Si tienes 20 años, ya has vivido la mitad de tu vida",
+   "categoria": "psicología/tiempo",
+   "formula": "afirmación sorprendente",
+   "ruta": null
+  },
+  {
+   "n": "20",
+   "titulo": "¿Por qué hay tan pocos zurdos?",
+   "categoria": "cuerpo humano/evolución",
+   "formula": "por qué",
+   "ruta": null
+  },
+  {
+   "n": "21",
+   "titulo": "¿Por qué de repente te tiembla el párpado?",
+   "categoria": "cuerpo humano/salud",
+   "formula": "por qué",
+   "ruta": null,
+   "publicado": {
+    "instagram": "2026-12-02T20:30",
+    "youtube": "2026-12-02T20:30",
+    "tiktok": "2026-12-03T15:30"
+   }
+  }
+ ],
+ "reserva": [
+  {
+   "titulo": "¿Por qué hay atascos sin ningún accidente?",
+   "puntos": 84,
+   "categoria": "física cotidiana",
+   "formula": "por qué",
+   "senal": "ahora_lo_pillo 868.993 (~870×)",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "¿Cuántas veces más vas a ver a tus padres?",
+   "puntos": 82,
+   "categoria": "tiempo/emocional",
+   "formula": "cuenta con tu tiempo",
+   "senal": "elporquepasaesto 539.215 (~1.300×)",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Parálisis del sueño: te despiertas y no puedes moverte",
+   "puntos": 80,
+   "categoria": "sueño",
+   "formula": "por qué",
+   "senal": "dorzzen.sleep 124.379 (~80×) + encaje canal",
+   "estado": "elegida",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Cuenta hasta 99 con los dedos",
+   "puntos": 77,
+   "categoria": "reto/manos",
+   "formula": "reto",
+   "senal": "haceclick.oficial 1.069.672 (~5.000×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Si te sangra la nariz, no eches la cabeza atrás",
+   "puntos": 76,
+   "categoria": "primeros auxilios",
+   "formula": "mito al revés",
+   "senal": "patrón duocare/lanerdipedia (~300×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "¿Por qué el café te da ganas de ir al baño?",
+   "puntos": 74,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "inframundo3d 105.633 (~260×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Te caes de un avión sin paracaídas: ¿qué haces?",
+   "puntos": 72,
+   "categoria": "qué pasaría si",
+   "formula": "qué pasaría si",
+   "senal": "ahora_lo_pillo 80.362 (~80×)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-3ideas"
+  },
+  {
+   "titulo": "Gemínidas: las estrellas fugaces son polvo de un asteroide",
+   "puntos": 69,
+   "categoria": "espacio",
+   "formula": "efeméride",
+   "senal": "IGN: máximo 13–14 dic (publicar 12–13 dic)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué no puedes hacerte cosquillas a ti mismo?",
+   "puntos": 72,
+   "categoria": "cerebro",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué olvidas a qué entraste en una habitación?",
+   "puntos": 72,
+   "categoria": "cerebro",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "Ves el pasado: la luz del Sol tarda 8 minutos",
+   "puntos": 69,
+   "categoria": "espacio",
+   "formula": "afirmación sorprendente",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué tu voz suena rara grabada?",
+   "puntos": 67,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué te despiertas justo antes de la alarma?",
+   "puntos": 74,
+   "categoria": "sueño",
+   "formula": "por qué",
+   "senal": "competidor duocare.es: 22.867 interacciones (≈8× su media)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué comemos 12 uvas en Nochevieja?",
+   "puntos": 67,
+   "categoria": "costumbres",
+   "formula": "origen",
+   "senal": "temporada (publicar finales dic)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué se te pone la piel de gallina?",
+   "puntos": 65,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué duele la cabeza al comer helado?",
+   "puntos": 65,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué una canción se te queda pegada?",
+   "puntos": 65,
+   "categoria": "cerebro",
+   "formula": "por qué",
+   "senal": "propia",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué se pegan los bostezos?",
+   "puntos": 77,
+   "categoria": "cuerpo/psicología",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué das un respingo justo al quedarte dormido?",
+   "puntos": 75,
+   "categoria": "sueño/cuerpo",
+   "formula": "por qué",
+   "senal": "encaje canal (insomnio)",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué el espacio es negro si hay billones de estrellas?",
+   "puntos": 69,
+   "categoria": "espacio",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué te suenan las tripas?",
+   "puntos": 75,
+   "categoria": "cuerpo",
+   "formula": "por qué",
+   "senal": "Google «por qué» 2025",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "¿Por qué hace frío en invierno si estamos más cerca del Sol?",
+   "puntos": 72,
+   "categoria": "planeta",
+   "formula": "por qué",
+   "senal": "temporada dic",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  },
+  {
+   "titulo": "Respiras el mismo aire que Julio César",
+   "puntos": 71,
+   "categoria": "física/historia",
+   "formula": "afirmación sorprendente",
+   "senal": "favorita del usuario",
+   "estado": "reserva",
+   "ronda": "2026-11-28-prueba"
+  }
+ ],
+ "descartadas": [
+  {
+   "titulo": "¿Por qué los papas cambian de nombre?",
+   "motivo": "religión/nicho"
+  },
+  {
+   "titulo": "¿Por qué han subido los huevos?",
+   "motivo": "caduca, datos cambiantes"
+  },
+  {
+   "titulo": "¿Por qué Papá Noel viste de rojo?",
+   "motivo": "marca"
+  },
+  {
+   "titulo": "Tu cerebro tras 4 h de móvil",
+   "motivo": "alarmista"
+  },
+  {
+   "titulo": "Tu nariz distingue un billón de olores",
+   "motivo": "dato discutido"
+  }
+ ],
+ "rendimiento": {
+  "02": {
+   "instagram": {
+    "vistas": 173,
+    "retencion": 33.3
+   }
+  },
+  "09": {
+   "instagram": {
+    "vistas": 145,
+    "retencion": 35.9,
+    "compartidos": 1
+   },
+   "tiktok": {
+    "vistas": 452,
+    "likes": 48,
+    "compartidos": 3
+   }
+  },
+  "_actualizado": "2026-11-28 (tarde)",
+  "_nota": "Instagram aún sin consolidar; YouTube 9 Shorts subidos el 28-nov sin vistas"
+ },
+ "rondas": [
+  {
+   "fecha": "2026-11-28",
+   "n": 6,
+   "tipo": "prueba (sin producir)",
+   "archivo": "ideas/rondas/2026-11-28-prueba.md",
+   "fuentes": {
+    "metricool_propio": "sí (3 vídeos con datos)",
+    "competidores": "vacío (no añadidos)",
+    "youtube_shorts": "descartado por el usuario (lo cubren los competidores de Metricool)",
+    "web": "sí"
+   }
+  },
+  {
+   "fecha": "2026-11-28",
+   "n": 3,
+   "tipo": "prueba solo ideas",
+   "archivo": "ideas/rondas/2026-11-28-3ideas.md",
+   "fuentes": {
+    "competidores_instagram": "10 cuentas, mes completo",
+    "canal": "casi sin datos",
+    "web": "verificación de finalistas"
+   }
+  }
+ ],
+ "competidores_instagram": [
+  "ahora_lo_pillo",
+  "curiosfer",
+  "dorzzen.sleep",
+  "duocare.es",
+  "elporquepasaesto",
+  "haceclick.oficial",
+  "inframundo3d",
+  "lanerdipedia",
+  "proyecto_atom",
+  "resultaaquee"
+ ]
+}
