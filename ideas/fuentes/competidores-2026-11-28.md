@@ -1,6 +1,6 @@
 # Competidores de Instagram (Metricool) — primera lectura, 2026-11-28 (semana 21–28 nov)
 
-10 cuentas, ~190 Reels en 7 días (~800/mes). «Veces su media» = interacciones del Reel ÷ mediana de interacciones de esa cuenta en la semana
+9 cuentas con Reels esa semana, ~190 Reels en 7 días (~800/mes). «Veces su media» = interacciones del Reel ÷ mediana de interacciones de esa cuenta en la semana
 (mide lo que funciona por encima de lo normal para ESA cuenta, sin que las cuentas grandes tapen a las pequeñas).
 
 | Cuenta | Reels/sem | Mediana | Origen / tipo | Mejor Reel conocido |
