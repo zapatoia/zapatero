@@ -29,6 +29,18 @@
 - `getScheduledPosts` (28-11-2026 → 28-02-2027): **vacío** (ninguna publicación programada todavía).
 - Desde el contenedor NO hay red a metricool.com (DNS bloqueado), pero da igual: el conector lo llama la infraestructura de Claude.
 
+## 3b. Huecos ya ocupados A MANO por el usuario (dato del 2026-11-28; NO salen en `getScheduledPosts`)
+El usuario programó vídeos directamente desde las apps de cada red, así que Metricool no los ve. Hay que contarlos como ocupados:
+| Red | Cubierto hasta (incluido) | Primer hueco libre |
+|---|---|---|
+| Instagram | 2-dic-2026 15:30 | **2-dic-2026 20:30** |
+| YouTube | 2-dic-2026 15:30 | **2-dic-2026 20:30** |
+| TikTok | 2-dic-2026 20:30 | **3-dic-2026 15:30** (el usuario escribió «a las 3 del día 3» = turno de tarde, 15:30) |
+- Al crear `publicaciones/calendario.json`, sembrarlo con estos «ocupado_manual» para que nunca se programe antes.
+- Cada red lleva su propio cursor de huecos (TikTok va un turno por detrás de IG/YouTube). Confirmar con el usuario si le vale así
+  (mismo vídeo en distinto hueco según la red) o prefiere alinear las tres redes desde el 3-dic 15:30.
+- Antes de distribuir, preguntar siempre si ha programado algo más a mano desde la última vez.
+
 ## 4. Qué permite el conector (leído de sus definiciones)
 - `getBrandSettings`, `getScheduledPosts(brandId, fromDate, toDate, timezone)` (solo los aún no publicados), `createScheduledPost(blogId, date, info)`,
   `updateScheduledPost(id, uuid, blogId, info)` (sobrescribe todo; cambia el `id`, el `uuid` se mantiene; hay que mandar el contenido completo),

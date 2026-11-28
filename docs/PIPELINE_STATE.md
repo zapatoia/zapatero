@@ -2,7 +2,7 @@
 
 > Última actualización: 2026-11-28 (sesión `docs/sessions/2026-11-28-03.md`).
 > Rama de trabajo de la sesión 2026-11-28-03: `claude/tender-faraday-del7cu`. La de la 28-02 (`claude/gifted-cerf-m7f5ev`) se fusionó en `main` por la PR #9.
-> **DISTRIBUCIÓN (nuevo, 28-11-03):** publicación automática en Instagram Reels, YouTube Shorts y TikTok con **Metricool** (conector de Claude ya conectado, marca `8415557`, Europe/Madrid), huecos fijos **15:30 y 20:30**. Todo el plan, lo verificado y los pasos en **`docs/DISTRIBUCION.md`** (leer antes de tocar nada de publicación).
+> **DISTRIBUCIÓN (nuevo, 28-11-03):** publicación automática en Instagram Reels, YouTube Shorts y TikTok con **Metricool** (conector de Claude ya conectado, marca `8415557`, Europe/Madrid), huecos fijos **15:30 y 20:30**. Todo el plan, lo verificado y los pasos en **`docs/DISTRIBUCION.md`** (leer antes de tocar nada de publicación). **Huecos ya ocupados a mano (no visibles en Metricool):** IG y YouTube hasta el 2-dic 15:30 (siguiente: 2-dic 20:30); TikTok hasta el 2-dic 20:30 (siguiente: 3-dic 15:30) → `docs/DISTRIBUCION.md` §3b.
 > Rama de trabajo de la sesión 2026-11-28-02: `claude/gifted-cerf-m7f5ev` (PR abierta hacia `main` al cerrar la sesión; el usuario hace el merge). La de la sesión 28-01 (`claude/gifted-dijkstra-kvd1o9`) se fusionó en `main` por la PR #8.
 > Rama de trabajo de la sesión 2026-11-28-01: `claude/gifted-dijkstra-kvd1o9` (PR hacia `main`; el usuario hace el merge). La de la sesión 27-04 (`claude/awesome-mccarthy-p5k4nb`) se fusionó en `main` por la PR #7.
 > Rama de trabajo de la sesión 2026-11-27-04: `claude/awesome-mccarthy-p5k4nb` (PR hacia `main`; el usuario hace el merge). La de la sesión 27-03 (`claude/adoring-gauss-6biqu1`) se fusionó en `main` por la PR #6.
