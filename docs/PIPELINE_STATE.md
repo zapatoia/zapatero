@@ -1,7 +1,7 @@
 # PIPELINE_STATE — documento maestro del proyecto
 
 > Última actualización: 2026-11-28 (sesión `docs/sessions/2026-11-28-02.md`).
-> Rama de trabajo de la sesión 2026-11-28-02: `claude/gifted-cerf-m7f5ev` (PR hacia `main`; el usuario hace el merge). La de la sesión 28-01 (`claude/gifted-dijkstra-kvd1o9`) se fusionó en `main` por la PR #8.
+> Rama de trabajo de la sesión 2026-11-28-02: `claude/gifted-cerf-m7f5ev` (PR abierta hacia `main` al cerrar la sesión; el usuario hace el merge). La de la sesión 28-01 (`claude/gifted-dijkstra-kvd1o9`) se fusionó en `main` por la PR #8.
 > Rama de trabajo de la sesión 2026-11-28-01: `claude/gifted-dijkstra-kvd1o9` (PR hacia `main`; el usuario hace el merge). La de la sesión 27-04 (`claude/awesome-mccarthy-p5k4nb`) se fusionó en `main` por la PR #7.
 > Rama de trabajo de la sesión 2026-11-27-04: `claude/awesome-mccarthy-p5k4nb` (PR hacia `main`; el usuario hace el merge). La de la sesión 27-03 (`claude/adoring-gauss-6biqu1`) se fusionó en `main` por la PR #6.
 > Rama de trabajo de la sesión 2026-11-27-03: `claude/adoring-gauss-6biqu1` (PR abierta hacia `main`; el usuario hace el merge). La de la sesión 27-02 (`claude/confident-bell-gpw8hf`) se fusionó en `main` por la PR #5. La rama de la sesión 27-01 (`claude/gallant-curie-6ab9x5`) se fusionó en `main` por la PR #4. Ramas anteriores: `claude/hopeful-einstein-ix8p37` (sesión 26-02, fusionada en `main` por la PR #3), `claude/3d-mmo-retro-video-pipeline-3ify9e` (26-01, PR #2). `main` es la rama por defecto.
@@ -258,7 +258,7 @@
 
 ## 15. Decisiones que debe tomar el usuario
 - (28-02) Comando `/loteN` creado (skill `lote` + atajos `lote2`…`lote10`): úsalo para el próximo lote.
-- (28-02) Opinión sobre los documentales 17–20 (voz incluida: sin Whisper, solo la ha «oído» la alineación de ElevenLabs). ¿Unir `claude/gifted-cerf-m7f5ev` a `main` (PR)?
+- (28-02) Opinión sobre los documentales 17–20 (voz incluida: sin Whisper, solo la ha «oído» la alineación de ElevenLabs). Hacer merge de la PR de `claude/gifted-cerf-m7f5ev` a `main` (abierta al cerrar la sesión 28-02).
 - Qué cambios de animación quiere para los próximos vídeos.
 - Tema del **vídeo 02**.
 - ¿Abrir PR de `claude/hopeful-einstein-ix8p37` a `main`?
