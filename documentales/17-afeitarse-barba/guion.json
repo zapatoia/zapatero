@@ -1,0 +1,293 @@
+{
+ "titulo": "¿Te afeitas para que te salga más barba? No funciona",
+ "formato": "vertical 1080x1920 (TikTok / Reels)",
+ "voz_modelo": "eleven_v3",
+ "tope_caracteres": 1700,
+ "pausa": 0.45,
+ "sfx": true,
+ "lineas": [
+  {
+   "texto": "¿Tú también te afeitas para que te salga más barba?",
+   "tts": "[curious] ¿Tú también te afeitas... para que te salga más barba?",
+   "key": "más barba",
+   "escena": {
+    "tipo": "espejo",
+    "surface": "bano",
+    "modo": "gancho",
+    "afeita_word": "afeitas",
+    "no_word": "no",
+    "sello": "NO FUNCIONA"
+   }
+  },
+  {
+   "texto": "Siento decírtelo: no funciona.",
+   "tts": "Siento decírtelo: no funciona.",
+   "key": "no funciona"
+  },
+  {
+   "texto": "Mira lo que pasa debajo de tu piel.",
+   "tts": "Mira lo que pasa debajo de tu piel.",
+   "key": "tu piel",
+   "escena": {
+    "tipo": "piel",
+    "surface": "noche",
+    "foliculo_word": "folículo",
+    "foliculo_txt": "FOLÍCULO",
+    "cuchilla_word": "cuchilla",
+    "raiz_word": "raíz#2",
+    "piel_txt": "PIEL"
+   }
+  },
+  {
+   "texto": "Cada pelo nace de una raíz metida bajo la piel: el folículo.",
+   "tts": "Cada pelo nace de una raíz metida bajo la piel: el folículo.",
+   "key": "el folículo"
+  },
+  {
+   "texto": "La cuchilla solo corta lo que asoma por fuera.",
+   "tts": "La cuchilla solo corta lo que asoma por fuera.",
+   "key": "por fuera"
+  },
+  {
+   "texto": "La raíz ni se entera.",
+   "tts": "La raíz... ni se entera.",
+   "key": "ni se entera"
+  },
+  {
+   "texto": "Y esto se comprobó en 1928.",
+   "tts": "Y esto se comprobó en mil novecientos veintiocho.",
+   "key": "en 1928",
+   "escena": {
+    "tipo": "laboratorio",
+    "surface": "clay",
+    "anio_word": "1928",
+    "anio": 1928,
+    "desde": 2025,
+    "nombre_word": "Mildred",
+    "nombre_txt": "MILDRED TROTTER",
+    "zonas_word": "zonas",
+    "afeitada_txt": "AFEITADA",
+    "sin_txt": "SIN AFEITAR",
+    "checks": [
+     {
+      "word": "color",
+      "txt": "MISMO COLOR"
+     },
+     {
+      "word": "grosor",
+      "txt": "MISMO GROSOR"
+     },
+     {
+      "word": "velocidad",
+      "txt": "MISMA VELOCIDAD"
+     }
+    ]
+   }
+  },
+  {
+   "texto": "Una anatomista, Mildred Trotter, comparó zonas de la barba afeitadas y sin afeitar.",
+   "tts": "Una anatomista, Mildred Trotter, comparó zonas de la barba afeitadas... y sin afeitar.",
+   "key": "y sin afeitar"
+  },
+  {
+   "texto": "Resultado: mismo color, mismo grosor, misma velocidad.",
+   "tts": "Resultado: mismo color, mismo grosor... misma velocidad.",
+   "key": "misma velocidad"
+  },
+  {
+   "texto": "En 1970 lo repitieron con piernas: una afeitada y la otra no.",
+   "tts": "En mil novecientos setenta lo repitieron con piernas: una afeitada... y la otra no.",
+   "key": "la otra no",
+   "escena": {
+    "tipo": "piernas",
+    "surface": "light",
+    "anio_txt": "1970",
+    "anio_word": "1970",
+    "afeita_word": "afeitada",
+    "otra_word": "otra",
+    "medir_word": "pelo",
+    "pill": "NI UN PELO DE DIFERENCIA",
+    "izq_txt": "AFEITADA",
+    "der_txt": "SIN AFEITAR"
+   }
+  },
+  {
+   "texto": "Ni un pelo de diferencia.",
+   "tts": "Ni un pelo de diferencia.",
+   "key": "de diferencia"
+  },
+  {
+   "texto": "Entonces, ¿por qué parece que sale más fuerte?",
+   "tts": "[curious] Entonces... ¿por qué parece que sale más fuerte?",
+   "key": "más fuerte",
+   "escena": {
+    "tipo": "punta",
+    "surface": "noche",
+    "punta_word": "punta",
+    "lapiz_word": "lápiz",
+    "corte_word": "afeitarlo",
+    "romo_word": "romo",
+    "pincha_word": "pincha",
+    "sol_word": "sol",
+    "oscuro_word": "oscuro",
+    "fino_txt": "PUNTA FINA",
+    "romo_txt": "CORTE ROMO",
+    "oscuro_txt": "SIN ACLARAR POR EL SOL"
+   }
+  },
+  {
+   "texto": "Por la punta.",
+   "tts": "Por la punta.",
+   "key": "la punta"
+  },
+  {
+   "texto": "Un pelo sin cortar acaba fino, como un lápiz afilado.",
+   "tts": "Un pelo sin cortar acaba fino, como un lápiz afilado.",
+   "key": "un lápiz afilado"
+  },
+  {
+   "texto": "Al afeitarlo, lo cortas por la parte gruesa, y queda romo.",
+   "tts": "Al afeitarlo, lo cortas por la parte gruesa... y queda romo.",
+   "key": "queda romo"
+  },
+  {
+   "texto": "Por eso pincha y parece más oscuro.",
+   "tts": "Por eso pincha... y parece más oscuro.",
+   "key": "más oscuro"
+  },
+  {
+   "texto": "Además, como es nuevo, el sol aún no lo ha aclarado.",
+   "tts": "Además, como es nuevo, el sol aún no lo ha aclarado.",
+   "key": "no lo ha aclarado"
+  },
+  {
+   "texto": "Lo que manda en tu barba son tus genes.",
+   "tts": "Lo que manda en tu barba... son tus genes.",
+   "key": "tus genes",
+   "escena": {
+    "tipo": "genes",
+    "surface": "dark",
+    "adn_word": "genes",
+    "testo_word": "testosterona",
+    "dht_word": "DHT",
+    "caso_word": "caso",
+    "parches_word": "parches",
+    "testo_txt": "TESTOSTERONA",
+    "dht_txt": "DHT",
+    "escuchan_word": "escuchan",
+    "pasan_word": "pasan",
+    "si_txt": "ESCUCHA",
+    "no_txt": "PASA"
+   }
+  },
+  {
+   "texto": "Dentro del folículo, la testosterona se convierte en una hormona más potente: la DHT.",
+   "tts": "Dentro del folículo, la testosterona se convierte en una hormona más potente: la de hache te.",
+   "key": "la DHT"
+  },
+  {
+   "texto": "Y tus genes deciden cuánto caso le hace cada folículo.",
+   "tts": "Y tus genes deciden cuánto caso le hace cada folículo.",
+   "key": "cada folículo"
+  },
+  {
+   "texto": "Por eso hay barbas a parches: zonas que escuchan y zonas que pasan.",
+   "tts": "Por eso hay barbas a parches: zonas que escuchan... y zonas que pasan.",
+   "key": "zonas que pasan"
+  },
+  {
+   "texto": "¿La buena noticia?",
+   "tts": "¿La buena noticia?",
+   "key": "buena noticia",
+   "escena": {
+    "tipo": "edad",
+    "surface": "blue",
+    "edad_word": "rellenando",
+    "desde": 16,
+    "hasta": 30,
+    "edad_txt": "AÑOS",
+    "regla_word": "centímetro",
+    "regla_txt": "≈ 1 CM AL MES"
+   }
+  },
+  {
+   "texto": "A muchos hombres la barba les sigue rellenando hasta los 30.",
+   "tts": "A muchos hombres, la barba les sigue rellenando hasta los treinta.",
+   "key": "hasta los 30"
+  },
+  {
+   "texto": "Y crece más o menos un centímetro al mes.",
+   "tts": "Y crece, más o menos, un centímetro al mes.",
+   "key": "al mes"
+  },
+  {
+   "texto": "Así que el truco no es la cuchilla.",
+   "tts": "Así que el truco no es la cuchilla.",
+   "key": "la cuchilla",
+   "escena": {
+    "tipo": "espejo",
+    "surface": "bano",
+    "modo": "cierre",
+    "suelta_word": "cuchilla",
+    "crece_word": "dejarla",
+    "paciencia_word": "paciencia",
+    "parches_word": "parches",
+    "abuelo_word": "culpa",
+    "abuelo_txt": "EL ABUELO",
+    "dias_txt": "DÍA"
+   }
+  },
+  {
+   "texto": "Es dejarla crecer… y tener paciencia.",
+   "tts": "Es dejarla crecer... y tener paciencia.",
+   "key": "*paciencia"
+  },
+  {
+   "texto": "Y si sale a parches, ya sabes a quién echarle la culpa: a tu abuelo.",
+   "tts": "[playful] Y si sale a parches, ya sabes a quién echarle la culpa: a tu abuelo.",
+   "key": "a tu abuelo"
+  }
+ ],
+ "outro": {
+  "texto": "Pásaselo al amigo que se afeita cada día para que le salga barba.",
+  "tts": "[playful] Pásaselo al amigo que se afeita cada día para que le salga barba.",
+  "key": "le salga barba",
+  "amigo_word": "amigo",
+  "boton": "Compartir",
+  "contacto": "El de la cuchilla",
+  "salida": "17-afeitarse-barba-v2.mp4"
+ },
+ "fuentes": [
+  {
+   "dato": "Trotter (1928): afeitar zonas de la barba no cambia color, textura ni crecimiento",
+   "url": "https://sites.utexas.edu/think-twice/2025/04/30/does-shaving-make-hair-grow-back-thicker-and-darker/"
+  },
+  {
+   "dato": "Estudio de 1970 (Journal of Investigative Dermatology): una pierna afeitada y la otra no, mismo grosor y velocidad",
+   "url": "https://health.howstuffworks.com/skin-care/men/shaving-tips/does-shaving-make-hair-grow-back-thicker.htm"
+  },
+  {
+   "dato": "El pelo cortado queda romo (punta fina vs base gruesa) y se ve más oscuro",
+   "url": "https://health.clevelandclinic.org/does-shaving-make-hair-thicker/"
+  },
+  {
+   "dato": "Genes, testosterona → DHT en el folículo, sensibilidad del folículo",
+   "url": "https://health.clevelandclinic.org/cant-grow-a-full-beard-theres-an-explanation-for-that"
+  },
+  {
+   "dato": "Más cobertura de barba hasta alrededor de los 30",
+   "url": "https://www.healthline.com/health/why-cant-i-grow-a-beard"
+  },
+  {
+   "dato": "La barba crece 0,27–0,47 mm al día (≈ 1 cm al mes)",
+   "url": "https://www.keratin.com/hair-biology/beard-hair-biology-structure-density-growth-rate"
+  }
+ ],
+ "qa_aceptadas": {
+  "zona_segura": "medido en la hoja: fondos a sangre (baño, piel, laboratorio, piernas, ADN); ninguna pastilla, cifra ni texto pasa de x=950 ni baja de y=1536 (las pastillas se ajustan a 950)",
+  "voz_cuadro_0": "medido: la voz arranca a 0,10 s con «¿Tú» suave por la etiqueta [curious] (misma toma pagada)",
+  "palabras_completas": "medido en voz.wav: las colas de «Resultado:», «romo.», «DHT.» y «noticia?» bajan de forma continua de −38 a −68 dB dentro de la pausa natural (sin corte): final natural",
+  "transitorios": "medido: a 13,74 s el nivel es −48 dB (respiración antes de «La raíz», 60 ms antes de la palabra); no hay clic",
+  "literal_final": "sin Whisper en este servidor (huggingface bloqueado): solo la alineación por carácter de ElevenLabs. Revisión de oído pendiente del usuario"
+ }
+}

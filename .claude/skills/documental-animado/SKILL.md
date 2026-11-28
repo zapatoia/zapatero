@@ -260,6 +260,14 @@ Corrige y vuelve a revisar hasta que todo pase.
 - Sonido ambiental de cada escena como evento corto y bajo (grillos, pájaros, burbujas), nunca en bucle; cada animal y objeto suena al aparecer.
 - Escenas en `escenas_dia.py`: `interruptor`, `cama` (normal / trozos / cortinas), `fabrica`, `animales`, `luciernagas`, `corales`, `tomatera`, `calor`, `noruega`, `planeta`.
 
+**Documental 17 (28 nov 2026, «¿Te afeitas para que te salga más barba? No funciona»): lote de 4 vídeos, cada uno con su pipeline entero**
+- Protagonista nuevo en PRIMER PLANO (`self.cara_b`, busto grande con la misma sudadera naranja): barba paramétrica (cobertura, largo, parches,
+  canas), espuma que la cuchilla limpia, zonas que «escuchan»/«pasan». Sirve para cualquier tema de cara/pelo/piel.
+- Mito → prueba → explicación → qué manda de verdad → cierre que vuelve al espejo con remate (el retrato del abuelo con la misma barba a parches).
+- Ojo con `c.save()` dentro de expresiones condicionales: cada save necesita su restore SIEMPRE (un save sin pareja dejó el recorte del espejo
+  activo y se comía el lavabo). Texto de la franja nunca sobre una superficie clara: lo de debajo de y≈1190 va oscuro (mueble, músculo, piel en sombra).
+- Escenas en `escenas_barba.py`: `espejo` (gancho / cierre), `piel`, `laboratorio`, `piernas`, `punta`, `genes`, `edad`; superficie nueva `bano`.
+
 **Estilo premium (catalogado a petición del usuario, 27 nov 2026)**
 - Si el usuario pide **«estilo premium»**, lee `motor/variantes/premium/LEEME.md` (carpeta del estilo: motor, piezas, catálogo, reglas) y sigue `ESTILO-PREMIUM.md` (2.5D/3D oscuro + dorado, cámara que vuela, cristal, profundidad de campo,
   reflejo, partículas, revelado en capas). Motor: `motor/variantes/premium/escena3d.py`; referencia: `documentales/_pruebas/premium/prueba-premium-2.mp4`.
