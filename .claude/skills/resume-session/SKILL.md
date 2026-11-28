@@ -19,6 +19,9 @@ description: Retoma el proyecto en un chat nuevo. Lee CLAUDE.md, docs/PIPELINE_S
 3b. **Automatización diaria:** leer `docs/AUTOMATIZACION.md` → «Estado». Si la tarea `trig_01LnEdK2H5uTmnoDDv9AAi9z` sigue pausada o
    pendiente de activar, comprobarlo con `get_trigger` (solo lectura) y **recordárselo al usuario en el resumen, lo primero**: «la tarea diaria
    está pausada; ¿la activo? (antes: el conector de Metricool añadido en claude.ai y la PR fusionada)». No activarla sin que el usuario lo diga.
+3c. **Mejoras pendientes que el usuario pidió recordar** (`docs/PIPELINE_STATE.md` §15, «Recordar al usuario»): mencionarlas en una línea al
+   final del resumen mientras sigan pendientes: (1) limpieza de MP4 con una rama aparte que se vacía cada mes (necesita su permiso; urgente
+   antes de ~febrero 2027, cuando el repo pase de ~4–5 GB); (2) clave de ElevenLabs con permiso de leer el saldo (la crea él en 1 minuto).
 4. Responder en español, breve (máx. ~15 líneas):
    - **Dónde estamos**: versión actual, último vídeo, rama y si hay cambios sin commit.
    - **Pendiente**: lo que quedó abierto, incluidas las decisiones que tocan al usuario.
