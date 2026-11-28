@@ -1,0 +1,118 @@
+{
+ "_doc": "Biblioteca de POR QUÉ funcionan los Reels en tu nicho (skill /ideas, Fase 1c). fichas = análisis de los Reels de competidores con más «veces su media» (texto e interacciones reales; estructura y formato deducidos). patrones = generalizaciones reutilizables con su respaldo. Acumulativa.",
+ "actualizado": "2026-11-28",
+ "fichas": [
+  {
+   "cuenta": "ahora_lo_pillo",
+   "fecha": "2026-11-13",
+   "interacciones": 868993,
+   "veces_media": 870,
+   "tema": "atascos sin accidente",
+   "gancho": "¿Por qué te comes 25 minutos de atasco y, al llegar al principio, no hay ni un accidente?",
+   "por_que_engancha": "te pasa a ti, frustra, promete una respuesta",
+   "estructura": "situación frustrante → misterio → culpable inesperado → consejo",
+   "formato": "explicación corta (deducido)",
+   "motivo": "universal + culpable sorpresa + compartible («ese amigo que va pegado»)",
+   "patron": "situación cotidiana frustrante con culpable inesperado",
+   "deducido": [
+    "estructura",
+    "formato"
+   ]
+  },
+  {
+   "cuenta": "duocare.es",
+   "fecha": "2026-11-11",
+   "interacciones": 1787930,
+   "veces_media": 300,
+   "tema": "desmayo: no levantar la cabeza",
+   "gancho": "Si alguien se desmaya, no le sientes ni le levantes la cabeza",
+   "por_que_engancha": "corrige algo que casi todos hacen mal",
+   "estructura": "error común → qué hacer → por qué (física sencilla) → cuándo es urgente",
+   "formato": "explicación útil (deducido)",
+   "motivo": "utilidad + «lo haces al revés» + guardable",
+   "patron": "lo que todos hacemos está al revés (y la física lo explica)",
+   "deducido": [
+    "estructura",
+    "formato"
+   ]
+  },
+  {
+   "cuenta": "elporquepasaesto",
+   "fecha": "2026-11-13",
+   "interacciones": 539215,
+   "veces_media": 1300,
+   "tema": "cuántas veces volverás a ver a cada persona",
+   "gancho": "¿Y si vieras cuántas veces vas a volver a ver a cada persona?",
+   "por_que_engancha": "emoción + número personal",
+   "estructura": "pregunta → números por persona → golpe emocional (tu madre: 23) → giro esperanzador",
+   "formato": "cuenta con contador (deducido)",
+   "motivo": "emoción + reflexión + compartible con familia",
+   "patron": "una cuenta con TU tiempo que da un número que duele",
+   "deducido": [
+    "estructura",
+    "formato"
+   ]
+  },
+  {
+   "cuenta": "haceclick.oficial",
+   "fecha": "2026-11-19",
+   "interacciones": 1069672,
+   "veces_media": 5000,
+   "tema": "contar hasta 99 con los dedos",
+   "gancho": "Cómo contar hasta 99 con tus dedos (el truco de Corea)",
+   "por_que_engancha": "truco que puedes probar ya con tus manos",
+   "estructura": "promesa → regla simple → ejemplo → reto en comentarios",
+   "formato": "tutorial-reto (deducido)",
+   "motivo": "participación + sorpresa + comentarios",
+   "patron": "truco que el espectador prueba con su cuerpo en el momento",
+   "deducido": [
+    "estructura",
+    "formato"
+   ]
+  },
+  {
+   "cuenta": "dorzzen.sleep",
+   "fecha": "2026-11-03",
+   "interacciones": 124379,
+   "veces_media": 80,
+   "tema": "tres tipos de parálisis del sueño",
+   "gancho": "Hay tres tipos de parálisis del sueño… ¿Cuál te ha tocado?",
+   "por_que_engancha": "miedo + identificación («¿cuál te ha tocado?»)",
+   "estructura": "lista de 3 tipos → explicación común → pregunta",
+   "formato": "lista corta (deducido)",
+   "motivo": "experiencia compartida misteriosa + comentarios",
+   "patron": "experiencia rara que mucha gente ha vivido y nadie explica",
+   "deducido": [
+    "estructura",
+    "formato"
+   ]
+  }
+ ],
+ "patrones": [
+  {
+   "patron": "situación cotidiana frustrante con culpable inesperado",
+   "fichas": 1,
+   "veces_media": 870
+  },
+  {
+   "patron": "lo que todos hacemos está al revés (y la física lo explica)",
+   "fichas": 1,
+   "veces_media": 300
+  },
+  {
+   "patron": "una cuenta con TU tiempo que da un número que duele",
+   "fichas": 1,
+   "veces_media": 1300
+  },
+  {
+   "patron": "truco que el espectador prueba con su cuerpo en el momento",
+   "fichas": 1,
+   "veces_media": 5000
+  },
+  {
+   "patron": "experiencia rara que mucha gente ha vivido y nadie explica",
+   "fichas": 1,
+   "veces_media": 80
+  }
+ ]
+}

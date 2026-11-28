@@ -58,8 +58,19 @@ Cada ronda reconstruye el estado; lo guardado en `banco.json` es solo el histori
   de acción retienen un 20 % más», «lo de cuerpo funciona, lo de mapas no») en `conclusiones` e `historial_semanal`, y un párrafo en el informe.
 - En la Fase 4, el criterio «Encaje con tu canal» = nota base × multiplicador de su categoría × el de su fórmula (máx. 5).
 
+## Fase 1c · Fichas de éxito → biblioteca (`ideas/biblioteca_exito.json`) (pedido del usuario, 28-nov)
+Para los **10 Reels de competidores con más «veces su media»** (sin promocionales), una ficha cada uno:
+`cuenta · fecha · interacciones · veces su media · tema · gancho literal (1.ª frase del texto) · por qué engancha · estructura deducida
+(p. ej. situación frustrante → misterio → culpable inesperado → consejo) · formato deducido (duración aprox., explicación / reto / lista / historia)
+· motivo del éxito (universal, sorpresa, utilidad, emoción, compartible con destinatario…) · patrón reutilizable (frase general, p. ej.
+«situación cotidiana frustrante con culpable inesperado») · qué es dato y qué es deducido` (Metricool solo da texto e interacciones: el vídeo no se ve).
+- Añadirlas a `biblioteca_exito.json → fichas` (acumulativo, sin duplicar el mismo Reel) y recalcular `patrones`: cada patrón reutilizable con
+  cuántas fichas lo respaldan y su «veces su media» medio. La biblioteca crece ronda a ronda: es la memoria de **por qué** funciona en tu nicho.
+
 ## Fase 2 · Generar MUCHAS ideas (≥ 80)
-Mezclar señales con fórmulas probadas. Cada idea en una línea: `título/gancho · fórmula · categoría · señal que la respalda`.
+Mezclar señales con fórmulas probadas. **Cada idea nace como MINI CONCEPTO** (no solo título): `gancho · situación · estructura (3–5 pasos)
+· giro final · patrón de éxito de la biblioteca en el que se apoya · categoría · señal`. Inspirarse en los **patrones** (el porqué), no en el tema
+del Reel: de «situación cotidiana frustrante con culpable inesperado» pueden salir ideas nuevas propias (la cola del súper más lenta…).
 Fórmulas: «¿Qué pasaría si…?» · «¿Por qué…?» (cuerpo, cosas cotidianas) · mito → «No funciona» · cifra/afirmación que choca («Si tienes 20 años…»)
 · historia oculta de un objeto cotidiano · escala imposible (comparar tamaños/tiempos) · reto/juego de 30 s · «tu cuerpo hace esto sin que lo sepas»
 · «esto lo haces mal» · origen de una palabra/costumbre · lo que pasa segundo a segundo / hora a hora · «la verdad sobre…».
@@ -79,6 +90,8 @@ alguien de 15 a 45 años en España); no da para 60–90 s; el gancho no se pued
 | Criterio | Peso |
 |---|---|
 | Gancho en 3 s (¿te para el dedo? ¿hay acción o pregunta que te toca a ti?) | ×3 |
+| **Concepto completo**: la estructura mantiene hasta el final y el giro sorprende (se puntúa el concepto entero, no el título) | **×2** |
+| **Patrón de éxito**: se apoya en un patrón de la biblioteca con buen «veces su media» | **×2** |
 | Hueco de curiosidad (necesitas saber la respuesta) | ×2 |
 | Universal (le pasa / le importa a casi todo el mundo) | ×2 |
 | **Señal de competidores de Instagram** (tema o patrón con muchas «veces su media») | **×3** |
@@ -88,7 +101,7 @@ alguien de 15 a 45 años en España); no da para 60–90 s; el gancho no se pued
 | Giro o remate final (cierre que vuelve al gancho) | ×1 |
 | Datos sólidos y fáciles (2–3 cifras con fuente) | ×1 |
 | Compartible («pásaselo a…» tiene destinatario claro) | ×1 |
-Máximo 90. Ordenar y quedarse con el **top 15**.
+Máximo 110. Se puntúa el **concepto entero**: un gancho bueno con desarrollo flojo pierde puntos. Ordenar y quedarse con el **top 15**.
 
 ## Fase 5 · Investigación del top 15
 Por cada una: 1–2 WebSearch para confirmar que el dato central es cierto y tiene fuente (si no, fuera); 3 ganchos alternativos (pregunta,
@@ -104,6 +117,7 @@ Guardar: `ideas/rondas/…md` completo; en `banco.json` → `rondas` (fecha, N, 
 puntuación: se reaprovechan en la siguiente ronda tras recomprobar), `descartadas` (resumen). Commit + push.
 
 ## Fase 7 · Pasar al lote
+La ficha de cada elegida incluye el patrón de éxito y la ficha de competidor en la que se apoya, para que el guion use esa estructura.
 Para cada elegida, el título/gancho que recibe `/lote` incluye la ficha: `TÍTULO — gancho: «…»; escena de gancho: …; esqueleto: …; datos y
 fuentes: …; cierre: …; outro: «Pásaselo a…»`. El lote decide el resto con su pipeline completo. Al terminar cada vídeo, mover la idea de
 «elegida» a `hechas` (con nº, ruta y, tras distribuir, fechas de publicación).
