@@ -27,7 +27,7 @@ y del gasto viene implícito (regla de oro del kit). Formato activo: documentale
    `SKILL.md` §7 → commit + push → `SendUserFile` del `-v2.mp4` con «Vídeo k/N terminado» → solo entonces el siguiente.
    Cada vídeo del lote incluye su `publicacion.json` (junto a `descripcion.md`; ver `docs/DISTRIBUCION.md` §5).
 3. Al acabar los N: informe final (tabla con número, título, duración con y sin outro, ruta, estado de QA; errores corregidos; pendientes;
-   confirmación de secuencialidad y de pipeline completo; coste de voz; fuentes) y `/save-session`. Si el usuario dijo «y distribúyelos», enseñar los títulos/textos/hashtags de todos, esperar su OK y ejecutar `/distribuir` (`.claude/skills/distribuir/SKILL.md`).
+   confirmación de secuencialidad y de pipeline completo; coste de voz; fuentes) y `/save-session`. Si el usuario dijo «y distribúyelos», ejecutar `/distribuir` directamente (sin enseñar los textos ni esperar OK: decisión del usuario del 2026-11-28) y añadir al informe la tabla de publicaciones (`.claude/skills/distribuir/SKILL.md`).
 
 ---
 

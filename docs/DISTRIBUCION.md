@@ -93,6 +93,7 @@ El usuario programó vídeos directamente desde las apps de cada red, así que M
    - Vídeos ya distribuidos (en `calendario.json`) no se repiten salvo petición expresa.
 
 ## 6. Decisiones del usuario
+- **Textos sin OK previo** (2026-11-28-04, «total confianza, los entendiste bien»): títulos, textos y hashtags se generan con su estilo y se programan sin enseñárselos antes; se informan en el informe final.
 - **Declaración de IA: SÍ en las tres redes** (decidido 2026-11-28-04): `isAiGenerated`, `isAiGeneratedContent`, `isAigc` = true.
 - **Redes no alineadas**: cada una en su siguiente hueco libre (decidido 2026-11-28-04).
 

@@ -9,10 +9,13 @@ Plan completo y lo verificado del conector: `docs/DISTRIBUCION.md` (léelo antes
 Registro de huecos: `publicaciones/calendario.json` (fuente de verdad junto con `getScheduledPosts`).
 
 ## Antes de programar
-- Cada vídeo debe tener `documentales/NN-tema/publicacion.json` (título, textos y hashtags por red) y su MP4 final (`final/NN-tema-v2.mp4`)
-  con commit **empujado**. Si falta el `publicacion.json`, generarlo (formato en `docs/DISTRIBUCION.md` §5) y **enseñarlo al usuario y esperar su OK**.
-- Preguntar si ha programado algo a mano desde la última vez (Metricool no lo ve). Si dice que sí, apuntarlo en `calendario.json → ocupado_manual`
-  y mover el cursor de esa red.
+- **SIN PEDIR OK (decisión del usuario, 2026-11-28: «total confianza»):** los títulos, textos y hashtags NO se enseñan antes ni esperan aprobación.
+  Se generan con su estilo (`config/redes.json → formato_texto`: «🤯 TÍTULO EN MAYÚSCULAS + emoji del tema», 5 hashtags máx.) y se programan directamente.
+  Se informan DESPUÉS, en el informe final.
+- Cada vídeo debe tener `documentales/NN-tema/publicacion.json` y su MP4 final (`final/NN-tema-v2.mp4`) con commit **empujado**. Si falta el
+  `publicacion.json`, generarlo (formato en `docs/DISTRIBUCION.md` §5) y seguir.
+- No preguntar por huecos manuales: se usa el cursor de `calendario.json`. Si el usuario dice que ha programado algo a mano, apuntarlo en
+  `calendario.json → ocupado_manual` y mover el cursor de esa red.
 - Las tools son `mcp__Metricool_Social_Media_Management__*` (si no se ven, ToolSearch «metricool»).
 
 ## Pasos
@@ -36,4 +39,4 @@ Registro de huecos: `publicaciones/calendario.json` (fuente de verdad junto con 
 ## Reglas
 - Nunca repetir un vídeo ya presente en `calendario.json → publicaciones` para la misma red, salvo petición expresa.
 - El conector **no puede borrar**: si algo sale mal, `updateScheduledPost` (con el contenido completo) o pedir al usuario que lo borre en Metricool.
-- No programar nada sin el OK del usuario a los textos de ese vídeo.
+- Los textos no necesitan el OK del usuario (decisión del 2026-11-28). Sí se le informa al terminar.
