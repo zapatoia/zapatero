@@ -8,6 +8,9 @@ description: Produce un LOTE de N documentales verticales completos, estrictamen
 **Uso:** `/lote5 (título/hook 1) (título/hook 2) … (título/hook 5)` — o `/lote 5 …`, o los títulos en líneas/numerados.
 N = el número pegado a «lote». Los títulos/hooks van entre paréntesis, numerados o uno por línea.
 
+**Sin títulos («haz N vídeos», «haz N vídeos y distribúyelos»):** primero `/ideas N` (`.claude/skills/ideas/SKILL.md`, sin preguntar nada)
+y usar sus N elegidas (con su ficha) como títulos/hooks de este lote; al acabar cada vídeo, pasar la idea a `ideas/banco.json → hechas`.
+
 **Qué hacer:** ejecutar **tal cual** el prompt de abajo (el que el usuario escribió para el primer lote, documentales 17–20, sesión
 2026-11-28-02), sustituyendo «4» por N y la lista de vídeos por los títulos/hooks que ha dado. **No preguntar nada**: el OK de la voz
 y del gasto viene implícito (regla de oro del kit). Formato activo: documentales animados verticales 9:16 (`.claude/skills/documental-animado/SKILL.md`,
